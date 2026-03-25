@@ -3,23 +3,25 @@ import { useState, useRef, useEffect, useCallback } from "react";
 
 /* ═══════════════════════════════════════════════════
    AGF STUDY COMPANION — MULTI-SUBJECT
-   Palette: dark charcoal + muted green (AGF brand)
+   Palette: dark navy + gold (AGF brand)
    ═══════════════════════════════════════════════════ */
 
 const C = {
-  bg: "#262626",
-  bgLight: "#2e2e2e",
-  bgCard: "#333333",
-  bgInput: "#303030",
+  bg: "#0F1219",
+  bgLight: "#161B24",
+  bgCard: "#1A2030",
+  bgInput: "#141922",
+  gold: "#C8A46E",
+  goldLight: "#D4B87E",
+  goldDim: "rgba(200,164,110,0.12)",
+  goldBorder: "rgba(200,164,110,0.3)",
   green: "#4d9460",
-  greenLight: "#5ba86d",
-  greenDim: "rgba(77,148,96,0.15)",
-  greenBorder: "rgba(77,148,96,0.3)",
-  text: "#e8e5de",
-  textMuted: "#9a9690",
-  textDim: "#706b65",
-  border: "rgba(255,255,255,0.07)",
-  borderLight: "rgba(255,255,255,0.04)",
+  greenDim: "rgba(77,148,96,0.12)",
+  text: "#F4E8D1",
+  textMuted: "#9A8E7A",
+  textDim: "#6B6055",
+  border: "rgba(244,232,209,0.08)",
+  borderLight: "rgba(244,232,209,0.04)",
   red: "#e06060",
   amber: "#d4a24c",
 };
@@ -873,39 +875,44 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
   /* ─── SUBJECT PICKER SCREEN ─── */
   if (!subject) {
     return (
-      <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: C.bg, fontFamily: "'DM Sans',sans-serif", color: C.text, padding: 20 }}>
-        <div style={{ display: "flex", gap: 2, alignItems: "flex-end", height: 36, marginBottom: 12 }}>
-          {[18, 28, 22, 14].map((h, i) => <div key={i} style={{ width: 5, height: h, background: C.green, borderRadius: 2 }} />)}
+      <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: C.bg, fontFamily: "'Outfit',sans-serif", color: C.text, padding: 20 }}>
+        <div style={{ fontFamily: "'DM Serif Display',serif", fontSize: 32, fontWeight: 400, marginBottom: 2, letterSpacing: "-0.02em" }}>
+          AGF<span style={{ color: C.gold }}>tutoring</span>
         </div>
-        <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 24, fontWeight: 500, marginBottom: 4 }}>AGF Study Companion</div>
-        <div style={{ fontSize: 13, color: C.textMuted, marginBottom: 32 }}>Choose your subject to get started</div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12, width: "100%", maxWidth: 520 }}>
+        <div style={{ fontSize: 14, color: C.textMuted, marginBottom: 8 }}>Study Companion</div>
+        <div style={{ width: 40, height: 2, background: C.gold, borderRadius: 1, marginBottom: 28 }} />
+        <div style={{ fontSize: 13, color: C.textDim, marginBottom: 24 }}>Choose your subject to get started</div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 14, width: "100%", maxWidth: 560 }}>
           {SUBJECT_LIST.map(s => (
             <button key={s.id} onClick={() => selectSubject(s.id)}
               style={{
-                padding: "18px 16px", borderRadius: 10, cursor: "pointer",
+                padding: "20px 18px", borderRadius: 10, cursor: "pointer",
                 background: C.bgCard, border: `1px solid ${C.border}`,
-                textAlign: "left", transition: "all 0.2s",
-                display: "flex", flexDirection: "column", gap: 6,
+                textAlign: "left", transition: "all 0.25s",
+                display: "flex", flexDirection: "column", gap: 8,
               }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = s.colour; e.currentTarget.style.background = C.bgLight; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.background = C.bgCard; }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = C.gold; e.currentTarget.style.background = C.bgLight; e.currentTarget.style.transform = "translateY(-2px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.background = C.bgCard; e.currentTarget.style.transform = "none"; }}
             >
-              <div style={{ fontSize: 20 }}>{s.icon}</div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: C.text }}>{s.name}</div>
-              <div style={{ fontSize: 11, color: C.textMuted }}>{s.subtitle}</div>
-              <div style={{ fontSize: 10, color: s.colour, fontWeight: 500, letterSpacing: "0.05em" }}>{s.code}</div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <span style={{ fontSize: 22 }}>{s.icon}</span>
+                <div>
+                  <div style={{ fontSize: 15, fontWeight: 600, color: C.text, fontFamily: "'DM Serif Display',serif" }}>{s.name}</div>
+                  <div style={{ fontSize: 11, color: C.textMuted }}>{s.subtitle}</div>
+                </div>
+              </div>
+              <div style={{ fontSize: 10, color: C.gold, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase" }}>{s.code}</div>
             </button>
           ))}
         </div>
-        <div style={{ textAlign: "center", marginTop: 24, fontSize: 10, color: C.textDim }}>
+        <div style={{ textAlign: "center", marginTop: 32, fontSize: 10, color: C.textDim }}>
           Powered by AGF Tutoring · Grounded in curated notes
         </div>
       </div>
     );
   }
 
-  const col = currentSubject.colour;
+  const col = C.gold;
 
   /* ─── QUIZ RESULTS SCREEN ─── */
   if (mode === "quiz" && quizDone) {
@@ -913,11 +920,14 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
     const grade = pct >= 80 ? "A" : pct >= 70 ? "B" : pct >= 60 ? "C" : pct >= 50 ? "D" : "U";
     const weakTopics = [...new Set(quizHistory.filter(h => h.correct !== true).map(h => h.topic).filter(Boolean))];
     return (
-      <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", background: C.bg, fontFamily: "'DM Sans',sans-serif", color: C.text }}>
-        <div style={{ padding: "12px 18px", borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ flex: 1, fontFamily: "'Cormorant Garamond',serif", fontSize: 16 }}>Quiz Complete — {currentSubject.name}</div>
-          <button onClick={backToAsk} style={{ padding: "5px 14px", borderRadius: 4, fontSize: 11, border: `1px solid ${C.border}`, background: "transparent", color: C.textMuted, cursor: "pointer" }}>Back to Ask</button>
-          <button onClick={startQuiz} style={{ padding: "5px 14px", borderRadius: 4, fontSize: 11, border: `1px solid ${col}`, background: `${col}22`, color: col, cursor: "pointer" }}>New Quiz</button>
+      <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", background: C.bg, fontFamily: "'Outfit',sans-serif", color: C.text }}>
+        <div style={{ padding: "14px 20px", borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontFamily: "'DM Serif Display',serif", fontSize: 17, letterSpacing: "-0.02em" }}>AGF<span style={{ color: C.gold }}>tutoring</span> <span style={{ fontSize: 13, color: C.textMuted, fontFamily: "'Outfit',sans-serif" }}>· Quiz Complete</span></div>
+            <div style={{ fontSize: 11, color: C.textDim }}>{currentSubject.name}</div>
+          </div>
+          <button onClick={backToAsk} style={{ padding: "8px 16px", borderRadius: 6, fontSize: 12, fontWeight: 500, border: `1px solid ${C.border}`, background: "transparent", color: C.textMuted, cursor: "pointer" }}>Back to Ask</button>
+          <button onClick={startQuiz} style={{ padding: "8px 16px", borderRadius: 6, fontSize: 12, fontWeight: 500, border: `1px solid ${C.gold}`, background: C.goldDim, color: C.gold, cursor: "pointer" }}>New Quiz</button>
         </div>
         <div style={{ flex: 1, overflowY: "auto", padding: 20 }}>
           {/* Score card */}
@@ -957,14 +967,14 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
   /* ─── QUIZ QUESTION SCREEN ─── */
   if (mode === "quiz") {
     return (
-      <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", background: C.bg, fontFamily: "'DM Sans',sans-serif", color: C.text }}>
+      <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", background: C.bg, fontFamily: "'Outfit',sans-serif", color: C.text }}>
         {/* Header */}
-        <div style={{ padding: "12px 18px", borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: 12 }}>
+        <div style={{ padding: "14px 20px", borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: 12 }}>
           <div style={{ flex: 1 }}>
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 16 }}>{currentSubject.name} Quiz</div>
-            <div style={{ fontSize: 10, color: C.textDim }}>Question {quizNum} of 10 · Score: {quizScore}/{quizMaxScore}</div>
+            <div style={{ fontFamily: "'DM Serif Display',serif", fontSize: 17, letterSpacing: "-0.02em" }}>AGF<span style={{ color: C.gold }}>tutoring</span> <span style={{ fontSize: 13, color: C.textMuted, fontFamily: "'Outfit',sans-serif" }}>· {currentSubject.name}</span></div>
+            <div style={{ fontSize: 11, color: C.textDim }}>Question {quizNum} of 10 · Score: {quizScore}/{quizMaxScore}</div>
           </div>
-          <button onClick={backToAsk} style={{ padding: "5px 14px", borderRadius: 4, fontSize: 11, border: `1px solid ${C.border}`, background: "transparent", color: C.textMuted, cursor: "pointer" }}>Exit Quiz</button>
+          <button onClick={backToAsk} style={{ padding: "8px 16px", borderRadius: 6, fontSize: 12, fontWeight: 500, border: `1px solid ${C.border}`, background: "transparent", color: C.textMuted, cursor: "pointer", transition: "all 0.2s" }}>Exit Quiz</button>
         </div>
 
         {/* Progress bar */}
@@ -1138,9 +1148,10 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
         </div>
 
         <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
           @keyframes p{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:.65;transform:scale(1.1)}}
           textarea::placeholder{color:${C.textDim}}
-          ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:3px}
+          ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(244,232,209,0.06);border-radius:3px}
           *{box-sizing:border-box}
         `}</style>
       </div>
@@ -1149,41 +1160,39 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
 
   /* ─── MAIN CHAT SCREEN (ASK MODE) ─── */
   return (
-    <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", background: C.bg, fontFamily: "'DM Sans',sans-serif", color: C.text }}>
+    <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", background: C.bg, fontFamily: "'Outfit',sans-serif", color: C.text }}>
       {/* HEADER */}
-      <div style={{ padding: "12px 18px", display: "flex", alignItems: "center", gap: 12, borderBottom: `1px solid ${C.border}`, background: C.bg, flexShrink: 0 }}>
-        <div style={{ display: "flex", gap: 2, alignItems: "flex-end", height: 28, flexShrink: 0 }}>
-          {[14, 22, 18, 10].map((h, i) => <div key={i} style={{ width: 4, height: h, background: col, borderRadius: 1.5 }} />)}
-        </div>
+      <div style={{ padding: "14px 20px", display: "flex", alignItems: "center", gap: 14, borderBottom: `1px solid ${C.border}`, background: C.bg, flexShrink: 0 }}>
         <div style={{ flex: 1, cursor: "pointer", position: "relative" }} onClick={() => setShowPicker(!showPicker)}>
-          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 16, fontWeight: 500, color: C.text, display: "flex", alignItems: "center", gap: 6 }}>
-            AGF Study Companion
-            <span style={{ fontSize: 10, color: C.textDim }}>▼</span>
+          <div style={{ fontFamily: "'DM Serif Display',serif", fontSize: 17, fontWeight: 400, color: C.text, display: "flex", alignItems: "center", gap: 8, letterSpacing: "-0.02em" }}>
+            AGF<span style={{ color: C.gold }}>tutoring</span>
+            <span style={{ fontSize: 11, color: C.textDim, fontFamily: "'Outfit',sans-serif" }}>▼</span>
           </div>
-          <div style={{ fontSize: 9.5, color: C.textDim, letterSpacing: "0.1em", textTransform: "uppercase" }}>{currentSubject.code} · {currentSubject.name}</div>
+          <div style={{ fontSize: 10.5, color: C.textDim, letterSpacing: "0.06em", textTransform: "uppercase", marginTop: 1 }}>{currentSubject.icon} {currentSubject.code} · {currentSubject.name}</div>
 
           {/* SUBJECT DROPDOWN */}
           {showPicker && (
             <div style={{
-              position: "absolute", top: "110%", left: 0, zIndex: 200,
-              background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 8,
-              boxShadow: "0 8px 32px rgba(0,0,0,0.5)", overflow: "hidden", minWidth: 220,
+              position: "absolute", top: "115%", left: 0, zIndex: 200,
+              background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 10,
+              boxShadow: "0 12px 40px rgba(0,0,0,0.6)", overflow: "hidden", minWidth: 240,
             }}>
+              <div style={{ padding: "10px 14px", borderBottom: `1px solid ${C.border}`, fontSize: 10, color: C.textDim, textTransform: "uppercase", letterSpacing: "0.1em" }}>Switch Subject</div>
               {SUBJECT_LIST.map(s => (
                 <button key={s.id} onClick={(e) => { e.stopPropagation(); selectSubject(s.id); }}
                   style={{
                     display: "flex", alignItems: "center", gap: 10, width: "100%",
-                    padding: "10px 14px", border: "none", cursor: "pointer",
-                    background: s.id === subject ? C.greenDim : "transparent",
-                    borderLeft: s.id === subject ? `3px solid ${s.colour}` : "3px solid transparent",
+                    padding: "12px 14px", border: "none", cursor: "pointer",
+                    background: s.id === subject ? C.goldDim : "transparent",
+                    borderLeft: s.id === subject ? `3px solid ${C.gold}` : "3px solid transparent",
                     transition: "all 0.15s",
                   }}
                   onMouseEnter={e => { if (s.id !== subject) e.currentTarget.style.background = C.bgLight; }}
                   onMouseLeave={e => { if (s.id !== subject) e.currentTarget.style.background = "transparent"; }}
                 >
-                  <span style={{ fontSize: 16 }}>{s.icon}</span>
+                  <span style={{ fontSize: 18 }}>{s.icon}</span>
                   <div>
-                    <div style={{ fontSize: 12, fontWeight: 500, color: C.text, textAlign: "left" }}>{s.name}</div>
+                    <div style={{ fontSize: 13, fontWeight: 500, color: C.text, textAlign: "left" }}>{s.name}</div>
                     <div style={{ fontSize: 10, color: C.textDim, textAlign: "left" }}>{s.code}</div>
                   </div>
                 </button>
@@ -1191,17 +1200,20 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
             </div>
           )}
         </div>
-        <div style={{ display: "flex", gap: 4 }}>
+        {/* BIG NAV TABS */}
+        <div style={{ display: "flex", gap: 0, background: C.bgLight, borderRadius: 8, padding: 3, border: `1px solid ${C.border}` }}>
           <button onClick={backToAsk} style={{
-            padding: "5px 14px", borderRadius: 4, fontSize: 11, fontWeight: 500, cursor: "pointer",
-            letterSpacing: "0.06em", textTransform: "uppercase", transition: "all 0.2s",
-            border: `1px solid ${col}`, background: `${col}22`, color: col,
+            padding: "8px 22px", borderRadius: 6, fontSize: 13, fontWeight: 600, cursor: "pointer",
+            letterSpacing: "0.03em", transition: "all 0.2s", border: "none",
+            background: mode === "ask" ? C.gold : "transparent",
+            color: mode === "ask" ? C.bg : C.textMuted,
           }}>Ask</button>
           <button onClick={startQuiz} disabled={loading} style={{
-            padding: "5px 14px", borderRadius: 4, fontSize: 11, fontWeight: 500,
+            padding: "8px 22px", borderRadius: 6, fontSize: 13, fontWeight: 600,
             cursor: loading ? "default" : "pointer",
-            letterSpacing: "0.06em", textTransform: "uppercase", transition: "all 0.2s",
-            border: `1px solid ${C.border}`, background: "transparent", color: C.textDim,
+            letterSpacing: "0.03em", transition: "all 0.2s", border: "none",
+            background: mode === "quiz" ? C.gold : "transparent",
+            color: mode === "quiz" ? C.bg : C.textMuted,
           }}>Quiz</button>
         </div>
       </div>
@@ -1212,27 +1224,27 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
         {msgs.map((m, i) => (
           <div key={i} style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start", gap: 8, alignItems: "flex-start" }}>
             {m.role === "assistant" && (
-              <div style={{ width: 24, height: 24, borderRadius: 4, flexShrink: 0, marginTop: 2, background: `${col}22`, border: `1px solid ${col}44`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div style={{ display: "flex", gap: 1, alignItems: "flex-end" }}>{[5, 8, 6].map((h, j) => <div key={j} style={{ width: 2, height: h, background: col, borderRadius: 1 }} />)}</div>
+              <div style={{ width: 26, height: 26, borderRadius: 6, flexShrink: 0, marginTop: 2, background: C.goldDim, border: `1px solid ${C.goldBorder}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ fontFamily: "'DM Serif Display',serif", fontSize: 11, color: C.gold, fontWeight: 400 }}>A</div>
               </div>
             )}
             <div style={{
               maxWidth: m.role === "user" ? "72%" : "88%", padding: "10px 14px",
               borderRadius: m.role === "user" ? "10px 10px 2px 10px" : "10px 10px 10px 2px",
-              background: m.role === "user" ? `${col}22` : "rgba(255,255,255,0.025)",
-              border: m.role === "user" ? `1px solid ${col}44` : `1px solid ${C.border}`,
+              background: m.role === "user" ? C.goldDim : "rgba(244,232,209,0.03)",
+              border: m.role === "user" ? `1px solid ${C.goldBorder}` : `1px solid ${C.border}`,
               fontSize: 13.5, lineHeight: 1.7,
-              color: m.role === "user" ? C.text : "rgba(232,229,222,0.82)",
+              color: m.role === "user" ? C.text : "rgba(244,232,209,0.82)",
             }}>{parseAndRender(m.content)}</div>
           </div>
         ))}
         {loading && (
           <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
-            <div style={{ width: 24, height: 24, borderRadius: 4, flexShrink: 0, marginTop: 2, background: `${col}22`, border: `1px solid ${col}44`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ display: "flex", gap: 1, alignItems: "flex-end" }}>{[5, 8, 6].map((h, j) => <div key={j} style={{ width: 2, height: h, background: col, borderRadius: 1 }} />)}</div>
+            <div style={{ width: 26, height: 26, borderRadius: 6, flexShrink: 0, marginTop: 2, background: C.goldDim, border: `1px solid ${C.goldBorder}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ fontFamily: "'DM Serif Display',serif", fontSize: 11, color: C.gold, fontWeight: 400 }}>A</div>
             </div>
-            <div style={{ padding: "10px 14px", borderRadius: "10px 10px 10px 2px", background: "rgba(255,255,255,0.025)", border: `1px solid ${C.border}`, display: "flex", gap: 5 }}>
-              {[0, 1, 2].map(d => <div key={d} style={{ width: 6, height: 6, borderRadius: "50%", background: col, opacity: 0.3, animation: `p 1.2s ease-in-out ${d * 0.2}s infinite` }} />)}
+            <div style={{ padding: "10px 14px", borderRadius: "10px 10px 10px 2px", background: "rgba(244,232,209,0.03)", border: `1px solid ${C.border}`, display: "flex", gap: 5 }}>
+              {[0, 1, 2].map(d => <div key={d} style={{ width: 6, height: 6, borderRadius: "50%", background: C.gold, opacity: 0.3, animation: `p 1.2s ease-in-out ${d * 0.2}s infinite` }} />)}
             </div>
           </div>
         )}
@@ -1246,7 +1258,7 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
           {currentSubject.prompts.map((p, i) => (
             <button key={i} onClick={() => { setInput(p); setTimeout(() => inputRef.current?.focus(), 50); }}
               style={{ padding: "5px 12px", borderRadius: 4, border: `1px solid ${C.border}`, background: "transparent", color: C.textDim, fontSize: 11, cursor: "pointer", transition: "all 0.2s" }}
-              onMouseEnter={e => { e.target.style.borderColor = col; e.target.style.color = col; }}
+              onMouseEnter={e => { e.target.style.borderColor = C.gold; e.target.style.color = C.gold; }}
               onMouseLeave={e => { e.target.style.borderColor = C.border; e.target.style.color = C.textDim; }}>{p}</button>
           ))}
         </div>
@@ -1258,12 +1270,12 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
           <textarea ref={inputRef} value={input} onChange={e => setInput(e.target.value)}
             onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
             placeholder={currentSubject.placeholder}
-            rows={1} style={{ flex: 1, border: "none", outline: "none", resize: "none", background: "transparent", color: C.text, fontFamily: "'DM Sans',sans-serif", fontSize: 13.5, padding: "8px 0", lineHeight: 1.5, maxHeight: 100, overflow: "auto" }} />
+            rows={1} style={{ flex: 1, border: "none", outline: "none", resize: "none", background: "transparent", color: C.text, fontFamily: "'Outfit',sans-serif", fontSize: 13.5, padding: "8px 0", lineHeight: 1.5, maxHeight: 100, overflow: "auto" }} />
           <button onClick={send} disabled={!input.trim() || loading} style={{
             width: 34, height: 34, borderRadius: 6, border: "none",
             cursor: input.trim() && !loading ? "pointer" : "default",
-            background: input.trim() && !loading ? col : "rgba(255,255,255,0.04)",
-            color: input.trim() && !loading ? "#fff" : C.textDim,
+            background: input.trim() && !loading ? C.gold : "rgba(244,232,209,0.04)",
+            color: input.trim() && !loading ? C.bg : C.textDim,
             display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: 15, fontWeight: 700, flexShrink: 0, transition: "all 0.2s",
           }}>↑</button>
