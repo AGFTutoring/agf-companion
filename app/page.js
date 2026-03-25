@@ -3,25 +3,26 @@ import { useState, useRef, useEffect, useCallback } from "react";
 
 /* ═══════════════════════════════════════════════════
    AGF STUDY COMPANION — MULTI-SUBJECT
-   Palette: dark navy + gold (AGF brand)
+   Palette: charcoal grey + green (AGF brand)
    ═══════════════════════════════════════════════════ */
 
 const C = {
-  bg: "#0F1219",
-  bgLight: "#161B24",
-  bgCard: "#1A2030",
-  bgInput: "#141922",
-  gold: "#C8A46E",
-  goldLight: "#D4B87E",
-  goldDim: "rgba(200,164,110,0.12)",
-  goldBorder: "rgba(200,164,110,0.3)",
+  bg: "#1a1a1a",
+  bgLight: "#222222",
+  bgCard: "#2a2a2a",
+  bgInput: "#242424",
   green: "#4d9460",
+  greenLight: "#5ba86d",
   greenDim: "rgba(77,148,96,0.12)",
-  text: "#F4E8D1",
-  textMuted: "#9A8E7A",
-  textDim: "#6B6055",
-  border: "rgba(244,232,209,0.08)",
-  borderLight: "rgba(244,232,209,0.04)",
+  greenBorder: "rgba(77,148,96,0.3)",
+  gold: "#4d9460",      // alias to green for consistency
+  goldDim: "rgba(77,148,96,0.12)",
+  goldBorder: "rgba(77,148,96,0.3)",
+  text: "#e8e5de",
+  textMuted: "#9a9690",
+  textDim: "#706b65",
+  border: "rgba(255,255,255,0.08)",
+  borderLight: "rgba(255,255,255,0.04)",
   red: "#e06060",
   amber: "#d4a24c",
 };
@@ -665,48 +666,37 @@ export default function Home() {
 QUIZ QUESTION GENERATION MODE:
 You must respond with ONLY a valid JSON object, no other text, no markdown fences, no explanation.
 
-Generate ONE exam-style question in the style of Edexcel IAL past papers.
+Generate ONE multiple-choice exam-style question in the style of Edexcel IAL past papers.
 
 JSON format:
 {
   "question": "The question text here",
-  "type": "mc" or "short" or "calculation" or "explain",
-  "options": ["A) ...", "B) ...", "C) ...", "D) ..."],
-  "marks": 3,
+  "options": [
+    {"label": "A", "text": "First option text"},
+    {"label": "B", "text": "Second option text"},
+    {"label": "C", "text": "Third option text"},
+    {"label": "D", "text": "Fourth option text"}
+  ],
+  "correctLabel": "C",
   "topic": "bonding",
-  "difficulty": 1-10
+  "difficulty": 1-10,
+  "explanations": {
+    "A": "Why A is wrong — brief explanation of the misconception",
+    "B": "Why B is wrong — brief explanation",
+    "C": "Why C is correct — full working and explanation",
+    "D": "Why D is wrong — brief explanation"
+  },
+  "hint": "A brief nudge without giving away the answer"
 }
 
 Rules:
-- "options" array is ONLY included when type is "mc" (multiple choice). For other types, omit it or set to null.
-- For mc: always exactly 4 options labelled A) B) C) D)
-- marks should be 1-6 depending on difficulty
-- difficulty ranges from 1 (easy, questions 1-3) to 10 (very hard, questions 8-10)
-- Use proper scientific terminology and notation
-- Questions must be realistic IAL exam questions
-- Respond with ONLY the JSON object`;
-
-  const QUIZ_MARK_SYSTEM = (subjectSystem) => subjectSystem + `
-
-QUIZ MARKING MODE:
-You must respond with ONLY a valid JSON object, no other text, no markdown fences.
-
-Mark the student's answer to the given question. Be rigorous but fair, like an examiner.
-
-JSON format:
-{
-  "correct": true or false or "partial",
-  "score": 2,
-  "maxScore": 3,
-  "feedback": "Detailed diagnostic feedback explaining what was right/wrong and the correct answer with working. Use the AGF method — identify the misconception, explain clearly, give the correct approach.",
-  "correctAnswer": "The model answer"
-}
-
-Rules:
-- Be encouraging but honest
-- For partial credit, award marks for correct working even if final answer is wrong
-- Explain any misconceptions clearly
-- Give the full correct answer with working
+- ALWAYS exactly 4 options A, B, C, D
+- ALWAYS multiple choice — never free text
+- Include plausible distractors based on common student misconceptions
+- For calculation questions, make wrong options reflect common errors (wrong formula, unit errors, rounding)
+- difficulty ranges from 1 (easy) to 10 (very hard)
+- Include full working in the correct answer's explanation
+- The hint should guide thinking without revealing the answer
 - Respond with ONLY the JSON object`;
 
   const QUIZ_HINT_SYSTEM = (subjectSystem) => subjectSystem + `
@@ -728,7 +718,7 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
     setErr(null);
     setQuizQ(null);
     setQuizSelected(null);
-    setQuizFeedback(null);
+    setQuizFeedback(false);
     setHintText(null);
     const difficulty = Math.min(10, Math.max(1, Math.ceil(questionNumber * 1.1)));
     const prevTopics = quizHistory.map(h => h.topic).filter(Boolean);
@@ -737,7 +727,7 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: [{ role: "user", content: `Generate question ${questionNumber}/10. Difficulty: ${difficulty}/10. Mix of question types. ${prevTopics.length ? "Already covered topics: " + prevTopics.join(", ") + ". Try a different topic." : ""} Respond with ONLY JSON.` }],
+          messages: [{ role: "user", content: `Generate question ${questionNumber}/10. Difficulty: ${difficulty}/10. ${prevTopics.length ? "Already covered topics: " + prevTopics.join(", ") + ". Try a different topic." : ""} Respond with ONLY JSON.` }],
           system: QUIZ_GEN_SYSTEM(currentSubject.system),
           mode: "quiz",
         }),
@@ -746,7 +736,7 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
       if (data.error) throw new Error(data.error.message);
       const text = data.content?.map(b => b.type === "text" ? b.text : "").filter(Boolean).join("\n") || "";
       const parsed = parseJSON(text);
-      if (parsed && parsed.question) {
+      if (parsed && parsed.question && parsed.options && parsed.correctLabel) {
         setQuizQ(parsed);
       } else {
         throw new Error("Failed to parse question. Please try again.");
@@ -763,7 +753,6 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
     await fetchQuizQuestion(1);
   }, [loading, currentSubject]);
 
-  // Need to call fetchQuizQuestion after quizNum updates for "next" — use effect
   const [pendingNext, setPendingNext] = useState(false);
   useEffect(() => {
     if (pendingNext && quizNum > 0) {
@@ -772,43 +761,18 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
     }
   }, [pendingNext, quizNum]);
 
-  const submitAnswer = useCallback(async () => {
-    if (!quizQ || loading) return;
-    const answer = quizQ.type === "mc" ? quizSelected : quizSelected;
-    if (!answer) return;
-    setLoading(true);
-    setErr(null);
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: [{ role: "user", content: `Question: ${quizQ.question}${quizQ.options ? "\nOptions: " + quizQ.options.join(", ") : ""}\n[${quizQ.marks} marks]\n\nStudent's answer: ${answer}\n\nMark this answer. Respond with ONLY JSON.` }],
-          system: QUIZ_MARK_SYSTEM(currentSubject.system),
-          mode: "quiz",
-        }),
-      });
-      const data = await res.json();
-      if (data.error) throw new Error(data.error.message);
-      const text = data.content?.map(b => b.type === "text" ? b.text : "").filter(Boolean).join("\n") || "";
-      const parsed = parseJSON(text);
-      if (parsed) {
-        setQuizFeedback(parsed);
-        const earned = parsed.score || 0;
-        const max = parsed.maxScore || quizQ.marks || 0;
-        setQuizScore(s => s + earned);
-        setQuizMaxScore(s => s + max);
-        setQuizHistory(h => [...h, {
-          q: quizQ.question, answer, feedback: parsed.feedback,
-          correct: parsed.correct, marks: earned, maxMarks: max,
-          topic: quizQ.topic
-        }]);
-      } else {
-        setQuizFeedback({ correct: false, score: 0, maxScore: quizQ.marks, feedback: "Could not parse feedback. Try the next question.", correctAnswer: "" });
-      }
-    } catch (e) { setErr(e.message); }
-    finally { setLoading(false); }
-  }, [quizQ, quizSelected, loading, currentSubject]);
+  const submitAnswer = useCallback(() => {
+    if (!quizQ || !quizSelected) return;
+    const isCorrect = quizSelected === quizQ.correctLabel;
+    setQuizFeedback(true);
+    if (isCorrect) setQuizScore(s => s + 1);
+    setQuizMaxScore(s => s + 1);
+    setQuizHistory(h => [...h, {
+      q: quizQ.question, answer: quizSelected,
+      correct: isCorrect, topic: quizQ.topic,
+      correctLabel: quizQ.correctLabel,
+    }]);
+  }, [quizQ, quizSelected]);
 
   const nextQuestion = () => {
     if (quizNum >= 10) {
@@ -821,13 +785,18 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
 
   const getHint = useCallback(async () => {
     if (!quizQ || hintLoading) return;
+    // Use pre-generated hint from question JSON if available
+    if (quizQ.hint) {
+      setHintText(quizQ.hint);
+      return;
+    }
     setHintLoading(true);
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: [{ role: "user", content: `Give me a hint for this question: ${quizQ.question}${quizQ.options ? "\nOptions: " + quizQ.options.join(", ") : ""}` }],
+          messages: [{ role: "user", content: `Give me a hint for: ${quizQ.question}\nOptions: ${quizQ.options.map(o => o.label + ") " + o.text).join(", ")}` }],
           system: QUIZ_HINT_SYSTEM(currentSubject.system),
           mode: "ask",
         }),
@@ -932,7 +901,7 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
         <div style={{ flex: 1, overflowY: "auto", padding: 20 }}>
           {/* Score card */}
           <div style={{ textAlign: "center", padding: "30px 20px", background: C.bgCard, borderRadius: 12, border: `1px solid ${C.border}`, marginBottom: 20 }}>
-            <div style={{ fontSize: 52, fontWeight: 700, color: col, fontFamily: "'JetBrains Mono',monospace" }}>{quizScore}/{quizMaxScore}</div>
+            <div style={{ fontSize: 52, fontWeight: 700, color: C.gold, fontFamily: "'JetBrains Mono',monospace" }}>{quizScore}/{quizMaxScore}</div>
             <div style={{ fontSize: 16, color: C.textMuted, marginTop: 4 }}>{pct}% — Grade {grade}</div>
             <div style={{ marginTop: 16, height: 8, background: C.bgLight, borderRadius: 4, overflow: "hidden" }}>
               <div style={{ height: "100%", width: `${pct}%`, background: pct >= 70 ? C.green : pct >= 50 ? C.amber : C.red, borderRadius: 4, transition: "width 0.5s" }} />
@@ -947,16 +916,15 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
           )}
           {/* Question review */}
           {quizHistory.map((h, i) => (
-            <div key={i} style={{ padding: "14px 18px", background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 8, marginBottom: 10 }}>
+            <div key={i} style={{ padding: "14px 18px", background: C.bgCard, border: `1px solid ${h.correct ? "rgba(77,148,96,0.3)" : "rgba(224,96,96,0.2)"}`, borderRadius: 8, marginBottom: 10 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
                 <div style={{ fontSize: 12, fontWeight: 600, color: C.textMuted }}>Q{i + 1}</div>
-                <div style={{ fontSize: 12, fontWeight: 600, color: h.correct === true ? C.green : h.correct === "partial" ? C.amber : C.red }}>
-                  {h.marks}/{h.maxMarks} {h.correct === true ? "✓" : h.correct === "partial" ? "~" : "✗"}
+                <div style={{ fontSize: 12, fontWeight: 600, color: h.correct ? C.green : C.red }}>
+                  {h.correct ? "✓ Correct" : `✗ Wrong (was ${h.correctLabel})`}
                 </div>
               </div>
-              <div style={{ fontSize: 13, color: C.text, marginBottom: 4 }}>{h.q}</div>
-              <div style={{ fontSize: 12, color: C.textMuted }}>Your answer: {h.answer}</div>
-              {h.feedback && <div style={{ fontSize: 12, color: "rgba(232,229,222,0.7)", marginTop: 6, lineHeight: 1.6 }}>{h.feedback}</div>}
+              <div style={{ fontSize: 13, color: C.text }}>{h.q}</div>
+              <div style={{ fontSize: 12, color: C.textMuted, marginTop: 4 }}>Your answer: {h.answer}</div>
             </div>
           ))}
         </div>
@@ -966,28 +934,35 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
 
   /* ─── QUIZ QUESTION SCREEN ─── */
   if (mode === "quiz") {
+    const correctCount = quizHistory.filter(h => h.correct).length;
+    const wrongCount = quizHistory.filter(h => !h.correct).length;
     return (
       <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", background: C.bg, fontFamily: "'Outfit',sans-serif", color: C.text }}>
         {/* Header */}
-        <div style={{ padding: "14px 20px", borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: 12 }}>
+        <div style={{ padding: "12px 20px", borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: 12 }}>
           <div style={{ flex: 1 }}>
-            <div style={{ fontFamily: "'DM Serif Display',serif", fontSize: 17, letterSpacing: "-0.02em" }}>AGF<span style={{ color: C.gold }}>tutoring</span> <span style={{ fontSize: 13, color: C.textMuted, fontFamily: "'Outfit',sans-serif" }}>· {currentSubject.name}</span></div>
-            <div style={{ fontSize: 11, color: C.textDim }}>Question {quizNum} of 10 · Score: {quizScore}/{quizMaxScore}</div>
+            <div style={{ fontFamily: "'DM Serif Display',serif", fontSize: 16, letterSpacing: "-0.02em" }}>AGF<span style={{ color: C.gold }}>tutoring</span> <span style={{ fontSize: 12, color: C.textMuted, fontFamily: "'Outfit',sans-serif" }}>· {currentSubject.name} Quiz</span></div>
           </div>
-          <button onClick={backToAsk} style={{ padding: "8px 16px", borderRadius: 6, fontSize: 12, fontWeight: 500, border: `1px solid ${C.border}`, background: "transparent", color: C.textMuted, cursor: "pointer", transition: "all 0.2s" }}>Exit Quiz</button>
+          {/* Score counters */}
+          <div style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, fontWeight: 600 }}>
+            <span style={{ color: C.textDim }}>{quizNum}/10</span>
+            {wrongCount > 0 && <span style={{ color: C.red, display: "flex", alignItems: "center", gap: 3 }}>✗ {wrongCount}</span>}
+            {correctCount > 0 && <span style={{ color: C.green, display: "flex", alignItems: "center", gap: 3 }}>✓ {correctCount}</span>}
+          </div>
+          <button onClick={backToAsk} style={{ padding: "6px 12px", borderRadius: 6, fontSize: 11, border: `1px solid ${C.border}`, background: "transparent", color: C.textDim, cursor: "pointer" }}>✕</button>
         </div>
 
         {/* Progress bar */}
         <div style={{ height: 4, background: C.bgLight }}>
-          <div style={{ height: "100%", width: `${(quizNum / 10) * 100}%`, background: col, transition: "width 0.3s", borderRadius: "0 2px 2px 0" }} />
+          <div style={{ height: "100%", width: `${(quizNum / 10) * 100}%`, background: C.gold, transition: "width 0.4s ease", borderRadius: "0 2px 2px 0" }} />
         </div>
 
         {/* Content */}
-        <div style={{ flex: 1, overflowY: "auto", padding: "20px 16px", display: "flex", flexDirection: "column", gap: 16 }}>
+        <div style={{ flex: 1, overflowY: "auto", padding: "24px 20px", maxWidth: 700, margin: "0 auto", width: "100%" }}>
           {loading && !quizQ && (
-            <div style={{ textAlign: "center", padding: 40, color: C.textMuted }}>
+            <div style={{ textAlign: "center", padding: 60, color: C.textMuted }}>
               <div style={{ display: "flex", gap: 5, justifyContent: "center", marginBottom: 12 }}>
-                {[0, 1, 2].map(d => <div key={d} style={{ width: 8, height: 8, borderRadius: "50%", background: col, opacity: 0.3, animation: `p 1.2s ease-in-out ${d * 0.2}s infinite` }} />)}
+                {[0, 1, 2].map(d => <div key={d} style={{ width: 8, height: 8, borderRadius: "50%", background: C.gold, opacity: 0.3, animation: `p 1.2s ease-in-out ${d * 0.2}s infinite` }} />)}
               </div>
               Generating question {quizNum}...
             </div>
@@ -995,163 +970,133 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
 
           {quizQ && (
             <>
-              {/* Question card */}
-              <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 12, padding: "20px 22px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                  <span style={{ fontSize: 11, fontWeight: 600, color: col, textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                    Question {quizNum}/10
-                  </span>
-                  <span style={{ fontSize: 11, color: C.amber, fontWeight: 500 }}>[{quizQ.marks} mark{quizQ.marks !== 1 ? "s" : ""}]</span>
+              {/* Question */}
+              <div style={{ marginBottom: 24 }}>
+                <div style={{ fontSize: 15, lineHeight: 1.8, color: C.text }}>
+                  <span style={{ fontWeight: 600 }}>{quizNum}.</span>  {quizQ.question}
                 </div>
-                <div style={{ fontSize: 15, lineHeight: 1.7, color: C.text }}>{quizQ.question}</div>
-                {quizQ.topic && <div style={{ marginTop: 10, fontSize: 10, color: C.textDim }}>Topic: {quizQ.topic}</div>}
               </div>
 
-              {/* MC Options */}
-              {quizQ.type === "mc" && quizQ.options && (
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  {quizQ.options.map((opt, i) => {
-                    const letter = opt.charAt(0);
-                    const isSelected = quizSelected === opt;
-                    const disabled = !!quizFeedback;
-                    let borderCol = isSelected ? col : C.border;
-                    let bgCol = isSelected ? `${col}22` : C.bgLight;
-                    // After feedback, colour correct/incorrect
-                    if (quizFeedback) {
-                      const correctAns = (quizFeedback.correctAnswer || "").charAt(0).toUpperCase();
-                      if (letter.toUpperCase() === correctAns) { borderCol = C.green; bgCol = "rgba(77,148,96,0.12)"; }
-                      else if (isSelected && quizFeedback.correct !== true) { borderCol = C.red; bgCol = "rgba(224,96,96,0.08)"; }
-                    }
-                    return (
-                      <button key={i} onClick={() => !disabled && setQuizSelected(opt)}
-                        disabled={disabled}
-                        style={{
-                          display: "flex", alignItems: "center", gap: 12,
-                          padding: "12px 16px", borderRadius: 8,
-                          border: `1px solid ${borderCol}`, background: bgCol,
-                          cursor: disabled ? "default" : "pointer",
-                          transition: "all 0.15s", textAlign: "left",
-                        }}
-                        onMouseEnter={e => { if (!disabled && !isSelected) { e.currentTarget.style.borderColor = col; e.currentTarget.style.background = C.bgCard; } }}
-                        onMouseLeave={e => { if (!disabled && !isSelected) { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.background = C.bgLight; } }}
-                      >
-                        <div style={{
-                          width: 30, height: 30, borderRadius: 6, flexShrink: 0,
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                          border: `1px solid ${isSelected ? col : C.border}`,
-                          background: isSelected ? col : "transparent",
-                          color: isSelected ? "#fff" : C.textMuted,
-                          fontSize: 13, fontWeight: 600, transition: "all 0.15s",
-                        }}>{letter}</div>
-                        <div style={{ fontSize: 13.5, color: C.text, lineHeight: 1.5 }}>{opt.slice(3).trim()}</div>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
+              {/* Options with inline feedback */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
+                {quizQ.options.map((opt) => {
+                  const isSelected = quizSelected === opt.label;
+                  const isCorrect = opt.label === quizQ.correctLabel;
+                  const answered = quizFeedback;
+                  const showExplanation = answered && (isCorrect || isSelected);
 
-              {/* Written answer */}
-              {quizQ.type !== "mc" && !quizFeedback && (
-                <div style={{ background: C.bgLight, border: `1px solid ${C.border}`, borderRadius: 8, padding: 4 }}>
-                  <textarea
-                    value={quizSelected || ""}
-                    onChange={e => setQuizSelected(e.target.value)}
-                    placeholder={quizQ.type === "calculation" ? "Show your working and final answer..." : quizQ.type === "explain" ? "Write your extended answer here..." : "Type your answer..."}
-                    rows={quizQ.type === "explain" ? 8 : 4}
-                    style={{
-                      width: "100%", border: "none", outline: "none", resize: "vertical",
-                      background: "transparent", color: C.text,
-                      fontFamily: "'DM Sans',sans-serif", fontSize: 13.5,
-                      padding: "10px 14px", lineHeight: 1.6, minHeight: 80,
-                    }}
-                  />
-                </div>
-              )}
-              {quizQ.type !== "mc" && quizFeedback && (
-                <div style={{ background: C.bgLight, border: `1px solid ${C.border}`, borderRadius: 8, padding: "12px 16px" }}>
-                  <div style={{ fontSize: 11, color: C.textDim, marginBottom: 4 }}>Your answer:</div>
-                  <div style={{ fontSize: 13, color: C.text, whiteSpace: "pre-wrap" }}>{quizSelected}</div>
-                </div>
-              )}
+                  let borderColor = C.border;
+                  let bgColor = "transparent";
+                  if (!answered && isSelected) {
+                    borderColor = C.gold;
+                    bgColor = C.goldDim;
+                  }
+                  if (answered && isCorrect) {
+                    borderColor = C.green;
+                    bgColor = "rgba(77,148,96,0.06)";
+                  }
+                  if (answered && isSelected && !isCorrect) {
+                    borderColor = C.red;
+                    bgColor = "rgba(224,96,96,0.06)";
+                  }
 
-              {/* Hint */}
+                  return (
+                    <div key={opt.label}
+                      onClick={() => !answered && setQuizSelected(opt.label)}
+                      style={{
+                        padding: "14px 18px", borderRadius: 10,
+                        border: `1.5px solid ${borderColor}`,
+                        background: bgColor,
+                        cursor: answered ? "default" : "pointer",
+                        transition: "all 0.2s",
+                      }}
+                      onMouseEnter={e => { if (!answered && !isSelected) { e.currentTarget.style.borderColor = C.gold; e.currentTarget.style.background = C.goldDim; }}}
+                      onMouseLeave={e => { if (!answered && !isSelected) { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.background = "transparent"; }}}
+                    >
+                      <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+                        <span style={{ fontSize: 14, fontWeight: 600, color: C.textMuted, flexShrink: 0, marginTop: 1 }}>{opt.label}.</span>
+                        <span style={{ fontSize: 14, color: C.text, lineHeight: 1.6 }}>{opt.text}</span>
+                      </div>
+                      {/* Inline explanation after answering */}
+                      {showExplanation && quizQ.explanations && (
+                        <div style={{ marginTop: 12, paddingTop: 10, borderTop: `1px solid ${isCorrect ? "rgba(77,148,96,0.2)" : "rgba(224,96,96,0.15)"}` }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+                            <span style={{ fontSize: 12, fontWeight: 600, color: isCorrect ? C.green : C.red }}>
+                              {isCorrect ? "✓ Right answer" : "✗ Not quite"}
+                            </span>
+                          </div>
+                          <div style={{ fontSize: 13, color: "rgba(255,255,255,0.7)", lineHeight: 1.7 }}>
+                            {quizQ.explanations[opt.label]}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Collapsible hint */}
               {!quizFeedback && (
-                <button onClick={getHint} disabled={hintLoading || !!hintText}
-                  style={{
-                    alignSelf: "flex-start", padding: "6px 14px", borderRadius: 6,
-                    border: `1px solid ${C.border}`, background: "transparent",
-                    color: C.amber, fontSize: 12, cursor: hintLoading || hintText ? "default" : "pointer",
-                    opacity: hintText ? 0.6 : 1, transition: "all 0.2s",
-                  }}>
-                  {hintLoading ? "Loading hint..." : hintText ? "Hint used" : "💡 Hint"}
-                </button>
-              )}
-              {hintText && !quizFeedback && (
-                <div style={{ padding: "10px 14px", background: "rgba(212,162,76,0.08)", border: "1px solid rgba(212,162,76,0.2)", borderRadius: 8, fontSize: 13, color: C.amber, lineHeight: 1.6 }}>
-                  💡 {hintText}
-                </div>
-              )}
-
-              {/* Feedback */}
-              {quizFeedback && (
-                <div style={{
-                  padding: "16px 18px", borderRadius: 10,
-                  background: quizFeedback.correct === true ? "rgba(77,148,96,0.08)" : quizFeedback.correct === "partial" ? "rgba(212,162,76,0.08)" : "rgba(224,96,96,0.06)",
-                  border: `1px solid ${quizFeedback.correct === true ? "rgba(77,148,96,0.25)" : quizFeedback.correct === "partial" ? "rgba(212,162,76,0.25)" : "rgba(224,96,96,0.15)"}`,
-                }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                    <span style={{ fontSize: 13, fontWeight: 600, color: quizFeedback.correct === true ? C.green : quizFeedback.correct === "partial" ? C.amber : C.red }}>
-                      {quizFeedback.correct === true ? "✓ Correct!" : quizFeedback.correct === "partial" ? "~ Partially correct" : "✗ Not quite"}
-                    </span>
-                    <span style={{ fontSize: 13, fontWeight: 600, color: col }}>{quizFeedback.score}/{quizFeedback.maxScore} marks</span>
-                  </div>
-                  <div style={{ fontSize: 13, color: "rgba(232,229,222,0.8)", lineHeight: 1.7 }}>{quizFeedback.feedback}</div>
-                  {quizFeedback.correctAnswer && quizFeedback.correct !== true && (
-                    <div style={{ marginTop: 10, padding: "8px 12px", background: "rgba(77,148,96,0.08)", border: "1px solid rgba(77,148,96,0.15)", borderRadius: 6 }}>
-                      <div style={{ fontSize: 11, fontWeight: 600, color: C.green, marginBottom: 3 }}>Model answer:</div>
-                      <div style={{ fontSize: 13, color: C.text, lineHeight: 1.6 }}>{quizFeedback.correctAnswer}</div>
+                <div style={{ marginBottom: 20 }}>
+                  <button onClick={() => hintText ? setHintText(null) : getHint()}
+                    disabled={hintLoading}
+                    style={{
+                      background: "none", border: "none", cursor: hintLoading ? "default" : "pointer",
+                      color: C.textMuted, fontSize: 13, padding: 0,
+                      display: "flex", alignItems: "center", gap: 6, transition: "color 0.2s",
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.color = C.gold; }}
+                    onMouseLeave={e => { e.currentTarget.style.color = C.textMuted; }}
+                  >
+                    {hintLoading ? "Loading..." : "Show hint"} <span style={{ fontSize: 10 }}>{hintText ? "▲" : "▼"}</span>
+                  </button>
+                  {hintText && (
+                    <div style={{ marginTop: 8, padding: "10px 14px", background: "rgba(200,164,110,0.06)", border: "1px solid rgba(200,164,110,0.15)", borderRadius: 8, fontSize: 13, color: C.amber, lineHeight: 1.6 }}>
+                      {hintText}
                     </div>
                   )}
                 </div>
               )}
 
-              {/* Action buttons */}
-              <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", paddingBottom: 20 }}>
-                {!quizFeedback ? (
-                  <button onClick={submitAnswer} disabled={!quizSelected || loading}
-                    style={{
-                      padding: "10px 24px", borderRadius: 8, border: "none",
-                      background: quizSelected && !loading ? col : "rgba(255,255,255,0.04)",
-                      color: quizSelected && !loading ? "#fff" : C.textDim,
-                      fontSize: 14, fontWeight: 600, cursor: quizSelected && !loading ? "pointer" : "default",
-                      transition: "all 0.2s",
-                    }}>
-                    {loading ? "Marking..." : "Submit Answer"}
-                  </button>
-                ) : (
-                  <button onClick={nextQuestion}
-                    style={{
-                      padding: "10px 24px", borderRadius: 8, border: "none",
-                      background: col, color: "#fff",
-                      fontSize: 14, fontWeight: 600, cursor: "pointer",
-                      transition: "all 0.2s",
-                    }}>
-                    {quizNum >= 10 ? "See Results" : `Next Question →`}
-                  </button>
-                )}
-              </div>
+              {err && <div style={{ padding: "8px 12px", borderRadius: 6, background: "rgba(224,96,96,0.08)", border: "1px solid rgba(224,96,96,0.15)", color: C.red, fontSize: 12, marginBottom: 16 }}>{err}</div>}
+              <div ref={endRef} />
             </>
           )}
-
-          {err && <div style={{ padding: "8px 12px", borderRadius: 6, background: "rgba(224,96,96,0.08)", border: "1px solid rgba(224,96,96,0.15)", color: C.red, fontSize: 12 }}>{err}</div>}
-          <div ref={endRef} />
         </div>
+
+        {/* Bottom navigation */}
+        {quizQ && (
+          <div style={{ padding: "16px 20px", borderTop: `1px solid ${C.border}`, display: "flex", justifyContent: "center", gap: 12, background: C.bg }}>
+            {!quizFeedback ? (
+              <button onClick={submitAnswer} disabled={!quizSelected || loading}
+                style={{
+                  padding: "10px 32px", borderRadius: 8, border: "none",
+                  background: quizSelected ? C.gold : "rgba(255,255,255,0.04)",
+                  color: quizSelected ? C.bg : C.textDim,
+                  fontSize: 14, fontWeight: 600, cursor: quizSelected ? "pointer" : "default",
+                  transition: "all 0.2s",
+                }}>
+                Submit
+              </button>
+            ) : (
+              <button onClick={nextQuestion}
+                style={{
+                  padding: "10px 32px", borderRadius: 8,
+                  border: `1px solid ${C.gold}`, background: C.goldDim,
+                  color: C.gold, fontSize: 14, fontWeight: 600, cursor: "pointer",
+                  transition: "all 0.2s",
+                }}>
+                {quizNum >= 10 ? "See Results" : "Next"}
+              </button>
+            )}
+          </div>
+        )}
 
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
           @keyframes p{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:.65;transform:scale(1.1)}}
           textarea::placeholder{color:${C.textDim}}
-          ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(244,232,209,0.06);border-radius:3px}
+          ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:3px}
           *{box-sizing:border-box}
         `}</style>
       </div>
@@ -1231,10 +1176,10 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
             <div style={{
               maxWidth: m.role === "user" ? "72%" : "88%", padding: "10px 14px",
               borderRadius: m.role === "user" ? "10px 10px 2px 10px" : "10px 10px 10px 2px",
-              background: m.role === "user" ? C.goldDim : "rgba(244,232,209,0.03)",
+              background: m.role === "user" ? C.goldDim : "rgba(255,255,255,0.03)",
               border: m.role === "user" ? `1px solid ${C.goldBorder}` : `1px solid ${C.border}`,
               fontSize: 13.5, lineHeight: 1.7,
-              color: m.role === "user" ? C.text : "rgba(244,232,209,0.82)",
+              color: m.role === "user" ? C.text : "rgba(255,255,255,0.82)",
             }}>{parseAndRender(m.content)}</div>
           </div>
         ))}
@@ -1243,7 +1188,7 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
             <div style={{ width: 26, height: 26, borderRadius: 6, flexShrink: 0, marginTop: 2, background: C.goldDim, border: `1px solid ${C.goldBorder}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <div style={{ fontFamily: "'DM Serif Display',serif", fontSize: 11, color: C.gold, fontWeight: 400 }}>A</div>
             </div>
-            <div style={{ padding: "10px 14px", borderRadius: "10px 10px 10px 2px", background: "rgba(244,232,209,0.03)", border: `1px solid ${C.border}`, display: "flex", gap: 5 }}>
+            <div style={{ padding: "10px 14px", borderRadius: "10px 10px 10px 2px", background: "rgba(255,255,255,0.03)", border: `1px solid ${C.border}`, display: "flex", gap: 5 }}>
               {[0, 1, 2].map(d => <div key={d} style={{ width: 6, height: 6, borderRadius: "50%", background: C.gold, opacity: 0.3, animation: `p 1.2s ease-in-out ${d * 0.2}s infinite` }} />)}
             </div>
           </div>
@@ -1274,7 +1219,7 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
           <button onClick={send} disabled={!input.trim() || loading} style={{
             width: 34, height: 34, borderRadius: 6, border: "none",
             cursor: input.trim() && !loading ? "pointer" : "default",
-            background: input.trim() && !loading ? C.gold : "rgba(244,232,209,0.04)",
+            background: input.trim() && !loading ? C.gold : "rgba(255,255,255,0.04)",
             color: input.trim() && !loading ? C.bg : C.textDim,
             display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: 15, fontWeight: 700, flexShrink: 0, transition: "all 0.2s",
