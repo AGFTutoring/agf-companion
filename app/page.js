@@ -621,14 +621,26 @@ export default function Home() {
   const [err, setErr] = useState(null);
   const [mode, setMode] = useState("ask");
   const [showPicker, setShowPicker] = useState(false);
-  const [quizStarted, setQuizStarted] = useState(false);
+
+  // Quiz state
+  const [quizQ, setQuizQ] = useState(null); // current parsed question
+  const [quizNum, setQuizNum] = useState(0); // 0-9
+  const [quizSelected, setQuizSelected] = useState(null); // selected MC option or typed answer
+  const [quizFeedback, setQuizFeedback] = useState(null); // feedback after answering
+  const [quizScore, setQuizScore] = useState(0);
+  const [quizMaxScore, setQuizMaxScore] = useState(0);
+  const [quizHistory, setQuizHistory] = useState([]); // array of {q, answer, feedback, correct, marks, maxMarks}
+  const [quizDone, setQuizDone] = useState(false);
+  const [hintText, setHintText] = useState(null);
+  const [hintLoading, setHintLoading] = useState(false);
+
   const endRef = useRef(null);
   const inputRef = useRef(null);
 
   const currentSubject = subject ? SUBJECTS[subject] : null;
 
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [msgs, loading]);
-  useEffect(() => { if (subject) inputRef.current?.focus(); }, [subject]);
+  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [msgs, loading, quizFeedback, quizQ]);
+  useEffect(() => { if (subject && mode === "ask") inputRef.current?.focus(); }, [subject, mode]);
 
   const selectSubject = (id) => {
     setSubject(id);
@@ -636,41 +648,132 @@ export default function Home() {
     setErr(null);
     setInput("");
     setMode("ask");
-    setQuizStarted(false);
+    resetQuiz();
     setShowPicker(false);
   };
 
-  const QUIZ_SYSTEM_SUFFIX = `
+  const resetQuiz = () => {
+    setQuizQ(null); setQuizNum(0); setQuizSelected(null); setQuizFeedback(null);
+    setQuizScore(0); setQuizMaxScore(0); setQuizHistory([]); setQuizDone(false);
+    setHintText(null); setHintLoading(false);
+  };
 
-QUIZ MODE — CRITICAL INSTRUCTIONS:
-You are now running a timed exam-style quiz. Generate EXACTLY 10 questions in the style of Edexcel IAL past papers.
+  const QUIZ_GEN_SYSTEM = (subjectSystem) => subjectSystem + `
 
-FORMAT:
-- Number each question clearly (1–10)
-- Mix question types: multiple choice (A–D), short answer, calculation, explain/describe, and compare/contrast
-- Include mark allocations in brackets, e.g. [2 marks], [3 marks], [5 marks]
-- Questions should range from straightforward (Q1–3) to challenging (Q8–10)
-- Include at least 2 calculation questions where relevant
-- Include at least 1 "explain" question requiring extended writing (4–6 marks)
+QUIZ QUESTION GENERATION MODE:
+You must respond with ONLY a valid JSON object, no other text, no markdown fences, no explanation.
+
+Generate ONE exam-style question in the style of Edexcel IAL past papers.
+
+JSON format:
+{
+  "question": "The question text here",
+  "type": "mc" or "short" or "calculation" or "explain",
+  "options": ["A) ...", "B) ...", "C) ...", "D) ..."],
+  "marks": 3,
+  "topic": "bonding",
+  "difficulty": 1-10
+}
+
+Rules:
+- "options" array is ONLY included when type is "mc" (multiple choice). For other types, omit it or set to null.
+- For mc: always exactly 4 options labelled A) B) C) D)
+- marks should be 1-6 depending on difficulty
+- difficulty ranges from 1 (easy, questions 1-3) to 10 (very hard, questions 8-10)
 - Use proper scientific terminology and notation
-- Questions should be realistic exam questions a student would face in the actual IAL exam
-- Total marks should be approximately 40–50
+- Questions must be realistic IAL exam questions
+- Respond with ONLY the JSON object`;
 
-Present ALL 10 questions at once. After the student submits answers (they may answer all at once or one at a time), provide detailed diagnostic feedback:
-- Mark each answer correct/partially correct/incorrect
-- For incorrect answers: explain the misconception and give the correct answer with working
-- Give a total score out of the total marks
-- Suggest which topics to revise based on errors
+  const QUIZ_MARK_SYSTEM = (subjectSystem) => subjectSystem + `
 
-Do NOT give any answers or hints until the student has attempted them.`;
+QUIZ MARKING MODE:
+You must respond with ONLY a valid JSON object, no other text, no markdown fences.
+
+Mark the student's answer to the given question. Be rigorous but fair, like an examiner.
+
+JSON format:
+{
+  "correct": true or false or "partial",
+  "score": 2,
+  "maxScore": 3,
+  "feedback": "Detailed diagnostic feedback explaining what was right/wrong and the correct answer with working. Use the AGF method — identify the misconception, explain clearly, give the correct approach.",
+  "correctAnswer": "The model answer"
+}
+
+Rules:
+- Be encouraging but honest
+- For partial credit, award marks for correct working even if final answer is wrong
+- Explain any misconceptions clearly
+- Give the full correct answer with working
+- Respond with ONLY the JSON object`;
+
+  const QUIZ_HINT_SYSTEM = (subjectSystem) => subjectSystem + `
+
+Give a brief, helpful hint for this question. Don't give away the answer — just nudge the student in the right direction. One or two sentences maximum. Use the AGF diagnostic method. Respond with just the hint text, no JSON.`;
+
+  const parseJSON = (text) => {
+    try {
+      const clean = text.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
+      return JSON.parse(clean);
+    } catch (e) {
+      return null;
+    }
+  };
+
+  const fetchQuizQuestion = useCallback(async (questionNumber) => {
+    if (!currentSubject) return;
+    setLoading(true);
+    setErr(null);
+    setQuizQ(null);
+    setQuizSelected(null);
+    setQuizFeedback(null);
+    setHintText(null);
+    const difficulty = Math.min(10, Math.max(1, Math.ceil(questionNumber * 1.1)));
+    const prevTopics = quizHistory.map(h => h.topic).filter(Boolean);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [{ role: "user", content: `Generate question ${questionNumber}/10. Difficulty: ${difficulty}/10. Mix of question types. ${prevTopics.length ? "Already covered topics: " + prevTopics.join(", ") + ". Try a different topic." : ""} Respond with ONLY JSON.` }],
+          system: QUIZ_GEN_SYSTEM(currentSubject.system),
+          mode: "quiz",
+        }),
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message);
+      const text = data.content?.map(b => b.type === "text" ? b.text : "").filter(Boolean).join("\n") || "";
+      const parsed = parseJSON(text);
+      if (parsed && parsed.question) {
+        setQuizQ(parsed);
+      } else {
+        throw new Error("Failed to parse question. Please try again.");
+      }
+    } catch (e) { setErr(e.message); }
+    finally { setLoading(false); }
+  }, [currentSubject, quizHistory]);
 
   const startQuiz = useCallback(async () => {
     if (loading || !currentSubject) return;
     setMode("quiz");
-    setQuizStarted(true);
-    const quizWelcome = { role: "assistant", content: `**Quiz Mode** — ${currentSubject.name}\n\nGenerating 10 exam-style questions...` };
-    setMsgs([quizWelcome]);
-    setInput("");
+    resetQuiz();
+    setQuizNum(1);
+    await fetchQuizQuestion(1);
+  }, [loading, currentSubject]);
+
+  // Need to call fetchQuizQuestion after quizNum updates for "next" — use effect
+  const [pendingNext, setPendingNext] = useState(false);
+  useEffect(() => {
+    if (pendingNext && quizNum > 0) {
+      fetchQuizQuestion(quizNum);
+      setPendingNext(false);
+    }
+  }, [pendingNext, quizNum]);
+
+  const submitAnswer = useCallback(async () => {
+    if (!quizQ || loading) return;
+    const answer = quizQ.type === "mc" ? quizSelected : quizSelected;
+    if (!answer) return;
     setLoading(true);
     setErr(null);
     try {
@@ -678,22 +781,65 @@ Do NOT give any answers or hints until the student has attempted them.`;
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: [{ role: "user", content: `Generate a 10-question ${currentSubject.code} exam-style quiz now. Mix question types and difficulty. Include mark allocations. Present all 10 questions.` }],
-          system: currentSubject.system + QUIZ_SYSTEM_SUFFIX,
+          messages: [{ role: "user", content: `Question: ${quizQ.question}${quizQ.options ? "\nOptions: " + quizQ.options.join(", ") : ""}\n[${quizQ.marks} marks]\n\nStudent's answer: ${answer}\n\nMark this answer. Respond with ONLY JSON.` }],
+          system: QUIZ_MARK_SYSTEM(currentSubject.system),
           mode: "quiz",
         }),
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error.message);
-      const reply = data.content?.map(b => b.type === "text" ? b.text : "").filter(Boolean).join("\n") || "Sorry, I couldn't generate the quiz.";
-      setMsgs([{ role: "assistant", content: reply }]);
+      const text = data.content?.map(b => b.type === "text" ? b.text : "").filter(Boolean).join("\n") || "";
+      const parsed = parseJSON(text);
+      if (parsed) {
+        setQuizFeedback(parsed);
+        const earned = parsed.score || 0;
+        const max = parsed.maxScore || quizQ.marks || 0;
+        setQuizScore(s => s + earned);
+        setQuizMaxScore(s => s + max);
+        setQuizHistory(h => [...h, {
+          q: quizQ.question, answer, feedback: parsed.feedback,
+          correct: parsed.correct, marks: earned, maxMarks: max,
+          topic: quizQ.topic
+        }]);
+      } else {
+        setQuizFeedback({ correct: false, score: 0, maxScore: quizQ.marks, feedback: "Could not parse feedback. Try the next question.", correctAnswer: "" });
+      }
     } catch (e) { setErr(e.message); }
-    finally { setLoading(false); inputRef.current?.focus(); }
-  }, [loading, currentSubject]);
+    finally { setLoading(false); }
+  }, [quizQ, quizSelected, loading, currentSubject]);
+
+  const nextQuestion = () => {
+    if (quizNum >= 10) {
+      setQuizDone(true);
+      return;
+    }
+    setQuizNum(n => n + 1);
+    setPendingNext(true);
+  };
+
+  const getHint = useCallback(async () => {
+    if (!quizQ || hintLoading) return;
+    setHintLoading(true);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [{ role: "user", content: `Give me a hint for this question: ${quizQ.question}${quizQ.options ? "\nOptions: " + quizQ.options.join(", ") : ""}` }],
+          system: QUIZ_HINT_SYSTEM(currentSubject.system),
+          mode: "ask",
+        }),
+      });
+      const data = await res.json();
+      const text = data.content?.map(b => b.type === "text" ? b.text : "").filter(Boolean).join("\n") || "Think about the key concepts involved.";
+      setHintText(text);
+    } catch (e) { setHintText("Think about the key concepts involved in this topic."); }
+    finally { setHintLoading(false); }
+  }, [quizQ, hintLoading, currentSubject]);
 
   const backToAsk = () => {
     setMode("ask");
-    setQuizStarted(false);
+    resetQuiz();
     if (currentSubject) {
       setMsgs([{ role: "assistant", content: currentSubject.welcome }]);
     }
@@ -708,14 +854,13 @@ Do NOT give any answers or hints until the student has attempted them.`;
     setInput("");
     setLoading(true);
     setErr(null);
-    const apiMsgs = next.filter((m, idx) => !(idx === 0 && m.role === "assistant" && !quizStarted)).map(m => ({ role: m.role, content: m.content }));
+    const apiMsgs = next.filter((m, idx) => !(idx === 0 && m.role === "assistant")).map(m => ({ role: m.role, content: m.content }));
     if (!apiMsgs.length || apiMsgs[0].role !== "user") apiMsgs.unshift({ role: "user", content: t });
-    const systemPrompt = mode === "quiz" ? currentSubject.system + QUIZ_SYSTEM_SUFFIX : currentSubject.system;
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: apiMsgs, system: systemPrompt, mode }),
+        body: JSON.stringify({ messages: apiMsgs, system: currentSubject.system, mode: "ask" }),
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error.message);
@@ -723,7 +868,7 @@ Do NOT give any answers or hints until the student has attempted them.`;
       setMsgs(p => [...p, { role: "assistant", content: reply }]);
     } catch (e) { setErr(e.message); }
     finally { setLoading(false); inputRef.current?.focus(); }
-  }, [input, loading, msgs, mode, currentSubject, quizStarted]);
+  }, [input, loading, msgs, currentSubject]);
 
   /* ─── SUBJECT PICKER SCREEN ─── */
   if (!subject) {
@@ -760,13 +905,255 @@ Do NOT give any answers or hints until the student has attempted them.`;
     );
   }
 
-  /* ─── MAIN CHAT SCREEN ─── */
+  const col = currentSubject.colour;
+
+  /* ─── QUIZ RESULTS SCREEN ─── */
+  if (mode === "quiz" && quizDone) {
+    const pct = quizMaxScore > 0 ? Math.round((quizScore / quizMaxScore) * 100) : 0;
+    const grade = pct >= 80 ? "A" : pct >= 70 ? "B" : pct >= 60 ? "C" : pct >= 50 ? "D" : "U";
+    const weakTopics = [...new Set(quizHistory.filter(h => h.correct !== true).map(h => h.topic).filter(Boolean))];
+    return (
+      <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", background: C.bg, fontFamily: "'DM Sans',sans-serif", color: C.text }}>
+        <div style={{ padding: "12px 18px", borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ flex: 1, fontFamily: "'Cormorant Garamond',serif", fontSize: 16 }}>Quiz Complete — {currentSubject.name}</div>
+          <button onClick={backToAsk} style={{ padding: "5px 14px", borderRadius: 4, fontSize: 11, border: `1px solid ${C.border}`, background: "transparent", color: C.textMuted, cursor: "pointer" }}>Back to Ask</button>
+          <button onClick={startQuiz} style={{ padding: "5px 14px", borderRadius: 4, fontSize: 11, border: `1px solid ${col}`, background: `${col}22`, color: col, cursor: "pointer" }}>New Quiz</button>
+        </div>
+        <div style={{ flex: 1, overflowY: "auto", padding: 20 }}>
+          {/* Score card */}
+          <div style={{ textAlign: "center", padding: "30px 20px", background: C.bgCard, borderRadius: 12, border: `1px solid ${C.border}`, marginBottom: 20 }}>
+            <div style={{ fontSize: 52, fontWeight: 700, color: col, fontFamily: "'JetBrains Mono',monospace" }}>{quizScore}/{quizMaxScore}</div>
+            <div style={{ fontSize: 16, color: C.textMuted, marginTop: 4 }}>{pct}% — Grade {grade}</div>
+            <div style={{ marginTop: 16, height: 8, background: C.bgLight, borderRadius: 4, overflow: "hidden" }}>
+              <div style={{ height: "100%", width: `${pct}%`, background: pct >= 70 ? C.green : pct >= 50 ? C.amber : C.red, borderRadius: 4, transition: "width 0.5s" }} />
+            </div>
+          </div>
+          {/* Weak topics */}
+          {weakTopics.length > 0 && (
+            <div style={{ padding: "14px 18px", background: "rgba(224,96,96,0.06)", border: "1px solid rgba(224,96,96,0.15)", borderRadius: 8, marginBottom: 20 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: C.red, marginBottom: 6 }}>Topics to revise:</div>
+              <div style={{ fontSize: 13, color: C.text }}>{weakTopics.join(", ")}</div>
+            </div>
+          )}
+          {/* Question review */}
+          {quizHistory.map((h, i) => (
+            <div key={i} style={{ padding: "14px 18px", background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 8, marginBottom: 10 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: C.textMuted }}>Q{i + 1}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: h.correct === true ? C.green : h.correct === "partial" ? C.amber : C.red }}>
+                  {h.marks}/{h.maxMarks} {h.correct === true ? "✓" : h.correct === "partial" ? "~" : "✗"}
+                </div>
+              </div>
+              <div style={{ fontSize: 13, color: C.text, marginBottom: 4 }}>{h.q}</div>
+              <div style={{ fontSize: 12, color: C.textMuted }}>Your answer: {h.answer}</div>
+              {h.feedback && <div style={{ fontSize: 12, color: "rgba(232,229,222,0.7)", marginTop: 6, lineHeight: 1.6 }}>{h.feedback}</div>}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  /* ─── QUIZ QUESTION SCREEN ─── */
+  if (mode === "quiz") {
+    return (
+      <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", background: C.bg, fontFamily: "'DM Sans',sans-serif", color: C.text }}>
+        {/* Header */}
+        <div style={{ padding: "12px 18px", borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 16 }}>{currentSubject.name} Quiz</div>
+            <div style={{ fontSize: 10, color: C.textDim }}>Question {quizNum} of 10 · Score: {quizScore}/{quizMaxScore}</div>
+          </div>
+          <button onClick={backToAsk} style={{ padding: "5px 14px", borderRadius: 4, fontSize: 11, border: `1px solid ${C.border}`, background: "transparent", color: C.textMuted, cursor: "pointer" }}>Exit Quiz</button>
+        </div>
+
+        {/* Progress bar */}
+        <div style={{ height: 4, background: C.bgLight }}>
+          <div style={{ height: "100%", width: `${(quizNum / 10) * 100}%`, background: col, transition: "width 0.3s", borderRadius: "0 2px 2px 0" }} />
+        </div>
+
+        {/* Content */}
+        <div style={{ flex: 1, overflowY: "auto", padding: "20px 16px", display: "flex", flexDirection: "column", gap: 16 }}>
+          {loading && !quizQ && (
+            <div style={{ textAlign: "center", padding: 40, color: C.textMuted }}>
+              <div style={{ display: "flex", gap: 5, justifyContent: "center", marginBottom: 12 }}>
+                {[0, 1, 2].map(d => <div key={d} style={{ width: 8, height: 8, borderRadius: "50%", background: col, opacity: 0.3, animation: `p 1.2s ease-in-out ${d * 0.2}s infinite` }} />)}
+              </div>
+              Generating question {quizNum}...
+            </div>
+          )}
+
+          {quizQ && (
+            <>
+              {/* Question card */}
+              <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 12, padding: "20px 22px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                  <span style={{ fontSize: 11, fontWeight: 600, color: col, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                    Question {quizNum}/10
+                  </span>
+                  <span style={{ fontSize: 11, color: C.amber, fontWeight: 500 }}>[{quizQ.marks} mark{quizQ.marks !== 1 ? "s" : ""}]</span>
+                </div>
+                <div style={{ fontSize: 15, lineHeight: 1.7, color: C.text }}>{quizQ.question}</div>
+                {quizQ.topic && <div style={{ marginTop: 10, fontSize: 10, color: C.textDim }}>Topic: {quizQ.topic}</div>}
+              </div>
+
+              {/* MC Options */}
+              {quizQ.type === "mc" && quizQ.options && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {quizQ.options.map((opt, i) => {
+                    const letter = opt.charAt(0);
+                    const isSelected = quizSelected === opt;
+                    const disabled = !!quizFeedback;
+                    let borderCol = isSelected ? col : C.border;
+                    let bgCol = isSelected ? `${col}22` : C.bgLight;
+                    // After feedback, colour correct/incorrect
+                    if (quizFeedback) {
+                      const correctAns = (quizFeedback.correctAnswer || "").charAt(0).toUpperCase();
+                      if (letter.toUpperCase() === correctAns) { borderCol = C.green; bgCol = "rgba(77,148,96,0.12)"; }
+                      else if (isSelected && quizFeedback.correct !== true) { borderCol = C.red; bgCol = "rgba(224,96,96,0.08)"; }
+                    }
+                    return (
+                      <button key={i} onClick={() => !disabled && setQuizSelected(opt)}
+                        disabled={disabled}
+                        style={{
+                          display: "flex", alignItems: "center", gap: 12,
+                          padding: "12px 16px", borderRadius: 8,
+                          border: `1px solid ${borderCol}`, background: bgCol,
+                          cursor: disabled ? "default" : "pointer",
+                          transition: "all 0.15s", textAlign: "left",
+                        }}
+                        onMouseEnter={e => { if (!disabled && !isSelected) { e.currentTarget.style.borderColor = col; e.currentTarget.style.background = C.bgCard; } }}
+                        onMouseLeave={e => { if (!disabled && !isSelected) { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.background = C.bgLight; } }}
+                      >
+                        <div style={{
+                          width: 30, height: 30, borderRadius: 6, flexShrink: 0,
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          border: `1px solid ${isSelected ? col : C.border}`,
+                          background: isSelected ? col : "transparent",
+                          color: isSelected ? "#fff" : C.textMuted,
+                          fontSize: 13, fontWeight: 600, transition: "all 0.15s",
+                        }}>{letter}</div>
+                        <div style={{ fontSize: 13.5, color: C.text, lineHeight: 1.5 }}>{opt.slice(3).trim()}</div>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Written answer */}
+              {quizQ.type !== "mc" && !quizFeedback && (
+                <div style={{ background: C.bgLight, border: `1px solid ${C.border}`, borderRadius: 8, padding: 4 }}>
+                  <textarea
+                    value={quizSelected || ""}
+                    onChange={e => setQuizSelected(e.target.value)}
+                    placeholder={quizQ.type === "calculation" ? "Show your working and final answer..." : quizQ.type === "explain" ? "Write your extended answer here..." : "Type your answer..."}
+                    rows={quizQ.type === "explain" ? 8 : 4}
+                    style={{
+                      width: "100%", border: "none", outline: "none", resize: "vertical",
+                      background: "transparent", color: C.text,
+                      fontFamily: "'DM Sans',sans-serif", fontSize: 13.5,
+                      padding: "10px 14px", lineHeight: 1.6, minHeight: 80,
+                    }}
+                  />
+                </div>
+              )}
+              {quizQ.type !== "mc" && quizFeedback && (
+                <div style={{ background: C.bgLight, border: `1px solid ${C.border}`, borderRadius: 8, padding: "12px 16px" }}>
+                  <div style={{ fontSize: 11, color: C.textDim, marginBottom: 4 }}>Your answer:</div>
+                  <div style={{ fontSize: 13, color: C.text, whiteSpace: "pre-wrap" }}>{quizSelected}</div>
+                </div>
+              )}
+
+              {/* Hint */}
+              {!quizFeedback && (
+                <button onClick={getHint} disabled={hintLoading || !!hintText}
+                  style={{
+                    alignSelf: "flex-start", padding: "6px 14px", borderRadius: 6,
+                    border: `1px solid ${C.border}`, background: "transparent",
+                    color: C.amber, fontSize: 12, cursor: hintLoading || hintText ? "default" : "pointer",
+                    opacity: hintText ? 0.6 : 1, transition: "all 0.2s",
+                  }}>
+                  {hintLoading ? "Loading hint..." : hintText ? "Hint used" : "💡 Hint"}
+                </button>
+              )}
+              {hintText && !quizFeedback && (
+                <div style={{ padding: "10px 14px", background: "rgba(212,162,76,0.08)", border: "1px solid rgba(212,162,76,0.2)", borderRadius: 8, fontSize: 13, color: C.amber, lineHeight: 1.6 }}>
+                  💡 {hintText}
+                </div>
+              )}
+
+              {/* Feedback */}
+              {quizFeedback && (
+                <div style={{
+                  padding: "16px 18px", borderRadius: 10,
+                  background: quizFeedback.correct === true ? "rgba(77,148,96,0.08)" : quizFeedback.correct === "partial" ? "rgba(212,162,76,0.08)" : "rgba(224,96,96,0.06)",
+                  border: `1px solid ${quizFeedback.correct === true ? "rgba(77,148,96,0.25)" : quizFeedback.correct === "partial" ? "rgba(212,162,76,0.25)" : "rgba(224,96,96,0.15)"}`,
+                }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: quizFeedback.correct === true ? C.green : quizFeedback.correct === "partial" ? C.amber : C.red }}>
+                      {quizFeedback.correct === true ? "✓ Correct!" : quizFeedback.correct === "partial" ? "~ Partially correct" : "✗ Not quite"}
+                    </span>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: col }}>{quizFeedback.score}/{quizFeedback.maxScore} marks</span>
+                  </div>
+                  <div style={{ fontSize: 13, color: "rgba(232,229,222,0.8)", lineHeight: 1.7 }}>{quizFeedback.feedback}</div>
+                  {quizFeedback.correctAnswer && quizFeedback.correct !== true && (
+                    <div style={{ marginTop: 10, padding: "8px 12px", background: "rgba(77,148,96,0.08)", border: "1px solid rgba(77,148,96,0.15)", borderRadius: 6 }}>
+                      <div style={{ fontSize: 11, fontWeight: 600, color: C.green, marginBottom: 3 }}>Model answer:</div>
+                      <div style={{ fontSize: 13, color: C.text, lineHeight: 1.6 }}>{quizFeedback.correctAnswer}</div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Action buttons */}
+              <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", paddingBottom: 20 }}>
+                {!quizFeedback ? (
+                  <button onClick={submitAnswer} disabled={!quizSelected || loading}
+                    style={{
+                      padding: "10px 24px", borderRadius: 8, border: "none",
+                      background: quizSelected && !loading ? col : "rgba(255,255,255,0.04)",
+                      color: quizSelected && !loading ? "#fff" : C.textDim,
+                      fontSize: 14, fontWeight: 600, cursor: quizSelected && !loading ? "pointer" : "default",
+                      transition: "all 0.2s",
+                    }}>
+                    {loading ? "Marking..." : "Submit Answer"}
+                  </button>
+                ) : (
+                  <button onClick={nextQuestion}
+                    style={{
+                      padding: "10px 24px", borderRadius: 8, border: "none",
+                      background: col, color: "#fff",
+                      fontSize: 14, fontWeight: 600, cursor: "pointer",
+                      transition: "all 0.2s",
+                    }}>
+                    {quizNum >= 10 ? "See Results" : `Next Question →`}
+                  </button>
+                )}
+              </div>
+            </>
+          )}
+
+          {err && <div style={{ padding: "8px 12px", borderRadius: 6, background: "rgba(224,96,96,0.08)", border: "1px solid rgba(224,96,96,0.15)", color: C.red, fontSize: 12 }}>{err}</div>}
+          <div ref={endRef} />
+        </div>
+
+        <style>{`
+          @keyframes p{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:.65;transform:scale(1.1)}}
+          textarea::placeholder{color:${C.textDim}}
+          ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:3px}
+          *{box-sizing:border-box}
+        `}</style>
+      </div>
+    );
+  }
+
+  /* ─── MAIN CHAT SCREEN (ASK MODE) ─── */
   return (
     <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", background: C.bg, fontFamily: "'DM Sans',sans-serif", color: C.text }}>
       {/* HEADER */}
       <div style={{ padding: "12px 18px", display: "flex", alignItems: "center", gap: 12, borderBottom: `1px solid ${C.border}`, background: C.bg, flexShrink: 0 }}>
         <div style={{ display: "flex", gap: 2, alignItems: "flex-end", height: 28, flexShrink: 0 }}>
-          {[14, 22, 18, 10].map((h, i) => <div key={i} style={{ width: 4, height: h, background: currentSubject.colour, borderRadius: 1.5 }} />)}
+          {[14, 22, 18, 10].map((h, i) => <div key={i} style={{ width: 4, height: h, background: col, borderRadius: 1.5 }} />)}
         </div>
         <div style={{ flex: 1, cursor: "pointer", position: "relative" }} onClick={() => setShowPicker(!showPicker)}>
           <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 16, fontWeight: 500, color: C.text, display: "flex", alignItems: "center", gap: 6 }}>
@@ -808,17 +1195,13 @@ Do NOT give any answers or hints until the student has attempted them.`;
           <button onClick={backToAsk} style={{
             padding: "5px 14px", borderRadius: 4, fontSize: 11, fontWeight: 500, cursor: "pointer",
             letterSpacing: "0.06em", textTransform: "uppercase", transition: "all 0.2s",
-            border: mode === "ask" ? `1px solid ${currentSubject.colour}` : `1px solid ${C.border}`,
-            background: mode === "ask" ? `${currentSubject.colour}22` : "transparent",
-            color: mode === "ask" ? currentSubject.colour : C.textDim,
+            border: `1px solid ${col}`, background: `${col}22`, color: col,
           }}>Ask</button>
           <button onClick={startQuiz} disabled={loading} style={{
             padding: "5px 14px", borderRadius: 4, fontSize: 11, fontWeight: 500,
             cursor: loading ? "default" : "pointer",
             letterSpacing: "0.06em", textTransform: "uppercase", transition: "all 0.2s",
-            border: mode === "quiz" ? `1px solid ${currentSubject.colour}` : `1px solid ${C.border}`,
-            background: mode === "quiz" ? `${currentSubject.colour}22` : "transparent",
-            color: mode === "quiz" ? currentSubject.colour : C.textDim,
+            border: `1px solid ${C.border}`, background: "transparent", color: C.textDim,
           }}>Quiz</button>
         </div>
       </div>
@@ -829,15 +1212,15 @@ Do NOT give any answers or hints until the student has attempted them.`;
         {msgs.map((m, i) => (
           <div key={i} style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start", gap: 8, alignItems: "flex-start" }}>
             {m.role === "assistant" && (
-              <div style={{ width: 24, height: 24, borderRadius: 4, flexShrink: 0, marginTop: 2, background: `${currentSubject.colour}22`, border: `1px solid ${currentSubject.colour}44`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div style={{ display: "flex", gap: 1, alignItems: "flex-end" }}>{[5, 8, 6].map((h, j) => <div key={j} style={{ width: 2, height: h, background: currentSubject.colour, borderRadius: 1 }} />)}</div>
+              <div style={{ width: 24, height: 24, borderRadius: 4, flexShrink: 0, marginTop: 2, background: `${col}22`, border: `1px solid ${col}44`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ display: "flex", gap: 1, alignItems: "flex-end" }}>{[5, 8, 6].map((h, j) => <div key={j} style={{ width: 2, height: h, background: col, borderRadius: 1 }} />)}</div>
               </div>
             )}
             <div style={{
               maxWidth: m.role === "user" ? "72%" : "88%", padding: "10px 14px",
               borderRadius: m.role === "user" ? "10px 10px 2px 10px" : "10px 10px 10px 2px",
-              background: m.role === "user" ? `${currentSubject.colour}22` : "rgba(255,255,255,0.025)",
-              border: m.role === "user" ? `1px solid ${currentSubject.colour}44` : `1px solid ${C.border}`,
+              background: m.role === "user" ? `${col}22` : "rgba(255,255,255,0.025)",
+              border: m.role === "user" ? `1px solid ${col}44` : `1px solid ${C.border}`,
               fontSize: 13.5, lineHeight: 1.7,
               color: m.role === "user" ? C.text : "rgba(232,229,222,0.82)",
             }}>{parseAndRender(m.content)}</div>
@@ -845,11 +1228,11 @@ Do NOT give any answers or hints until the student has attempted them.`;
         ))}
         {loading && (
           <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
-            <div style={{ width: 24, height: 24, borderRadius: 4, flexShrink: 0, marginTop: 2, background: `${currentSubject.colour}22`, border: `1px solid ${currentSubject.colour}44`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ display: "flex", gap: 1, alignItems: "flex-end" }}>{[5, 8, 6].map((h, j) => <div key={j} style={{ width: 2, height: h, background: currentSubject.colour, borderRadius: 1 }} />)}</div>
+            <div style={{ width: 24, height: 24, borderRadius: 4, flexShrink: 0, marginTop: 2, background: `${col}22`, border: `1px solid ${col}44`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ display: "flex", gap: 1, alignItems: "flex-end" }}>{[5, 8, 6].map((h, j) => <div key={j} style={{ width: 2, height: h, background: col, borderRadius: 1 }} />)}</div>
             </div>
             <div style={{ padding: "10px 14px", borderRadius: "10px 10px 10px 2px", background: "rgba(255,255,255,0.025)", border: `1px solid ${C.border}`, display: "flex", gap: 5 }}>
-              {[0, 1, 2].map(d => <div key={d} style={{ width: 6, height: 6, borderRadius: "50%", background: currentSubject.colour, opacity: 0.3, animation: `p 1.2s ease-in-out ${d * 0.2}s infinite` }} />)}
+              {[0, 1, 2].map(d => <div key={d} style={{ width: 6, height: 6, borderRadius: "50%", background: col, opacity: 0.3, animation: `p 1.2s ease-in-out ${d * 0.2}s infinite` }} />)}
             </div>
           </div>
         )}
@@ -863,7 +1246,7 @@ Do NOT give any answers or hints until the student has attempted them.`;
           {currentSubject.prompts.map((p, i) => (
             <button key={i} onClick={() => { setInput(p); setTimeout(() => inputRef.current?.focus(), 50); }}
               style={{ padding: "5px 12px", borderRadius: 4, border: `1px solid ${C.border}`, background: "transparent", color: C.textDim, fontSize: 11, cursor: "pointer", transition: "all 0.2s" }}
-              onMouseEnter={e => { e.target.style.borderColor = currentSubject.colour; e.target.style.color = currentSubject.colour; }}
+              onMouseEnter={e => { e.target.style.borderColor = col; e.target.style.color = col; }}
               onMouseLeave={e => { e.target.style.borderColor = C.border; e.target.style.color = C.textDim; }}>{p}</button>
           ))}
         </div>
@@ -874,12 +1257,12 @@ Do NOT give any answers or hints until the student has attempted them.`;
         <div style={{ display: "flex", gap: 8, alignItems: "flex-end", background: C.bgInput, border: `1px solid ${C.border}`, borderRadius: 8, padding: "3px 3px 3px 14px" }}>
           <textarea ref={inputRef} value={input} onChange={e => setInput(e.target.value)}
             onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-            placeholder={mode === "quiz" ? "Type your answers here..." : currentSubject.placeholder}
+            placeholder={currentSubject.placeholder}
             rows={1} style={{ flex: 1, border: "none", outline: "none", resize: "none", background: "transparent", color: C.text, fontFamily: "'DM Sans',sans-serif", fontSize: 13.5, padding: "8px 0", lineHeight: 1.5, maxHeight: 100, overflow: "auto" }} />
           <button onClick={send} disabled={!input.trim() || loading} style={{
             width: 34, height: 34, borderRadius: 6, border: "none",
             cursor: input.trim() && !loading ? "pointer" : "default",
-            background: input.trim() && !loading ? currentSubject.colour : "rgba(255,255,255,0.04)",
+            background: input.trim() && !loading ? col : "rgba(255,255,255,0.04)",
             color: input.trim() && !loading ? "#fff" : C.textDim,
             display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: 15, fontWeight: 700, flexShrink: 0, transition: "all 0.2s",
