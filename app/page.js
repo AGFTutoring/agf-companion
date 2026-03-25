@@ -621,6 +621,7 @@ export default function Home() {
   const [err, setErr] = useState(null);
   const [mode, setMode] = useState("ask");
   const [showPicker, setShowPicker] = useState(false);
+  const [quizStarted, setQuizStarted] = useState(false);
   const endRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -634,7 +635,68 @@ export default function Home() {
     setMsgs([{ role: "assistant", content: SUBJECTS[id].welcome }]);
     setErr(null);
     setInput("");
+    setMode("ask");
+    setQuizStarted(false);
     setShowPicker(false);
+  };
+
+  const QUIZ_SYSTEM_SUFFIX = `
+
+QUIZ MODE — CRITICAL INSTRUCTIONS:
+You are now running a timed exam-style quiz. Generate EXACTLY 10 questions in the style of Edexcel IAL past papers.
+
+FORMAT:
+- Number each question clearly (1–10)
+- Mix question types: multiple choice (A–D), short answer, calculation, explain/describe, and compare/contrast
+- Include mark allocations in brackets, e.g. [2 marks], [3 marks], [5 marks]
+- Questions should range from straightforward (Q1–3) to challenging (Q8–10)
+- Include at least 2 calculation questions where relevant
+- Include at least 1 "explain" question requiring extended writing (4–6 marks)
+- Use proper scientific terminology and notation
+- Questions should be realistic exam questions a student would face in the actual IAL exam
+- Total marks should be approximately 40–50
+
+Present ALL 10 questions at once. After the student submits answers (they may answer all at once or one at a time), provide detailed diagnostic feedback:
+- Mark each answer correct/partially correct/incorrect
+- For incorrect answers: explain the misconception and give the correct answer with working
+- Give a total score out of the total marks
+- Suggest which topics to revise based on errors
+
+Do NOT give any answers or hints until the student has attempted them.`;
+
+  const startQuiz = useCallback(async () => {
+    if (loading || !currentSubject) return;
+    setMode("quiz");
+    setQuizStarted(true);
+    const quizWelcome = { role: "assistant", content: `**Quiz Mode** — ${currentSubject.name}\n\nGenerating 10 exam-style questions...` };
+    setMsgs([quizWelcome]);
+    setInput("");
+    setLoading(true);
+    setErr(null);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [{ role: "user", content: `Generate a 10-question ${currentSubject.code} exam-style quiz now. Mix question types and difficulty. Include mark allocations. Present all 10 questions.` }],
+          system: currentSubject.system + QUIZ_SYSTEM_SUFFIX,
+          mode: "quiz",
+        }),
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message);
+      const reply = data.content?.map(b => b.type === "text" ? b.text : "").filter(Boolean).join("\n") || "Sorry, I couldn't generate the quiz.";
+      setMsgs([{ role: "assistant", content: reply }]);
+    } catch (e) { setErr(e.message); }
+    finally { setLoading(false); inputRef.current?.focus(); }
+  }, [loading, currentSubject]);
+
+  const backToAsk = () => {
+    setMode("ask");
+    setQuizStarted(false);
+    if (currentSubject) {
+      setMsgs([{ role: "assistant", content: currentSubject.welcome }]);
+    }
   };
 
   const send = useCallback(async () => {
@@ -646,13 +708,14 @@ export default function Home() {
     setInput("");
     setLoading(true);
     setErr(null);
-    const apiMsgs = next.filter(m => m.role !== "assistant" || m !== msgs[0]).map(m => ({ role: m.role, content: m.content }));
+    const apiMsgs = next.filter((m, idx) => !(idx === 0 && m.role === "assistant" && !quizStarted)).map(m => ({ role: m.role, content: m.content }));
     if (!apiMsgs.length || apiMsgs[0].role !== "user") apiMsgs.unshift({ role: "user", content: t });
+    const systemPrompt = mode === "quiz" ? currentSubject.system + QUIZ_SYSTEM_SUFFIX : currentSubject.system;
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: apiMsgs, system: currentSubject.system, mode }),
+        body: JSON.stringify({ messages: apiMsgs, system: systemPrompt, mode }),
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error.message);
@@ -660,7 +723,7 @@ export default function Home() {
       setMsgs(p => [...p, { role: "assistant", content: reply }]);
     } catch (e) { setErr(e.message); }
     finally { setLoading(false); inputRef.current?.focus(); }
-  }, [input, loading, msgs, mode, currentSubject]);
+  }, [input, loading, msgs, mode, currentSubject, quizStarted]);
 
   /* ─── SUBJECT PICKER SCREEN ─── */
   if (!subject) {
@@ -742,15 +805,21 @@ export default function Home() {
           )}
         </div>
         <div style={{ display: "flex", gap: 4 }}>
-          {[["ask", "Ask"], ["quiz", "Quiz"]].map(([k, l]) => (
-            <button key={k} onClick={() => setMode(k)} style={{
-              padding: "5px 14px", borderRadius: 4, fontSize: 11, fontWeight: 500, cursor: "pointer",
-              letterSpacing: "0.06em", textTransform: "uppercase", transition: "all 0.2s",
-              border: mode === k ? `1px solid ${currentSubject.colour}` : `1px solid ${C.border}`,
-              background: mode === k ? `${currentSubject.colour}22` : "transparent",
-              color: mode === k ? currentSubject.colour : C.textDim,
-            }}>{l}</button>
-          ))}
+          <button onClick={backToAsk} style={{
+            padding: "5px 14px", borderRadius: 4, fontSize: 11, fontWeight: 500, cursor: "pointer",
+            letterSpacing: "0.06em", textTransform: "uppercase", transition: "all 0.2s",
+            border: mode === "ask" ? `1px solid ${currentSubject.colour}` : `1px solid ${C.border}`,
+            background: mode === "ask" ? `${currentSubject.colour}22` : "transparent",
+            color: mode === "ask" ? currentSubject.colour : C.textDim,
+          }}>Ask</button>
+          <button onClick={startQuiz} disabled={loading} style={{
+            padding: "5px 14px", borderRadius: 4, fontSize: 11, fontWeight: 500,
+            cursor: loading ? "default" : "pointer",
+            letterSpacing: "0.06em", textTransform: "uppercase", transition: "all 0.2s",
+            border: mode === "quiz" ? `1px solid ${currentSubject.colour}` : `1px solid ${C.border}`,
+            background: mode === "quiz" ? `${currentSubject.colour}22` : "transparent",
+            color: mode === "quiz" ? currentSubject.colour : C.textDim,
+          }}>Quiz</button>
         </div>
       </div>
 
@@ -805,7 +874,7 @@ export default function Home() {
         <div style={{ display: "flex", gap: 8, alignItems: "flex-end", background: C.bgInput, border: `1px solid ${C.border}`, borderRadius: 8, padding: "3px 3px 3px 14px" }}>
           <textarea ref={inputRef} value={input} onChange={e => setInput(e.target.value)}
             onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-            placeholder={mode === "quiz" ? "Type your answer..." : currentSubject.placeholder}
+            placeholder={mode === "quiz" ? "Type your answers here..." : currentSubject.placeholder}
             rows={1} style={{ flex: 1, border: "none", outline: "none", resize: "none", background: "transparent", color: C.text, fontFamily: "'DM Sans',sans-serif", fontSize: 13.5, padding: "8px 0", lineHeight: 1.5, maxHeight: 100, overflow: "auto" }} />
           <button onClick={send} disabled={!input.trim() || loading} style={{
             width: 34, height: 34, borderRadius: 6, border: "none",
