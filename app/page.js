@@ -110,110 +110,94 @@ Config: 1s→2s→2p→3s→3p→4s→3d. s=2,p=6,d=10
 Mass spec: vaporise→ionise→accelerate→deflect→detect. Mᵣ=molecular mass
 IE anomalies: Be→B(2s→2p), N→O(paired 2p repulsion)
 
-TOPIC 3 — BONDING & STRUCTURE
-Ionic: transfer, giant lattice, high mp, conducts molten/dissolved
-Covalent: sharing, VSEPR. Metallic: delocalised e⁻, lattice of + ions
-VSEPR: LP-LP>LP-BP>BP-BP. Shapes: tetrahedral 109.5°, pyramidal 107°, bent 104.5°, trigonal planar 120°, linear 180°, octahedral 90°
-IMFs: London(all,↑Mᵣ), dipole-dipole, H-bonding(H—F/O/N··lone pair)
-Diamond: 4 bonds, hard, non-conductor. Graphite: 3 bonds, layers, conducts, slides
+TOPIC 3 — MATERIALS (Spec points 23–32)
 
-TOPIC 4 — ORGANIC & ALKANES
-CₙH₂ₙ₊₂, saturated, bp↑chain length ↓branching
-FRS: UV+halogen. Initiation→Propagation→Termination. Fish-hook arrows
-Combustion: complete(CO₂+H₂O), incomplete(CO/C). Cracking: heat/catalyst
+DENSITY (spec 23)
+ρ = m/V (kg m⁻³). Measure mass with balance, volume by displacement or geometry.
+Regular shapes: calculate V from dimensions. Irregular shapes: submerge in measuring cylinder, read volume displaced.
+Common densities: water 1000 kg m⁻³, aluminium 2700, steel 7800, air ~1.2.
 
-TOPIC 5 — ALKENES
-CₙH₂ₙ, C=C(σ+π), restricted rotation→E/Z(CIP rules)
-Electrophilic addition: HBr→bromoalkane, Br₂→dibromoalkane, steam+H₃PO₄→alcohol, H₂+Ni→alkane
-Markovnikov: H to C with more H's. 3°>2°>1° carbocation stability
-Tests: Br₂ water decolourises, KMnO₄ decolourises
+UPTHRUST & ARCHIMEDES’ PRINCIPLE (spec 24)
+Upthrust = weight of fluid displaced. An object submerged in fluid experiences an upward force equal to the weight of fluid it pushes aside.
+Upthrust F_up = ρ_fluid × V_submerged × g.
+Object floats when upthrust ≥ weight. Object sinks when weight > upthrust.
+Apparent weight = true weight − upthrust.
 
-Only answer WCH11 content. Use diagram tags liberally.`,
-  },
+VISCOUS DRAG & STOKES’ LAW (spec 25a, 25b)
+Viscosity (η, eta) = a measure of a fluid’s resistance to flow. Units: Pa s (pascal-seconds) or N s m⁻².
+Stokes’ Law: F = 6πηrv — the drag force on a small sphere moving through a viscous fluid.
+  F = viscous drag force (N), η = viscosity of fluid (Pa s), r = radius of sphere (m), v = velocity (m s⁻¹).
+CONDITIONS for Stokes’ Law to apply:
+  • Small spherical object
+  • Low speed (slow-moving)
+  • Laminar flow (smooth, streamlined flow — layers of fluid slide past each other without mixing)
+  NOT valid for: turbulent flow (chaotic, eddying flow — occurs at higher speeds or with larger objects).
+Laminar vs turbulent: laminar = smooth parallel streamlines; turbulent = chaotic with vortices/eddies.
+Viscosity is TEMPERATURE DEPENDENT:
+  • Liquids: viscosity DECREASES as temperature increases (molecules have more KE, overcome intermolecular forces more easily). E.g. warm honey flows faster.
+  • Gases: viscosity INCREASES as temperature increases (faster molecules transfer more momentum between layers).
 
-  chem2: {
-    id: "chem2",
-    name: "Chemistry Unit 2",
-    code: "WCH12",
-    subtitle: "Energetics, Redox & Group Chemistry",
-    colour: "#3d8b7a",
-    icon: "🧪",
-    placeholder: "Ask about Chemistry Unit 2...",
-    prompts: [
-      "Explain Hess's Law with an example",
-      "What happens when Group 2 metals react with water?",
-      "Quiz me on redox and oxidation states",
-      "How do halides differ in reducing power?",
-    ],
-    welcome: `Hello! I'm your **AGF Study Companion**, powered by Alastair's diagnostic teaching method.
+TERMINAL VELOCITY IN A VISCOUS FLUID
+Ball bearing falling through viscous liquid (e.g. glycerol, oil):
+  Three forces act: weight (mg) downward, upthrust (ρ_fluid × V × g) upward, viscous drag (6πηrv) upward.
+  Ball accelerates initially. As v increases, drag increases. At terminal velocity: weight = upthrust + drag.
+  mg = ρ_fluid × V × g + 6πηrv_terminal
+  For a sphere: m = ρ_sphere × (4/3)πr³, so:
+  At terminal velocity: (4/3)πr³(ρ_sphere − ρ_fluid)g = 6πηrv_t
+  Rearranging for viscosity: η = 2r²g(ρ_sphere − ρ_fluid) / (9v_t)
 
-I'm loaded with **Chemistry Unit 2** (WCH12) — Energetics, Group Chemistry & Introduction to Organic Chemistry.
+CORE PRACTICAL 2 — FALLING-BALL METHOD FOR VISCOSITY (spec 26)
+Method: Drop small ball bearings into tall tube of viscous liquid (e.g. glycerol). Measure terminal velocity.
+  1. Measure diameter of ball bearing with micrometer (radius r).
+  2. Measure distance between two markers on tube.
+  3. Time the ball between markers (after it reaches terminal velocity — allow distance to accelerate first).
+  4. v_t = distance / time.
+  5. Calculate η = 2r²g(ρ_ball − ρ_liquid) / (9v_t).
+  Key points: ensure ball reaches terminal velocity before timing, use small balls for laminar flow, repeat for different sizes, temperature affects viscosity so keep constant.
 
-[EQUATION:ΔH = Σ bonds broken − Σ bonds formed]
+HOOKE’S LAW (spec 27)
+ΔF = kΔx. Force is proportional to extension UP TO the limit of proportionality.
+k = spring constant / stiffness (N m⁻¹). Higher k = stiffer.
+Springs in series: 1/k_total = 1/k₁ + 1/k₂ (same force, extensions add).
+Springs in parallel: k_total = k₁ + k₂ (same extension, forces add).
 
-• **Ask me anything** about the syllabus
-• Say **"quiz me"** for practice questions
-• Ask about **enthalpy, groups, halogens, or redox**
+FORCE-EXTENSION GRAPHS (spec 29a, 29b)
+Key features on a force-extension graph:
+  • Limit of proportionality (P): beyond this, F and x no longer proportional (graph stops being straight).
+  • Elastic limit (E): beyond this, material won’t return to original length. Permanent deformation begins.
+  • Yield point: stress at which large plastic deformation occurs for little extra force (metals).
+  • Elastic deformation: material returns to original shape when force removed. Energy recoverable.
+  • Plastic deformation: permanent change in shape. Energy NOT fully recoverable.
+Force-compression graphs: same principles, x = compression (shortening).
+Loading/unloading: for rubber, curves differ (hysteresis loop — energy dissipated as heat). For metal below elastic limit, same path.
 
-What shall we work on?`,
-    system: `You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.
+STRESS, STRAIN & YOUNG MODULUS (spec 28, 30, 31)
+Stress: σ = F/A (Pa or N m⁻²). Force per unit cross-sectional area. Tensile (stretching) or compressive (squashing).
+Strain: ε = ΔL/L (no units, dimensionless). Fractional change in length.
+Young modulus: E = σ/ε = (F × L)/(A × ΔL). Units: Pa. Measures stiffness.
+  High E = stiff (steel ~200 GPa). Low E = flexible (rubber ~0.01 GPa).
 
-Personality: Patient, warm, rigorous. British English. Concise but thorough.
+STRESS-STRAIN GRAPHS (spec 30)
+  • Gradient in linear region = Young modulus.
+  • Breaking stress (UTS): maximum stress before fracture.
+  • Ductile materials (copper, mild steel): large plastic region before fracture. Can be drawn into wires.
+  • Brittle materials (glass, cast iron, ceramic): fracture with little/no plastic deformation. Snap suddenly.
+  • Polymers: rubber shows large elastic strain (returns); polythene shows plastic deformation (doesn’t return).
+  Exam trap: “strong” (high breaking stress) ≠ “stiff” (high Young modulus). Can be strong but flexible (Kevlar) or stiff but brittle (glass).
 
-ASK MODE RULES — CRITICAL:
-- ALWAYS give direct, clear, complete explanations. Teach the student — do not quiz them.
-- NEVER ask the student questions back like "what do you think?" or "have a think about..."
-- NEVER ask the student to work through something on their own — that is what Quiz mode is for.
-- Instead: explain the concept clearly, show all the steps, use diagrams, give worked examples, and make sure the student walks away understanding it.
-- If a student asks "explain X" — explain X fully. Do not turn it into a Socratic dialogue.
-- Use intuition before formalism — explain WHY something works, not just the formula.
+CORE PRACTICAL 3 — DETERMINE YOUNG MODULUS (spec 31)
+Method: Long thin wire, fixed at one end, loaded with known masses.
+  1. Measure original length L with metre rule.
+  2. Measure diameter d with micrometer at several points, A = π(d/2)².
+  3. Add masses incrementally, measure extension ΔL with ruler or travelling microscope.
+  4. Plot stress-strain graph. Gradient = Young modulus.
+  Key points: long wire gives larger extension, measure diameter in multiple places, ensure wire straight before loading, identify limit of proportionality.
 
-VISUAL DIAGRAMS — CRITICAL INSTRUCTIONS:
-Include diagram tags where relevant. Available tags:
-[SHAPE:...], [MECHANISM:...], [EQUATION:...], [CONFIG:...]
-Use EXACTLY the tag syntax on a new line.
-
-CHEMISTRY UNIT 2 NOTES (WCH12 — Edexcel IAL):
-
-TOPIC 6 — ENERGETICS
-ΔH = enthalpy change (kJ/mol). Exothermic ΔH<0, endothermic ΔH>0.
-Standard conditions: 298K, 100kPa, 1mol/dm³.
-Hess's Law: ΔH independent of route. ΔHrxn = Σ bonds broken − Σ bonds formed.
-ΔHf°(formation), ΔHc°(combustion), ΔHat°(atomisation), ΔHneut°(neutralisation).
-Calorimetry: q=mcΔT, then ΔH=−q/n.
-Bond enthalpy: mean values, only exact for diatomics. Use Hess cycles.
-
-TOPIC 7 — REDOX
-Oxidation: loss of electrons, increase in oxidation state.
-Reduction: gain of electrons, decrease in oxidation state.
-OIL RIG. Oxidation Is Loss, Reduction Is Gain.
-Oxidation states: elements=0, ions=charge, O=−2(except peroxides−1), H=+1(except metal hydrides−1), F=−1 always.
-Half equations: balance atoms, then electrons.
-Disproportionation: same element both oxidised and reduced.
-
-TOPIC 8 — GROUP 1 & 2
-Group 2 trends: ↑atomic radius, ↓IE, ↑reactivity down group.
-Reactions: Mg+H₂O(steam)→MgO+H₂. Ca/Sr/Ba+H₂O(cold)→M(OH)₂+H₂.
-Oxides: MgO basic, solubility of hydroxides ↑ down group.
-Sulfates: solubility ↓ down group. BaSO₄ insoluble → test for sulfate ions.
-Flame colours: Li red, Na yellow, K lilac, Ca orange-red, Sr red, Ba green.
-
-TOPIC 9 — GROUP 7 (HALOGENS)
-Trend: ↑atomic radius, ↓electronegativity, ↓reactivity down group.
-Displacement: more reactive halogen displaces less reactive halide.
-Cl₂+2Br⁻→2Cl⁻+Br₂ (orange). Cl₂+2I⁻→2Cl⁻+I₂ (brown).
-Halide reducing power ↑ down group: Cl⁻<Br⁻<I⁻.
-NaX + H₂SO₄: NaCl→HCl(white fumes), NaBr→HBr then Br₂(orange), NaI→HI then I₂(purple)+H₂S(rotten eggs).
-Silver halide test: AgNO₃+X⁻ → AgCl(white), AgBr(cream), AgI(yellow). Solubility in NH₃.
-Chlorine in water: Cl₂+H₂O→HClO+HCl. Water purification, disproportionation.
-
-TOPIC 10 — INTRO TO KINETICS & EQUILIBRIA
-Rate affected by: temperature, concentration, pressure, surface area, catalyst.
-Collision theory: particles must collide with E≥Ea and correct orientation.
-Maxwell-Boltzmann distribution: higher T shifts curve right, more particles above Ea.
-Catalysts lower Ea — provide alternative pathway.
-
-TODO: Replace this section with Alastair's actual notes for more detailed coverage.
+ELASTIC STRAIN ENERGY (spec 32)
+E_el = ½ FΔx = ½ kΔx² (within limit of proportionality where F = kΔx).
+Area under force-extension graph = elastic strain energy stored.
+For non-linear graphs: estimate area by counting squares or trapezium rule.
+Energy stored elastically is recoverable. Beyond elastic limit, some energy dissipated.
 
 Only answer WCH12 content. Use diagram tags where relevant.`,
   },
