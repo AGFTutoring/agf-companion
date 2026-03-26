@@ -61,7 +61,15 @@ Here's the shape of water to get us started:
 What shall we work on?`,
     system: `You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.
 
-Personality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.
+Personality: Patient, warm, rigorous. British English. Concise but thorough.
+
+ASK MODE RULES — CRITICAL:
+- ALWAYS give direct, clear, complete explanations. Teach the student — do not quiz them.
+- NEVER ask the student questions back like "what do you think?" or "have a think about..."
+- NEVER ask the student to work through something on their own — that is what Quiz mode is for.
+- Instead: explain the concept clearly, show all the steps, use diagrams, give worked examples, and make sure the student walks away understanding it.
+- If a student asks "explain X" — explain X fully. Do not turn it into a Socratic dialogue.
+- Use intuition before formalism — explain WHY something works, not just the formula.
 
 VISUAL DIAGRAMS — CRITICAL INSTRUCTIONS:
 You MUST include diagram tags when explaining shapes, mechanisms, or key equations. Place each tag on its own line.
@@ -150,7 +158,15 @@ I'm loaded with **Chemistry Unit 2** (WCH12) — Energetics, Group Chemistry & I
 What shall we work on?`,
     system: `You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.
 
-Personality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.
+Personality: Patient, warm, rigorous. British English. Concise but thorough.
+
+ASK MODE RULES — CRITICAL:
+- ALWAYS give direct, clear, complete explanations. Teach the student — do not quiz them.
+- NEVER ask the student questions back like "what do you think?" or "have a think about..."
+- NEVER ask the student to work through something on their own — that is what Quiz mode is for.
+- Instead: explain the concept clearly, show all the steps, use diagrams, give worked examples, and make sure the student walks away understanding it.
+- If a student asks "explain X" — explain X fully. Do not turn it into a Socratic dialogue.
+- Use intuition before formalism — explain WHY something works, not just the formula.
 
 VISUAL DIAGRAMS — CRITICAL INSTRUCTIONS:
 Include diagram tags where relevant. Available tags:
@@ -229,7 +245,15 @@ I'm loaded with **Physics Unit 1** (WPH11) — Mechanics, Materials & Waves.
 What shall we work on?`,
     system: `You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.
 
-Personality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.
+Personality: Patient, warm, rigorous. British English. Concise but thorough.
+
+ASK MODE RULES — CRITICAL:
+- ALWAYS give direct, clear, complete explanations. Teach the student — do not quiz them.
+- NEVER ask the student questions back like "what do you think?" or "have a think about..."
+- NEVER ask the student to work through something on their own — that is what Quiz mode is for.
+- Instead: explain the concept clearly, show all the steps, use diagrams, give worked examples, and make sure the student walks away understanding it.
+- If a student asks "explain X" — explain X fully. Do not turn it into a Socratic dialogue.
+- Use intuition before formalism — explain WHY something works, not just the formula.
 
 VISUAL DIAGRAMS — use [EQUATION:...] tags for key formulae on their own line.
 
@@ -312,7 +336,15 @@ I'm loaded with **Physics Unit 2** (WPH12) — Waves & Electricity.
 What shall we work on?`,
     system: `You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.
 
-Personality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.
+Personality: Patient, warm, rigorous. British English. Concise but thorough.
+
+ASK MODE RULES — CRITICAL:
+- ALWAYS give direct, clear, complete explanations. Teach the student — do not quiz them.
+- NEVER ask the student questions back like "what do you think?" or "have a think about..."
+- NEVER ask the student to work through something on their own — that is what Quiz mode is for.
+- Instead: explain the concept clearly, show all the steps, use diagrams, give worked examples, and make sure the student walks away understanding it.
+- If a student asks "explain X" — explain X fully. Do not turn it into a Socratic dialogue.
+- Use intuition before formalism — explain WHY something works, not just the formula.
 
 VISUAL DIAGRAMS — use [EQUATION:...] tags for key formulae on their own line.
 
@@ -381,7 +413,15 @@ I'm loaded with **A-Level Mathematics** — Pure / Core content.
 What shall we work on?`,
     system: `You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.
 
-Personality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.
+Personality: Patient, warm, rigorous. British English. Concise but thorough.
+
+ASK MODE RULES — CRITICAL:
+- ALWAYS give direct, clear, complete explanations. Teach the student — do not quiz them.
+- NEVER ask the student questions back like "what do you think?" or "have a think about..."
+- NEVER ask the student to work through something on their own — that is what Quiz mode is for.
+- Instead: explain the concept clearly, show all the steps, use diagrams, give worked examples, and make sure the student walks away understanding it.
+- If a student asks "explain X" — explain X fully. Do not turn it into a Socratic dialogue.
+- Use intuition before formalism — explain WHY something works, not just the formula.
 
 Use [EQUATION:...] tags for key formulae on their own line.
 
@@ -584,6 +624,7 @@ function parseAndRender(text) {
   const lines = text.split("\n");
   const elements = [];
   const tagRe = /^\[(\w+):(.+)\]$/;
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
     const m = line.match(tagRe);
@@ -594,6 +635,57 @@ function parseAndRender(text) {
       else if (tag === "MECHANISM") elements.push(<MechDiagram key={`m${i}`} type={p[0]} equation={p.slice(1).join(":")} />);
       else if (tag === "EQUATION") elements.push(<EqBox key={`e${i}`} content={p.join(":")} />);
       else if (tag === "CONFIG") elements.push(<ConfigBox key={`c${i}`} element={p[0]} config={p.slice(1).join(":")} />);
+    } else if (line.match(/^#{1,3}\s/)) {
+      const level = line.match(/^(#{1,3})\s/)[1].length;
+      const headerText = line.replace(/^#{1,3}\s+/, "");
+      if (level === 1) {
+        elements.push(
+          <div key={`h${i}`} style={{
+            fontSize: 20, fontWeight: 500,
+            fontFamily: "'DM Serif Display',serif",
+            color: C.green, letterSpacing: "-0.02em",
+            marginTop: 20, marginBottom: 8,
+            borderBottom: `2px solid ${C.greenBorder}`,
+            paddingBottom: 10,
+          }}><RichLine text={headerText} /></div>
+        );
+      } else {
+        elements.push(
+          <div key={`h${i}`} style={{
+            fontSize: level === 2 ? 15 : 13.5,
+            fontWeight: 600,
+            fontFamily: "'Outfit',sans-serif",
+            color: C.text,
+            marginTop: 18, marginBottom: 8,
+            paddingLeft: 12,
+            borderLeft: `3px solid ${C.green}`,
+          }}><RichLine text={headerText} /></div>
+        );
+      }
+    } else if (line.match(/^[-•]\s/)) {
+      const bulletText = line.replace(/^[-•]\s+/, "");
+      const tagMatch = bulletText.match(/^\[(\w+):([^\]]+)\]$/);
+      if (tagMatch && tagMatch[1] === "EQUATION") {
+        elements.push(<div key={`be${i}`} style={{ paddingLeft: 16, marginBottom: 4 }}><EqBox content={tagMatch[2].trim()} /></div>);
+      } else {
+        elements.push(
+          <div key={`b${i}`} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 4, paddingLeft: 8 }}>
+            <span style={{ color: C.green, fontSize: 6, marginTop: 7, flexShrink: 0 }}>●</span>
+            <span style={{ flex: 1, lineHeight: 1.7 }}><RichLine text={bulletText} /></span>
+          </div>
+        );
+      }
+    } else if (line.match(/^\d+\.\s/)) {
+      const num = line.match(/^(\d+)\./)[1];
+      const listText = line.replace(/^\d+\.\s+/, "");
+      elements.push(
+        <div key={`n${i}`} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 6, paddingLeft: 8 }}>
+          <span style={{ color: C.green, fontSize: 13, fontWeight: 700, minWidth: 22, flexShrink: 0, fontFamily: "'JetBrains Mono',monospace" }}>{num}.</span>
+          <span style={{ flex: 1, lineHeight: 1.7 }}><RichLine text={listText} /></span>
+        </div>
+      );
+    } else if (line.match(/^---+$/)) {
+      elements.push(<div key={`hr${i}`} style={{ height: 1, background: C.border, margin: "14px 0" }} />);
     } else if (line) {
       elements.push(<span key={`t${i}`}><RichLine text={line} /><br /></span>);
     } else {
@@ -604,14 +696,239 @@ function parseAndRender(text) {
 }
 
 function RichLine({ text }) {
-  return text.split(/(\*\*.*?\*\*|\*.*?\*|`[^`]+`)/g).map((s, i) => {
+  return text.split(/(\*\*.*?\*\*|\*.*?\*|`[^`]+`|\[EQUATION:[^\]]+\])/g).map((s, i) => {
     if (!s) return null;
     if (s.startsWith("**") && s.endsWith("**")) return <strong key={i} style={{ fontWeight: 600, color: C.text }}>{s.slice(2, -2)}</strong>;
     if (s.startsWith("*") && s.endsWith("*")) return <em key={i} style={{ fontStyle: "italic", color: C.text }}>{s.slice(1, -1)}</em>;
     if (s.startsWith("`") && s.endsWith("`")) return <code key={i} style={{ background: C.greenDim, padding: "1px 5px", borderRadius: 3, fontFamily: "'JetBrains Mono',monospace", fontSize: "0.88em", color: C.green }}>{s.slice(1, -1)}</code>;
+    if (s.startsWith("[EQUATION:") && s.endsWith("]")) {
+      const content = s.slice(10, -1).trim();
+      return <span key={i} style={{ display: "inline-block", background: C.bgLight, border: `1px solid ${C.greenBorder}`, borderRadius: 5, padding: "1px 8px", fontFamily: "'JetBrains Mono',monospace", fontSize: "0.9em", fontWeight: 500, color: C.green, margin: "0 2px" }}>{content}</span>;
+    }
     return <span key={i}>{s}</span>;
   });
 }
+
+/* ═══ NOTES VIEW COMPONENT ═══ */
+function NotesView({ data, subject, onClose }) {
+  if (!data) return null;
+  const col = subject?.colour || C.green;
+
+  return (
+    <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", background: C.bg, fontFamily: "'Outfit',sans-serif", color: C.text }}>
+      {/* Header */}
+      <div style={{ padding: "14px 20px", borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontFamily: "'DM Serif Display',serif", fontSize: 17, letterSpacing: "-0.02em" }}>
+            AGF<span style={{ color: C.green }}>tutoring</span>
+            <span style={{ fontSize: 13, color: C.textMuted, fontFamily: "'Outfit',sans-serif" }}> · Revision Notes</span>
+          </div>
+          <div style={{ fontSize: 10.5, color: C.textDim, letterSpacing: "0.06em", textTransform: "uppercase", marginTop: 1 }}>
+            {subject?.icon} {subject?.code} · {subject?.name}
+          </div>
+        </div>
+        <button onClick={onClose} style={{ padding: "8px 18px", borderRadius: 6, fontSize: 12, fontWeight: 600, border: `1px solid ${C.green}`, background: C.greenDim, color: C.green, cursor: "pointer" }}>
+          ← Back to Chat
+        </button>
+      </div>
+
+      {/* Notes Content */}
+      <div style={{ flex: 1, overflowY: "auto", padding: "24px 20px" }}>
+        <div style={{ maxWidth: 760, margin: "0 auto" }}>
+          {/* Title */}
+          <div style={{ marginBottom: 32, textAlign: "center" }}>
+            <div style={{ fontSize: 10, color: C.green, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 8, fontWeight: 500 }}>
+              {subject?.code} · Revision Notes
+            </div>
+            <h1 style={{ fontFamily: "'DM Serif Display',serif", fontSize: 28, fontWeight: 400, color: C.text, margin: 0, letterSpacing: "-0.02em" }}>
+              {data.title}
+            </h1>
+            {data.subtitle && (
+              <div style={{ fontSize: 14, color: C.textMuted, marginTop: 6 }}>{data.subtitle}</div>
+            )}
+            <div style={{ width: 50, height: 2, background: C.green, margin: "16px auto 0", borderRadius: 1 }} />
+          </div>
+
+          {/* Sections */}
+          {data.sections.map((section, idx) => (
+            <NotesSection key={idx} section={section} index={idx} col={col} />
+          ))}
+
+          {/* Footer */}
+          <div style={{ textAlign: "center", padding: "32px 0 16px", fontSize: 10, color: C.textDim }}>
+            Powered by AGF Tutoring · Grounded in curated notes
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function NotesSection({ section, index, col }) {
+  const s = section;
+
+  // Section header (for titled sections)
+  const SectionHeader = ({ title, num }) => (
+    <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 32, marginBottom: 16 }}>
+      {num !== undefined && (
+        <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 13, fontWeight: 600, color: C.green, opacity: 0.5 }}>
+          {String(num).padStart(2, "0")}
+        </span>
+      )}
+      <h2 style={{ fontFamily: "'DM Serif Display',serif", fontSize: 20, fontWeight: 400, color: C.text, margin: 0, letterSpacing: "-0.02em" }}>
+        {title}
+      </h2>
+    </div>
+  );
+
+  if (s.type === "definitions") {
+    return (
+      <div>
+        <SectionHeader title={s.title} num={index + 1} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          {s.items?.map((item, i) => (
+            <div key={i} style={{ borderLeft: `3px solid ${C.green}`, paddingLeft: 16, paddingTop: 4, paddingBottom: 4 }}>
+              <div style={{ fontSize: 14, fontWeight: 600, color: C.text, marginBottom: 3 }}>{item.term}</div>
+              <div style={{ fontSize: 13, color: C.textMuted, lineHeight: 1.6 }}>{item.definition}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (s.type === "equations") {
+    return (
+      <div>
+        <SectionHeader title={s.title} num={index + 1} />
+        <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 10, overflow: "hidden" }}>
+          {s.items?.map((item, i) => (
+            <div key={i} style={{
+              display: "flex", alignItems: "center", justifyContent: "space-between",
+              padding: "12px 18px",
+              borderBottom: i < s.items.length - 1 ? `1px solid ${C.borderLight}` : "none",
+            }}>
+              <span style={{ fontSize: 13, color: C.textMuted, flex: 1 }}>{item.label}</span>
+              <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 15, fontWeight: 500, color: C.green, textAlign: "right" }}>
+                {item.equation}
+              </span>
+              {item.units && (
+                <span style={{ fontSize: 10, color: C.textDim, marginLeft: 10, minWidth: 60, textAlign: "right" }}>{item.units}</span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (s.type === "content") {
+    return (
+      <div>
+        <SectionHeader title={s.title} num={index + 1} />
+        {s.paragraphs?.map((p, i) => (
+          <p key={i} style={{ fontSize: 13.5, color: "rgba(255,255,255,0.8)", lineHeight: 1.8, margin: "0 0 12px" }}>{p}</p>
+        ))}
+        {s.bullets && s.bullets.length > 0 && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 8 }}>
+            {s.bullets.map((b, i) => (
+              <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", paddingLeft: 4 }}>
+                <span style={{ color: C.green, fontSize: 6, marginTop: 7, flexShrink: 0 }}>●</span>
+                <span style={{ fontSize: 13, color: "rgba(255,255,255,0.75)", lineHeight: 1.7 }}>{b}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  if (s.type === "table") {
+    return (
+      <div>
+        {s.title && <SectionHeader title={s.title} num={index + 1} />}
+        <div style={{ overflowX: "auto", borderRadius: 10, border: `1px solid ${C.border}` }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+            <thead>
+              <tr style={{ background: C.bgCard }}>
+                {s.headers?.map((h, i) => (
+                  <th key={i} style={{ padding: "10px 14px", textAlign: "left", fontWeight: 600, color: C.text, borderBottom: `1px solid ${C.border}`, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.04em" }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {s.rows?.map((row, i) => (
+                <tr key={i} style={{ background: i % 2 === 0 ? "transparent" : C.bgCard }}>
+                  {row.map((cell, j) => (
+                    <td key={j} style={{ padding: "10px 14px", color: j === 0 ? C.text : C.textMuted, fontWeight: j === 0 ? 500 : 400, borderBottom: i < s.rows.length - 1 ? `1px solid ${C.borderLight}` : "none" }}>{cell}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
+
+  if (s.type === "tip") {
+    return (
+      <div style={{
+        margin: "20px 0", padding: "14px 18px", borderRadius: 10,
+        background: "rgba(77,148,96,0.06)", border: `1px solid rgba(77,148,96,0.15)`,
+        display: "flex", gap: 12, alignItems: "flex-start",
+      }}>
+        <span style={{ fontSize: 18, flexShrink: 0 }}>💡</span>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 600, color: C.green, marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.08em" }}>Exam Tip</div>
+          <div style={{ fontSize: 13, color: "rgba(255,255,255,0.8)", lineHeight: 1.7 }}>{s.text}</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (s.type === "warning") {
+    return (
+      <div style={{
+        margin: "20px 0", padding: "14px 18px", borderRadius: 10,
+        background: "rgba(212,162,76,0.06)", border: `1px solid rgba(212,162,76,0.15)`,
+        display: "flex", gap: 12, alignItems: "flex-start",
+      }}>
+        <span style={{ fontSize: 18, flexShrink: 0 }}>⚠️</span>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 600, color: C.amber, marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.08em" }}>Watch Out</div>
+          <div style={{ fontSize: 13, color: "rgba(255,255,255,0.8)", lineHeight: 1.7 }}>{s.text}</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (s.type === "worked_example") {
+    return (
+      <div style={{
+        margin: "20px 0", padding: "18px 20px", borderRadius: 10,
+        background: C.bgCard, border: `1px solid ${C.border}`,
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+          <span style={{ fontSize: 18 }}>⭐</span>
+          <span style={{ fontSize: 11, fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.08em" }}>Worked Example</span>
+        </div>
+        {s.question && (
+          <div style={{ fontSize: 14, fontWeight: 500, color: C.text, marginBottom: 12, lineHeight: 1.6 }}>{s.question}</div>
+        )}
+        {s.solution && (
+          <div style={{ fontSize: 13, color: "rgba(255,255,255,0.75)", lineHeight: 1.9, fontFamily: "'JetBrains Mono',monospace", whiteSpace: "pre-wrap", background: C.bgLight, padding: "12px 16px", borderRadius: 8, border: `1px solid ${C.borderLight}` }}>
+            {s.solution}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Fallback
+  return null;
+}
+
 
 /* ═══════════════════════════════════════════════════
    MAIN COMPONENT
@@ -636,6 +953,11 @@ export default function Home() {
   const [quizDone, setQuizDone] = useState(false);
   const [hintText, setHintText] = useState(null);
   const [hintLoading, setHintLoading] = useState(false);
+
+  // Notes view state
+  const [showNotes, setShowNotes] = useState(false);
+  const [notesData, setNotesData] = useState(null);
+  const [notesLoading, setNotesLoading] = useState(false);
 
   const endRef = useRef(null);
   const inputRef = useRef(null);
@@ -840,6 +1162,171 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
     } catch (e) { setErr(e.message); }
     finally { setLoading(false); inputRef.current?.focus(); }
   }, [input, loading, msgs, currentSubject]);
+
+  // Send a follow-up prompt directly (no typing needed), with optional mode override
+  const sendDirect = useCallback(async (text, overrideMode, displayText) => {
+    if (loading || !currentSubject) return;
+    const userMsg = { role: "user", content: displayText || text };
+    const next = [...msgs, userMsg];
+    setMsgs(next);
+    setInput("");
+    setLoading(true);
+    setErr(null);
+    const apiMsgs = next.filter((m, idx) => !(idx === 0 && m.role === "assistant")).map(m => ({ role: m.role, content: m.content }));
+    if (apiMsgs.length > 0) {
+      apiMsgs[apiMsgs.length - 1] = { role: "user", content: text };
+    }
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: apiMsgs, system: currentSubject.system, mode: overrideMode || "ask" }),
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message);
+      const reply = data.content?.map(b => b.type === "text" ? b.text : "").filter(Boolean).join("\n") || "Sorry, I couldn't generate a response.";
+      setMsgs(p => [...p, { role: "assistant", content: reply }]);
+    } catch (e) { setErr(e.message); }
+    finally { setLoading(false); inputRef.current?.focus(); }
+  }, [loading, msgs, currentSubject]);
+
+  const FOLLOW_UP_ACTIONS = [
+    { emoji: "📖", label: "I need more help with this", display: "📖 I need more help with this", prompt: "I need more help with this — please break the concept down further with simple analogies and visual diagrams. Use [SHAPE:...] tags for any molecular shapes, [EQUATION:...] for key formulae, [MECHANISM:...] for reaction mechanisms, and [CONFIG:...] for electron configurations. Explain it like you're tutoring me one-to-one." },
+    { emoji: "🌍", label: "Real-world example", display: "🌍 Give me a real-world example", prompt: "Give me a real-world example or practical application that brings this theory to life. Make it vivid and memorable — something I'll actually remember in the exam." },
+    { emoji: "📚", label: "Full revision notes", display: "📚 Generate full revision notes", isNotes: true },
+  ];
+
+  // Generate structured notes for Notes View
+  const generateNotes = useCallback(async () => {
+    if (notesLoading || !currentSubject) return;
+    setNotesLoading(true);
+    setShowNotes(true);
+    setNotesData(null);
+
+    // Get the last topic discussed from chat
+    const lastAssistantMsg = [...msgs].reverse().find(m => m.role === "assistant" && m.content !== currentSubject.welcome);
+    const lastUserMsg = [...msgs].reverse().find(m => m.role === "user");
+    const topicContext = lastUserMsg ? lastUserMsg.content : "the main topics in this subject";
+
+    const notesPrompt = `Generate comprehensive revision notes about: ${topicContext}
+
+You MUST respond with ONLY a valid JSON object. No other text, no markdown fences, no explanation before or after.
+
+JSON format:
+{
+  "title": "Topic Title",
+  "subtitle": "Brief one-line description",
+  "sections": [
+    {
+      "type": "definitions",
+      "title": "Key Definitions",
+      "items": [
+        { "term": "Term name", "definition": "Clear, concise definition." }
+      ]
+    },
+    {
+      "type": "equations",
+      "title": "Key Equations",
+      "items": [
+        { "label": "What this equation is for", "equation": "σ = F/A", "units": "Pa or N/m²" }
+      ]
+    },
+    {
+      "type": "content",
+      "title": "Section Title",
+      "paragraphs": ["Paragraph of explanation..."],
+      "bullets": ["Bullet point 1", "Bullet point 2"]
+    },
+    {
+      "type": "table",
+      "title": "Table Title",
+      "headers": ["Column 1", "Column 2", "Column 3"],
+      "rows": [["cell1", "cell2", "cell3"]]
+    },
+    {
+      "type": "tip",
+      "text": "Exam tip text here — specific and actionable"
+    },
+    {
+      "type": "warning",
+      "text": "Common mistake or misconception to watch out for"
+    },
+    {
+      "type": "worked_example",
+      "question": "The exam question",
+      "solution": "Full step-by-step solution with every line of working"
+    }
+  ]
+}
+
+Rules:
+- Include at least 6-8 sections covering definitions, equations, theory, tables, worked examples, and exam tips
+- Every key equation MUST be in the equations section
+- Include at least 2 worked examples with full solutions
+- Include at least 2 exam tips and 1 warning about common mistakes
+- Use tables where data comparison is useful (e.g. properties, trends)
+- Definitions must be concise — one or two sentences max
+- Write like a tutor, not a textbook — warm, clear, direct
+- Include the SPECIFIC topics and details relevant to this A-Level syllabus
+- Respond with ONLY the JSON object`;
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [{ role: "user", content: notesPrompt }],
+          system: currentSubject.system,
+          mode: "resources",
+        }),
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message);
+      const text = data.content?.map(b => b.type === "text" ? b.text : "").filter(Boolean).join("\n") || "";
+      const clean = text.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
+      const parsed = JSON.parse(clean);
+      if (parsed && parsed.title && parsed.sections) {
+        setNotesData(parsed);
+      } else {
+        throw new Error("Invalid notes format");
+      }
+    } catch (e) {
+      console.error("Notes generation error:", e);
+      setNotesData({ title: "Error", subtitle: "Could not generate notes", sections: [{ type: "content", title: "Error", paragraphs: [e.message], bullets: [] }] });
+    } finally {
+      setNotesLoading(false);
+    }
+  }, [notesLoading, currentSubject, msgs]);
+
+
+  /* ─── NOTES VIEW SCREEN ─── */
+  if (showNotes) {
+    if (notesLoading) {
+      return (
+        <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: C.bg, fontFamily: "'Outfit',sans-serif", color: C.text }}>
+          <div style={{ display: "flex", gap: 6, marginBottom: 16 }}>
+            {[0, 1, 2].map(d => <div key={d} style={{ width: 10, height: 10, borderRadius: "50%", background: C.green, opacity: 0.3, animation: `p 1.2s ease-in-out ${d * 0.2}s infinite` }} />)}
+          </div>
+          <div style={{ fontSize: 15, color: C.textMuted }}>Generating revision notes...</div>
+          <div style={{ fontSize: 12, color: C.textDim, marginTop: 6 }}>This takes a few seconds</div>
+          <style>{`@keyframes p{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:.65;transform:scale(1.1)}}`}</style>
+        </div>
+      );
+    }
+    if (notesData) {
+      return (
+        <>
+          <NotesView data={notesData} subject={currentSubject} onClose={() => { setShowNotes(false); setNotesData(null); }} />
+          <style>{`
+            @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+            @keyframes p{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:.65;transform:scale(1.1)}}
+            ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:3px}
+            *{box-sizing:border-box}
+          `}</style>
+        </>
+      );
+    }
+  }
 
   /* ─── SUBJECT PICKER SCREEN ─── */
   if (!subject) {
@@ -1166,8 +1653,11 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
       {/* MESSAGES */}
       <div style={{ flex: 1, overflowY: "auto", padding: "18px 14px", display: "flex", flexDirection: "column", gap: 14 }}
         onClick={() => showPicker && setShowPicker(false)}>
-        {msgs.map((m, i) => (
-          <div key={i} style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start", gap: 8, alignItems: "flex-start" }}>
+        {msgs.map((m, i) => {
+          const isLastAssistant = m.role === "assistant" && i === msgs.length - 1;
+          return (
+          <div key={i}>
+            <div style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start", gap: 8, alignItems: "flex-start" }}>
             {m.role === "assistant" && (
               <div style={{ width: 26, height: 26, borderRadius: 6, flexShrink: 0, marginTop: 2, background: C.goldDim, border: `1px solid ${C.goldBorder}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <div style={{ fontFamily: "'DM Serif Display',serif", fontSize: 11, color: C.gold, fontWeight: 400 }}>A</div>
@@ -1182,7 +1672,32 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
               color: m.role === "user" ? C.text : "rgba(255,255,255,0.82)",
             }}>{parseAndRender(m.content)}</div>
           </div>
-        ))}
+          {/* Follow-up action buttons after the last assistant message */}
+          {isLastAssistant && !loading && i > 0 && (
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 10, marginLeft: 34 }}>
+              {FOLLOW_UP_ACTIONS.map((action, j) => (
+                <button key={j} onClick={() => action.isNotes ? generateNotes() : sendDirect(action.prompt, action.mode, action.display)}
+                  style={{
+                    padding: "9px 16px", borderRadius: 8,
+                    border: `1px solid ${C.greenBorder}`,
+                    background: C.greenDim,
+                    color: C.text, fontSize: 13, fontWeight: 500,
+                    cursor: "pointer", transition: "all 0.2s",
+                    display: "flex", alignItems: "center", gap: 8,
+                    fontFamily: "'Outfit',sans-serif",
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = C.green; e.currentTarget.style.transform = "translateY(-1px)"; e.currentTarget.style.background = "rgba(77,148,96,0.18)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = C.greenBorder; e.currentTarget.style.transform = "none"; e.currentTarget.style.background = C.greenDim; }}
+                >
+                  <span style={{ fontSize: 16 }}>{action.emoji}</span>
+                  {action.label}
+                </button>
+              ))}
+            </div>
+          )}
+          </div>
+        );
+        })}
         {loading && (
           <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
             <div style={{ width: 26, height: 26, borderRadius: 6, flexShrink: 0, marginTop: 2, background: C.goldDim, border: `1px solid ${C.goldBorder}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -1197,14 +1712,14 @@ Give a brief, helpful hint for this question. Don't give away the answer — jus
         <div ref={endRef} />
       </div>
 
-      {/* QUICK PROMPTS */}
+      {/* QUICK PROMPTS (welcome only — subject-specific starters) */}
       {msgs.length <= 1 && currentSubject && (
-        <div style={{ padding: "0 14px 8px", display: "flex", gap: 6, flexWrap: "wrap" }}>
+        <div style={{ padding: "0 14px 8px", display: "flex", gap: 8, flexWrap: "wrap" }}>
           {currentSubject.prompts.map((p, i) => (
             <button key={i} onClick={() => { setInput(p); setTimeout(() => inputRef.current?.focus(), 50); }}
-              style={{ padding: "5px 12px", borderRadius: 4, border: `1px solid ${C.border}`, background: "transparent", color: C.textDim, fontSize: 11, cursor: "pointer", transition: "all 0.2s" }}
-              onMouseEnter={e => { e.target.style.borderColor = C.gold; e.target.style.color = C.gold; }}
-              onMouseLeave={e => { e.target.style.borderColor = C.border; e.target.style.color = C.textDim; }}>{p}</button>
+              style={{ padding: "8px 14px", borderRadius: 6, border: `1px solid ${C.border}`, background: "rgba(255,255,255,0.02)", color: C.textMuted, fontSize: 12.5, cursor: "pointer", transition: "all 0.2s", fontFamily: "'Outfit',sans-serif" }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = C.gold; e.currentTarget.style.color = C.gold; e.currentTarget.style.background = C.goldDim; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.color = C.textMuted; e.currentTarget.style.background = "rgba(255,255,255,0.02)"; }}>{p}</button>
           ))}
         </div>
       )}

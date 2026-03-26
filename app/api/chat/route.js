@@ -5,7 +5,16 @@ export async function POST(req) {
     if (!apiKey) {
       return Response.json({ error: { message: "API key not configured" } }, { status: 500 });
     }
-    const maxTokens = mode === "quiz" ? 4000 : 1200;
+
+    const maxTokens = mode === "quiz" ? 4000 : mode === "resources" ? 4000 : 1200;
+
+    const body = {
+      model: "claude-sonnet-4-20250514",
+      max_tokens: maxTokens,
+      system,
+      messages,
+    };
+
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -13,13 +22,9 @@ export async function POST(req) {
         "x-api-key": apiKey,
         "anthropic-version": "2023-06-01",
       },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: maxTokens,
-        system,
-        messages,
-      }),
+      body: JSON.stringify(body),
     });
+
     const data = await res.json();
     return Response.json(data);
   } catch (err) {
