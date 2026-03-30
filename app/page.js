@@ -29,6 +29,922 @@ const C = {
    Top-level tiles → exam boards → units/papers
    ═══════════════════════════════════════════════════ */
 
+
+
+/* ═══════════════════════════════════════════════════
+   PAST-PAPER QUESTION BANK
+   Real Edexcel exam questions, extracted from official papers.
+   Keyed by unit ID matching UNITS keys.
+   ═══════════════════════════════════════════════════ */
+
+const PAST_PAPERS = {
+  phys1: [
+  {
+    "source": "June 2010",
+    "number": 1,
+    "question": "Distance travelled can be found from the",
+    "options": [
+      {"label": "A", "text": "area under a velocity-time graph"},
+      {"label": "B", "text": "area under an acceleration-time graph"},
+      {"label": "C", "text": "gradient of a force-time graph"},
+      {"label": "D", "text": "gradient of a velocity-time graph"}
+    ],
+    "correctLabel": "A",
+    "topic": "kinematics graphs",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Correct. The area under a v-t graph gives displacement/distance. Area = velocity × time = distance.",
+      "B": "Wrong. The area under an a-t graph gives change in velocity, not distance.",
+      "C": "Wrong. The gradient of a force-time graph has no standard kinematic meaning for distance.",
+      "D": "Wrong. The gradient of a v-t graph gives acceleration, not distance."
+    },
+    "hint": "Think about what quantity you get when you multiply velocity by time."
+  },
+  {
+    "source": "June 2010",
+    "number": 2,
+    "question": "Which of the following is a scalar quantity?",
+    "options": [
+      {"label": "A", "text": "acceleration"},
+      {"label": "B", "text": "displacement"},
+      {"label": "C", "text": "force"},
+      {"label": "D", "text": "work"}
+    ],
+    "correctLabel": "D",
+    "topic": "scalars and vectors",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Acceleration has both magnitude and direction — it's a vector.",
+      "B": "Wrong. Displacement specifies a direction — it's a vector.",
+      "C": "Wrong. Force acts in a specific direction — it's a vector.",
+      "D": "Correct. Work (W = Fs cosθ) is a scalar — it has magnitude only, measured in joules."
+    },
+    "hint": "Scalars have magnitude only. Which of these doesn't need a direction to be fully described?"
+  },
+  {
+    "source": "June 2010",
+    "number": 3,
+    "question": "A car pulls a trailer of weight 2500 N with a force of 20 N for a distance of 8 km along a horizontal road. How much work is done by the car in pulling the trailer?",
+    "options": [
+      {"label": "A", "text": "160 J"},
+      {"label": "B", "text": "20 000 J"},
+      {"label": "C", "text": "160 000 J"},
+      {"label": "D", "text": "20 000 000 J"}
+    ],
+    "correctLabel": "C",
+    "topic": "work done",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. This is 20 × 8 = 160 — you forgot to convert km to m.",
+      "B": "Wrong. This is 2500 × 8 — you used the weight instead of the pulling force, and didn't convert km.",
+      "C": "Correct. W = Fd = 20 N × 8000 m = 160 000 J. Remember to convert 8 km to 8000 m.",
+      "D": "Wrong. This is 2500 × 8000 — you used the weight instead of the pulling force."
+    },
+    "hint": "Work done = force × distance. Make sure you use the correct force and convert units properly."
+  },
+  {
+    "source": "June 2010",
+    "number": 5,
+    "question": "Which of the following units could be used for power?",
+    "options": [
+      {"label": "A", "text": "kg m s⁻²"},
+      {"label": "B", "text": "kg m² s⁻²"},
+      {"label": "C", "text": "kg m² s⁻³"},
+      {"label": "D", "text": "kg² m² s⁻³"}
+    ],
+    "correctLabel": "C",
+    "topic": "units and dimensions",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. kg m s⁻² is the unit of force (newton).",
+      "B": "Wrong. kg m² s⁻² is the unit of energy (joule).",
+      "C": "Correct. Power = energy/time. J/s = kg m² s⁻² / s = kg m² s⁻³ = watt.",
+      "D": "Wrong. This has kg², which doesn't correspond to any standard physical quantity for power."
+    },
+    "hint": "Power = energy ÷ time. Work out the base units of energy first, then divide by seconds."
+  },
+  {
+    "source": "June 2010",
+    "number": 7,
+    "question": "A building has 5 floors. The windows on successive floors are separated by the same vertical distance. A brick is dropped from a window on each floor at the same time. The bricks should hit the ground at",
+    "options": [
+      {"label": "A", "text": "decreasing time intervals"},
+      {"label": "B", "text": "equal time intervals"},
+      {"label": "C", "text": "increasing time intervals"},
+      {"label": "D", "text": "the same time"}
+    ],
+    "correctLabel": "A",
+    "topic": "free fall",
+    "difficulty": 5,
+    "explanations": {
+      "A": "Correct. Using s = ½gt², time ∝ √s. The higher bricks fall further but the time intervals between impacts decrease because the lower bricks have less distance to fall and arrive in quicker succession.",
+      "B": "Wrong. Equal intervals would require equal distances, but t ∝ √s means the relationship is non-linear.",
+      "C": "Wrong. The intervals actually decrease, not increase.",
+      "D": "Wrong. They're dropped from different heights so they can't all hit at the same time."
+    },
+    "hint": "Use s = ½gt². How does fall time relate to height? Think about the square root relationship."
+  },
+  {
+    "source": "June 2010",
+    "number": 8,
+    "question": "All ductile materials are also",
+    "options": [
+      {"label": "A", "text": "brittle"},
+      {"label": "B", "text": "hard"},
+      {"label": "C", "text": "malleable"},
+      {"label": "D", "text": "stiff"}
+    ],
+    "correctLabel": "C",
+    "topic": "material properties",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. Brittle is the opposite of ductile — brittle materials fracture without plastic deformation.",
+      "B": "Wrong. Hardness (resistance to scratching) is independent of ductility.",
+      "C": "Correct. Ductile means it can be drawn into wires; malleable means it can be hammered into shape. Both require significant plastic deformation, so all ductile materials are also malleable.",
+      "D": "Wrong. Stiffness (resistance to elastic deformation) is independent of ductility."
+    },
+    "hint": "Ductile means a material can undergo significant plastic deformation. What other property requires plastic deformation?"
+  },
+  {
+    "source": "June 2010",
+    "number": 9,
+    "question": "An aeroplane is climbing at a constant velocity. Which of the following shows the correct two relationships between the forces?",
+    "options": [
+      {"label": "A", "text": "lift > weight, thrust > drag"},
+      {"label": "B", "text": "lift > weight, thrust = drag"},
+      {"label": "C", "text": "lift = weight, thrust > drag"},
+      {"label": "D", "text": "lift = weight, thrust = drag"}
+    ],
+    "correctLabel": "A",
+    "topic": "forces and equilibrium",
+    "difficulty": 5,
+    "explanations": {
+      "A": "Correct. At constant velocity climbing: the resultant force is zero. Resolving along and perpendicular to the direction of travel, for a climb the vertical component of thrust plus the vertical component of lift must equal weight, and the horizontal components must balance. Since the plane climbs, lift > weight in the vertical direction, and thrust > drag to maintain the climb angle.",
+      "B": "Wrong. If thrust = drag, there would be no component to sustain the climb against gravity's component along the flight path.",
+      "C": "Wrong. If lift = weight exactly, the plane couldn't maintain an upward trajectory.",
+      "D": "Wrong. This describes level flight at constant speed, not climbing."
+    },
+    "hint": "Constant velocity means zero resultant force. But the plane is climbing — think about what components of the forces are needed for upward motion."
+  },
+  {
+    "source": "June 2010",
+    "number": 10,
+    "question": "The aeroplane is now flown at a constant altitude but an increasing speed. Which of the following pairs of forces will have the same magnitude?",
+    "options": [
+      {"label": "A", "text": "drag and weight"},
+      {"label": "B", "text": "drag and thrust"},
+      {"label": "C", "text": "lift and drag"},
+      {"label": "D", "text": "lift and weight"}
+    ],
+    "correctLabel": "D",
+    "topic": "forces and equilibrium",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. Drag acts horizontally and weight acts vertically — they balance different components.",
+      "B": "Wrong. If drag = thrust, there would be no net horizontal force, so no acceleration — but the plane is speeding up.",
+      "C": "Wrong. Lift acts vertically and drag acts horizontally — they act in perpendicular directions.",
+      "D": "Correct. Constant altitude means no vertical acceleration, so the vertical forces must balance: lift = weight. The plane is accelerating horizontally, so thrust > drag."
+    },
+    "hint": "Constant altitude means no vertical acceleration. Increasing speed means horizontal acceleration. Which forces are vertical?"
+  },
+  {
+    "source": "June 2011",
+    "number": 1,
+    "question": "Which of the following is not a vector quantity?",
+    "options": [
+      {"label": "A", "text": "displacement"},
+      {"label": "B", "text": "force"},
+      {"label": "C", "text": "weight"},
+      {"label": "D", "text": "work"}
+    ],
+    "correctLabel": "D",
+    "topic": "scalars and vectors",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Displacement has direction — it's a vector.",
+      "B": "Wrong. Force has direction — it's a vector.",
+      "C": "Wrong. Weight acts downward — it's a vector (it's a force).",
+      "D": "Correct. Work is a scalar quantity — it has magnitude only (measured in joules)."
+    },
+    "hint": "Vectors have both magnitude and direction. Which quantity here doesn't have a direction?"
+  },
+  {
+    "source": "June 2011",
+    "number": 2,
+    "question": "Which of the following units is equivalent to the SI unit for energy?",
+    "options": [
+      {"label": "A", "text": "kg m s⁻²"},
+      {"label": "B", "text": "kW h"},
+      {"label": "C", "text": "N m⁻¹"},
+      {"label": "D", "text": "W s"}
+    ],
+    "correctLabel": "D",
+    "topic": "units and dimensions",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. kg m s⁻² is the unit of force (newton), not energy.",
+      "B": "Wrong. kW h is a unit of energy but it's not an SI unit — it's a practical unit. The SI unit is the joule.",
+      "C": "Wrong. N m⁻¹ is the unit of spring constant (stiffness), not energy.",
+      "D": "Correct. Power × time = energy. W × s = J. One watt-second equals one joule."
+    },
+    "hint": "Energy = power × time. What unit do you get when you multiply watts by seconds?"
+  },
+  {
+    "source": "June 2011",
+    "number": 3,
+    "question": "A graph shows how tensile stress varies with tensile strain for a wire, with points X, Y, and Z marked. Which row gives the correct terms for points X, Y, and Z?",
+    "options": [
+      {"label": "A", "text": "X = Elastic limit, Y = Yield point, Z = Maximum tensile stress"},
+      {"label": "B", "text": "X = Limit of proportionality, Y = Elastic limit, Z = Yield point"},
+      {"label": "C", "text": "X = Elastic limit, Y = Maximum tensile stress, Z = Limit of proportionality"},
+      {"label": "D", "text": "X = Limit of proportionality, Y = Yield point, Z = Maximum tensile stress"}
+    ],
+    "correctLabel": "D",
+    "topic": "stress-strain graphs",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. The elastic limit comes after the limit of proportionality, and Y should be the yield point.",
+      "B": "Wrong. Z is at the peak of the curve, which is maximum tensile stress, not the yield point.",
+      "C": "Wrong. The order on the graph is: limit of proportionality first, then yield point, then UTS.",
+      "D": "Correct. On a stress-strain curve: X (where the line stops being straight) = limit of proportionality, Y (where plastic deformation begins) = yield point, Z (highest point) = maximum tensile stress (UTS)."
+    },
+    "hint": "On a stress-strain graph, the key points in order are: limit of proportionality → yield point → UTS (maximum stress)."
+  },
+  {
+    "source": "June 2011",
+    "number": 4,
+    "question": "The acceleration of free fall on Mars is 3.7 m s⁻². If an object on Mars is launched vertically upwards with an initial speed of 40 m s⁻¹, its speed after 3.0 s will be",
+    "options": [
+      {"label": "A", "text": "11 m s⁻¹"},
+      {"label": "B", "text": "29 m s⁻¹"},
+      {"label": "C", "text": "36 m s⁻¹"},
+      {"label": "D", "text": "51 m s⁻¹"}
+    ],
+    "correctLabel": "B",
+    "topic": "SUVAT equations",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. This is 40 − (9.81 × 3) — you used g for Earth, not Mars.",
+      "B": "Correct. v = u − at = 40 − (3.7 × 3.0) = 40 − 11.1 = 28.9 ≈ 29 m s⁻¹. The object decelerates due to gravity on Mars.",
+      "C": "Wrong. Check your arithmetic — this doesn't match v = u − at with these values.",
+      "D": "Wrong. This is 40 + (3.7 × 3) — you added instead of subtracting. The object is decelerating as it goes up."
+    },
+    "hint": "Use v = u + at. The object is going up and gravity pulls it down, so acceleration is negative."
+  },
+  {
+    "source": "June 2011",
+    "number": 5,
+    "question": "The gravitational field strength on Mars is 3.7 N kg⁻¹. A 5.0 kg object is raised through a height of 150 cm on Mars. The change in gravitational potential energy is",
+    "options": [
+      {"label": "A", "text": "19 J"},
+      {"label": "B", "text": "28 J"},
+      {"label": "C", "text": "49 J"},
+      {"label": "D", "text": "74 J"}
+    ],
+    "correctLabel": "B",
+    "topic": "gravitational potential energy",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. This is 3.7 × 5.0 × 1.0 — you may have used 1 m instead of 1.5 m.",
+      "B": "Correct. Ep = mgh = 5.0 × 3.7 × 1.50 = 27.75 ≈ 28 J. Remember to convert 150 cm to 1.50 m.",
+      "C": "Wrong. This is 5.0 × 9.81 × 1.0 — you used Earth's g and wrong height.",
+      "D": "Wrong. This is 5.0 × 9.81 × 1.5 — you used Earth's g instead of Mars's."
+    },
+    "hint": "Use Ep = mgh. Be careful with units — convert cm to m first."
+  },
+  {
+    "source": "June 2011",
+    "number": 7,
+    "question": "A material which resists plastic deformation by scratching is described as",
+    "options": [
+      {"label": "A", "text": "brittle"},
+      {"label": "B", "text": "hard"},
+      {"label": "C", "text": "malleable"},
+      {"label": "D", "text": "stiff"}
+    ],
+    "correctLabel": "B",
+    "topic": "material properties",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Brittle means a material fractures with little plastic deformation — not about scratching.",
+      "B": "Correct. Hardness is defined as resistance to plastic deformation of the surface, typically tested by scratching or indentation.",
+      "C": "Wrong. Malleable means a material can be hammered into shape — the opposite of resisting deformation.",
+      "D": "Wrong. Stiff means high Young's modulus — resistance to elastic deformation, not scratching."
+    },
+    "hint": "Which material property is specifically about resistance to surface deformation like scratching?"
+  },
+  {
+    "source": "June 2011",
+    "number": 9,
+    "question": "The gradient of a displacement-time graph gives",
+    "options": [
+      {"label": "A", "text": "acceleration"},
+      {"label": "B", "text": "displacement"},
+      {"label": "C", "text": "force"},
+      {"label": "D", "text": "velocity"}
+    ],
+    "correctLabel": "D",
+    "topic": "kinematics graphs",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Acceleration is the gradient of a velocity-time graph, not displacement-time.",
+      "B": "Wrong. Displacement is read directly from the y-axis, not from the gradient.",
+      "C": "Wrong. Force is not directly obtained from a displacement-time graph.",
+      "D": "Correct. Velocity = displacement/time = Δs/Δt, which is the gradient of an s-t graph."
+    },
+    "hint": "Gradient = change in y / change in x. On a displacement-time graph, that's Δs/Δt. What is that?"
+  },
+  {
+    "source": "June 2011",
+    "number": 10,
+    "question": "A table tennis ball is released beneath the surface of water and moves upwards. The relationship between the forces acting on the ball when it reaches terminal velocity is",
+    "options": [
+      {"label": "A", "text": "weight = upthrust"},
+      {"label": "B", "text": "weight + drag = upthrust"},
+      {"label": "C", "text": "weight = upthrust + drag"},
+      {"label": "D", "text": "weight = drag"}
+    ],
+    "correctLabel": "B",
+    "topic": "terminal velocity and forces",
+    "difficulty": 5,
+    "explanations": {
+      "A": "Wrong. If weight = upthrust only, there would be no drag term, which is wrong since the ball is moving.",
+      "B": "Correct. The ball moves upward, so upthrust acts upward while weight and drag both act downward. At terminal velocity: upward force = downward forces, so upthrust = weight + drag.",
+      "C": "Wrong. This would mean the net force is downward, but the ball is moving upward.",
+      "D": "Wrong. This ignores upthrust, which is the driving force pushing the ball upward."
+    },
+    "hint": "The ball moves UP through water. Upthrust acts UP. Weight and drag both act DOWN. At terminal velocity, forces balance."
+  },
+  {
+    "source": "June 2012",
+    "number": 1,
+    "question": "Which of these quantities is not measured in an SI base unit?",
+    "options": [
+      {"label": "A", "text": "distance"},
+      {"label": "B", "text": "force"},
+      {"label": "C", "text": "mass"},
+      {"label": "D", "text": "time"}
+    ],
+    "correctLabel": "B",
+    "topic": "SI units",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Distance is measured in metres — an SI base unit.",
+      "B": "Correct. Force is measured in newtons (N), which is a derived unit: N = kg m s⁻². It is NOT a base unit.",
+      "C": "Wrong. Mass is measured in kilograms — an SI base unit.",
+      "D": "Wrong. Time is measured in seconds — an SI base unit."
+    },
+    "hint": "The 7 SI base units include metre, kilogram, second, ampere, kelvin, mole, candela. Which quantity here uses a derived unit?"
+  },
+  {
+    "source": "June 2012",
+    "number": 2,
+    "question": "Displacement can be found from the",
+    "options": [
+      {"label": "A", "text": "area under a distance-time graph"},
+      {"label": "B", "text": "area under a velocity-time graph"},
+      {"label": "C", "text": "gradient of a distance-time graph"},
+      {"label": "D", "text": "gradient of a velocity-time graph"}
+    ],
+    "correctLabel": "B",
+    "topic": "kinematics graphs",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. The area under a distance-time graph doesn't give a standard kinematic quantity.",
+      "B": "Correct. Area under a v-t graph = velocity × time = displacement.",
+      "C": "Wrong. The gradient of a distance-time graph gives speed, not displacement.",
+      "D": "Wrong. The gradient of a v-t graph gives acceleration, not displacement."
+    },
+    "hint": "Area under a graph = y-quantity × x-quantity. For a v-t graph, that's velocity × time."
+  },
+  {
+    "source": "June 2012",
+    "number": 3,
+    "question": "A wire of length x is stretched by a force F. The extension is Δx. A second wire of the same material and cross-sectional area is stretched by the same force. If it has twice the length of the first wire its extension will be",
+    "options": [
+      {"label": "A", "text": "½Δx"},
+      {"label": "B", "text": "Δx"},
+      {"label": "C", "text": "2Δx"},
+      {"label": "D", "text": "4Δx"}
+    ],
+    "correctLabel": "C",
+    "topic": "Young's modulus and extension",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. A longer wire is easier to stretch, not harder.",
+      "B": "Wrong. Doubling the length does change the extension.",
+      "C": "Correct. From E = FL/AΔL, rearranging gives ΔL = FL/AE. If L doubles (same F, A, E), extension doubles: 2Δx.",
+      "D": "Wrong. Extension is proportional to length, not length squared."
+    },
+    "hint": "Young's modulus E = stress/strain = (F/A)/(ΔL/L). Rearrange for ΔL and see how it depends on L."
+  },
+  {
+    "source": "June 2012",
+    "number": 4,
+    "question": "Which equation shows a scalar quantity as the product of two vector quantities?",
+    "options": [
+      {"label": "A", "text": "energy = power × time"},
+      {"label": "B", "text": "force = stiffness × extension"},
+      {"label": "C", "text": "mass = density × volume"},
+      {"label": "D", "text": "work = force × displacement"}
+    ],
+    "correctLabel": "D",
+    "topic": "scalars and vectors",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. Power is scalar and time is scalar — this is scalar × scalar = scalar.",
+      "B": "Wrong. Stiffness is scalar and extension is scalar (or vector depending on context) — but force is a vector, not scalar, result.",
+      "C": "Wrong. Density and volume are both scalars. Mass is also scalar.",
+      "D": "Correct. Work = F · s = Fs cosθ. Force is a vector, displacement is a vector, and their dot product (work) is a scalar."
+    },
+    "hint": "You need: scalar = vector × vector. This is the dot product. Which equation multiplies two directed quantities to give a non-directed result?"
+  },
+  {
+    "source": "June 2012",
+    "number": 5,
+    "question": "A material which can be drawn into a wire is described as being",
+    "options": [
+      {"label": "A", "text": "brittle"},
+      {"label": "B", "text": "ductile"},
+      {"label": "C", "text": "hard"},
+      {"label": "D", "text": "soft"}
+    ],
+    "correctLabel": "B",
+    "topic": "material properties",
+    "difficulty": 1,
+    "explanations": {
+      "A": "Wrong. Brittle materials fracture easily — they can't be drawn into wires.",
+      "B": "Correct. Ductile literally means 'able to be drawn into a wire'. It indicates significant plastic deformation before fracture.",
+      "C": "Wrong. Hard means resistant to surface deformation — not related to wire-drawing.",
+      "D": "Wrong. Soft means easily deformed — it doesn't specifically mean it can be drawn into a wire."
+    },
+    "hint": "The definition of this property is literally 'can be drawn into a wire'."
+  },
+  {
+    "source": "June 2012",
+    "number": 6,
+    "question": "A bowling ball of mass 7.0 kg is travelling at a speed of 4.0 m s⁻¹. The kinetic energy of the ball is",
+    "options": [
+      {"label": "A", "text": "14 J"},
+      {"label": "B", "text": "28 J"},
+      {"label": "C", "text": "56 J"},
+      {"label": "D", "text": "112 J"}
+    ],
+    "correctLabel": "C",
+    "topic": "kinetic energy",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. This is ½ × 7.0 × 4.0 — you forgot to square the velocity.",
+      "B": "Wrong. This is 7.0 × 4.0 — you used mv instead of ½mv².",
+      "C": "Correct. Ek = ½mv² = ½ × 7.0 × 4.0² = ½ × 7.0 × 16 = 56 J.",
+      "D": "Wrong. This is 7.0 × 4.0² — you forgot the ½."
+    },
+    "hint": "Use Ek = ½mv². Remember to square the velocity before multiplying."
+  },
+  {
+    "source": "June 2012",
+    "number": 7,
+    "question": "An object of weight W sits on an inclined surface at angle θ to the horizontal. The component of the weight W parallel to the surface is",
+    "options": [
+      {"label": "A", "text": "0"},
+      {"label": "B", "text": "1"},
+      {"label": "C", "text": "W cos θ"},
+      {"label": "D", "text": "W sin θ"}
+    ],
+    "correctLabel": "D",
+    "topic": "resolving forces",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. There is a component of weight along the slope — that's what makes objects slide.",
+      "B": "Wrong. The component depends on W and θ, not just 1.",
+      "C": "Wrong. W cos θ is the component perpendicular to the surface (pressing into the slope).",
+      "D": "Correct. The component of weight parallel to the slope = W sin θ. This is the force that would cause the object to slide down."
+    },
+    "hint": "Draw the weight vector straight down, then resolve it into components parallel and perpendicular to the slope."
+  },
+  {
+    "source": "June 2012",
+    "number": 9,
+    "question": "A motor raises a mass m through a height Δh in time t. The power of the motor is given by",
+    "options": [
+      {"label": "A", "text": "mgtΔh"},
+      {"label": "B", "text": "mg/(tΔh)"},
+      {"label": "C", "text": "mgΔh/t"},
+      {"label": "D", "text": "mgt/Δh"}
+    ],
+    "correctLabel": "C",
+    "topic": "power",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. This gives units of N·s·m which is not watts.",
+      "B": "Wrong. This has time in the denominator alongside height — dimensionally incorrect.",
+      "C": "Correct. Power = work done / time = (mgΔh) / t. Work done against gravity = mgh.",
+      "D": "Wrong. This has height in the denominator — dimensionally incorrect for power."
+    },
+    "hint": "Power = work done ÷ time. Work done lifting = mgh."
+  },
+  {
+    "source": "June 2013",
+    "number": 1,
+    "question": "Which pair of quantities does not contain a vector and a scalar?",
+    "options": [
+      {"label": "A", "text": "acceleration and time"},
+      {"label": "B", "text": "force and displacement"},
+      {"label": "C", "text": "mass and acceleration"},
+      {"label": "D", "text": "velocity and time"}
+    ],
+    "correctLabel": "B",
+    "topic": "scalars and vectors",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. Acceleration (vector) and time (scalar) — this pair does contain one of each.",
+      "B": "Correct. Force (vector) and displacement (vector) — both are vectors, so this pair does NOT contain a vector and a scalar.",
+      "C": "Wrong. Mass (scalar) and acceleration (vector) — this pair does contain one of each.",
+      "D": "Wrong. Velocity (vector) and time (scalar) — this pair does contain one of each."
+    },
+    "hint": "The question asks which pair does NOT have one vector and one scalar. Look for the pair where both are vectors (or both scalars)."
+  },
+  {
+    "source": "June 2013",
+    "number": 2,
+    "question": "A wire of length 80 cm has a force F applied. The new length of the wire is 84 cm. The strain is given by",
+    "options": [
+      {"label": "A", "text": "4/84"},
+      {"label": "B", "text": "4/80"},
+      {"label": "C", "text": "80/84"},
+      {"label": "D", "text": "84/80"}
+    ],
+    "correctLabel": "B",
+    "topic": "strain",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. You divided by the new length — strain uses the original length.",
+      "B": "Correct. Strain = extension / original length = (84 − 80) / 80 = 4/80.",
+      "C": "Wrong. This is original length / new length — not the definition of strain.",
+      "D": "Wrong. This is new length / original length — not the definition of strain."
+    },
+    "hint": "Strain = extension ÷ original length. Extension = new length − original length."
+  },
+  {
+    "source": "June 2013",
+    "number": 3,
+    "question": "Which of the following is a derived SI quantity?",
+    "options": [
+      {"label": "A", "text": "force"},
+      {"label": "B", "text": "length"},
+      {"label": "C", "text": "second"},
+      {"label": "D", "text": "watt"}
+    ],
+    "correctLabel": "A",
+    "topic": "SI units",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Correct. Force (newton) is a derived quantity: N = kg m s⁻². It's made from base units.",
+      "B": "Wrong. Length (metre) is a base SI quantity.",
+      "C": "Wrong. The second is a base SI unit, not a derived quantity.",
+      "D": "Wrong. The watt is a derived unit, but the question asks for a 'derived SI quantity' — force is the quantity, watt is a unit. Both A and D could work, but force is the standard answer as a derived quantity."
+    },
+    "hint": "Base SI quantities are: mass, length, time, current, temperature, amount, luminous intensity. Everything else is derived."
+  },
+  {
+    "source": "June 2013",
+    "number": 8,
+    "question": "Which of the following descriptions of a material implies that it undergoes significant plastic deformation?",
+    "options": [
+      {"label": "A", "text": "brittle"},
+      {"label": "B", "text": "hard"},
+      {"label": "C", "text": "malleable"},
+      {"label": "D", "text": "stiff"}
+    ],
+    "correctLabel": "C",
+    "topic": "material properties",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Brittle materials undergo very little plastic deformation before fracturing.",
+      "B": "Wrong. Hard means resistance to surface deformation — doesn't imply extensive plastic deformation.",
+      "C": "Correct. Malleable means a material can be hammered or pressed into shape, which requires significant plastic deformation.",
+      "D": "Wrong. Stiff means high Young's modulus — resistance to elastic deformation, not about plastic deformation."
+    },
+    "hint": "Which property means the material can be reshaped (e.g. hammered into sheets) without breaking?"
+  },
+  {
+    "source": "June 2013",
+    "number": 9,
+    "question": "A trolley rolls down a slope from rest. The trolley moves through a vertical height h while rolling a distance s along the slope. The maximum possible speed is given by",
+    "options": [
+      {"label": "A", "text": "2gs"},
+      {"label": "B", "text": "2gh"},
+      {"label": "C", "text": "√(2gs)"},
+      {"label": "D", "text": "√(2gh)"}
+    ],
+    "correctLabel": "D",
+    "topic": "energy conservation",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. You should use vertical height h, not slope distance s. Also, this gives v², not v.",
+      "B": "Wrong. 2gh gives v², not v. You need to take the square root.",
+      "C": "Wrong. The energy depends on vertical height h, not the distance along the slope s.",
+      "D": "Correct. By conservation of energy: mgh = ½mv². Solving for v gives v = √(2gh). The vertical height determines the PE lost, not the slope distance."
+    },
+    "hint": "Use conservation of energy: potential energy lost = kinetic energy gained. PE depends on vertical height, not slope distance."
+  },
+  {
+    "source": "June 2014 IAL",
+    "number": 1,
+    "question": "A rocket of mass m lifts off with an acceleration a due to the engines providing a thrust T. Which row correctly identifies m, T and a as scalar or vector?",
+    "options": [
+      {"label": "A", "text": "m = vector, T = scalar, a = vector"},
+      {"label": "B", "text": "m = vector, T = scalar, a = scalar"},
+      {"label": "C", "text": "m = scalar, T = vector, a = vector"},
+      {"label": "D", "text": "m = scalar, T = vector, a = scalar"}
+    ],
+    "correctLabel": "C",
+    "topic": "scalars and vectors",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Mass is a scalar, not a vector.",
+      "B": "Wrong. Mass is scalar (correct) but thrust is a vector (it acts in a direction), and acceleration is also a vector.",
+      "C": "Correct. Mass is scalar (magnitude only). Thrust is a vector (force has direction). Acceleration is a vector (has direction).",
+      "D": "Wrong. Acceleration has both magnitude and direction — it's a vector, not a scalar."
+    },
+    "hint": "Mass has no direction. Both force (thrust) and acceleration have direction."
+  },
+  {
+    "source": "June 2014 IAL",
+    "number": 7,
+    "question": "An increasing force is applied to a spring and the corresponding extension is measured. The spring constant k of the spring is",
+    "options": [
+      {"label": "A", "text": "the applied force per unit extension"},
+      {"label": "B", "text": "the applied force per unit length"},
+      {"label": "C", "text": "the gradient of the extension (y-axis) against force (x-axis) graph"},
+      {"label": "D", "text": "the area under the extension (y-axis) against force (x-axis) graph"}
+    ],
+    "correctLabel": "A",
+    "topic": "Hooke's Law",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Correct. From F = kx, rearranging gives k = F/x, which is force per unit extension.",
+      "B": "Wrong. Force per unit length would involve the total length, not the extension.",
+      "C": "Wrong. The gradient of extension vs force gives 1/k (the reciprocal of the spring constant).",
+      "D": "Wrong. The area under the extension-force graph gives the elastic strain energy stored."
+    },
+    "hint": "Hooke's Law: F = kx. Rearrange for k."
+  },
+  {
+    "source": "June 2014",
+    "number": 1,
+    "question": "Select the answer in which both quantities are vectors.",
+    "options": [
+      {"label": "A", "text": "acceleration, speed"},
+      {"label": "B", "text": "displacement, velocity"},
+      {"label": "C", "text": "mass, time"},
+      {"label": "D", "text": "power, weight"}
+    ],
+    "correctLabel": "B",
+    "topic": "scalars and vectors",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Acceleration is a vector but speed is a scalar.",
+      "B": "Correct. Displacement (has direction) and velocity (has direction) are both vectors.",
+      "C": "Wrong. Mass and time are both scalars.",
+      "D": "Wrong. Power is a scalar; weight is a vector."
+    },
+    "hint": "Look for the pair where BOTH quantities have a direction associated with them."
+  },
+  {
+    "source": "June 2014",
+    "number": 2,
+    "question": "A tennis ball hits a wall perpendicularly at a speed of 4 m s⁻¹ and rebounds at the same speed. Taking the initial velocity as positive, the change in velocity is",
+    "options": [
+      {"label": "A", "text": "−4 m s⁻¹"},
+      {"label": "B", "text": "−8 m s⁻¹"},
+      {"label": "C", "text": "0 m s⁻¹"},
+      {"label": "D", "text": "8 m s⁻¹"}
+    ],
+    "correctLabel": "B",
+    "topic": "change in velocity",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. This only accounts for losing the initial velocity, not gaining velocity in the opposite direction.",
+      "B": "Correct. Change in velocity = final − initial = (−4) − (+4) = −8 m s⁻¹. The ball reverses direction, so the change is twice the speed in the negative direction.",
+      "C": "Wrong. The speed is the same but velocity has changed direction — the change is not zero.",
+      "D": "Wrong. The magnitude is correct (8) but the sign should be negative since the ball reverses direction."
+    },
+    "hint": "Δv = v_final − v_initial. If initial velocity is +4, the rebound velocity is −4. What's the difference?"
+  },
+  {
+    "source": "June 2015 IAL",
+    "number": 2,
+    "question": "Physical quantities are either vectors or scalars. Select the row which correctly identifies mass, velocity, and displacement as vector or scalar.",
+    "options": [
+      {"label": "A", "text": "mass = scalar, velocity = vector, displacement = scalar"},
+      {"label": "B", "text": "mass = vector, velocity = scalar, displacement = vector"},
+      {"label": "C", "text": "mass = vector, velocity = scalar, displacement = scalar"},
+      {"label": "D", "text": "mass = scalar, velocity = vector, displacement = vector"}
+    ],
+    "correctLabel": "D",
+    "topic": "scalars and vectors",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Displacement has a direction — it's a vector, not a scalar.",
+      "B": "Wrong. Mass has no direction (scalar), and velocity has direction (vector) — both are wrong here.",
+      "C": "Wrong. Mass is scalar (correct), but velocity is a vector (wrong here).",
+      "D": "Correct. Mass = scalar (magnitude only), velocity = vector (magnitude + direction), displacement = vector (magnitude + direction)."
+    },
+    "hint": "Mass has no direction. Velocity and displacement both specify a direction."
+  },
+  {
+    "source": "June 2015 IAL",
+    "number": 5,
+    "question": "A force is applied to a length of wire. Which of the following statements is not correct for small deformations of the wire?",
+    "options": [
+      {"label": "A", "text": "As the force applied increases, the extension increases"},
+      {"label": "B", "text": "The force applied is directly proportional to the extension"},
+      {"label": "C", "text": "The force applied is directly proportional to the original length"},
+      {"label": "D", "text": "The stress is directly proportional to the strain"}
+    ],
+    "correctLabel": "C",
+    "topic": "Hooke's Law",
+    "difficulty": 4,
+    "explanations": {
+      "A": "This IS correct for small deformations — Hooke's law applies.",
+      "B": "This IS correct — F = kx shows direct proportionality within the elastic limit.",
+      "C": "This is NOT correct. The force is not proportional to the original length — the extension depends on original length (longer wire stretches more for same force), but force isn't proportional to length.",
+      "D": "This IS correct — within the limit of proportionality, stress ∝ strain (Young's modulus is constant)."
+    },
+    "hint": "Think about each statement carefully. Which one doesn't follow from Hooke's Law or the definition of Young's modulus?"
+  },
+  {
+    "source": "June 2015 IAL",
+    "number": 6,
+    "question": "Aluminium can be used to produce thin sheets of food wrapping because it is",
+    "options": [
+      {"label": "A", "text": "brittle"},
+      {"label": "B", "text": "ductile"},
+      {"label": "C", "text": "hard"},
+      {"label": "D", "text": "malleable"}
+    ],
+    "correctLabel": "D",
+    "topic": "material properties",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Brittle materials shatter — they can't be rolled into thin sheets.",
+      "B": "Wrong. Ductile means it can be drawn into wires, not rolled into sheets.",
+      "C": "Wrong. Hardness is about resistance to scratching — not about forming thin sheets.",
+      "D": "Correct. Malleable means a material can be hammered or rolled into thin sheets without cracking. This is exactly what's done to make aluminium foil."
+    },
+    "hint": "Which property describes the ability to be pressed or rolled into thin sheets?"
+  },
+  {
+    "source": "June 2015 IAL",
+    "number": 8,
+    "question": "A stone dropped into a well takes 1.5 seconds to reach the water. Ignoring the effects of air resistance, what distance did the stone fall through?",
+    "options": [
+      {"label": "A", "text": "7 m"},
+      {"label": "B", "text": "11 m"},
+      {"label": "C", "text": "14 m"},
+      {"label": "D", "text": "22 m"}
+    ],
+    "correctLabel": "B",
+    "topic": "free fall SUVAT",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. This is approximately ½ × 9.81 × 1.0² — you may have used the wrong time.",
+      "B": "Correct. s = ½gt² = ½ × 9.81 × 1.5² = ½ × 9.81 × 2.25 = 11.0 m ≈ 11 m.",
+      "C": "Wrong. This is approximately 9.81 × 1.5 — you used s = gt instead of s = ½gt².",
+      "D": "Wrong. This is approximately 9.81 × 1.5² — you forgot the ½."
+    },
+    "hint": "Dropped from rest: u = 0. Use s = ½gt². Don't forget the ½!"
+  },
+  {
+    "source": "June 2016 IAL",
+    "number": 1,
+    "question": "Which of the following is equivalent to the joule in terms of SI base units?",
+    "options": [
+      {"label": "A", "text": "kg m² s⁻³"},
+      {"label": "B", "text": "kg m² s⁻²"},
+      {"label": "C", "text": "kg m s⁻²"},
+      {"label": "D", "text": "kg m s⁻¹"}
+    ],
+    "correctLabel": "B",
+    "topic": "SI units",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. kg m² s⁻³ is the unit of power (watt), not energy.",
+      "B": "Correct. Energy (J) = force × distance = (kg m s⁻²) × m = kg m² s⁻².",
+      "C": "Wrong. kg m s⁻² is the unit of force (newton), not energy.",
+      "D": "Wrong. kg m s⁻¹ is the unit of momentum, not energy."
+    },
+    "hint": "J = N × m. Write the newton in base units first, then multiply by metres."
+  },
+  {
+    "source": "June 2016 IAL",
+    "number": 2,
+    "question": "A wind turbine generates 550 W of electrical power for an average of 7 hours each day. What is the total energy, in MJ, generated each day?",
+    "options": [
+      {"label": "A", "text": "0.23"},
+      {"label": "B", "text": "14"},
+      {"label": "C", "text": "230"},
+      {"label": "D", "text": "14000"}
+    ],
+    "correctLabel": "B",
+    "topic": "power and energy",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. Check your unit conversion — this is too small.",
+      "B": "Correct. E = Pt = 550 × 7 × 3600 = 13 860 000 J = 13.86 MJ ≈ 14 MJ.",
+      "C": "Wrong. You may have forgotten to convert hours to seconds correctly.",
+      "D": "Wrong. You may have calculated in kJ or used the wrong conversion factor."
+    },
+    "hint": "E = Pt. Convert 7 hours to seconds (× 3600), then convert joules to MJ (÷ 10⁶)."
+  },
+  {
+    "source": "June 2016 IAL",
+    "number": 7,
+    "question": "A ball of mass m falls through a height h to the ground. What is the kinetic energy of the ball halfway to the ground?",
+    "options": [
+      {"label": "A", "text": "mgh"},
+      {"label": "B", "text": "mgh/2"},
+      {"label": "C", "text": "√(mgh)"},
+      {"label": "D", "text": "√(mgh/2)"}
+    ],
+    "correctLabel": "B",
+    "topic": "energy conservation",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. mgh is the total KE at the bottom, not halfway.",
+      "B": "Correct. At half the height, the ball has lost half its PE. KE gained = mgh/2.",
+      "C": "Wrong. This has wrong units/dimensions — kinetic energy should be in joules, not √(joules).",
+      "D": "Wrong. Same dimensional error — you can't take the square root of energy to get energy."
+    },
+    "hint": "By conservation of energy, KE gained = PE lost. Halfway down, how much PE has been lost?"
+  },
+  {
+    "source": "June 2016 IAL",
+    "number": 8,
+    "question": "A car travels at a speed of 20 m s⁻¹ due east and then turns around and travels at a speed of 40 m s⁻¹ due west. Taking the direction of due east as positive, select the correct row for change in speed and change in velocity.",
+    "options": [
+      {"label": "A", "text": "Change in speed = 20, Change in velocity = −60"},
+      {"label": "B", "text": "Change in speed = 20, Change in velocity = 60"},
+      {"label": "C", "text": "Change in speed = 60, Change in velocity = −60"},
+      {"label": "D", "text": "Change in speed = 60, Change in velocity = 60"}
+    ],
+    "correctLabel": "A",
+    "topic": "speed vs velocity",
+    "difficulty": 5,
+    "explanations": {
+      "A": "Correct. Change in speed = 40 − 20 = 20 m s⁻¹ (speed is scalar, always positive). Change in velocity = (−40) − (+20) = −60 m s⁻¹ (velocity is vector, direction matters).",
+      "B": "Wrong. The change in velocity should be negative (from positive to negative direction).",
+      "C": "Wrong. Change in speed = |40| − |20| = 20, not 60. Speed doesn't include direction.",
+      "D": "Wrong. Both values are incorrect for the reasons above."
+    },
+    "hint": "Speed is scalar (no direction): change = 40 − 20. Velocity is vector: east = +20, west = −40. Change = final − initial."
+  },
+  {
+    "source": "June 2015",
+    "number": 2,
+    "question": "The correct definition of the term centre of gravity is the point at which",
+    "options": [
+      {"label": "A", "text": "all of the force acts on a body"},
+      {"label": "B", "text": "gravity acts on a body"},
+      {"label": "C", "text": "the weight of a body may be considered to act"},
+      {"label": "D", "text": "the weight is concentrated"}
+    ],
+    "correctLabel": "C",
+    "topic": "centre of gravity",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. Forces can act at many points — this is too vague.",
+      "B": "Wrong. Gravity acts throughout the entire body, not at a single point.",
+      "C": "Correct. The centre of gravity is the point where the entire weight of the body may be considered to act for the purpose of calculating moments and equilibrium.",
+      "D": "Wrong. Weight isn't literally concentrated at one point — it's distributed throughout the body."
+    },
+    "hint": "It's the point where we can treat the entire weight as acting — for modelling purposes."
+  },
+  {
+    "source": "June 2015",
+    "number": 6,
+    "question": "In the manufacture of cars, mild steel sheets are formed into panels of an appropriate shape. Mild steel can be shaped in this way because it is",
+    "options": [
+      {"label": "A", "text": "brittle"},
+      {"label": "B", "text": "hard"},
+      {"label": "C", "text": "malleable"},
+      {"label": "D", "text": "strong"}
+    ],
+    "correctLabel": "C",
+    "topic": "material properties",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Brittle materials crack when you try to reshape them.",
+      "B": "Wrong. Hard means resistant to scratching — not about reshaping.",
+      "C": "Correct. Malleable means a material can be pressed, rolled, or hammered into different shapes. This is exactly what happens when forming car body panels.",
+      "D": "Wrong. Strong means resistant to breaking under large forces — not about reshaping."
+    },
+    "hint": "Forming metal sheets into shapes requires the material to deform plastically without cracking."
+  }
+],
+};
+
 const CATALOG = [
   {
     id: "chemistry", name: "Chemistry", icon: "⚗", colour: "#4d9460",
@@ -168,27 +1084,608 @@ const UNITS = {
   chem1: { id:"chem1", name:"Chemistry Unit 1", code:"WCH11", subtitle:"Structure, Bonding & Intro to Organic", colour:"#4d9460", icon:"⚗", placeholder:"Ask about Chemistry Unit 1...",
     prompts:["Explain the shape of water","Show me free radical substitution","Quiz me on bonding","Why does diamond have a high melting point?"],
     welcome:`Hello! I'm your **AGF Study Companion**, powered by Alastair's diagnostic teaching method.\n\nI'm loaded with **Chemistry Unit 1** (WCH11) — Structure, Bonding & Introduction to Organic Chemistry.\n\nHere's the shape of water to get us started:\n\n[SHAPE:bent:H₂O:104.5°]\n\n• **Ask me anything** about the syllabus\n• Say **"quiz me"** for practice questions\n• Ask **"show me the mechanism for..."** to see reaction diagrams\n\nWhat shall we work on?`,
-    system:`You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.\n\nPersonality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.\n\nVISUAL DIAGRAMS — CRITICAL INSTRUCTIONS:\nYou MUST include diagram tags when explaining shapes, mechanisms, or key equations. Place each tag on its own line.\n\nAvailable tags (use EXACTLY this syntax on a new line):\n\n[SHAPE:tetrahedral:CH₄:109.5°]\n[SHAPE:pyramidal:NH₃:107°]\n[SHAPE:bent:H₂O:104.5°]\n[SHAPE:trigonal_planar:BF₃:120°]\n[SHAPE:linear:CO₂:180°]\n[SHAPE:octahedral:SF₆:90°]\n\n[MECHANISM:free_radical:CH₄ + Cl₂ → CH₃Cl + HCl]\n[MECHANISM:electrophilic_addition:CH₂=CH₂ + HBr → CH₃CH₂Br]\n\n[EQUATION:n = m / M]\n\n[CONFIG:Fe:1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁶ 4s²]\n\nRules:\n- When explaining ANY molecular shape, ALWAYS include the matching [SHAPE:...] tag\n- When explaining ANY mechanism, ALWAYS include [MECHANISM:...] tag\n- When stating a key formula, use [EQUATION:...] tag\n- When showing electron configuration, use [CONFIG:...] tag\n- You can change the formula/angle in shape tags\n\nCHEMISTRY UNIT 1 NOTES (WCH11 — Edexcel IAL):\n\nTOPIC 1 — FORMULAE & MOLES\nn=m/M, c=n/V(dm³), pV=nRT(Pa,m³,K), molar vol=24.0dm³/mol at RTP\n%yield=(actual/theoretical)×100, atom economy=(Mᵣ desired/ΣMᵣ all)×100\nEmpirical: %→moles→÷smallest→round. Molecular: Mᵣ÷EF mass\n\nTOPIC 2 — ATOMIC STRUCTURE\nProton(+1,1,nucleus), Neutron(0,1,nucleus), Electron(−1,≈0,shells)\nConfig: 1s→2s→2p→3s→3p→4s→3d. s=2,p=6,d=10\nMass spec: vaporise→ionise→accelerate→deflect→detect. Mᵣ=molecular mass\nIE anomalies: Be→B(2s→2p), N→O(paired 2p repulsion)\n\nTOPIC 3 — BONDING & STRUCTURE\nIonic: transfer, giant lattice, high mp, conducts molten/dissolved\nCovalent: sharing, VSEPR. Metallic: delocalised e⁻, lattice of + ions\nVSEPR: LP-LP>LP-BP>BP-BP. Shapes: tetrahedral 109.5°, pyramidal 107°, bent 104.5°, trigonal planar 120°, linear 180°, octahedral 90°\nIMFs: London(all,↑Mᵣ), dipole-dipole, H-bonding(H—F/O/N··lone pair)\nDiamond: 4 bonds, hard, non-conductor. Graphite: 3 bonds, layers, conducts, slides\n\nTOPIC 4 — ORGANIC & ALKANES\nCₙH₂ₙ₊₂, saturated, bp↑chain length ↓branching\nFRS: UV+halogen. Initiation→Propagation→Termination. Fish-hook arrows\nCombustion: complete(CO₂+H₂O), incomplete(CO/C). Cracking: heat/catalyst\n\nTOPIC 5 — ALKENES\nCₙH₂ₙ, C=C(σ+π), restricted rotation→E/Z(CIP rules)\nElectrophilic addition: HBr→bromoalkane, Br₂→dibromoalkane, steam+H₃PO₄→alcohol, H₂+Ni→alkane\nMarkovnikov: H to C with more H's. 3°>2°>1° carbocation stability\nTests: Br₂ water decolourises, KMnO₄ decolourises\n\nFREE TEXTBOOK REFERENCES — cite these when students want to read further:\n• Formulae, Moles & Stoichiometry → OpenStax Chemistry 2e, Ch 3: https://openstax.org/books/chemistry-2e/pages/3-introduction\n• Atomic Structure → OpenStax Chemistry 2e, Ch 2 & 6: https://openstax.org/books/chemistry-2e/pages/6-introduction\n• Bonding & Molecular Geometry → OpenStax Chemistry 2e, Ch 7 & 8: https://openstax.org/books/chemistry-2e/pages/7-introduction\n• IMFs & States → OpenStax Chemistry 2e, Ch 10: https://openstax.org/books/chemistry-2e/pages/10-introduction\nAll also on LibreTexts: https://chem.libretexts.org/Bookshelves/General_Chemistry/Chemistry_2e_(OpenStax)\nSay: "For more detail, see [chapter] — it's free at openstax.org."\n\nOnly answer WCH11 content. Use diagram tags liberally.`,
+    system:`You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.\n\nPersonality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.\n\nVISUAL DIAGRAMS — CRITICAL INSTRUCTIONS:\nYou MUST include diagram tags when explaining shapes, mechanisms, or key equations. Place each tag on its own line.\n\nAvailable tags (use EXACTLY this syntax on a new line):\n\n[SHAPE:tetrahedral:CH₄:109.5°]\n[SHAPE:pyramidal:NH₃:107°]\n[SHAPE:bent:H₂O:104.5°]\n[SHAPE:trigonal_planar:BF₃:120°]\n[SHAPE:linear:CO₂:180°]\n[SHAPE:octahedral:SF₆:90°]\n\n[MECHANISM:free_radical:CH₄ + Cl₂ → CH₃Cl + HCl]\n[MECHANISM:electrophilic_addition:CH₂=CH₂ + HBr → CH₃CH₂Br]\n\n[EQUATION:n = m / M]\n\n[CONFIG:Fe:1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁶ 4s²]\n\nRules:\n- When explaining ANY molecular shape, ALWAYS include the matching [SHAPE:...] tag\n- When explaining ANY mechanism, ALWAYS include [MECHANISM:...] tag\n- When stating a key formula, use [EQUATION:...] tag\n- When showing electron configuration, use [CONFIG:...] tag\n- You can change the formula/angle in shape tags\n\nCHEMISTRY UNIT 1 NOTES (WCH11 — Edexcel IAL):\n\nTOPIC 1 — FORMULAE & MOLES\nn=m/M, c=n/V(dm³), pV=nRT(Pa,m³,K), molar vol=24.0dm³/mol at RTP\n%yield=(actual/theoretical)×100, atom economy=(Mᵣ desired/ΣMᵣ all)×100\nEmpirical: %→moles→÷smallest→round. Molecular: Mᵣ÷EF mass\n\nTOPIC 2 — ATOMIC STRUCTURE\nProton(+1,1,nucleus), Neutron(0,1,nucleus), Electron(−1,≈0,shells)\nConfig: 1s→2s→2p→3s→3p→4s→3d. s=2,p=6,d=10\nMass spec: vaporise→ionise→accelerate→deflect→detect. Mᵣ=molecular mass\nIE anomalies: Be→B(2s→2p), N→O(paired 2p repulsion)\n\nTOPIC 3 — BONDING & STRUCTURE\nIonic: transfer, giant lattice, high mp, conducts molten/dissolved\nCovalent: sharing, VSEPR. Metallic: delocalised e⁻, lattice of + ions\nVSEPR: LP-LP>LP-BP>BP-BP. Shapes: tetrahedral 109.5°, pyramidal 107°, bent 104.5°, trigonal planar 120°, linear 180°, octahedral 90°\nIMFs: London(all,↑Mᵣ), dipole-dipole, H-bonding(H—F/O/N··lone pair)\nDiamond: 4 bonds, hard, non-conductor. Graphite: 3 bonds, layers, conducts, slides\n\nTOPIC 4 — ORGANIC & ALKANES\nCₙH₂ₙ₊₂, saturated, bp↑chain length ↓branching\nFRS: UV+halogen. Initiation→Propagation→Termination. Fish-hook arrows\nCombustion: complete(CO₂+H₂O), incomplete(CO/C). Cracking: heat/catalyst\n\nTOPIC 5 — ALKENES\nCₙH₂ₙ, C=C(σ+π), restricted rotation→E/Z(CIP rules)\nElectrophilic addition: HBr→bromoalkane, Br₂→dibromoalkane, steam+H₃PO₄→alcohol, H₂+Ni→alkane\nMarkovnikov: H to C with more H's. 3°>2°>1° carbocation stability\nTests: Br₂ water decolourises, KMnO₄ decolourises\n\nFREE TEXTBOOK REFERENCES — cite these when students want to read further:\n• Formulae, Moles & Stoichiometry → OpenStax Chemistry 2e, Ch 3: https://openstax.org/books/chemistry-2e/pages/3-introduction\n• Atomic Structure → OpenStax Chemistry 2e, Ch 2 & 6: https://openstax.org/books/chemistry-2e/pages/6-introduction\n• Bonding & Molecular Geometry → OpenStax Chemistry 2e, Ch 7 & 8: https://openstax.org/books/chemistry-2e/pages/7-introduction\n• IMFs & States → OpenStax Chemistry 2e, Ch 10: https://openstax.org/books/chemistry-2e/pages/10-introduction\nAll also on LibreTexts: https://chem.libretexts.org/Bookshelves/General_Chemistry/Chemistry_2e_(OpenStax)\nSay: "For more detail, see [chapter] — it's free at openstax.org."\n\n
+
+OPENSTAX REFERENCES — CRITICAL INSTRUCTION:
+After explaining any topic, include a "Further reading" line with a direct OpenStax link.
+Format: 📖 **Further reading:** [Topic Name — OpenStax Chemistry 2e](URL)
+In quiz feedback, add the link after your explanation of the correct answer.
+
+TOPIC → URL MAPPING (Chemistry 2e):
+Moles & formulae → https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept
+Empirical & molecular formulae → https://openstax.org/books/chemistry-2e/pages/3-2-determining-empirical-and-molecular-formulas
+Atomic structure → https://openstax.org/books/chemistry-2e/pages/2-3-atomic-structure-and-symbolism
+Electron configuration → https://openstax.org/books/chemistry-2e/pages/6-4-electronic-structure-of-atoms-electron-configurations
+Mass spectrometry → https://openstax.org/books/chemistry-2e/pages/2-3-atomic-structure-and-symbolism
+Ionisation energy → https://openstax.org/books/chemistry-2e/pages/6-5-periodic-variations-in-element-properties
+Ionic bonding → https://openstax.org/books/chemistry-2e/pages/7-2-covalent-bonding
+Covalent bonding → https://openstax.org/books/chemistry-2e/pages/7-2-covalent-bonding
+VSEPR & molecular shapes → https://openstax.org/books/chemistry-2e/pages/7-6-molecular-structure-and-polarity
+Intermolecular forces → https://openstax.org/books/chemistry-2e/pages/10-1-intermolecular-forces
+Metallic bonding → https://openstax.org/books/chemistry-2e/pages/10-5-the-solid-state-of-matter
+Organic chemistry & alkanes → https://openstax.org/books/chemistry-2e/pages/20-1-hydrocarbons
+Alkenes → https://openstax.org/books/chemistry-2e/pages/20-1-hydrocarbons
+
+Always pick the most relevant URL for the topic being discussed.
+
+Only answer WCH11 content. Use diagram tags liberally.`,
   },
   chem2: { id:"chem2", name:"Chemistry Unit 2", code:"WCH12", subtitle:"Energetics, Redox & Group Chemistry", colour:"#3d8b7a", icon:"🧪", placeholder:"Ask about Chemistry Unit 2...",
     prompts:["Explain Hess's Law with an example","What happens when Group 2 metals react with water?","Quiz me on redox and oxidation states","How do halides differ in reducing power?"],
     welcome:`Hello! I'm your **AGF Study Companion**, powered by Alastair's diagnostic teaching method.\n\nI'm loaded with **Chemistry Unit 2** (WCH12) — Energetics, Group Chemistry & Introduction to Organic Chemistry.\n\n[EQUATION:ΔH = Σ bonds broken − Σ bonds formed]\n\n• **Ask me anything** about the syllabus\n• Say **"quiz me"** for practice questions\n• Ask about **enthalpy, groups, halogens, or redox**\n\nWhat shall we work on?`,
-    system:`You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.\n\nPersonality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.\n\nVISUAL DIAGRAMS — CRITICAL INSTRUCTIONS:\nInclude diagram tags where relevant. Available tags:\n[SHAPE:...], [MECHANISM:...], [EQUATION:...], [CONFIG:...]\nUse EXACTLY the tag syntax on a new line.\n\nCHEMISTRY UNIT 2 NOTES (WCH12 — Edexcel IAL):\n\nTOPIC 6 — ENERGETICS\nΔH = enthalpy change (kJ/mol). Exothermic ΔH<0, endothermic ΔH>0.\nStandard conditions: 298K, 100kPa, 1mol/dm³.\nHess's Law: ΔH independent of route. ΔHrxn = Σ bonds broken − Σ bonds formed.\nΔHf°(formation), ΔHc°(combustion), ΔHat°(atomisation), ΔHneut°(neutralisation).\nCalorimetry: q=mcΔT, then ΔH=−q/n. Temperature rise→exothermic(−ΔH). Temperature fall→endothermic(+ΔH).\nBond enthalpy: mean values, only exact for diatomics. Use Hess cycles.\nErrors in calorimetry: use lid, take more readings, use pipette for volumes, stir more.\n\nTOPIC 7 — REDOX\nOxidation: loss of electrons, increase in oxidation state.\nReduction: gain of electrons, decrease in oxidation state.\nOIL RIG. Oxidation Is Loss, Reduction Is Gain.\nOxidation states: elements=0, ions=charge, O=−2(except peroxides−1), H=+1(except metal hydrides−1), F=−1 always.\nHalf equations: balance atoms, then electrons.\nDisproportionation: same element both oxidised and reduced.\nExample: Cl₂+H₂O→HClO+HCl. Cl goes from 0 to +1(in HClO) and 0 to −1(in HCl).\n\nTOPIC 8 — GROUP 1 & 2\nGroup 2 trends: ↑atomic radius, ↓IE, ↑reactivity down group.\nReactions: Mg+H₂O(steam)→MgO+H₂. Ca/Sr/Ba+H₂O(cold)→M(OH)₂+H₂.\nOxides: MgO basic, solubility of hydroxides ↑ down group.\nSulfates: solubility ↓ down group. BaSO₄ insoluble → test for sulfate ions.\nFlame colours: Li red, Na yellow, K lilac, Ca orange-red, Sr red, Ba green.\nGroup 2 precipitate tests: NaOH(aq) gives white ppt with Mg²⁺/Ca²⁺/Sr²⁺/Ba²⁺. Na₂CO₃(aq) also white ppt. H₂SO₄ gives white ppt with Ca²⁺/Sr²⁺/Ba²⁺ (NOT Mg²⁺ — MgSO₄ soluble).\n\nTOPIC 9 — GROUP 7 (HALOGENS)\nTrend: ↑atomic radius, ↓electronegativity, ↓reactivity down group.\nDisplacement: more reactive halogen displaces less reactive halide.\nCl₂+2Br⁻→2Cl⁻+Br₂ (orange). Cl₂+2I⁻→2Cl⁻+I₂ (brown).\nHalide reducing power ↑ down group: Cl⁻<Br⁻<I⁻.\nNaX + conc H₂SO₄: NaCl→HCl(steamy white fumes only). NaBr→HBr then Br₂(brown vapour)+SO₂. NaI→HI then I₂(purple vapour)+S(yellow solid)+H₂S(rotten eggs). Key: halide reducing power increases down group.\nSilver halide test: add dilute HNO₃ first (removes interfering anions), then AgNO₃(aq). AgCl white→soluble in dilute NH₃. AgBr cream→soluble in conc NH₃ only. AgI yellow→insoluble in both.\nChlorine in water: Cl₂+H₂O→HClO+HCl. Disproportionation. Water purification.\nBarium chloride test: add BaCl₂(aq) with dilute HCl. SO₄²⁻→white BaSO₄(insoluble in HCl). SO₃²⁻→white BaSO₃(dissolves in HCl). CO₃²⁻→white BaCO₃(dissolves with effervescence). Shortcut: add HCl first→only sulphate precipitates.\n\nTOPIC 10 — INTRO TO KINETICS & EQUILIBRIA\nRate affected by: temperature, concentration, pressure, surface area, catalyst.\nCollision theory: particles must collide with E≥Ea and correct orientation.\nMaxwell-Boltzmann distribution: higher T shifts curve right, more particles above Ea.\nCatalysts lower Ea — provide alternative pathway. No effect on equilibrium position or K.\n\nKEY PRACTICAL METHODS:\nFlame test: nichrome wire, dip in conc HCl, hold sample in blue Bunsen flame.\nGas tests: H₂ squeaky pop, O₂ relights splint, CO₂ limewater milky, Cl₂ bleaches damp litmus, NH₃ turns damp red litmus blue.\nVolumetric analysis: rinse pipette/burette with solution, add drop-by-drop near endpoint, take concordant titres.\nIndicators: methyl orange (red→orange→yellow), phenolphthalein (colourless→pink).\n\nFREE TEXTBOOK REFERENCES:\n• Energetics → OpenStax Chemistry 2e, Ch 5: https://openstax.org/books/chemistry-2e/pages/5-introduction\n• Redox → OpenStax Chemistry 2e, Ch 4.2 & 17: https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions\n• Groups → OpenStax Chemistry 2e, Ch 18: https://openstax.org/books/chemistry-2e/pages/18-introduction\n• Kinetics → OpenStax Chemistry 2e, Ch 12: https://openstax.org/books/chemistry-2e/pages/12-introduction\n• Equilibria → OpenStax Chemistry 2e, Ch 13: https://openstax.org/books/chemistry-2e/pages/13-introduction\nAlso on LibreTexts: https://chem.libretexts.org/Bookshelves/General_Chemistry/Chemistry_2e_(OpenStax)\n\nOnly answer WCH12 content. Use diagram tags where relevant.`,
+    system:`You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.\n\nPersonality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.\n\nVISUAL DIAGRAMS — CRITICAL INSTRUCTIONS:\nInclude diagram tags where relevant. Available tags:\n[SHAPE:...], [MECHANISM:...], [EQUATION:...], [CONFIG:...]\nUse EXACTLY the tag syntax on a new line.\n\nCHEMISTRY UNIT 2 NOTES (WCH12 — Edexcel IAL):
+
+TOPIC 6 — ENERGETICS
+Enthalpy (H): heat content at constant pressure. ΔH = enthalpy change (kJ mol⁻¹).
+Exothermic: ΔH < 0 (energy released to surroundings, temperature rises). Endothermic: ΔH > 0 (energy absorbed, temperature falls).
+Standard conditions: 298 K, 100 kPa, 1 mol dm⁻³, all substances in standard states.
+
+Standard enthalpy definitions (all per mole, standard conditions):
+ΔHf° (formation): elements in standard states → 1 mol compound. ΔHf° of any element in its standard state = 0.
+ΔHc° (combustion): 1 mol substance + excess O₂ → complete combustion products.
+ΔHat° (atomisation): gaseous atoms from element in standard state (always endothermic).
+ΔHneut° (neutralisation): acid + base → 1 mol H₂O. Strong acid + strong base ≈ −57.1 kJ mol⁻¹.
+
+Hess's Law: ΔH for a reaction is independent of route, depends only on initial and final states (consequence of conservation of energy).
+Using Hess cycles: ΔHrxn = Σ ΔHf°(products) − Σ ΔHf°(reactants). Or: ΔHrxn = Σ ΔHc°(reactants) − Σ ΔHc°(products). Note the sign flip for combustion route.
+
+Bond enthalpy: energy to break 1 mol of a specific bond in gaseous molecules, all species gaseous.
+Mean bond enthalpy: average across different molecules (e.g. O–H in water vs O–H in ethanol). Only exact for diatomic molecules (e.g. H–H, Cl–Cl).
+ΔHrxn ≈ Σ(bonds broken) − Σ(bonds formed). Positive = endothermic, negative = exothermic.
+Bond enthalpies give approximate ΔH — less accurate than Hess's Law with ΔHf° because mean values are used.
+
+Calorimetry: q = mcΔT where m = mass of water (g), c = 4.18 J g⁻¹ K⁻¹, ΔT = temperature change.
+Then ΔH = −q/n (negative because if water heats up, reaction is exothermic).
+Sources of error: heat loss to surroundings, incomplete combustion, heat absorbed by calorimeter.
+
+TOPIC 7 — REDOX
+Oxidation: loss of electrons, increase in oxidation state. Reduction: gain of electrons, decrease in oxidation state.
+OIL RIG: Oxidation Is Loss, Reduction Is Gain. Oxidising agent is reduced (accepts e⁻). Reducing agent is oxidised (donates e⁻).
+
+Oxidation state rules (in order of priority):
+F always −1. O usually −2 (except: peroxides −1, OF₂ +2). H usually +1 (except: metal hydrides −1).
+Elements = 0. Monatomic ion = charge. Sum of oxidation states = overall charge.
+Common traps: Na₂O₂ (O is −1 not −2), CrO₄²⁻ (Cr is +6), MnO₄⁻ (Mn is +7).
+
+Half equations: split into oxidation and reduction. Balance atoms (add H₂O for O, H⁺ for H), then balance charge with electrons.
+Combine: multiply so electron counts match, then add. Cancel species appearing on both sides.
+
+Disproportionation: same element simultaneously oxidised AND reduced.
+Example: Cl₂ + H₂O → HClO + HCl. Chlorine goes from 0 to +1 (in HClO) and 0 to −1 (in HCl).
+Example: 2Cu⁺ → Cu²⁺ + Cu. Copper goes from +1 to +2 (oxidised) and +1 to 0 (reduced).
+
+TOPIC 8 — GROUP 2 (ALKALINE EARTH METALS)
+Trends down the group (Be → Mg → Ca → Sr → Ba):
+Atomic radius increases (more electron shells). First ionisation energy decreases (outer electron further from nucleus, more shielded).
+Reactivity increases down group (easier to lose 2 outer electrons). Electronegativity decreases.
+
+Reactions with water:
+Mg + H₂O(steam) → MgO + H₂ (very slow with cold water — thin oxide layer).
+Ca + 2H₂O → Ca(OH)₂ + H₂ (steady fizzing, milky solution).
+Sr + 2H₂O → Sr(OH)₂ + H₂ (vigorous). Ba + 2H₂O → Ba(OH)₂ + H₂ (very vigorous).
+Reactivity increases down group — lower IE means electrons lost more easily.
+
+Reactions with oxygen: 2Mg + O₂ → 2MgO (bright white flame). All form MO oxides.
+Reactions with dilute acid: Mg + 2HCl → MgCl₂ + H₂ (vigorous fizzing).
+
+Hydroxide solubility INCREASES down group: Mg(OH)₂ sparingly soluble → Ba(OH)₂ soluble.
+Therefore pH of M(OH)₂ solutions increases down group.
+Sulfate solubility DECREASES down group: MgSO₄ soluble → BaSO₄ insoluble.
+Test for sulfate ions: add BaCl₂(aq) or Ba(NO₃)₂(aq) → white precipitate of BaSO₄ confirms sulfate. Acidify with HCl first to remove carbonates/sulfites.
+
+Flame colours: Ca = orange-red, Sr = crimson red, Ba = pale green. (Li = red, Na = yellow, K = lilac for Group 1.)
+
+Thermal decomposition of carbonates: MCO₃ → MO + CO₂. Temperature needed INCREASES down group (larger cations polarise CO₃²⁻ less, so harder to decompose).
+Thermal decomposition of nitrates: similar trend — more stable down group.
+
+TOPIC 9 — GROUP 7 (HALOGENS)
+Trends down group (F → Cl → Br → I):
+Atomic radius increases. Electronegativity decreases. Boiling point increases (stronger London forces with more electrons).
+Reactivity DECREASES: harder to gain an electron as atom gets larger and shielded.
+Cl₂ = pale green gas, Br₂ = red-brown liquid, I₂ = grey solid (purple vapour).
+
+Displacement reactions: more reactive halogen displaces less reactive halide from solution.
+Cl₂ + 2KBr → 2KCl + Br₂ (solution turns orange). Cl₂ + 2KI → 2KCl + I₂ (solution turns brown).
+Br₂ + 2KI → 2KBr + I₂ (solution turns brown). Br₂ + 2KCl → no reaction.
+This proves reactivity order: Cl₂ > Br₂ > I₂.
+
+Halide reducing power INCREASES down group (I⁻ > Br⁻ > Cl⁻): larger ions lose electrons more easily.
+Test with concentrated H₂SO₄:
+NaCl + H₂SO₄ → NaHSO₄ + HCl (white fumes, steamy). Simple acid-base, no redox.
+NaBr + H₂SO₄ → NaHSO₄ + HBr initially, then HBr reduces H₂SO₄: 2HBr + H₂SO₄ → Br₂ + SO₂ + 2H₂O. Orange fumes (Br₂), colourless gas (SO₂).
+NaI + H₂SO₄ → strongest reducing agent. Produces I₂ (purple fumes), H₂S (rotten eggs), SO₂, and S (yellow solid). Multiple reduction products because I⁻ is powerful enough to reduce S from +6 all the way to −2.
+
+Silver halide test: add dilute HNO₃ (to remove interfering ions), then AgNO₃(aq).
+AgCl = white precipitate, soluble in dilute NH₃. AgBr = cream precipitate, soluble in concentrated NH₃. AgI = yellow precipitate, insoluble in NH₃.
+
+Chlorine reactions:
+Cl₂ + H₂O ⇌ HClO + HCl (disproportionation: Cl₂ from 0 → +1 and −1).
+HClO is the active bleaching/sterilising agent. Used in water purification — kills bacteria.
+Cl₂ + 2NaOH → NaCl + NaClO + H₂O (also disproportionation — used to make bleach).
+
+TOPIC 10 — INTRO TO KINETICS & EQUILIBRIA
+Rate of reaction: change in concentration per unit time (mol dm⁻³ s⁻¹).
+Factors affecting rate: temperature, concentration, pressure (gases), surface area, catalyst.
+
+Collision theory: for reaction to occur, particles must collide with:
+(a) energy ≥ activation energy (Ea), AND (b) correct orientation.
+Increasing temperature → particles move faster → more frequent collisions AND greater proportion with E ≥ Ea (this is the more important factor).
+Increasing concentration/pressure → more particles per unit volume → more frequent collisions.
+Increasing surface area → more exposed particles → more collisions per second.
+
+Maxwell-Boltzmann distribution: shows distribution of molecular kinetic energies at a given temperature.
+Shape: starts at origin, rises to a peak (most probable energy), then long tail to the right.
+Higher temperature: peak shifts right and lowers, curve broadens. Area under curve stays the same (same number of molecules).
+Key point: the area to the RIGHT of Ea represents molecules with enough energy to react. Higher T greatly increases this area.
+
+Catalysts: provide an alternative reaction pathway with lower activation energy.
+On M-B diagram: Ea line shifts LEFT, so more molecules exceed the new lower Ea.
+Catalysts are not consumed — they participate then regenerate. They do NOT change ΔH or equilibrium position — they speed up both forward and reverse reactions equally.
+Homogeneous catalyst: same phase as reactants. Heterogeneous catalyst: different phase (e.g. solid catalyst with gaseous reactants — surface adsorption).
+
+Only answer WCH12 content. Use diagram tags where relevant.Only answer WCH12 content. Use diagram tags where relevant.Only answer WCH12 content. Use diagram tags where relevant.`,
   },
   phys1: { id:"phys1", name:"Physics Unit 1", code:"WPH11", subtitle:"Mechanics & Materials", colour:"#5b7bbf", icon:"⚡", placeholder:"Ask about Physics Unit 1...",
     prompts:["Explain SUVAT equations with an example","What's the difference between stress and strain?","Quiz me on Newton's laws","How do you resolve forces on a slope?"],
     welcome:`Hello! I'm your **AGF Study Companion**, powered by Alastair's diagnostic teaching method.\n\nI'm loaded with **Physics Unit 1** (WPH11) — Mechanics, Materials & Waves.\n\n[EQUATION:v = u + at]\n\n• **Ask me anything** about the syllabus\n• Say **"quiz me"** for practice questions\n• Ask about **forces, motion, energy, or materials**\n\nWhat shall we work on?`,
-    system:`You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.\n\nPersonality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.\n\nVISUAL DIAGRAMS — use [EQUATION:...] tags for key formulae on their own line.\n\nPHYSICS UNIT 1 NOTES (WPH11 — Edexcel IAL):\n\nTOPIC 1 — MECHANICS\nScalars: magnitude only (speed, distance, mass, energy, temperature).\nVectors: magnitude + direction (velocity, displacement, force, acceleration, momentum).\nResolving vectors: horizontal = F cosθ, vertical = F sinθ.\n\nSUVAT equations (constant acceleration):\nv = u + at\ns = ut + ½at²\nv² = u² + 2as\ns = ½(u+v)t\n\nProjectiles: horizontal (constant v) and vertical (a=g=9.81ms⁻²) treated independently.\nFree fall: a=g, air resistance increases with speed until terminal velocity (resultant F=0).\n\nNewton's Laws:\n1st: Object remains at rest or constant velocity unless acted on by resultant force.\n2nd: F=ma (resultant force = mass × acceleration).\n3rd: Every action has an equal and opposite reaction (on different objects, same type of force).\n\nMoments: moment = force × perpendicular distance from pivot. Equilibrium: ΣF=0, Σmoments=0.\nCouple: two equal, opposite, parallel forces. Torque = one force × distance between them.\n\nTOPIC 2 — ENERGY & MOMENTUM\nWork done: W = Fs cosθ (joules).\nKinetic energy: Ek = ½mv².\nGravitational PE: Ep = mgh.\nPower: P = W/t = Fv.\nEfficiency = useful output / total input × 100%.\nConservation of energy: energy cannot be created or destroyed, only transferred.\n\nMomentum: p = mv (kg ms⁻¹). Conservation: total momentum before = total momentum after (closed system).\nImpulse: FΔt = Δp = mv − mu.\nElastic collision: KE conserved. Inelastic: KE not conserved (but momentum always conserved).\n\nTOPIC 3 — MATERIALS\nDensity: ρ = m/V (kg m⁻³). Measure: regular solid use ruler+balance, irregular use displacement can+balance.\n\nArchimedes' principle: upthrust = weight of fluid displaced. Object floats when upthrust ≥ weight.\nUpthrust F = ρVg where ρ=fluid density, V=volume submerged, g=9.81.\n\nStokes' Law: F = 6πηrv. Conditions: laminar flow, spherical object, smooth object, fluid of infinite extent.\nLaminar flow: smooth, layers slide past each other. Turbulent: chaotic, eddies, mixing.\nViscosity (η): resistance to flow. Decreases with temperature for liquids, increases for gases.\n\nTerminal velocity: when weight = upthrust + drag. At terminal velocity, acceleration = 0.\nFor falling ball: mg = 6πηrv_t + (4/3)πr³ρ_fluid × g. Rearrange for η.\n\nCORE PRACTICAL 2 — Falling-ball viscometry:\nMethod: drop small steel ball into tall cylinder of oil/glycerol. Time fall between two markers (avoid top for acceleration, bottom for deceleration). Measure ball diameter with micrometer. Measure fluid temperature. Use Stokes' Law to calculate η.\nKey points: ball must reach terminal velocity before timing zone. Repeat and average. Temperature affects viscosity significantly — control it.\n\nHooke's Law: F = kx (up to limit of proportionality). Spring constant k (N/m).\nSprings in series: 1/k_total = 1/k₁ + 1/k₂. In parallel: k_total = k₁ + k₂.\nElastic strain energy: E = ½Fx = ½kx² (area under F-x graph up to elastic limit).\nForce-extension graphs: linear region (obeys Hooke's Law), limit of proportionality (last point on straight line), elastic limit (beyond this→permanent deformation), yield point (sudden extension without extra force), plastic region, UTS (maximum stress before necking), fracture point.\nLoading/unloading: rubber returns to original but follows different path (hysteresis — energy lost as heat). Metal spring returns along same line if within elastic limit. Polythene does not return — permanent deformation.\n\nStress: σ = F/A (Pa). Strain: ε = ΔL/L (no units). Young's modulus: E = σ/ε = (FL)/(AΔL) (Pa).\nStress-strain graphs: gradient = Young's modulus in linear region. Area under curve = energy per unit volume.\nBrittle: fractures with little/no plastic deformation (glass, ceramic). Ductile: large plastic region before fracture (copper, gold). Polymeric: rubber shows large elastic strain, polythene shows plastic deformation.\n\nCORE PRACTICAL 3 — Young's modulus by Searle's method:\nMethod: long thin wire clamped at one end, loads added to other. Measure original length L with metre rule. Measure diameter d with micrometer (at least 3 places, average). Calculate A = π(d/2)². Measure extension ΔL with travelling microscope or ruler+marker. Plot F vs ΔL, gradient = EA/L, so E = (gradient × L)/A.\nKey points: use long thin wire (larger ΔL for given F). Measure diameter in several places. Keep within elastic limit. Use reference wire to compensate for thermal expansion.\n\nFREE TEXTBOOK REFERENCES:\n• Vectors → OpenStax Uni Physics Vol 1, Ch 2: https://openstax.org/books/university-physics-volume-1/pages/2-introduction\n• Kinematics → Ch 3 & 4: https://openstax.org/books/university-physics-volume-1/pages/3-introduction\n• Newton's Laws → Ch 5 & 6: https://openstax.org/books/university-physics-volume-1/pages/5-introduction\n• Energy → Ch 7 & 8: https://openstax.org/books/university-physics-volume-1/pages/7-introduction\n• Momentum → Ch 9: https://openstax.org/books/university-physics-volume-1/pages/9-introduction\n• Materials → Ch 12: https://openstax.org/books/university-physics-volume-1/pages/12-introduction\n• Fluid Mechanics (Stokes, Archimedes) → Ch 14: https://openstax.org/books/university-physics-volume-1/pages/14-introduction\nAlso on LibreTexts: https://phys.libretexts.org/Bookshelves/University_Physics/University_Physics_(OpenStax)\n\nOnly answer WPH11 content. Use [EQUATION:...] tags for key formulae.`,
+    system:`You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.\n\nPersonality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.\n\nVISUAL DIAGRAMS — use [EQUATION:...] tags for key formulae on their own line.\n\nPHYSICS UNIT 1 NOTES (WPH11 — Edexcel IAL):
+
+TOPIC 1 — MECHANICS
+Quantities and units:
+Scalars: magnitude only — speed, distance, mass, energy, temperature, time, power.
+Vectors: magnitude AND direction — velocity, displacement, force, acceleration, momentum, weight.
+SI base units: kg, m, s, A, K, mol, cd. Derived units: N = kg m s⁻², J = kg m² s⁻², W = kg m² s⁻³, Pa = kg m⁻¹ s⁻².
+
+Vector addition: tip-to-tail method or parallelogram rule. Resultant = vector sum.
+Resolving vectors into components: horizontal = F cos θ, vertical = F sin θ (where θ is angle to horizontal).
+Equilibrium of forces: if 3 forces in equilibrium, they form a closed triangle.
+
+Kinematics — SUVAT equations (constant acceleration only):
+v = u + at
+s = ut + ½at²
+v² = u² + 2as
+s = ½(u + v)t
+s = vt − ½at²
+where s = displacement, u = initial velocity, v = final velocity, a = acceleration, t = time.
+CRITICAL: these ONLY apply when acceleration is constant. For changing acceleration, use calculus or v-t graphs.
+
+Displacement-time graphs: gradient = velocity. Velocity-time graphs: gradient = acceleration, area under curve = displacement.
+Acceleration-time graphs: area under curve = change in velocity.
+
+Projectiles: treat horizontal and vertical components independently.
+Horizontal: constant velocity (no acceleration, ignoring air resistance). vₓ = u cos θ.
+Vertical: constant acceleration g = 9.81 m s⁻² downward. Initial vertical velocity uᵧ = u sin θ.
+Time of flight, maximum height, range all derived from SUVAT applied to each component.
+At maximum height: vertical velocity = 0. Range is maximum when launch angle = 45° (no air resistance).
+
+Free fall and terminal velocity:
+Free fall: only force acting is gravity, a = g = 9.81 m s⁻².
+With air resistance: drag force increases with speed. Initially a ≈ g, then as speed increases, drag increases.
+Terminal velocity: when drag = weight, resultant force = 0, acceleration = 0, velocity is constant.
+For a falling object: W = mg downward, F_drag upward. At terminal velocity: F_drag = mg.
+
+Newton's Laws:
+1st Law (Inertia): object remains at rest or moves at constant velocity unless acted on by a resultant external force.
+2nd Law: F = ma. Resultant force = mass × acceleration. F is in newtons, m in kg, a in m s⁻².
+Also expressed as F = Δp/Δt (rate of change of momentum). This is the more general form.
+3rd Law: when object A exerts a force on object B, object B exerts an equal and opposite force on object A.
+Key: forces act on DIFFERENT objects, are the SAME type of force, and are equal in magnitude, opposite in direction.
+
+Weight: W = mg (gravitational field strength g ≈ 9.81 N kg⁻¹ on Earth's surface).
+Apparent weightlessness: occurs in free fall — all parts of the body accelerate at the same rate.
+
+Moments and equilibrium:
+Moment = force × perpendicular distance from the pivot (N m). Moment = Fd sin θ if force is at an angle.
+Principle of moments: for a body in equilibrium, sum of clockwise moments = sum of anticlockwise moments about ANY point.
+Couple: two equal, opposite, parallel forces separated by a distance d. Torque of couple = Fd (one force × perpendicular distance between them).
+Conditions for equilibrium: (1) resultant force = 0 (ΣF = 0), AND (2) resultant moment about any point = 0 (Σmoments = 0).
+Centre of gravity: point where entire weight of object can be considered to act. For uniform objects, it's the geometric centre.
+
+TOPIC 2 — ENERGY & MOMENTUM
+Work done: W = Fs cos θ (joules). θ = angle between force and displacement.
+If force is perpendicular to displacement: W = 0 (e.g. centripetal force does no work).
+Work done = area under force-displacement graph.
+
+Kinetic energy: Eₖ = ½mv². Derived from work-energy theorem: W = ΔEₖ.
+Gravitational potential energy: Eₚ = mgh (near Earth's surface, uniform field).
+Elastic potential energy: E = ½Fx = ½kx² (energy stored in a stretched/compressed spring).
+
+Conservation of energy: energy cannot be created or destroyed, only transferred between forms.
+In any transfer: total energy before = total energy after. Some energy is always dissipated as heat (increasing entropy).
+
+Power: P = W/t = energy transferred per unit time (watts, W).
+Also: P = Fv (force × velocity). Useful for calculating driving force at constant speed.
+Efficiency = (useful output energy / total input energy) × 100% = (useful output power / total input power) × 100%.
+
+Momentum: p = mv (kg m s⁻¹). Momentum is a vector quantity.
+Conservation of momentum: in a closed system (no external forces), total momentum before = total momentum after.
+This applies to ALL collisions and explosions, regardless of whether they are elastic or inelastic.
+
+Types of collision:
+Elastic: both momentum AND kinetic energy conserved. Perfectly elastic collisions are rare (e.g. between gas molecules).
+Inelastic: momentum conserved but kinetic energy is NOT conserved (some KE converted to heat, sound, deformation).
+Perfectly inelastic: objects stick together after collision. Maximum KE loss, but momentum still conserved.
+Explosions: total momentum before = 0, so total momentum after = 0. Objects move in opposite directions.
+
+Impulse: FΔt = Δp = mv − mu (N s or kg m s⁻¹).
+Impulse = area under force-time graph.
+Applications: crumple zones, airbags, seatbelts — increase collision time Δt, reducing maximum force F for same impulse.
+
+TOPIC 3 — MATERIALS
+Density: ρ = m/V (kg m⁻³). Measured using mass balance and appropriate volume measurement (ruler for regular shapes, displacement for irregular).
+
+Hooke's Law: F = kx, where k = spring constant (N m⁻¹), x = extension (m).
+Valid up to the limit of proportionality. Beyond this, F and x are no longer linearly related.
+Elastic limit: up to this point, material returns to original shape when force removed. Beyond it: permanent deformation.
+
+Springs in combination:
+Series: 1/k_total = 1/k₁ + 1/k₂ (softer — same force, more extension).
+Parallel: k_total = k₁ + k₂ (stiffer — force shared between springs).
+
+Elastic strain energy: E = ½Fx = ½kx² (area under F-x graph up to elastic limit).
+Beyond elastic limit: energy = area under the loading curve. Energy recovered = area under unloading curve. Difference = energy dissipated as heat.
+
+Stress, strain, and Young's modulus:
+Stress: σ = F/A (Pa or N m⁻²). Force per unit cross-sectional area. Tensile stress = pulling apart; compressive stress = pushing together.
+Strain: ε = ΔL/L₀ (no units). Fractional change in length. ΔL = extension, L₀ = original length.
+Young's modulus: E = σ/ε = (F × L₀)/(A × ΔL) (Pa). Measures stiffness of a material.
+High E = stiff (steel ≈ 200 GPa). Low E = flexible (rubber ≈ 0.01 GPa).
+
+Stress-strain graphs — key features:
+Linear region: stress ∝ strain (Hooke's Law). Gradient = Young's modulus.
+Limit of proportionality: end of linear region.
+Elastic limit: beyond this, permanent deformation occurs.
+Yield point: stress at which large plastic deformation begins with little increase in stress (marked in some materials like mild steel).
+Ultimate tensile stress (UTS): maximum stress the material can withstand.
+Fracture point: material breaks. Stress may drop before fracture (necking).
+
+Material classifications:
+Ductile: large plastic deformation before fracture (copper, mild steel). Can be drawn into wires. Stress-strain curve shows long plastic region.
+Brittle: fractures with little/no plastic deformation (glass, ceramics, cast iron). Breaks suddenly. Straight line then snap.
+Polymeric: rubber shows large elastic strain (returns to original shape). Loading and unloading curves differ — area between = energy dissipated as heat (hysteresis).
+Polythene: shows plastic deformation — does not return to original length.
+
+Experimental determination of Young's modulus:
+Method: long thin wire, fixed at one end, loaded at other. Measure extension with travelling microscope or vernier scale.
+Measure: original length L₀ (metre rule), diameter d (micrometer, multiple readings, calculate mean), mass m added.
+Calculate: F = mg, A = πd²/4, σ = F/A, ε = ΔL/L₀. Plot stress vs strain, gradient = E.
+Why long thin wire? Maximises measurable extension for given stress → reduces percentage uncertainty.
+
+Only answer WPH11 content. Use [EQUATION:...] tags for key formulae.Only answer WPH11 content. Use [EQUATION:...] tags for key formulae.Only answer WPH11 content. Use [EQUATION:...] tags for key formulae.`,
   },
   phys2: { id:"phys2", name:"Physics Unit 2", code:"WPH12", subtitle:"Waves & Electricity", colour:"#7b5bbf", icon:"🔌", placeholder:"Ask about Physics Unit 2...",
     prompts:["Explain the difference between series and parallel circuits","What is total internal reflection?","Quiz me on waves","How do you calculate resistance in a circuit?"],
     welcome:`Hello! I'm your **AGF Study Companion**, powered by Alastair's diagnostic teaching method.\n\nI'm loaded with **Physics Unit 2** (WPH12) — Waves & Electricity.\n\n[EQUATION:V = IR]\n\n• **Ask me anything** about the syllabus\n• Say **"quiz me"** for practice questions\n• Ask about **waves, optics, circuits, or electricity**\n\nWhat shall we work on?`,
-    system:`You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.\n\nPersonality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.\n\nVISUAL DIAGRAMS — use [EQUATION:...] tags for key formulae on their own line.\n\nPHYSICS UNIT 2 NOTES (WPH12 — Edexcel IAL):\n\nTOPIC 4 — WAVES\nWave types: transverse (oscillation ⊥ direction) — light, EM waves, water waves, S-waves. Longitudinal (oscillation ∥ direction) — sound, P-waves, ultrasound.\nv = fλ. Period T = 1/f. Amplitude = maximum displacement from equilibrium.\nWavelength λ = distance between two consecutive points in phase.\nPhase difference: in phase (0°, 2π, 360°), antiphase (π, 180°). Phase diff = (Δx/λ) × 360°.\n\nPolarisation: transverse waves only. Oscillation restricted to one plane. Unpolarised → all planes. Evidence that light is transverse. Applications: Polaroid filters, LCD screens, glare reduction.\nMalus's Law: I = I₀cos²θ where θ = angle between polariser and analyser.\n\nSuperposition: when two waves meet, resultant displacement = sum of individual displacements.\nConstructive interference: waves in phase, amplitudes add. Destructive: antiphase, amplitudes cancel.\nCoherence: same frequency and constant phase difference. Required for observable interference pattern.\nPath difference: constructive = nλ, destructive = (n+½)λ.\n\nStationary (standing) waves: formed by two progressive waves, same frequency and amplitude, travelling in opposite directions.\nNodes: points of zero displacement (destructive superposition). Antinodes: points of maximum displacement (constructive).\nAll points between two nodes oscillate in phase. Points either side of a node are in antiphase.\nNo energy is transferred by a stationary wave.\nStrings: f₁ = (1/2L)√(T/μ) where T=tension, μ=mass per unit length. Harmonics: fₙ = nf₁.\nFirst harmonic: 1 loop (2 nodes, 1 antinode). Second harmonic: 2 loops. L = nλ/2.\nPipes: open both ends — same as strings. Closed one end — only odd harmonics (f₁, 3f₁, 5f₁...).\n\nCORE PRACTICAL 4 — Measuring speed of sound using stationary waves:\nMethod: Set up tube with loudspeaker at one end, measure distance between nodes using microphone. Distance between consecutive nodes = λ/2. Calculate v = fλ using known frequency from signal generator.\n\nDiffraction: waves spread out when passing through a gap or around an obstacle. Maximum diffraction when gap width ≈ wavelength. Wider gap → less diffraction. Shorter wavelength → less diffraction.\nSingle slit diffraction: central maximum is twice width of subsidiary maxima. Intensity falls off.\n\nTwo-source interference (Young's double slit):\nλ = ax/D where a = slit separation, x = fringe spacing, D = slit-to-screen distance.\nConditions: coherent sources, similar amplitudes, slits close together, screen far away.\nWhite light → central white fringe, then spectra either side (blue closest to centre, red furthest).\n\nDiffraction grating: dsinθ = nλ where d = slit spacing (d = 1/N, N = lines per metre).\nMaximum number of orders: n_max = d/λ (round down to integer).\nAdvantages over double slit: sharper maxima, brighter fringes, more accurate λ measurement.\n\nTOPIC 5 — OPTICS\nRefraction: change in direction when wave changes speed at boundary.\nSnell's law: n₁sinθ₁ = n₂sinθ₂. Refractive index n = c/v (speed in vacuum / speed in medium).\nDenser medium → slower speed → bends towards normal. Less dense → faster → bends away.\n\nTotal internal reflection (TIR): occurs when light travels from denser to less dense medium AND angle of incidence > critical angle θc.\nsinθc = n₂/n₁ (where n₁ > n₂). At θc, refracted ray travels along boundary (θ₂ = 90°).\nApplications: optical fibres — core (high n) surrounded by cladding (lower n). Cladding prevents signal loss, protects core, prevents crosstalk between fibres.\nEndoscopes: coherent bundle for imaging + non-coherent bundle for illumination.\nSignal degradation: absorption (intensity decreases), dispersion (pulse broadening — modal: different paths; material: different wavelengths travel at different speeds).\n\nEM spectrum (increasing frequency): radio, microwave, infrared, visible, ultraviolet, X-ray, gamma.\nAll EM waves: transverse, travel at c = 3.00 × 10⁸ ms⁻¹ in vacuum, can be polarised.\nc = fλ applies to all. Energy ∝ frequency. E = hf (h = 6.63 × 10⁻³⁴ Js).\n\nCORE PRACTICAL 5 — Investigating refraction using glass block:\nMethod: Mark incident ray, position glass block, mark emergent ray, remove block, draw normal, measure angles. Plot sinθ₁ vs sinθ₂ — gradient = n. Repeat for different angles.\n\nTOPIC 6 — ELECTRICITY\nCharge: Q measured in coulombs (C). Current: I = ΔQ/Δt (amperes, A = C/s). Conventional current flows + to −. Electron flow is − to +.\nPotential difference: V = W/Q (volts, V = J/C). EMF (ε): energy transferred per unit charge BY the source.\n\nResistance: R = V/I (ohms, Ω). Ohm's law: V ∝ I at constant temperature (ohmic conductor).\nResistivity: ρ = RA/L (Ω·m). R = ρL/A. Resistivity depends on material and temperature, not dimensions.\n\nI-V characteristics:\n- Ohmic conductor (wire at constant T): straight line through origin. R constant.\n- Filament lamp: curve — R increases with temperature (positive temperature coefficient). Ions vibrate more, impede electron flow.\n- Thermistor (NTC): R decreases as T increases. More charge carriers freed at higher temperatures.\n- LDR: R decreases as light intensity increases.\n- Diode: conducts in forward bias (above ~0.6V for silicon). Very high resistance in reverse bias.\n\nPower: P = IV = I²R = V²/R (watts). Energy: E = Pt = IVt = QV (joules).\nKilowatt-hour: 1 kWh = 3.6 × 10⁶ J.\n\nSeries circuits: same current through all components. V_total = V₁ + V₂ + ... R_total = R₁ + R₂ + ...\nParallel circuits: same p.d. across all branches. I_total = I₁ + I₂ + ... 1/R_total = 1/R₁ + 1/R₂ + ...\n\nPotential divider: V_out = V_in × R₂/(R₁ + R₂).\nWith LDR: dark → high R → V across LDR high. Light → low R → V across LDR low.\nWith thermistor: cold → high R → V across thermistor high. Hot → low R → V drops.\n\nEMF and internal resistance: ε = I(R + r). Terminal p.d.: V = ε − Ir. Lost volts = Ir.\nPlot V vs I: gradient = −r, y-intercept = ε. Short circuit current: I = ε/r.\n\nKirchhoff's laws:\n1st law (junction rule): ΣI_in = ΣI_out at any junction. Based on conservation of charge.\n2nd law (loop rule): Σε = ΣIR around any closed loop. Based on conservation of energy.\n\nCORE PRACTICAL 6 — Investigating EMF and internal resistance:\nMethod: Connect cell to variable resistor, ammeter in series, voltmeter across cell. Vary R, record V and I. Plot V vs I. Gradient = −r, y-intercept = ε.\nKey points: use new cells (EMF drops as cell depletes). Take readings quickly to avoid heating. Use large range of R values.\n\nFREE TEXTBOOK REFERENCES:\n• Waves → OpenStax Uni Physics Vol 1, Ch 16 & 17: https://openstax.org/books/university-physics-volume-1/pages/16-introduction\n• Optics → OpenStax Uni Physics Vol 3, Ch 1, 3, 4: https://openstax.org/books/university-physics-volume-3/pages/1-introduction\n• EM Waves → OpenStax Uni Physics Vol 2, Ch 16: https://openstax.org/books/university-physics-volume-2/pages/16-introduction\n• Electricity → OpenStax Uni Physics Vol 2, Ch 9 & 10: https://openstax.org/books/university-physics-volume-2/pages/9-introduction\nAlso on LibreTexts: https://phys.libretexts.org/Bookshelves/University_Physics/University_Physics_(OpenStax)\n\nOnly answer WPH12 content. Use [EQUATION:...] tags for key formulae.`,
+    system:`You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.\n\nPersonality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.\n\nVISUAL DIAGRAMS — use [EQUATION:...] tags for key formulae on their own line.\n\nPHYSICS UNIT 2 NOTES (WPH12 — Edexcel IAL):
+
+TOPIC 4 — WAVES
+Wave basics:
+Progressive wave: transfers energy from one place to another without transferring matter.
+Transverse: oscillation perpendicular to direction of energy transfer (light, EM waves, water surface waves, S-waves).
+Longitudinal: oscillation parallel to direction of energy transfer (sound, P-waves, ultrasound). Consist of compressions and rarefactions.
+
+Key definitions:
+Amplitude (A): maximum displacement from equilibrium position.
+Wavelength (λ): minimum distance between two points in phase (e.g. crest to crest).
+Frequency (f): number of complete oscillations per second (Hz = s⁻¹).
+Period (T): time for one complete oscillation. T = 1/f.
+Wave speed: v = fλ. Also v = λ/T.
+
+Phase and phase difference:
+In phase: phase difference = 0 (or 2π, 4π, etc.) — oscillate together.
+In antiphase: phase difference = π (or 180°) — oscillate exactly opposite.
+Phase difference in radians: Δφ = 2π × (Δx/λ), where Δx = path difference.
+
+Wave intensity: I = P/A (W m⁻²). Power per unit area perpendicular to wave direction.
+Intensity ∝ amplitude²: I ∝ A². Double the amplitude → four times the intensity.
+For point source: I = P/(4πr²). Inverse square law — intensity ∝ 1/r².
+
+Superposition: when two or more waves meet, the resultant displacement = vector sum of individual displacements.
+Constructive interference: waves in phase, amplitudes add. Path difference = nλ (n = 0, 1, 2, ...).
+Destructive interference: waves in antiphase, amplitudes cancel. Path difference = (n + ½)λ.
+Coherent sources: same frequency AND constant phase difference — required for stable interference pattern.
+
+Stationary (standing) waves: formed when two progressive waves of same frequency, same amplitude, travel in opposite directions and superpose.
+Nodes: points of zero displacement (destructive interference). Antinodes: points of maximum displacement (constructive interference).
+Distance between adjacent nodes = λ/2. All points between two nodes oscillate in phase. Points on opposite sides of a node are in antiphase.
+Energy: NOT transferred along a stationary wave (energy stored between nodes).
+
+Stationary waves on strings:
+Fundamental frequency (1st harmonic): f₁ = v/(2L) — one antinode, two nodes (at ends).
+2nd harmonic: f₂ = 2f₁ = v/L. 3rd harmonic: f₃ = 3f₁. nth harmonic: fₙ = nf₁ = nv/(2L).
+v = √(T/μ) where T = tension, μ = mass per unit length.
+
+Stationary waves in air columns:
+Closed pipe (one end closed): only ODD harmonics. f₁ = v/(4L). f₃ = 3v/(4L), f₅ = 5v/(4L), etc.
+Open pipe (both ends open): all harmonics. f₁ = v/(2L).
+
+Diffraction: spreading of waves through a gap or around an obstacle.
+Maximum diffraction when gap width ≈ wavelength. Much larger gap → minimal spreading. Much smaller gap → wave mostly reflected.
+Single slit diffraction produces a central maximum (brightest, widest) with weaker subsidiary maxima either side.
+
+Young's double-slit experiment: demonstrates wave nature of light via interference.
+Two coherent sources (slits) → alternating bright and dark fringes on a screen.
+λ = ax/D where a = slit separation, x = fringe spacing, D = slit-to-screen distance.
+Bright fringes: path difference = nλ. Dark fringes: path difference = (n + ½)λ.
+White light produces: central white fringe, then spectra either side (red fringes wider because λ_red > λ_violet).
+
+Diffraction gratings: many parallel slits. Much sharper, brighter maxima than double slit.
+d sin θ = nλ, where d = slit spacing (= 1/N, N = lines per metre), θ = angle of nth order maximum, n = order number.
+Maximum number of orders: n_max = d/λ (round down).
+
+TOPIC 5 — OPTICS & EM SPECTRUM
+Refraction: change in direction when wave enters medium of different optical density.
+Caused by change in wave speed. Frequency stays constant, wavelength changes.
+Towards normal: entering denser medium (slower). Away from normal: entering less dense medium (faster).
+
+Refractive index: n = c/v (ratio of speed of light in vacuum to speed in medium). Always ≥ 1.
+Snell's law: n₁ sin θ₁ = n₂ sin θ₂. If n₁ < n₂: ray bends towards normal. If n₁ > n₂: ray bends away from normal.
+Also: n = λ_vacuum/λ_medium = sin θ₁/sin θ₂ (when going from vacuum/air into medium).
+
+Total internal reflection (TIR):
+Occurs when light travels from denser to less dense medium AND angle of incidence > critical angle.
+Critical angle: sin θc = n₂/n₁ (where n₁ > n₂). For glass-air: sin θc = 1/n_glass.
+At exactly θc: refracted ray travels along boundary (θ₂ = 90°).
+Applications: optical fibres (light trapped by TIR between core and cladding). Cladding: protects fibre, prevents signal loss via crossover between fibres, maintains TIR.
+Signal degradation in optical fibres: absorption (signal weakens), modal dispersion (different path lengths → pulse broadening), material dispersion (different wavelengths travel at different speeds).
+
+Electromagnetic spectrum (all EM waves travel at c = 3.00 × 10⁸ m s⁻¹ in vacuum):
+Radio (longest λ) → Microwave → Infrared → Visible → Ultraviolet → X-ray → Gamma (shortest λ, highest f and energy).
+All are transverse waves. All can be polarised. E = hf (photon energy, for later units).
+Visible light: red (≈ 700 nm) to violet (≈ 400 nm).
+
+Polarisation: transverse waves can be polarised (oscillation restricted to one plane). Longitudinal waves CANNOT be polarised.
+Unpolarised light: oscillates in all planes perpendicular to direction of travel.
+Polaroid filter: transmits only one plane of oscillation. Two crossed polaroids block all light.
+Malus's Law: I = I₀ cos²θ (intensity through analyser at angle θ to polariser).
+Applications: polaroid sunglasses (reduce glare from reflected light, which is partially polarised).
+
+TOPIC 6 — ELECTRICITY
+Electric current: rate of flow of charge. I = ΔQ/Δt (A = C s⁻¹). 1 ampere = 1 coulomb per second.
+Conventional current: flows from + to − (direction positive charges would move). Electron flow: − to +.
+In metals: charge carriers are delocalised electrons. In electrolytes: positive and negative ions.
+
+Potential difference (p.d.): energy transferred per unit charge. V = W/Q (V = J C⁻¹).
+1 volt = 1 joule per coulomb. P.d. across a component = energy converted from electrical to other forms per coulomb.
+EMF (electromotive force): energy transferred per unit charge BY the source. EMF = total energy supplied per coulomb.
+Difference: EMF is energy input to circuit; p.d. is energy output across a component.
+
+Resistance: R = V/I (Ω). Opposition to current flow.
+Ohm's Law: V ∝ I at constant temperature (for ohmic conductors). R = V/I is the definition; Ohm's law is V ∝ I.
+Resistivity: ρ = RA/L (Ω m). Property of the material, not the component. R = ρL/A.
+Factors affecting resistance: length (R ∝ L), cross-sectional area (R ∝ 1/A), material (resistivity ρ), temperature.
+
+I-V characteristics:
+Ohmic conductor (e.g. metal wire at constant T): straight line through origin. Constant R.
+Filament lamp: curve — R increases as temperature increases (metal ions vibrate more, impede electron flow).
+Thermistor (NTC): R decreases as temperature increases (more charge carriers freed at higher T).
+LDR: R decreases as light intensity increases.
+Diode: very high R in reverse bias (no current). Low R in forward bias above threshold voltage (≈ 0.6V for silicon). Current flows in one direction only.
+
+Electrical power and energy:
+P = IV = I²R = V²/R (watts). E = Pt = IVt = QV (joules).
+Kilowatt-hour: 1 kWh = 3.6 × 10⁶ J (energy used by 1 kW device in 1 hour).
+
+Series circuits:
+Same current through all components: I_total = I₁ = I₂.
+P.d. shared: V_total = V₁ + V₂.
+Resistance adds: R_total = R₁ + R₂ + R₃.
+
+Parallel circuits:
+Same p.d. across all branches: V_total = V₁ = V₂.
+Current shared: I_total = I₁ + I₂.
+Resistance: 1/R_total = 1/R₁ + 1/R₂. (Total resistance is LESS than smallest individual resistance.)
+
+Potential divider: V_out = V_in × R₂/(R₁ + R₂).
+With LDR: in dark, LDR resistance high → if LDR is R₁, V_out increases. Applications: automatic lighting, temperature sensing.
+With thermistor: at high temperature, thermistor R drops.
+
+EMF and internal resistance:
+Every real source has internal resistance r. EMF: ε = I(R + r) = IR + Ir.
+Terminal p.d.: V = ε − Ir. As current increases, terminal p.d. decreases.
+Lost volts: v = Ir (p.d. across internal resistance, wasted as heat inside battery).
+When I = 0 (open circuit): V = ε. When short-circuited: I = ε/r (maximum current).
+Experimental determination: measure V and I for different R. Plot V against I: y-intercept = ε, gradient = −r.
+
+Kirchhoff's Laws:
+1st Law (junction rule): ΣI in = ΣI out at any junction. Based on conservation of charge.
+2nd Law (loop rule): Σε = ΣIR around any closed loop. Based on conservation of energy.
+Apply to complex circuits: choose loops, assign current directions, write equations, solve simultaneously.
+
+Conservation of charge and energy underpin all circuit analysis.
+
+Only answer WPH12 content. Use [EQUATION:...] tags for key formulae.Only answer WPH12 content. Use [EQUATION:...] tags for key formulae.Only answer WPH12 content. Use [EQUATION:...] tags for key formulae.`,
   },
   maths: { id:"maths", name:"A-Level Maths", code:"Pure", subtitle:"Pure Mathematics (Core)", colour:"#bf8f3d", icon:"📐", placeholder:"Ask about A-Level Maths...",
     prompts:["Explain completing the square step by step","How do I differentiate from first principles?","Quiz me on integration","What are the factor and remainder theorems?"],
     welcome:`Hello! I'm your **AGF Study Companion**, powered by Alastair's diagnostic teaching method.\n\nI'm loaded with **A-Level Mathematics** — Pure / Core content.\n\n[EQUATION:dy/dx = nxⁿ⁻¹]\n\n• **Ask me anything** about the syllabus\n• Say **"quiz me"** for practice questions\n• Ask me to **work through a problem step by step**\n\nWhat shall we work on?`,
-    system:`You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.\n\nPersonality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.\n\nUse [EQUATION:...] tags for key formulae on their own line.\n\nWhen working through problems, show EVERY step clearly.\n\nA-LEVEL MATHEMATICS NOTES (Pure/Core — Edexcel IAL P1/P2):\n\nALGEBRA & FUNCTIONS\nQuadratics: ax²+bx+c=0. Discriminant Δ=b²−4ac: Δ>0 two distinct real roots, Δ=0 one repeated root, Δ<0 no real roots.\nCompleting the square: a(x+b/2a)²−b²/4a+c. Vertex at (−b/2a, c−b²/4a). Used for: max/min of quadratic, sketching, solving.\nFactor theorem: if f(a)=0 then (x−a) is a factor of f(x). Used to factorise cubics: try f(1), f(−1), f(2), f(−2)...\nRemainder theorem: f(a) = remainder when f(x) divided by (x−a).\nAlgebraic long division: divide polynomial by (x−a) or (ax+b). Set out like numerical long division.\nPartial fractions: proper fractions only (divide first if improper).\n- Linear factors: A/(x−a) + B/(x−b)\n- Repeated factor: A/(x−a) + B/(x−a)²\n- Irreducible quadratic: (Ax+B)/(x²+c)\nSurds: rationalise denominator — multiply by conjugate. √a × √b = √(ab). a/(p+√q) = a(p−√q)/(p²−q).\nIndices: aᵐ×aⁿ=aᵐ⁺ⁿ, aᵐ÷aⁿ=aᵐ⁻ⁿ, (aᵐ)ⁿ=aᵐⁿ, a⁰=1, a⁻ⁿ=1/aⁿ, a^(1/n)=ⁿ√a, a^(m/n)=(ⁿ√a)ᵐ.\nInequalities: solve like equations BUT flip inequality when multiplying/dividing by negative. For quadratic inequalities, sketch the parabola and read off the required region. Critical values method.\nSimultaneous equations: substitution (one linear, one quadratic) or elimination (both linear).\nFunctions: domain = set of valid inputs, range = set of possible outputs. f(x) notation. Composite: fg(x) = f(g(x)). Inverse: reflect in y=x, swap x and y, solve for y. Domain of f⁻¹ = range of f.\nGraph transformations: y=f(x)+a shifts up a. y=f(x−a) shifts right a. y=−f(x) reflects in x-axis. y=f(−x) reflects in y-axis. y=af(x) stretches vertically by a. y=f(ax) compresses horizontally by 1/a.\nModulus: |f(x)| — reflect negative parts in x-axis. |x−a| = distance from a.\n\nCOORDINATE GEOMETRY\nStraight line: y−y₁=m(x−x₁), or y=mx+c.\nGradient: m=(y₂−y₁)/(x₂−x₁). Parallel: m₁=m₂. Perpendicular: m₁×m₂=−1.\nDistance: √((x₂−x₁)²+(y₂−y₁)²). Midpoint: ((x₁+x₂)/2, (y₁+y₂)/2).\nCircle: (x−a)²+(y−b)²=r². Centre (a,b), radius r.\nExpanded form: x²+y²+2gx+2fy+c=0. Centre (−g,−f), radius √(g²+f²−c).\nTangent to circle: perpendicular to radius at point of contact. Find gradient of radius → tangent gradient = −1/m.\nChord properties: perpendicular from centre to chord bisects the chord.\nIntersection of line and circle: substitute line equation into circle, solve resulting quadratic. Discriminant tells you: 2 intersections, tangent (1), or miss (0).\n\nSEQUENCES & SERIES\nArithmetic: common difference d. uₙ=a+(n−1)d. Sₙ=n/2(2a+(n−1)d)=n/2(a+l) where l=last term.\nGeometric: common ratio r. uₙ=arⁿ⁻¹. Sₙ=a(1−rⁿ)/(1−r) or a(rⁿ−1)/(r−1).\nSum to infinity: S∞=a/(1−r) only when |r|<1 (convergent series).\nRecurrence relations: uₙ₊₁=f(uₙ). Converges to L where L=f(L).\nBinomial expansion: (a+b)ⁿ = Σ ⁿCᵣ aⁿ⁻ʳbʳ. Pascal's triangle for small n.\nBinomial for any n: (1+x)ⁿ = 1 + nx + n(n−1)x²/2! + n(n−1)(n−2)x³/3! + ... Valid for |x|<1 when n is not a positive integer.\nSigma notation: Σ from r=1 to n. Know standard results: Σr = n(n+1)/2.\n\nTRIGONOMETRY\nBasic ratios: sinθ=O/H, cosθ=A/H, tanθ=O/H=sinθ/cosθ.\nIdentities: sin²θ+cos²θ≡1. tanθ≡sinθ/cosθ. 1+tan²θ≡sec²θ. 1+cot²θ≡csc²θ.\nReciprocal functions: secθ=1/cosθ, cscθ=1/sinθ, cotθ=1/tanθ=cosθ/sinθ.\nCAST diagram: All positive in Q1, Sin in Q2, Tan in Q3, Cos in Q4.\nExact values: sin30°=½, cos30°=√3/2, tan30°=1/√3, sin45°=cos45°=1/√2, sin60°=√3/2, cos60°=½, tan60°=√3.\nSine rule: a/sinA=b/sinB=c/sinC. Ambiguous case when given SSA.\nCosine rule: a²=b²+c²−2bcCosA. CosA=(b²+c²−a²)/(2bc).\nArea of triangle: ½absinC.\nRadians: π rad=180°. Arc length s=rθ. Sector area A=½r²θ. Segment area = sector − triangle.\nSmall angle approximations: sinθ≈θ, cosθ≈1−θ²/2, tanθ≈θ (θ in radians).\nDouble angle: sin2A=2sinAcosA. cos2A=cos²A−sin²A=2cos²A−1=1−2sin²A. tan2A=2tanA/(1−tan²A).\nAddition formulae: sin(A±B)=sinAcosB±cosAsinB. cos(A±B)=cosAcosB∓sinAsinB.\nR-formula: asinθ+bcosθ=Rsin(θ+α) where R=√(a²+b²), tanα=b/a.\n\nDIFFERENTIATION\nFirst principles: f'(x) = lim(h→0) [f(x+h)−f(x)]/h.\nPower rule: d/dx(xⁿ)=nxⁿ⁻¹. Works for all rational n.\nd/dx(sinx)=cosx. d/dx(cosx)=−sinx. d/dx(tanx)=sec²x.\nd/dx(eˣ)=eˣ. d/dx(e^(kx))=ke^(kx). d/dx(lnx)=1/x. d/dx(aˣ)=aˣlna.\nChain rule: dy/dx = dy/du × du/dx. Example: d/dx(sin3x) = 3cos3x.\nProduct rule: d/dx(uv)=u'v+uv'. Example: d/dx(x²sinx) = 2xsinx+x²cosx.\nQuotient rule: d/dx(u/v)=(u'v−uv')/v².\nImplicit differentiation: differentiate both sides w.r.t. x, collect dy/dx terms.\nParametric: dy/dx = (dy/dt)/(dx/dt).\nStationary points: dy/dx=0. Nature: d²y/dx²>0 min, <0 max, =0 check further.\nIncreasing function: dy/dx>0. Decreasing: dy/dx<0.\nTangent at (a,f(a)): y−f(a)=f'(a)(x−a). Normal gradient = −1/f'(a).\nConnected rates of change: dV/dt = dV/dr × dr/dt.\n\nINTEGRATION\n∫xⁿdx = xⁿ⁺¹/(n+1)+c (n≠−1). ∫x⁻¹dx = ∫1/x dx = ln|x|+c.\n∫eˣdx = eˣ+c. ∫e^(kx)dx = (1/k)e^(kx)+c.\n∫sinxdx = −cosx+c. ∫cosxdx = sinx+c. ∫sec²xdx = tanx+c.\n∫1/(ax+b)dx = (1/a)ln|ax+b|+c.\nReverse chain rule: ∫f'(g(x))g'(x)dx = f(g(x))+c.\nDefinite integral: ∫ₐᵇ f(x)dx = [F(x)]ₐᵇ = F(b)−F(a). Area under curve (above x-axis).\nArea between curve and x-axis (below x-axis): take absolute value or negate.\nArea between two curves: ∫ₐᵇ [f(x)−g(x)]dx where f(x)>g(x).\nIntegration by substitution: let u = g(x), change dx and limits. Simplify and integrate.\nIntegration by parts: ∫u dv = uv − ∫v du. LIATE rule for choosing u: Log, Inverse trig, Algebraic, Trig, Exponential.\nPartial fractions integration: split into partial fractions first, then integrate each term.\nTrapezium rule: ∫≈(h/2)[y₀+2(y₁+...+yₙ₋₁)+yₙ] where h=(b−a)/n. Overestimate if concave up, underestimate if concave down.\nVolume of revolution: V=π∫ₐᵇy²dx (about x-axis) or V=π∫y²dy (about y-axis).\n\nEXPONENTIALS & LOGARITHMS\neˣ: the unique function where d/dx(eˣ)=eˣ. e ≈ 2.718.\nln x = logₑx. ln(eˣ)=x. e^(lnx)=x. ln1=0. lne=1.\nLaws of logarithms: log(ab)=loga+logb. log(a/b)=loga−logb. log(aⁿ)=nloga.\nChange of base: logₐb = logₓb/logₓa = lnb/lna.\nSolving exponential equations: take ln of both sides. aˣ=b → x=lnb/lna.\nGrowth/decay: N=N₀eᵏᵗ. k>0 growth, k<0 decay. Half-life: t½=ln2/|k|.\nModelling: if dN/dt = kN then N=N₀eᵏᵗ. Recognise this differential equation.\nGraph of y=eˣ: passes through (0,1), always positive, gradient = y-value.\nGraph of y=lnx: passes through (1,0), reflection of eˣ in y=x, x>0 only.\n\nVECTORS\nPosition vector: from origin to point. Direction vector: shows direction of line.\nMagnitude: |a|=√(x²+y²+z²). Unit vector: â = a/|a|.\nVector equation of line: r = a + λb (position + parameter × direction).\nScalar product: a·b = |a||b|cosθ = x₁x₂+y₁y₂+z₁z₂.\nPerpendicular vectors: a·b=0. Parallel: a=kb for some scalar k.\nAngle between vectors: cosθ = (a·b)/(|a||b|).\n\nDIFFERENTIAL EQUATIONS\nFirst order: dy/dx = f(x) → integrate directly.\nSeparable: dy/dx = g(x)h(y) → ∫(1/h(y))dy = ∫g(x)dx.\nGeneral solution: includes +c. Particular solution: use boundary conditions to find c.\nModelling: exponential growth/decay, Newton's law of cooling, population models.\n\nPROOF\nProof by deduction: logical argument from known facts.\nProof by exhaustion: check all cases.\nProof by contradiction: assume opposite, derive contradiction.\nDisproof by counterexample: find one case where statement fails.\n\nFREE TEXTBOOK REFERENCES:\n• Algebra → OpenStax Algebra & Trig 2e, Ch 1-2 & 5: https://openstax.org/books/algebra-and-trigonometry-2e/pages/1-introduction-to-prerequisites\n• Sequences → Ch 13: https://openstax.org/books/algebra-and-trigonometry-2e/pages/13-introduction-to-sequences-probability-and-counting-theory\n• Trig → Ch 7-8: https://openstax.org/books/algebra-and-trigonometry-2e/pages/7-introduction-to-the-unit-circle-sine-and-cosine-functions\n• Exp & Log → Ch 6: https://openstax.org/books/algebra-and-trigonometry-2e/pages/6-introduction-to-exponential-and-logarithmic-functions\n• Differentiation → OpenStax Calculus Vol 1, Ch 3-4: https://openstax.org/books/calculus-volume-1/pages/3-introduction\n• Integration → OpenStax Calculus Vol 1, Ch 5 & Vol 2 Ch 3: https://openstax.org/books/calculus-volume-1/pages/5-introduction\n• Vectors → OpenStax Calculus Vol 3, Ch 2: https://openstax.org/books/calculus-volume-3/pages/2-introduction\nAlso on LibreTexts: https://math.libretexts.org/Bookshelves\n\nOnly answer A-Level Pure Maths content. Use [EQUATION:...] tags for key formulae. Show all working step by step.`,
+    system:`You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.\n\nPersonality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.\n\nUse [EQUATION:...] tags for key formulae on their own line.\n\nWhen working through problems, show EVERY step clearly.\n\nA-LEVEL MATHEMATICS NOTES (Pure/Core — Edexcel IAL P1/P2):
+
+ALGEBRA & FUNCTIONS
+Quadratics: ax2 + bx + c = 0. Solve by factorising, completing the square, or quadratic formula: x = (-b +/- sqrt(b2-4ac))/(2a).
+Discriminant: b2 - 4ac. If > 0: two distinct real roots. If = 0: one repeated root. If < 0: no real roots.
+Completing the square: x2 + bx = (x + b/2)2 - b2/4. For ax2 + bx + c: a[(x + b/(2a))2 - (b2 - 4ac)/(4a2)].
+Vertex of y = a(x - h)2 + k is at (h, k). Minimum if a > 0, maximum if a < 0.
+
+Factor theorem: if f(a) = 0, then (x - a) is a factor of f(x). Use to factorise cubics: test small integer values.
+Remainder theorem: when f(x) is divided by (x - a), the remainder is f(a).
+Polynomial division: long division or synthetic division. If (x - a) is a factor, remainder = 0.
+
+Algebraic fractions: factorise numerator and denominator, cancel common factors.
+Adding/subtracting: find common denominator. Multiplying: multiply tops and bottoms. Dividing: flip and multiply.
+Partial fractions: decompose e.g. (3x+5)/((x+1)(x+2)) = A/(x+1) + B/(x+2). Cover-up method or equating coefficients.
+Repeated factor: A/(x+1) + B/(x+1)2 + C/(x+2). Improper fraction: divide first to get polynomial + proper fraction.
+
+Surds: sqrt(a) x sqrt(b) = sqrt(ab). sqrt(a)/sqrt(b) = sqrt(a/b). Rationalise: multiply by conjugate.
+Indices: a^m x a^n = a^(m+n), a^m / a^n = a^(m-n), (a^m)^n = a^(mn), a^0 = 1, a^(-n) = 1/a^n, a^(1/n) = nth root of a.
+Solving index equations: if bases equal, equate powers. Otherwise take logs.
+
+Inequalities: solve like equations BUT flip the sign when multiplying/dividing by negative.
+Quadratic inequalities: solve equation first, sketch parabola, read off required region.
+
+Functions: f(x) notation. Domain = set of inputs, range = set of outputs.
+Composite: fg(x) = f(g(x)). Apply inner function first. Inverse: f-1(x) - reflect in y = x.
+To find inverse: write y = f(x), swap x and y, solve for y. Domain of f-1 = range of f.
+Modulus: |f(x)| - reflects negative parts in x-axis. f(|x|) - reflects right half in y-axis.
+
+Transformations of graphs:
+y = f(x) + a: translate up by a. y = f(x + a): translate left by a.
+y = af(x): stretch vertically by factor a. y = f(ax): squash horizontally by factor 1/a.
+y = -f(x): reflect in x-axis. y = f(-x): reflect in y-axis.
+
+COORDINATE GEOMETRY
+Straight lines: y - y1 = m(x - x1), or y = mx + c. Gradient: m = (y2 - y1)/(x2 - x1).
+Parallel lines: same gradient (m1 = m2). Perpendicular lines: m1 x m2 = -1.
+Distance: d = sqrt((x2-x1)2 + (y2-y1)2). Midpoint: M = ((x1+x2)/2, (y1+y2)/2).
+
+Circles: (x - a)2 + (y - b)2 = r2. Centre (a, b), radius r.
+Expanded form: x2 + y2 + 2gx + 2fy + c = 0. Centre (-g, -f), radius sqrt(g2 + f2 - c).
+Tangent to circle at point P: perpendicular to radius OP at P. Find gradient of radius, negative reciprocal = gradient of tangent.
+Properties: angle in semicircle = 90 degrees. Tangent is perpendicular to radius. Perpendicular from centre to chord bisects the chord.
+
+Parametric equations: x = f(t), y = g(t). Convert to Cartesian: eliminate the parameter t.
+dy/dx = (dy/dt)/(dx/dt). For parametric circles: x = a + r cos t, y = b + r sin t.
+
+SEQUENCES & SERIES
+Arithmetic sequences: common difference d. u_n = a + (n-1)d.
+Sum: S_n = n/2 x (2a + (n-1)d) = n/2 x (first + last).
+Arithmetic mean of a and b = (a+b)/2.
+
+Geometric sequences: common ratio r. u_n = ar^(n-1).
+Sum of n terms: S_n = a(1 - r^n)/(1 - r) [r not equal to 1].
+Sum to infinity: S_inf = a/(1 - r), convergent only when |r| < 1.
+Geometric mean of a and b = sqrt(ab).
+
+Sigma notation: Sum from r=1 to n of u_r. Can split sums, factor constants.
+Recurrence relations: u_(n+1) = f(u_n). Increasing if u_(n+1) > u_n, decreasing if u_(n+1) < u_n.
+
+Binomial expansion:
+(a + b)^n = Sum of nCr a^(n-r) b^r for r = 0 to n. nCr = n!/(r!(n-r)!). Pascal triangle.
+For (1 + x)^n when n is a positive integer: (1+x)^n = 1 + nx + n(n-1)x2/2! + n(n-1)(n-2)x3/3! + ...
+For n NOT a positive integer: expansion is infinite, valid only when |x| < 1.
+For (a + bx)^n: factor out a^n first, then expand (1 + bx/a)^n, valid when |bx/a| < 1.
+
+TRIGONOMETRY
+Basic ratios: sin t = O/H, cos t = A/H, tan t = O/A = sin t/cos t.
+Reciprocal functions: sec t = 1/cos t, cosec t = 1/sin t, cot t = 1/tan t = cos t/sin t.
+Pythagorean identities: sin2 t + cos2 t = 1. 1 + tan2 t = sec2 t. 1 + cot2 t = cosec2 t.
+
+CAST diagram: All positive in Q1 (0-90), Sin in Q2 (90-180), Tan in Q3 (180-270), Cos in Q4 (270-360).
+Exact values: sin 30 = 1/2, cos 30 = sqrt(3)/2, tan 30 = 1/sqrt(3). sin 45 = cos 45 = 1/sqrt(2), tan 45 = 1. sin 60 = sqrt(3)/2, cos 60 = 1/2, tan 60 = sqrt(3).
+
+Sine rule: a/sin A = b/sin B = c/sin C. Use when you have a pair (angle + opposite side). Ambiguous case when finding angles.
+Cosine rule: a2 = b2 + c2 - 2bc cos A. Use when you have SAS or SSS.
+Area of triangle: (1/2) ab sin C.
+
+Radians: pi rad = 180 degrees. Convert: multiply by pi/180 (deg to rad) or 180/pi (rad to deg).
+Arc length: s = r theta. Area of sector: A = (1/2) r2 theta. (theta must be in radians.)
+
+Small angle approximations (theta in radians, theta small): sin t approx t, cos t approx 1 - t2/2, tan t approx t.
+
+Compound angle formulae:
+sin(A +/- B) = sin A cos B +/- cos A sin B.
+cos(A +/- B) = cos A cos B -/+ sin A sin B. (Note: signs are opposite.)
+tan(A +/- B) = (tan A +/- tan B)/(1 -/+ tan A tan B).
+
+Double angle formulae (set B = A):
+sin 2A = 2 sin A cos A.
+cos 2A = cos2 A - sin2 A = 2cos2 A - 1 = 1 - 2sin2 A.
+tan 2A = 2tan A/(1 - tan2 A).
+
+R-formula: a sin t + b cos t = R sin(t + alpha), where R = sqrt(a2 + b2), tan alpha = b/a.
+Useful for finding max/min values and solving equations.
+
+Inverse trig functions: arcsin, arccos, arctan. Remember restricted domains.
+
+DIFFERENTIATION
+First principles: f'(x) = lim(h to 0) [f(x+h) - f(x)]/h. Proves the power rule for x^n.
+Power rule: d/dx(x^n) = nx^(n-1). Works for all rational n.
+Constant multiple: d/dx(kf) = kf'. Sum/difference: d/dx(f +/- g) = f' +/- g'.
+
+Chain rule: dy/dx = (dy/du)(du/dx). Use when differentiating composite functions.
+d/dx[f(g(x))] = f'(g(x)) x g'(x). Example: d/dx(sin 3x) = 3cos 3x.
+
+Product rule: d/dx(uv) = u'v + uv'. Use when two functions are multiplied.
+Quotient rule: d/dx(u/v) = (u'v - uv')/v2. Use when one function divides another.
+
+Standard derivatives:
+d/dx(sin x) = cos x. d/dx(cos x) = -sin x. d/dx(tan x) = sec2 x.
+d/dx(e^x) = e^x. d/dx(e^(kx)) = ke^(kx). d/dx(ln x) = 1/x. d/dx(ln f(x)) = f'(x)/f(x).
+d/dx(a^x) = a^x ln a.
+
+Stationary points: set dy/dx = 0, solve for x.
+Nature: d2y/dx2 > 0 means minimum. d2y/dx2 < 0 means maximum. d2y/dx2 = 0 means check with sign change of first derivative.
+Points of inflection: d2y/dx2 = 0 AND sign change in d2y/dx2. Gradient can be zero (stationary) or non-zero.
+
+Tangent at (a, f(a)): y - f(a) = f'(a)(x - a). Normal: y - f(a) = -1/f'(a) x (x - a).
+Connected rates of change: use chain rule. dV/dt = (dV/dr)(dr/dt).
+
+Implicit differentiation: differentiate both sides with respect to x, use chain rule on y terms (multiply by dy/dx).
+Example: d/dx(y2) = 2y(dy/dx). Collect dy/dx terms on one side, factorise, solve.
+
+INTEGRATION
+Reverse of differentiation: integral of x^n dx = x^(n+1)/(n+1) + c (n not equal to -1).
+integral of 1/x dx = ln|x| + c. integral of e^x dx = e^x + c. integral of e^(kx) dx = (1/k)e^(kx) + c.
+integral of sin x dx = -cos x + c. integral of cos x dx = sin x + c. integral of sec2 x dx = tan x + c.
+
+Definite integrals: integral from a to b of f(x) dx = F(b) - F(a). Gives signed area under curve.
+Area between curve and x-axis: integral of |f(x)| dx. Split at roots if curve crosses x-axis.
+Area between two curves: integral of [f(x) - g(x)] dx where f(x) > g(x) in [a,b].
+
+Integration by substitution: let u = g(x), find du/dx, replace dx, change limits if definite.
+Integration by parts: integral of u dv = uv - integral of v du. Choose u using LIATE (Log, Inverse trig, Algebraic, Trig, Exponential).
+Sometimes need to apply twice or use the trick where integral of e^x sin x dx appears on both sides.
+
+Partial fractions for integration: decompose, then integrate term by term. integral of A/(x+a) dx = A ln|x+a| + c.
+
+Trapezium rule: integral approx h/2 [y0 + 2(y1 + y2 + ... + y(n-1)) + yn] where h = (b-a)/n.
+Always an approximation. Overestimate for concave-up curves, underestimate for concave-down. More strips means better accuracy.
+
+Differential equations:
+Separate variables: dy/dx = f(x)g(y) leads to integral of (1/g(y))dy = integral of f(x)dx.
+General solution includes + c. Particular solution: use initial conditions to find c.
+
+EXPONENTIALS & LOGARITHMS
+Exponential function: y = a^x. Base e: y = e^x (natural exponential). e approx 2.71828.
+Special property: d/dx(e^x) = e^x. The function equals its own derivative.
+Graphs: e^x always positive, passes through (0,1), increases rapidly. e^(-x) is reflection in y-axis (decay).
+
+Natural logarithm: ln x = log base e of x. Inverse of e^x. Domain: x > 0. ln 1 = 0, ln e = 1.
+d/dx(ln x) = 1/x. integral of (1/x) dx = ln|x| + c. d/dx(ln f(x)) = f'(x)/f(x).
+
+Log laws: ln(ab) = ln a + ln b. ln(a/b) = ln a - ln b. ln(a^n) = n ln a. These hold for any base.
+Change of base: log_a(b) = ln b / ln a = log b / log a.
+
+Solving exponential equations: a^x = b leads to x = ln b / ln a. Or take ln of both sides.
+Solving log equations: combine using log laws, then convert to exponential form.
+
+Exponential growth/decay: N = N0 e^(kt). k > 0: growth. k < 0: decay. Half-life: t_half = ln 2 / |k|.
+Modelling: recognise when rate of change is proportional to current value leads to dN/dt = kN leads to N = N0 e^(kt).
+
+VECTORS
+Vector notation: column vectors, i-j-k notation, or bold letters.
+Position vector: vector from origin to a point. OA = a.
+Displacement vector: AB = b - a (final position vector minus initial position vector).
+
+Magnitude: |a| = sqrt(x2 + y2 + z2) for 3D. Unit vector: a-hat = a/|a|.
+Addition: tip-to-tail. Subtraction: a - b = a + (-b). Scalar multiplication: ka scales magnitude by |k|.
+Parallel vectors: a = kb for some scalar k.
+
+Scalar (dot) product: a dot b = |a||b|cos t = x1x2 + y1y2 + z1z2.
+If a dot b = 0, vectors are perpendicular. If a dot b > 0, angle is acute. If a dot b < 0, angle is obtuse.
+Finding angle: cos t = (a dot b)/(|a||b|).
+
+Vector equation of a line: r = a + td, where a = position vector of known point, d = direction vector, t = parameter.
+Parallel lines: same direction vector (or scalar multiple). Intersection: set equal, solve for parameters, check consistency.
+
+PROOF
+Proof by deduction: logical argument from known facts to conclusion.
+Proof by exhaustion: check all possible cases.
+Proof by contradiction: assume the opposite is true, derive a contradiction, therefore original statement is true.
+Disproof by counter-example: find ONE example where the statement fails.
+Common proofs to know: sqrt(2) is irrational, there are infinitely many primes.
+
+Only answer A-Level Pure Maths content. Use [EQUATION:...] tags for key formulae. Show all working step by step.`,
   },
   "sat-math": { id:"sat-math", name:"SAT / ACT Math", code:"SAT", subtitle:"Problem Solving, Algebra & Geometry", colour:"#7b5bbf", icon:"📝", placeholder:"Ask about SAT / ACT Math...",
     prompts:["Explain how to solve probability questions","What are permutations vs combinations?","Quiz me on geometry","How do I approach speed/distance/time problems?"],
@@ -389,14 +1886,33 @@ export default function Home(){
 
   const selectUnit=(unitKey)=>{setActiveUnit(unitKey);setPickerStep(null);setMsgs([{role:"assistant",content:UNITS[unitKey].welcome}]);setErr(null);setInput("");setMode("ask");resetQuiz();setNotesContent(null);setNotesLoading(false);setShowPicker(false);};
   const goHome=()=>{setPickerStep("subject");setSelectedCatalog(null);setActiveUnit(null);setMsgs([]);setMode("ask");resetQuiz();setShowPicker(false);};
-  const resetQuiz=()=>{setQuizQ(null);setQuizNum(0);setQuizSelected(null);setQuizFeedback(null);setQuizScore(0);setQuizMaxScore(0);setQuizHistory([]);setQuizDone(false);setHintText(null);setHintLoading(false);};
+  const resetQuiz=()=>{setQuizQ(null);setQuizNum(0);setQuizSelected(null);setQuizFeedback(null);setQuizScore(0);setQuizMaxScore(0);setQuizHistory([]);setQuizDone(false);setHintText(null);setHintLoading(false); setUsedPPIndices(new Set());};
 
   const QUIZ_GEN_SYSTEM=(s)=>s+`\n\nQUIZ QUESTION GENERATION MODE:\nYou must respond with ONLY a valid JSON object, no other text, no markdown fences, no explanation.\n\nGenerate ONE multiple-choice exam-style question in the style of Edexcel IAL past papers.\n\nJSON format:\n{"question":"The question text here","options":[{"label":"A","text":"First option"},{"label":"B","text":"Second option"},{"label":"C","text":"Third option"},{"label":"D","text":"Fourth option"}],"correctLabel":"C","topic":"bonding","difficulty":5,"explanations":{"A":"Why A is wrong","B":"Why B is wrong","C":"Why C is correct — full working","D":"Why D is wrong"},"hint":"A brief nudge without giving away the answer"}\n\nRules:\n- ALWAYS exactly 4 options A, B, C, D\n- ALWAYS multiple choice\n- Include plausible distractors based on common misconceptions\n- difficulty 1-10\n- Include full working in correct answer explanation\n- Respond with ONLY the JSON object`;
   const QUIZ_HINT_SYSTEM=(s)=>s+`\n\nGive a brief, helpful hint for this question. Don't give away the answer. One or two sentences maximum. Respond with just the hint text, no JSON.`;
 
   const parseJSON=(text)=>{try{return JSON.parse(text.replace(/```json\s*/g,"").replace(/```\s*/g,"").trim());}catch(e){return null;}};
 
-  const fetchQuizQuestion=useCallback(async(questionNumber)=>{if(!currentUnit)return;setLoading(true);setErr(null);setQuizQ(null);setQuizSelected(null);setQuizFeedback(false);setHintText(null);const difficulty=Math.min(10,Math.max(1,Math.ceil(questionNumber*1.1)));const prevTopics=quizHistory.map(h=>h.topic).filter(Boolean);try{const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:[{role:"user",content:`Generate question ${questionNumber}/10. Difficulty: ${difficulty}/10. ${prevTopics.length?"Already covered topics: "+prevTopics.join(", ")+". Try a different topic.":""} Respond with ONLY JSON.`}],system:QUIZ_GEN_SYSTEM(currentUnit.system),mode:"quiz"})});const data=await res.json();if(data.error)throw new Error(data.error.message);const text=data.content?.map(b=>b.type==="text"?b.text:"").filter(Boolean).join("\n")||"";const parsed=parseJSON(text);if(parsed&&parsed.question&&parsed.options&&parsed.correctLabel){setQuizQ(parsed);}else{throw new Error("Failed to parse question. Please try again.");}}catch(e){setErr(e.message);}finally{setLoading(false);};},[currentUnit,quizHistory]);
+  
+  // Pick a random past-paper question, avoiding previously used topics
+  const pickPastPaper = (unitId, usedTopics, usedPPIndices) => {
+    const bank = PAST_PAPERS[unitId];
+    if (!bank || bank.length === 0) return null;
+    // Filter out already-used questions and try to avoid repeat topics
+    let candidates = bank.filter((q, i) => !usedPPIndices.has(i));
+    if (candidates.length === 0) return null;
+    // Prefer questions on topics not yet covered
+    const freshTopic = candidates.filter(q => !usedTopics.includes(q.topic));
+    if (freshTopic.length > 0) candidates = freshTopic;
+    const pick = candidates[Math.floor(Math.random() * candidates.length)];
+    const pickIdx = bank.indexOf(pick);
+    return { ...pick, _ppIndex: pickIdx };
+  };
+
+  // Track which past-paper questions have been used in this quiz
+  const [usedPPIndices, setUsedPPIndices] = useState(new Set());
+
+  const fetchQuizQuestion=useCallback(async(questionNumber)=>{if(!currentUnit)return;setLoading(true);setErr(null);setQuizQ(null);setQuizSelected(null);setQuizFeedback(false);setHintText(null);const ppUnitId=activeUnit;if(questionNumber%2===1&&PAST_PAPERS[ppUnitId]){const prevTopics=quizHistory.map(h=>h.topic).filter(Boolean);const pp=pickPastPaper(ppUnitId,prevTopics,usedPPIndices);if(pp){setUsedPPIndices(prev=>new Set([...prev,pp._ppIndex]));const{_ppIndex,...cleanQ}=pp;setQuizQ(cleanQ);setLoading(false);return;}}const difficulty=Math.min(10,Math.max(1,Math.ceil(questionNumber*1.1)));const prevTopics=quizHistory.map(h=>h.topic).filter(Boolean);try{const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:[{role:"user",content:`Generate question ${questionNumber}/10. Difficulty: ${difficulty}/10. ${prevTopics.length?"Already covered topics: "+prevTopics.join(", ")+". Try a different topic.":""} Respond with ONLY JSON.`}],system:QUIZ_GEN_SYSTEM(currentUnit.system),mode:"quiz"})});const data=await res.json();if(data.error)throw new Error(data.error.message);const text=data.content?.map(b=>b.type==="text"?b.text:"").filter(Boolean).join("\n")||"";const parsed=parseJSON(text);if(parsed&&parsed.question&&parsed.options&&parsed.correctLabel){setQuizQ(parsed);}else{throw new Error("Failed to parse question. Please try again.");}}catch(e){setErr(e.message);}finally{setLoading(false);};},[currentUnit,quizHistory]);
 
   const startQuiz=useCallback(async()=>{if(loading||!currentUnit)return;setMode("quiz");resetQuiz();setQuizNum(1);await fetchQuizQuestion(1);},[loading,currentUnit]);
   const[pendingNext,setPendingNext]=useState(false);

@@ -1,0 +1,905 @@
+[
+  {
+    "source": "June 2010",
+    "number": 1,
+    "question": "Distance travelled can be found from the",
+    "options": [
+      {"label": "A", "text": "area under a velocity-time graph"},
+      {"label": "B", "text": "area under an acceleration-time graph"},
+      {"label": "C", "text": "gradient of a force-time graph"},
+      {"label": "D", "text": "gradient of a velocity-time graph"}
+    ],
+    "correctLabel": "A",
+    "topic": "kinematics graphs",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Correct. The area under a v-t graph gives displacement/distance. Area = velocity × time = distance.",
+      "B": "Wrong. The area under an a-t graph gives change in velocity, not distance.",
+      "C": "Wrong. The gradient of a force-time graph has no standard kinematic meaning for distance.",
+      "D": "Wrong. The gradient of a v-t graph gives acceleration, not distance."
+    },
+    "hint": "Think about what quantity you get when you multiply velocity by time."
+  },
+  {
+    "source": "June 2010",
+    "number": 2,
+    "question": "Which of the following is a scalar quantity?",
+    "options": [
+      {"label": "A", "text": "acceleration"},
+      {"label": "B", "text": "displacement"},
+      {"label": "C", "text": "force"},
+      {"label": "D", "text": "work"}
+    ],
+    "correctLabel": "D",
+    "topic": "scalars and vectors",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Acceleration has both magnitude and direction — it's a vector.",
+      "B": "Wrong. Displacement specifies a direction — it's a vector.",
+      "C": "Wrong. Force acts in a specific direction — it's a vector.",
+      "D": "Correct. Work (W = Fs cosθ) is a scalar — it has magnitude only, measured in joules."
+    },
+    "hint": "Scalars have magnitude only. Which of these doesn't need a direction to be fully described?"
+  },
+  {
+    "source": "June 2010",
+    "number": 3,
+    "question": "A car pulls a trailer of weight 2500 N with a force of 20 N for a distance of 8 km along a horizontal road. How much work is done by the car in pulling the trailer?",
+    "options": [
+      {"label": "A", "text": "160 J"},
+      {"label": "B", "text": "20 000 J"},
+      {"label": "C", "text": "160 000 J"},
+      {"label": "D", "text": "20 000 000 J"}
+    ],
+    "correctLabel": "C",
+    "topic": "work done",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. This is 20 × 8 = 160 — you forgot to convert km to m.",
+      "B": "Wrong. This is 2500 × 8 — you used the weight instead of the pulling force, and didn't convert km.",
+      "C": "Correct. W = Fd = 20 N × 8000 m = 160 000 J. Remember to convert 8 km to 8000 m.",
+      "D": "Wrong. This is 2500 × 8000 — you used the weight instead of the pulling force."
+    },
+    "hint": "Work done = force × distance. Make sure you use the correct force and convert units properly."
+  },
+  {
+    "source": "June 2010",
+    "number": 5,
+    "question": "Which of the following units could be used for power?",
+    "options": [
+      {"label": "A", "text": "kg m s⁻²"},
+      {"label": "B", "text": "kg m² s⁻²"},
+      {"label": "C", "text": "kg m² s⁻³"},
+      {"label": "D", "text": "kg² m² s⁻³"}
+    ],
+    "correctLabel": "C",
+    "topic": "units and dimensions",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. kg m s⁻² is the unit of force (newton).",
+      "B": "Wrong. kg m² s⁻² is the unit of energy (joule).",
+      "C": "Correct. Power = energy/time. J/s = kg m² s⁻² / s = kg m² s⁻³ = watt.",
+      "D": "Wrong. This has kg², which doesn't correspond to any standard physical quantity for power."
+    },
+    "hint": "Power = energy ÷ time. Work out the base units of energy first, then divide by seconds."
+  },
+  {
+    "source": "June 2010",
+    "number": 7,
+    "question": "A building has 5 floors. The windows on successive floors are separated by the same vertical distance. A brick is dropped from a window on each floor at the same time. The bricks should hit the ground at",
+    "options": [
+      {"label": "A", "text": "decreasing time intervals"},
+      {"label": "B", "text": "equal time intervals"},
+      {"label": "C", "text": "increasing time intervals"},
+      {"label": "D", "text": "the same time"}
+    ],
+    "correctLabel": "A",
+    "topic": "free fall",
+    "difficulty": 5,
+    "explanations": {
+      "A": "Correct. Using s = ½gt², time ∝ √s. The higher bricks fall further but the time intervals between impacts decrease because the lower bricks have less distance to fall and arrive in quicker succession.",
+      "B": "Wrong. Equal intervals would require equal distances, but t ∝ √s means the relationship is non-linear.",
+      "C": "Wrong. The intervals actually decrease, not increase.",
+      "D": "Wrong. They're dropped from different heights so they can't all hit at the same time."
+    },
+    "hint": "Use s = ½gt². How does fall time relate to height? Think about the square root relationship."
+  },
+  {
+    "source": "June 2010",
+    "number": 8,
+    "question": "All ductile materials are also",
+    "options": [
+      {"label": "A", "text": "brittle"},
+      {"label": "B", "text": "hard"},
+      {"label": "C", "text": "malleable"},
+      {"label": "D", "text": "stiff"}
+    ],
+    "correctLabel": "C",
+    "topic": "material properties",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. Brittle is the opposite of ductile — brittle materials fracture without plastic deformation.",
+      "B": "Wrong. Hardness (resistance to scratching) is independent of ductility.",
+      "C": "Correct. Ductile means it can be drawn into wires; malleable means it can be hammered into shape. Both require significant plastic deformation, so all ductile materials are also malleable.",
+      "D": "Wrong. Stiffness (resistance to elastic deformation) is independent of ductility."
+    },
+    "hint": "Ductile means a material can undergo significant plastic deformation. What other property requires plastic deformation?"
+  },
+  {
+    "source": "June 2010",
+    "number": 9,
+    "question": "An aeroplane is climbing at a constant velocity. Which of the following shows the correct two relationships between the forces?",
+    "options": [
+      {"label": "A", "text": "lift > weight, thrust > drag"},
+      {"label": "B", "text": "lift > weight, thrust = drag"},
+      {"label": "C", "text": "lift = weight, thrust > drag"},
+      {"label": "D", "text": "lift = weight, thrust = drag"}
+    ],
+    "correctLabel": "A",
+    "topic": "forces and equilibrium",
+    "difficulty": 5,
+    "explanations": {
+      "A": "Correct. At constant velocity climbing: the resultant force is zero. Resolving along and perpendicular to the direction of travel, for a climb the vertical component of thrust plus the vertical component of lift must equal weight, and the horizontal components must balance. Since the plane climbs, lift > weight in the vertical direction, and thrust > drag to maintain the climb angle.",
+      "B": "Wrong. If thrust = drag, there would be no component to sustain the climb against gravity's component along the flight path.",
+      "C": "Wrong. If lift = weight exactly, the plane couldn't maintain an upward trajectory.",
+      "D": "Wrong. This describes level flight at constant speed, not climbing."
+    },
+    "hint": "Constant velocity means zero resultant force. But the plane is climbing — think about what components of the forces are needed for upward motion."
+  },
+  {
+    "source": "June 2010",
+    "number": 10,
+    "question": "The aeroplane is now flown at a constant altitude but an increasing speed. Which of the following pairs of forces will have the same magnitude?",
+    "options": [
+      {"label": "A", "text": "drag and weight"},
+      {"label": "B", "text": "drag and thrust"},
+      {"label": "C", "text": "lift and drag"},
+      {"label": "D", "text": "lift and weight"}
+    ],
+    "correctLabel": "D",
+    "topic": "forces and equilibrium",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. Drag acts horizontally and weight acts vertically — they balance different components.",
+      "B": "Wrong. If drag = thrust, there would be no net horizontal force, so no acceleration — but the plane is speeding up.",
+      "C": "Wrong. Lift acts vertically and drag acts horizontally — they act in perpendicular directions.",
+      "D": "Correct. Constant altitude means no vertical acceleration, so the vertical forces must balance: lift = weight. The plane is accelerating horizontally, so thrust > drag."
+    },
+    "hint": "Constant altitude means no vertical acceleration. Increasing speed means horizontal acceleration. Which forces are vertical?"
+  },
+  {
+    "source": "June 2011",
+    "number": 1,
+    "question": "Which of the following is not a vector quantity?",
+    "options": [
+      {"label": "A", "text": "displacement"},
+      {"label": "B", "text": "force"},
+      {"label": "C", "text": "weight"},
+      {"label": "D", "text": "work"}
+    ],
+    "correctLabel": "D",
+    "topic": "scalars and vectors",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Displacement has direction — it's a vector.",
+      "B": "Wrong. Force has direction — it's a vector.",
+      "C": "Wrong. Weight acts downward — it's a vector (it's a force).",
+      "D": "Correct. Work is a scalar quantity — it has magnitude only (measured in joules)."
+    },
+    "hint": "Vectors have both magnitude and direction. Which quantity here doesn't have a direction?"
+  },
+  {
+    "source": "June 2011",
+    "number": 2,
+    "question": "Which of the following units is equivalent to the SI unit for energy?",
+    "options": [
+      {"label": "A", "text": "kg m s⁻²"},
+      {"label": "B", "text": "kW h"},
+      {"label": "C", "text": "N m⁻¹"},
+      {"label": "D", "text": "W s"}
+    ],
+    "correctLabel": "D",
+    "topic": "units and dimensions",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. kg m s⁻² is the unit of force (newton), not energy.",
+      "B": "Wrong. kW h is a unit of energy but it's not an SI unit — it's a practical unit. The SI unit is the joule.",
+      "C": "Wrong. N m⁻¹ is the unit of spring constant (stiffness), not energy.",
+      "D": "Correct. Power × time = energy. W × s = J. One watt-second equals one joule."
+    },
+    "hint": "Energy = power × time. What unit do you get when you multiply watts by seconds?"
+  },
+  {
+    "source": "June 2011",
+    "number": 3,
+    "question": "A graph shows how tensile stress varies with tensile strain for a wire, with points X, Y, and Z marked. Which row gives the correct terms for points X, Y, and Z?",
+    "options": [
+      {"label": "A", "text": "X = Elastic limit, Y = Yield point, Z = Maximum tensile stress"},
+      {"label": "B", "text": "X = Limit of proportionality, Y = Elastic limit, Z = Yield point"},
+      {"label": "C", "text": "X = Elastic limit, Y = Maximum tensile stress, Z = Limit of proportionality"},
+      {"label": "D", "text": "X = Limit of proportionality, Y = Yield point, Z = Maximum tensile stress"}
+    ],
+    "correctLabel": "D",
+    "topic": "stress-strain graphs",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. The elastic limit comes after the limit of proportionality, and Y should be the yield point.",
+      "B": "Wrong. Z is at the peak of the curve, which is maximum tensile stress, not the yield point.",
+      "C": "Wrong. The order on the graph is: limit of proportionality first, then yield point, then UTS.",
+      "D": "Correct. On a stress-strain curve: X (where the line stops being straight) = limit of proportionality, Y (where plastic deformation begins) = yield point, Z (highest point) = maximum tensile stress (UTS)."
+    },
+    "hint": "On a stress-strain graph, the key points in order are: limit of proportionality → yield point → UTS (maximum stress)."
+  },
+  {
+    "source": "June 2011",
+    "number": 4,
+    "question": "The acceleration of free fall on Mars is 3.7 m s⁻². If an object on Mars is launched vertically upwards with an initial speed of 40 m s⁻¹, its speed after 3.0 s will be",
+    "options": [
+      {"label": "A", "text": "11 m s⁻¹"},
+      {"label": "B", "text": "29 m s⁻¹"},
+      {"label": "C", "text": "36 m s⁻¹"},
+      {"label": "D", "text": "51 m s⁻¹"}
+    ],
+    "correctLabel": "B",
+    "topic": "SUVAT equations",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. This is 40 − (9.81 × 3) — you used g for Earth, not Mars.",
+      "B": "Correct. v = u − at = 40 − (3.7 × 3.0) = 40 − 11.1 = 28.9 ≈ 29 m s⁻¹. The object decelerates due to gravity on Mars.",
+      "C": "Wrong. Check your arithmetic — this doesn't match v = u − at with these values.",
+      "D": "Wrong. This is 40 + (3.7 × 3) — you added instead of subtracting. The object is decelerating as it goes up."
+    },
+    "hint": "Use v = u + at. The object is going up and gravity pulls it down, so acceleration is negative."
+  },
+  {
+    "source": "June 2011",
+    "number": 5,
+    "question": "The gravitational field strength on Mars is 3.7 N kg⁻¹. A 5.0 kg object is raised through a height of 150 cm on Mars. The change in gravitational potential energy is",
+    "options": [
+      {"label": "A", "text": "19 J"},
+      {"label": "B", "text": "28 J"},
+      {"label": "C", "text": "49 J"},
+      {"label": "D", "text": "74 J"}
+    ],
+    "correctLabel": "B",
+    "topic": "gravitational potential energy",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. This is 3.7 × 5.0 × 1.0 — you may have used 1 m instead of 1.5 m.",
+      "B": "Correct. Ep = mgh = 5.0 × 3.7 × 1.50 = 27.75 ≈ 28 J. Remember to convert 150 cm to 1.50 m.",
+      "C": "Wrong. This is 5.0 × 9.81 × 1.0 — you used Earth's g and wrong height.",
+      "D": "Wrong. This is 5.0 × 9.81 × 1.5 — you used Earth's g instead of Mars's."
+    },
+    "hint": "Use Ep = mgh. Be careful with units — convert cm to m first."
+  },
+  {
+    "source": "June 2011",
+    "number": 7,
+    "question": "A material which resists plastic deformation by scratching is described as",
+    "options": [
+      {"label": "A", "text": "brittle"},
+      {"label": "B", "text": "hard"},
+      {"label": "C", "text": "malleable"},
+      {"label": "D", "text": "stiff"}
+    ],
+    "correctLabel": "B",
+    "topic": "material properties",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Brittle means a material fractures with little plastic deformation — not about scratching.",
+      "B": "Correct. Hardness is defined as resistance to plastic deformation of the surface, typically tested by scratching or indentation.",
+      "C": "Wrong. Malleable means a material can be hammered into shape — the opposite of resisting deformation.",
+      "D": "Wrong. Stiff means high Young's modulus — resistance to elastic deformation, not scratching."
+    },
+    "hint": "Which material property is specifically about resistance to surface deformation like scratching?"
+  },
+  {
+    "source": "June 2011",
+    "number": 9,
+    "question": "The gradient of a displacement-time graph gives",
+    "options": [
+      {"label": "A", "text": "acceleration"},
+      {"label": "B", "text": "displacement"},
+      {"label": "C", "text": "force"},
+      {"label": "D", "text": "velocity"}
+    ],
+    "correctLabel": "D",
+    "topic": "kinematics graphs",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Acceleration is the gradient of a velocity-time graph, not displacement-time.",
+      "B": "Wrong. Displacement is read directly from the y-axis, not from the gradient.",
+      "C": "Wrong. Force is not directly obtained from a displacement-time graph.",
+      "D": "Correct. Velocity = displacement/time = Δs/Δt, which is the gradient of an s-t graph."
+    },
+    "hint": "Gradient = change in y / change in x. On a displacement-time graph, that's Δs/Δt. What is that?"
+  },
+  {
+    "source": "June 2011",
+    "number": 10,
+    "question": "A table tennis ball is released beneath the surface of water and moves upwards. The relationship between the forces acting on the ball when it reaches terminal velocity is",
+    "options": [
+      {"label": "A", "text": "weight = upthrust"},
+      {"label": "B", "text": "weight + drag = upthrust"},
+      {"label": "C", "text": "weight = upthrust + drag"},
+      {"label": "D", "text": "weight = drag"}
+    ],
+    "correctLabel": "B",
+    "topic": "terminal velocity and forces",
+    "difficulty": 5,
+    "explanations": {
+      "A": "Wrong. If weight = upthrust only, there would be no drag term, which is wrong since the ball is moving.",
+      "B": "Correct. The ball moves upward, so upthrust acts upward while weight and drag both act downward. At terminal velocity: upward force = downward forces, so upthrust = weight + drag.",
+      "C": "Wrong. This would mean the net force is downward, but the ball is moving upward.",
+      "D": "Wrong. This ignores upthrust, which is the driving force pushing the ball upward."
+    },
+    "hint": "The ball moves UP through water. Upthrust acts UP. Weight and drag both act DOWN. At terminal velocity, forces balance."
+  },
+  {
+    "source": "June 2012",
+    "number": 1,
+    "question": "Which of these quantities is not measured in an SI base unit?",
+    "options": [
+      {"label": "A", "text": "distance"},
+      {"label": "B", "text": "force"},
+      {"label": "C", "text": "mass"},
+      {"label": "D", "text": "time"}
+    ],
+    "correctLabel": "B",
+    "topic": "SI units",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Distance is measured in metres — an SI base unit.",
+      "B": "Correct. Force is measured in newtons (N), which is a derived unit: N = kg m s⁻². It is NOT a base unit.",
+      "C": "Wrong. Mass is measured in kilograms — an SI base unit.",
+      "D": "Wrong. Time is measured in seconds — an SI base unit."
+    },
+    "hint": "The 7 SI base units include metre, kilogram, second, ampere, kelvin, mole, candela. Which quantity here uses a derived unit?"
+  },
+  {
+    "source": "June 2012",
+    "number": 2,
+    "question": "Displacement can be found from the",
+    "options": [
+      {"label": "A", "text": "area under a distance-time graph"},
+      {"label": "B", "text": "area under a velocity-time graph"},
+      {"label": "C", "text": "gradient of a distance-time graph"},
+      {"label": "D", "text": "gradient of a velocity-time graph"}
+    ],
+    "correctLabel": "B",
+    "topic": "kinematics graphs",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. The area under a distance-time graph doesn't give a standard kinematic quantity.",
+      "B": "Correct. Area under a v-t graph = velocity × time = displacement.",
+      "C": "Wrong. The gradient of a distance-time graph gives speed, not displacement.",
+      "D": "Wrong. The gradient of a v-t graph gives acceleration, not displacement."
+    },
+    "hint": "Area under a graph = y-quantity × x-quantity. For a v-t graph, that's velocity × time."
+  },
+  {
+    "source": "June 2012",
+    "number": 3,
+    "question": "A wire of length x is stretched by a force F. The extension is Δx. A second wire of the same material and cross-sectional area is stretched by the same force. If it has twice the length of the first wire its extension will be",
+    "options": [
+      {"label": "A", "text": "½Δx"},
+      {"label": "B", "text": "Δx"},
+      {"label": "C", "text": "2Δx"},
+      {"label": "D", "text": "4Δx"}
+    ],
+    "correctLabel": "C",
+    "topic": "Young's modulus and extension",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. A longer wire is easier to stretch, not harder.",
+      "B": "Wrong. Doubling the length does change the extension.",
+      "C": "Correct. From E = FL/AΔL, rearranging gives ΔL = FL/AE. If L doubles (same F, A, E), extension doubles: 2Δx.",
+      "D": "Wrong. Extension is proportional to length, not length squared."
+    },
+    "hint": "Young's modulus E = stress/strain = (F/A)/(ΔL/L). Rearrange for ΔL and see how it depends on L."
+  },
+  {
+    "source": "June 2012",
+    "number": 4,
+    "question": "Which equation shows a scalar quantity as the product of two vector quantities?",
+    "options": [
+      {"label": "A", "text": "energy = power × time"},
+      {"label": "B", "text": "force = stiffness × extension"},
+      {"label": "C", "text": "mass = density × volume"},
+      {"label": "D", "text": "work = force × displacement"}
+    ],
+    "correctLabel": "D",
+    "topic": "scalars and vectors",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. Power is scalar and time is scalar — this is scalar × scalar = scalar.",
+      "B": "Wrong. Stiffness is scalar and extension is scalar (or vector depending on context) — but force is a vector, not scalar, result.",
+      "C": "Wrong. Density and volume are both scalars. Mass is also scalar.",
+      "D": "Correct. Work = F · s = Fs cosθ. Force is a vector, displacement is a vector, and their dot product (work) is a scalar."
+    },
+    "hint": "You need: scalar = vector × vector. This is the dot product. Which equation multiplies two directed quantities to give a non-directed result?"
+  },
+  {
+    "source": "June 2012",
+    "number": 5,
+    "question": "A material which can be drawn into a wire is described as being",
+    "options": [
+      {"label": "A", "text": "brittle"},
+      {"label": "B", "text": "ductile"},
+      {"label": "C", "text": "hard"},
+      {"label": "D", "text": "soft"}
+    ],
+    "correctLabel": "B",
+    "topic": "material properties",
+    "difficulty": 1,
+    "explanations": {
+      "A": "Wrong. Brittle materials fracture easily — they can't be drawn into wires.",
+      "B": "Correct. Ductile literally means 'able to be drawn into a wire'. It indicates significant plastic deformation before fracture.",
+      "C": "Wrong. Hard means resistant to surface deformation — not related to wire-drawing.",
+      "D": "Wrong. Soft means easily deformed — it doesn't specifically mean it can be drawn into a wire."
+    },
+    "hint": "The definition of this property is literally 'can be drawn into a wire'."
+  },
+  {
+    "source": "June 2012",
+    "number": 6,
+    "question": "A bowling ball of mass 7.0 kg is travelling at a speed of 4.0 m s⁻¹. The kinetic energy of the ball is",
+    "options": [
+      {"label": "A", "text": "14 J"},
+      {"label": "B", "text": "28 J"},
+      {"label": "C", "text": "56 J"},
+      {"label": "D", "text": "112 J"}
+    ],
+    "correctLabel": "C",
+    "topic": "kinetic energy",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. This is ½ × 7.0 × 4.0 — you forgot to square the velocity.",
+      "B": "Wrong. This is 7.0 × 4.0 — you used mv instead of ½mv².",
+      "C": "Correct. Ek = ½mv² = ½ × 7.0 × 4.0² = ½ × 7.0 × 16 = 56 J.",
+      "D": "Wrong. This is 7.0 × 4.0² — you forgot the ½."
+    },
+    "hint": "Use Ek = ½mv². Remember to square the velocity before multiplying."
+  },
+  {
+    "source": "June 2012",
+    "number": 7,
+    "question": "An object of weight W sits on an inclined surface at angle θ to the horizontal. The component of the weight W parallel to the surface is",
+    "options": [
+      {"label": "A", "text": "0"},
+      {"label": "B", "text": "1"},
+      {"label": "C", "text": "W cos θ"},
+      {"label": "D", "text": "W sin θ"}
+    ],
+    "correctLabel": "D",
+    "topic": "resolving forces",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. There is a component of weight along the slope — that's what makes objects slide.",
+      "B": "Wrong. The component depends on W and θ, not just 1.",
+      "C": "Wrong. W cos θ is the component perpendicular to the surface (pressing into the slope).",
+      "D": "Correct. The component of weight parallel to the slope = W sin θ. This is the force that would cause the object to slide down."
+    },
+    "hint": "Draw the weight vector straight down, then resolve it into components parallel and perpendicular to the slope."
+  },
+  {
+    "source": "June 2012",
+    "number": 9,
+    "question": "A motor raises a mass m through a height Δh in time t. The power of the motor is given by",
+    "options": [
+      {"label": "A", "text": "mgtΔh"},
+      {"label": "B", "text": "mg/(tΔh)"},
+      {"label": "C", "text": "mgΔh/t"},
+      {"label": "D", "text": "mgt/Δh"}
+    ],
+    "correctLabel": "C",
+    "topic": "power",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. This gives units of N·s·m which is not watts.",
+      "B": "Wrong. This has time in the denominator alongside height — dimensionally incorrect.",
+      "C": "Correct. Power = work done / time = (mgΔh) / t. Work done against gravity = mgh.",
+      "D": "Wrong. This has height in the denominator — dimensionally incorrect for power."
+    },
+    "hint": "Power = work done ÷ time. Work done lifting = mgh."
+  },
+  {
+    "source": "June 2013",
+    "number": 1,
+    "question": "Which pair of quantities does not contain a vector and a scalar?",
+    "options": [
+      {"label": "A", "text": "acceleration and time"},
+      {"label": "B", "text": "force and displacement"},
+      {"label": "C", "text": "mass and acceleration"},
+      {"label": "D", "text": "velocity and time"}
+    ],
+    "correctLabel": "B",
+    "topic": "scalars and vectors",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. Acceleration (vector) and time (scalar) — this pair does contain one of each.",
+      "B": "Correct. Force (vector) and displacement (vector) — both are vectors, so this pair does NOT contain a vector and a scalar.",
+      "C": "Wrong. Mass (scalar) and acceleration (vector) — this pair does contain one of each.",
+      "D": "Wrong. Velocity (vector) and time (scalar) — this pair does contain one of each."
+    },
+    "hint": "The question asks which pair does NOT have one vector and one scalar. Look for the pair where both are vectors (or both scalars)."
+  },
+  {
+    "source": "June 2013",
+    "number": 2,
+    "question": "A wire of length 80 cm has a force F applied. The new length of the wire is 84 cm. The strain is given by",
+    "options": [
+      {"label": "A", "text": "4/84"},
+      {"label": "B", "text": "4/80"},
+      {"label": "C", "text": "80/84"},
+      {"label": "D", "text": "84/80"}
+    ],
+    "correctLabel": "B",
+    "topic": "strain",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. You divided by the new length — strain uses the original length.",
+      "B": "Correct. Strain = extension / original length = (84 − 80) / 80 = 4/80.",
+      "C": "Wrong. This is original length / new length — not the definition of strain.",
+      "D": "Wrong. This is new length / original length — not the definition of strain."
+    },
+    "hint": "Strain = extension ÷ original length. Extension = new length − original length."
+  },
+  {
+    "source": "June 2013",
+    "number": 3,
+    "question": "Which of the following is a derived SI quantity?",
+    "options": [
+      {"label": "A", "text": "force"},
+      {"label": "B", "text": "length"},
+      {"label": "C", "text": "second"},
+      {"label": "D", "text": "watt"}
+    ],
+    "correctLabel": "A",
+    "topic": "SI units",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Correct. Force (newton) is a derived quantity: N = kg m s⁻². It's made from base units.",
+      "B": "Wrong. Length (metre) is a base SI quantity.",
+      "C": "Wrong. The second is a base SI unit, not a derived quantity.",
+      "D": "Wrong. The watt is a derived unit, but the question asks for a 'derived SI quantity' — force is the quantity, watt is a unit. Both A and D could work, but force is the standard answer as a derived quantity."
+    },
+    "hint": "Base SI quantities are: mass, length, time, current, temperature, amount, luminous intensity. Everything else is derived."
+  },
+  {
+    "source": "June 2013",
+    "number": 8,
+    "question": "Which of the following descriptions of a material implies that it undergoes significant plastic deformation?",
+    "options": [
+      {"label": "A", "text": "brittle"},
+      {"label": "B", "text": "hard"},
+      {"label": "C", "text": "malleable"},
+      {"label": "D", "text": "stiff"}
+    ],
+    "correctLabel": "C",
+    "topic": "material properties",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Brittle materials undergo very little plastic deformation before fracturing.",
+      "B": "Wrong. Hard means resistance to surface deformation — doesn't imply extensive plastic deformation.",
+      "C": "Correct. Malleable means a material can be hammered or pressed into shape, which requires significant plastic deformation.",
+      "D": "Wrong. Stiff means high Young's modulus — resistance to elastic deformation, not about plastic deformation."
+    },
+    "hint": "Which property means the material can be reshaped (e.g. hammered into sheets) without breaking?"
+  },
+  {
+    "source": "June 2013",
+    "number": 9,
+    "question": "A trolley rolls down a slope from rest. The trolley moves through a vertical height h while rolling a distance s along the slope. The maximum possible speed is given by",
+    "options": [
+      {"label": "A", "text": "2gs"},
+      {"label": "B", "text": "2gh"},
+      {"label": "C", "text": "√(2gs)"},
+      {"label": "D", "text": "√(2gh)"}
+    ],
+    "correctLabel": "D",
+    "topic": "energy conservation",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. You should use vertical height h, not slope distance s. Also, this gives v², not v.",
+      "B": "Wrong. 2gh gives v², not v. You need to take the square root.",
+      "C": "Wrong. The energy depends on vertical height h, not the distance along the slope s.",
+      "D": "Correct. By conservation of energy: mgh = ½mv². Solving for v gives v = √(2gh). The vertical height determines the PE lost, not the slope distance."
+    },
+    "hint": "Use conservation of energy: potential energy lost = kinetic energy gained. PE depends on vertical height, not slope distance."
+  },
+  {
+    "source": "June 2014 IAL",
+    "number": 1,
+    "question": "A rocket of mass m lifts off with an acceleration a due to the engines providing a thrust T. Which row correctly identifies m, T and a as scalar or vector?",
+    "options": [
+      {"label": "A", "text": "m = vector, T = scalar, a = vector"},
+      {"label": "B", "text": "m = vector, T = scalar, a = scalar"},
+      {"label": "C", "text": "m = scalar, T = vector, a = vector"},
+      {"label": "D", "text": "m = scalar, T = vector, a = scalar"}
+    ],
+    "correctLabel": "C",
+    "topic": "scalars and vectors",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Mass is a scalar, not a vector.",
+      "B": "Wrong. Mass is scalar (correct) but thrust is a vector (it acts in a direction), and acceleration is also a vector.",
+      "C": "Correct. Mass is scalar (magnitude only). Thrust is a vector (force has direction). Acceleration is a vector (has direction).",
+      "D": "Wrong. Acceleration has both magnitude and direction — it's a vector, not a scalar."
+    },
+    "hint": "Mass has no direction. Both force (thrust) and acceleration have direction."
+  },
+  {
+    "source": "June 2014 IAL",
+    "number": 7,
+    "question": "An increasing force is applied to a spring and the corresponding extension is measured. The spring constant k of the spring is",
+    "options": [
+      {"label": "A", "text": "the applied force per unit extension"},
+      {"label": "B", "text": "the applied force per unit length"},
+      {"label": "C", "text": "the gradient of the extension (y-axis) against force (x-axis) graph"},
+      {"label": "D", "text": "the area under the extension (y-axis) against force (x-axis) graph"}
+    ],
+    "correctLabel": "A",
+    "topic": "Hooke's Law",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Correct. From F = kx, rearranging gives k = F/x, which is force per unit extension.",
+      "B": "Wrong. Force per unit length would involve the total length, not the extension.",
+      "C": "Wrong. The gradient of extension vs force gives 1/k (the reciprocal of the spring constant).",
+      "D": "Wrong. The area under the extension-force graph gives the elastic strain energy stored."
+    },
+    "hint": "Hooke's Law: F = kx. Rearrange for k."
+  },
+  {
+    "source": "June 2014",
+    "number": 1,
+    "question": "Select the answer in which both quantities are vectors.",
+    "options": [
+      {"label": "A", "text": "acceleration, speed"},
+      {"label": "B", "text": "displacement, velocity"},
+      {"label": "C", "text": "mass, time"},
+      {"label": "D", "text": "power, weight"}
+    ],
+    "correctLabel": "B",
+    "topic": "scalars and vectors",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Acceleration is a vector but speed is a scalar.",
+      "B": "Correct. Displacement (has direction) and velocity (has direction) are both vectors.",
+      "C": "Wrong. Mass and time are both scalars.",
+      "D": "Wrong. Power is a scalar; weight is a vector."
+    },
+    "hint": "Look for the pair where BOTH quantities have a direction associated with them."
+  },
+  {
+    "source": "June 2014",
+    "number": 2,
+    "question": "A tennis ball hits a wall perpendicularly at a speed of 4 m s⁻¹ and rebounds at the same speed. Taking the initial velocity as positive, the change in velocity is",
+    "options": [
+      {"label": "A", "text": "−4 m s⁻¹"},
+      {"label": "B", "text": "−8 m s⁻¹"},
+      {"label": "C", "text": "0 m s⁻¹"},
+      {"label": "D", "text": "8 m s⁻¹"}
+    ],
+    "correctLabel": "B",
+    "topic": "change in velocity",
+    "difficulty": 4,
+    "explanations": {
+      "A": "Wrong. This only accounts for losing the initial velocity, not gaining velocity in the opposite direction.",
+      "B": "Correct. Change in velocity = final − initial = (−4) − (+4) = −8 m s⁻¹. The ball reverses direction, so the change is twice the speed in the negative direction.",
+      "C": "Wrong. The speed is the same but velocity has changed direction — the change is not zero.",
+      "D": "Wrong. The magnitude is correct (8) but the sign should be negative since the ball reverses direction."
+    },
+    "hint": "Δv = v_final − v_initial. If initial velocity is +4, the rebound velocity is −4. What's the difference?"
+  },
+  {
+    "source": "June 2015 IAL",
+    "number": 2,
+    "question": "Physical quantities are either vectors or scalars. Select the row which correctly identifies mass, velocity, and displacement as vector or scalar.",
+    "options": [
+      {"label": "A", "text": "mass = scalar, velocity = vector, displacement = scalar"},
+      {"label": "B", "text": "mass = vector, velocity = scalar, displacement = vector"},
+      {"label": "C", "text": "mass = vector, velocity = scalar, displacement = scalar"},
+      {"label": "D", "text": "mass = scalar, velocity = vector, displacement = vector"}
+    ],
+    "correctLabel": "D",
+    "topic": "scalars and vectors",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Displacement has a direction — it's a vector, not a scalar.",
+      "B": "Wrong. Mass has no direction (scalar), and velocity has direction (vector) — both are wrong here.",
+      "C": "Wrong. Mass is scalar (correct), but velocity is a vector (wrong here).",
+      "D": "Correct. Mass = scalar (magnitude only), velocity = vector (magnitude + direction), displacement = vector (magnitude + direction)."
+    },
+    "hint": "Mass has no direction. Velocity and displacement both specify a direction."
+  },
+  {
+    "source": "June 2015 IAL",
+    "number": 5,
+    "question": "A force is applied to a length of wire. Which of the following statements is not correct for small deformations of the wire?",
+    "options": [
+      {"label": "A", "text": "As the force applied increases, the extension increases"},
+      {"label": "B", "text": "The force applied is directly proportional to the extension"},
+      {"label": "C", "text": "The force applied is directly proportional to the original length"},
+      {"label": "D", "text": "The stress is directly proportional to the strain"}
+    ],
+    "correctLabel": "C",
+    "topic": "Hooke's Law",
+    "difficulty": 4,
+    "explanations": {
+      "A": "This IS correct for small deformations — Hooke's law applies.",
+      "B": "This IS correct — F = kx shows direct proportionality within the elastic limit.",
+      "C": "This is NOT correct. The force is not proportional to the original length — the extension depends on original length (longer wire stretches more for same force), but force isn't proportional to length.",
+      "D": "This IS correct — within the limit of proportionality, stress ∝ strain (Young's modulus is constant)."
+    },
+    "hint": "Think about each statement carefully. Which one doesn't follow from Hooke's Law or the definition of Young's modulus?"
+  },
+  {
+    "source": "June 2015 IAL",
+    "number": 6,
+    "question": "Aluminium can be used to produce thin sheets of food wrapping because it is",
+    "options": [
+      {"label": "A", "text": "brittle"},
+      {"label": "B", "text": "ductile"},
+      {"label": "C", "text": "hard"},
+      {"label": "D", "text": "malleable"}
+    ],
+    "correctLabel": "D",
+    "topic": "material properties",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Brittle materials shatter — they can't be rolled into thin sheets.",
+      "B": "Wrong. Ductile means it can be drawn into wires, not rolled into sheets.",
+      "C": "Wrong. Hardness is about resistance to scratching — not about forming thin sheets.",
+      "D": "Correct. Malleable means a material can be hammered or rolled into thin sheets without cracking. This is exactly what's done to make aluminium foil."
+    },
+    "hint": "Which property describes the ability to be pressed or rolled into thin sheets?"
+  },
+  {
+    "source": "June 2015 IAL",
+    "number": 8,
+    "question": "A stone dropped into a well takes 1.5 seconds to reach the water. Ignoring the effects of air resistance, what distance did the stone fall through?",
+    "options": [
+      {"label": "A", "text": "7 m"},
+      {"label": "B", "text": "11 m"},
+      {"label": "C", "text": "14 m"},
+      {"label": "D", "text": "22 m"}
+    ],
+    "correctLabel": "B",
+    "topic": "free fall SUVAT",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. This is approximately ½ × 9.81 × 1.0² — you may have used the wrong time.",
+      "B": "Correct. s = ½gt² = ½ × 9.81 × 1.5² = ½ × 9.81 × 2.25 = 11.0 m ≈ 11 m.",
+      "C": "Wrong. This is approximately 9.81 × 1.5 — you used s = gt instead of s = ½gt².",
+      "D": "Wrong. This is approximately 9.81 × 1.5² — you forgot the ½."
+    },
+    "hint": "Dropped from rest: u = 0. Use s = ½gt². Don't forget the ½!"
+  },
+  {
+    "source": "June 2016 IAL",
+    "number": 1,
+    "question": "Which of the following is equivalent to the joule in terms of SI base units?",
+    "options": [
+      {"label": "A", "text": "kg m² s⁻³"},
+      {"label": "B", "text": "kg m² s⁻²"},
+      {"label": "C", "text": "kg m s⁻²"},
+      {"label": "D", "text": "kg m s⁻¹"}
+    ],
+    "correctLabel": "B",
+    "topic": "SI units",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. kg m² s⁻³ is the unit of power (watt), not energy.",
+      "B": "Correct. Energy (J) = force × distance = (kg m s⁻²) × m = kg m² s⁻².",
+      "C": "Wrong. kg m s⁻² is the unit of force (newton), not energy.",
+      "D": "Wrong. kg m s⁻¹ is the unit of momentum, not energy."
+    },
+    "hint": "J = N × m. Write the newton in base units first, then multiply by metres."
+  },
+  {
+    "source": "June 2016 IAL",
+    "number": 2,
+    "question": "A wind turbine generates 550 W of electrical power for an average of 7 hours each day. What is the total energy, in MJ, generated each day?",
+    "options": [
+      {"label": "A", "text": "0.23"},
+      {"label": "B", "text": "14"},
+      {"label": "C", "text": "230"},
+      {"label": "D", "text": "14000"}
+    ],
+    "correctLabel": "B",
+    "topic": "power and energy",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. Check your unit conversion — this is too small.",
+      "B": "Correct. E = Pt = 550 × 7 × 3600 = 13 860 000 J = 13.86 MJ ≈ 14 MJ.",
+      "C": "Wrong. You may have forgotten to convert hours to seconds correctly.",
+      "D": "Wrong. You may have calculated in kJ or used the wrong conversion factor."
+    },
+    "hint": "E = Pt. Convert 7 hours to seconds (× 3600), then convert joules to MJ (÷ 10⁶)."
+  },
+  {
+    "source": "June 2016 IAL",
+    "number": 7,
+    "question": "A ball of mass m falls through a height h to the ground. What is the kinetic energy of the ball halfway to the ground?",
+    "options": [
+      {"label": "A", "text": "mgh"},
+      {"label": "B", "text": "mgh/2"},
+      {"label": "C", "text": "√(mgh)"},
+      {"label": "D", "text": "√(mgh/2)"}
+    ],
+    "correctLabel": "B",
+    "topic": "energy conservation",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. mgh is the total KE at the bottom, not halfway.",
+      "B": "Correct. At half the height, the ball has lost half its PE. KE gained = mgh/2.",
+      "C": "Wrong. This has wrong units/dimensions — kinetic energy should be in joules, not √(joules).",
+      "D": "Wrong. Same dimensional error — you can't take the square root of energy to get energy."
+    },
+    "hint": "By conservation of energy, KE gained = PE lost. Halfway down, how much PE has been lost?"
+  },
+  {
+    "source": "June 2016 IAL",
+    "number": 8,
+    "question": "A car travels at a speed of 20 m s⁻¹ due east and then turns around and travels at a speed of 40 m s⁻¹ due west. Taking the direction of due east as positive, select the correct row for change in speed and change in velocity.",
+    "options": [
+      {"label": "A", "text": "Change in speed = 20, Change in velocity = −60"},
+      {"label": "B", "text": "Change in speed = 20, Change in velocity = 60"},
+      {"label": "C", "text": "Change in speed = 60, Change in velocity = −60"},
+      {"label": "D", "text": "Change in speed = 60, Change in velocity = 60"}
+    ],
+    "correctLabel": "A",
+    "topic": "speed vs velocity",
+    "difficulty": 5,
+    "explanations": {
+      "A": "Correct. Change in speed = 40 − 20 = 20 m s⁻¹ (speed is scalar, always positive). Change in velocity = (−40) − (+20) = −60 m s⁻¹ (velocity is vector, direction matters).",
+      "B": "Wrong. The change in velocity should be negative (from positive to negative direction).",
+      "C": "Wrong. Change in speed = |40| − |20| = 20, not 60. Speed doesn't include direction.",
+      "D": "Wrong. Both values are incorrect for the reasons above."
+    },
+    "hint": "Speed is scalar (no direction): change = 40 − 20. Velocity is vector: east = +20, west = −40. Change = final − initial."
+  },
+  {
+    "source": "June 2015",
+    "number": 2,
+    "question": "The correct definition of the term centre of gravity is the point at which",
+    "options": [
+      {"label": "A", "text": "all of the force acts on a body"},
+      {"label": "B", "text": "gravity acts on a body"},
+      {"label": "C", "text": "the weight of a body may be considered to act"},
+      {"label": "D", "text": "the weight is concentrated"}
+    ],
+    "correctLabel": "C",
+    "topic": "centre of gravity",
+    "difficulty": 3,
+    "explanations": {
+      "A": "Wrong. Forces can act at many points — this is too vague.",
+      "B": "Wrong. Gravity acts throughout the entire body, not at a single point.",
+      "C": "Correct. The centre of gravity is the point where the entire weight of the body may be considered to act for the purpose of calculating moments and equilibrium.",
+      "D": "Wrong. Weight isn't literally concentrated at one point — it's distributed throughout the body."
+    },
+    "hint": "It's the point where we can treat the entire weight as acting — for modelling purposes."
+  },
+  {
+    "source": "June 2015",
+    "number": 6,
+    "question": "In the manufacture of cars, mild steel sheets are formed into panels of an appropriate shape. Mild steel can be shaped in this way because it is",
+    "options": [
+      {"label": "A", "text": "brittle"},
+      {"label": "B", "text": "hard"},
+      {"label": "C", "text": "malleable"},
+      {"label": "D", "text": "strong"}
+    ],
+    "correctLabel": "C",
+    "topic": "material properties",
+    "difficulty": 2,
+    "explanations": {
+      "A": "Wrong. Brittle materials crack when you try to reshape them.",
+      "B": "Wrong. Hard means resistant to scratching — not about reshaping.",
+      "C": "Correct. Malleable means a material can be pressed, rolled, or hammered into different shapes. This is exactly what happens when forming car body panels.",
+      "D": "Wrong. Strong means resistant to breaking under large forces — not about reshaping."
+    },
+    "hint": "Forming metal sheets into shapes requires the material to deform plastically without cracking."
+  }
+]
