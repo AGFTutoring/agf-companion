@@ -1851,7 +1851,15 @@ function parseAndRender(text){
   }
   return elements;
 }
-function RichLine({text}){return text.split(/(\*\*.*?\*\*|\*.*?\*|`[^`]+`)/g).map((s,i)=>{if(!s)return null;if(s.startsWith("**")&&s.endsWith("**"))return <strong key={i} style={{fontWeight:600,color:C.text}}>{s.slice(2,-2)}</strong>;if(s.startsWith("*")&&s.endsWith("*"))return <em key={i} style={{fontStyle:"italic",color:C.text}}>{s.slice(1,-1)}</em>;if(s.startsWith("`")&&s.endsWith("`"))return <code key={i} style={{background:C.greenDim,padding:"2px 7px",borderRadius:4,fontFamily:"'JetBrains Mono',monospace",fontSize:"0.85em",color:C.green,border:`1px solid ${C.greenBorder}`}}>{s.slice(1,-1)}</code>;return <span key={i}>{s}</span>;});}
+function RichLine({text}){return text.split(/(\[.*?\]\(https?:\/\/.*?\)|https?:\/\/[^\s)]+|\*\*.*?\*\*|\*.*?\*|`[^`]+`)/g).map((s,i)=>{
+if(!s)return null;
+const mdLink=s.match(/^\[(.+?)\]\((https?:\/\/.+?)\)$/);
+if(mdLink)return <a key={i} href={mdLink[2]} target="_blank" rel="noopener noreferrer" style={{color:C.green,textDecoration:"underline",textUnderlineOffset:"3px"}}>{mdLink[1]}</a>;
+if(s.match(/^https?:\/\//))return <a key={i} href={s} target="_blank" rel="noopener noreferrer" style={{color:C.green,textDecoration:"underline",textUnderlineOffset:"3px",wordBreak:"break-all",fontSize:"0.92em"}}>{s}</a>;
+if(s.startsWith("**")&&s.endsWith("**"))return <strong key={i} style={{fontWeight:600,color:C.text}}>{s.slice(2,-2)}</strong>;
+if(s.startsWith("*")&&s.endsWith("*"))return <em key={i} style={{fontStyle:"italic",color:C.text}}>{s.slice(1,-1)}</em>;
+if(s.startsWith("`")&&s.endsWith("`"))return <code key={i} style={{background:C.greenDim,padding:"2px 7px",borderRadius:4,fontFamily:"'JetBrains Mono',monospace",fontSize:"0.85em",color:C.green,border:`1px solid ${C.greenBorder}`}}>{s.slice(1,-1)}</code>;
+return <span key={i}>{s}</span>;});}
 
 /* ═══════════════════════════════════════════════════
    MAIN COMPONENT
