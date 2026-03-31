@@ -1,0 +1,140 @@
+/**
+ * AGF Companion — Add PDF download button for deeper notes
+ * When the AI generates notes (from the 📖 button), shows a Download PDF button
+ * Generates an AGF-branded HTML page that opens in a new tab for print-to-PDF
+ *
+ * cd C:\Users\alast\Downloads\agf-companion
+ * node patch-pdf.js
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+const PAGE_JS = path.join(__dirname, 'app', 'page.js');
+let code = fs.readFileSync(PAGE_JS, 'utf8');
+let steps = 0;
+
+// ═══════════════════════════════════════════════════════════════
+// STEP 1: Add a downloadNotesFromChat function
+// This converts markdown chat content to a styled, printable HTML page
+// ═══════════════════════════════════════════════════════════════
+
+const fnTarget = 'const downloadNotesPDF=()=>';
+const fnIdx = code.indexOf(fnTarget);
+
+if (fnIdx === -1) {
+  console.error('Could not find downloadNotesPDF function');
+  process.exit(1);
+}
+
+// Add the new function just before the existing one
+const newFn = `const downloadChatNotes=(content,topic)=>{
+    const clean=content
+      .replace(/📖[^\\n]*Deeper notes[^\\n]*🌍[^\\n]*Real-world[^\\n]*📚[^\\n]*Quiz me[^\\n]*/g,'')
+      .replace(/\\non this\\s*$/,'')
+      .trim();
+    const html=clean
+      .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+      .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+      .replace(/^# (.+)$/gm,'<h1>$1</h1>')
+      .replace(/\\*\\*(.+?)\\*\\*/g,'<strong>$1</strong>')
+      .replace(/\\*(.+?)\\*/g,'<em>$1</em>')
+      .replace(/^● (.+)$/gm,'<li>$1</li>')
+      .replace(/^• (.+)$/gm,'<li>$1</li>')
+      .replace(/^- (.+)$/gm,'<li>$1</li>')
+      .replace(/^(\\d+)\\. (.+)$/gm,'<li><strong>$1.</strong> $2</li>')
+      .replace(/✅/g,'<span style="color:#4d9460">✓</span>')
+      .replace(/❌/g,'<span style="color:#e06060">✗</span>')
+      .replace(/\\n/g,'<br>');
+    const page=\`<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<title>\${topic||"Revision Notes"} — AGF Tutoring</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page{margin:2cm 2.5cm;size:A4}
+  body{font-family:'Outfit',sans-serif;font-weight:400;color:#1a1a1a;line-height:1.8;max-width:680px;margin:0 auto;padding:40px 20px;font-size:13px}
+  .header{border-bottom:2px solid #4d9460;padding-bottom:16px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:flex-end}
+  .header h1{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;margin:0;color:#1a1a1a}
+  .header .sub{font-size:11px;color:#706b65;letter-spacing:0.08em;text-transform:uppercase}
+  .header .brand{font-family:'DM Serif Display',serif;font-size:14px;color:#4d9460}
+  h1{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;margin:28px 0 12px;color:#1a1a1a}
+  h2{font-family:'DM Serif Display',serif;font-size:17px;font-weight:400;margin:24px 0 10px;color:#1a1a1a;border-bottom:1px solid #e0ddd6;padding-bottom:4px}
+  h3{font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;margin:18px 0 6px;color:#4d9460}
+  strong{font-weight:600;color:#1a1a1a}
+  li{margin-bottom:4px;padding-left:4px}
+  code{background:#f4f3f0;padding:1px 5px;border-radius:3px;font-size:12px;font-family:monospace}
+  .footer{margin-top:40px;padding-top:12px;border-top:1px solid #e0ddd6;font-size:10px;color:#9a9690;text-align:center}
+  @media print{.no-print{display:none!important}}
+</style></head><body>
+<div class="header">
+  <div><h1>\${topic||"Revision Notes"}</h1><div class="sub">\${currentUnit?.name||"Chemistry"} — \${currentUnit?.code||"WCH11"}</div></div>
+  <div class="brand">AGF Tutoring</div>
+</div>
+\${html}
+<div class="footer">AGF Tutoring · Study Companion · Based on LibreTexts / OpenStax open-access materials</div>
+<div class="no-print" style="text-align:center;margin-top:20px">
+  <button onclick="window.print()" style="padding:10px 28px;border-radius:6px;border:none;background:#4d9460;color:#fff;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer">Save as PDF (Ctrl+P)</button>
+</div>
+</body></html>\`;
+    const w=window.open('','_blank');
+    if(w){w.document.write(page);w.document.close();}
+  };
+  `;
+
+code = code.substring(0, fnIdx) + newFn + code.substring(fnIdx);
+steps++;
+console.log('✅ Step ' + steps + ': Added downloadChatNotes function');
+
+
+// ═══════════════════════════════════════════════════════════════
+// STEP 2: Add a "⬇ Download PDF" button after the action buttons
+// Only show it on assistant messages that contain heading-like content
+// (i.e. messages generated by the "deeper notes" button)
+// ═══════════════════════════════════════════════════════════════
+
+// Find the action buttons div in the message renderer
+const actionDivEnd = `</div>
+    )}
+  </>;
+})()}`;
+
+if (code.includes(actionDivEnd)) {
+  const newActionDivEnd = `</div>
+    )}
+    {m.role==="assistant" && (m.content.includes("Revision Notes") || m.content.includes("Detailed") || m.content.includes("Key Rules") || m.content.includes("Common Exam Mistakes") || m.content.includes("Worked Examples")) && m.content.length > 800 && (
+      <div style={{marginTop:8}}>
+        <button onClick={()=>{const topic=m.content.match(/^#\\s*(.+)/m)?.[1]||m.content.match(/\\*\\*(.{10,60}?)\\*\\*/)?.[1]||"Revision Notes";downloadChatNotes(m.content,topic);}}
+          style={{padding:"6px 14px",borderRadius:20,border:"1px solid "+C.border,background:"transparent",color:C.textMuted,fontSize:11.5,fontWeight:500,cursor:"pointer",display:"flex",alignItems:"center",gap:6,transition:"all 0.2s"}}
+          onMouseEnter={e=>{e.currentTarget.style.borderColor=C.green;e.currentTarget.style.color=C.green;e.currentTarget.style.background=C.greenDim;}}
+          onMouseLeave={e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.color=C.textMuted;e.currentTarget.style.background="transparent";}}>
+          ⬇ Download as PDF
+        </button>
+      </div>
+    )}
+  </>;
+})()}`;
+
+  code = code.replace(actionDivEnd, newActionDivEnd);
+  steps++;
+  console.log('✅ Step ' + steps + ': Added Download PDF button for notes responses');
+} else {
+  console.log('⚠️  Could not find action buttons div end marker');
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// WRITE
+// ═══════════════════════════════════════════════════════════════
+
+fs.writeFileSync(PAGE_JS, code, 'utf8');
+
+if (steps === 0) {
+  console.log('⚠️  No changes made.');
+} else {
+  console.log('\n✅ ' + steps + ' patch(es) applied!');
+  console.log('\n📋 Next:');
+  console.log('   npm run dev → test');
+  console.log('   Ask a question → click 📖 Deeper notes → "⬇ Download as PDF" should appear');
+  console.log('   Click it → opens styled HTML in new tab → Ctrl+P to save as PDF');
+  console.log('   git add . && git commit -m "Add PDF download for deeper notes" && git push');
+}
