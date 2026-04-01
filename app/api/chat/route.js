@@ -6,7 +6,7 @@ export async function POST(req) {
       return Response.json({ error: { message: "API key not configured" } }, { status: 500 });
     }
 
-    const maxTokens = mode === "quiz" ? 4000 : mode === "resources" ? 4000 : 1200;
+    const maxTokens = mode === "quiz" ? 4000 : mode === "resources" ? 4000 : 3000;
 
     const body = {
       model: "claude-sonnet-4-20250514",
