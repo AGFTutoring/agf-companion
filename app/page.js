@@ -1898,7 +1898,7 @@ function parseAndRender(text){
   }
   return elements;
 }
-function RichLine({text}){return text.split(/(\[.*?\]\(https?:\/\/.*?\)|https?:\/\/[^\s)]+|\*\*.*?\*\*|\*.*?\*|`[^`]+`)/g).map((s,i)=>{
+function RichLine({text}){if(text.trim()==="on this")return null;return text.split(/(\[.*?\]\(https?:\/\/.*?\)|https?:\/\/[^\s)]+|\*\*.*?\*\*|\*.*?\*|`[^`]+`)/g).map((s,i)=>{
 if(!s)return null;
 const mdLink=s.match(/^\[(.+?)\]\((https?:\/\/.+?)\)$/);
 if(mdLink)return <a key={i} href={mdLink[2]} target="_blank" rel="noopener noreferrer" style={{color:C.green,textDecoration:"underline",textUnderlineOffset:"3px"}}>{mdLink[1]}</a>;
