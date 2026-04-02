@@ -1978,8 +1978,8 @@ export default function Home(){
   const generateNotes=useCallback(async()=>{if(!currentUnit||notesLoading)return;setNotesLoading(true);setNotesContent(null);try{const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:[{role:"user",content:"Generate comprehensive revision notes for this subject. Cover ALL key topics from the syllabus. For each topic include: definitions, key formulae, exam tips, and common mistakes. Format with ## headings for each topic, bullet points for key facts, and **bold** for important terms. Be thorough and exam-focused."}],system:currentUnit.system,mode:"ask"})});const data=await res.json();if(data.error)throw new Error(data.error.message);const text=data.content?.map(b=>b.type==="text"?b.text:"").filter(Boolean).join("\n")||"";setNotesContent(text);}catch(e){setErr(e.message);}finally{setNotesLoading(false);}},[currentUnit,notesLoading]);
   const downloadChatNotes=(content,topic)=>{
     const clean=content
-      .replace(/📖[^\n]*Deeper notes[^\n]*🌍[^\n]*Real-world[^\n]*📚[^\n]*Quiz me[^\n]*/g,'')
-      .replace(/\non this\s*$/,'')
+      .replace(/📖[^\n]*Quiz me[^\n]*/g,'')
+      .split('\n').filter(l=>l.trim()!=='on this').join('\n')
       .trim();
     const html=clean
       .replace(/^### (.+)$/gm,'<h3>$1</h3>')
@@ -1991,41 +1991,70 @@ export default function Home(){
       .replace(/^• (.+)$/gm,'<li>$1</li>')
       .replace(/^- (.+)$/gm,'<li>$1</li>')
       .replace(/^(\d+)\. (.+)$/gm,'<li><strong>$1.</strong> $2</li>')
-      .replace(/✅/g,'<span style="color:#4d9460">✓</span>')
-      .replace(/❌/g,'<span style="color:#e06060">✗</span>')
+      .replace(/✅/g,'<span class="ok">✓</span>')
+      .replace(/❌/g,'<span class="no">✗</span>')
+      .replace(/✓/g,'<span class="ok">✓</span>')
+      .replace(/✗/g,'<span class="no">✗</span>')
       .replace(/\n/g,'<br>');
+    const subj=currentUnit?.name||"Chemistry";
+    const code=currentUnit?.code||"";
     const page=`<!DOCTYPE html>
 <html><head><meta charset="utf-8">
 <title>${topic||"Revision Notes"} — AGF Tutoring</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  @page{margin:2cm 2.5cm;size:A4}
-  body{font-family:'Outfit',sans-serif;font-weight:400;color:#1a1a1a;line-height:1.8;max-width:680px;margin:0 auto;padding:40px 20px;font-size:13px}
-  .header{border-bottom:2px solid #4d9460;padding-bottom:16px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:flex-end}
-  .header h1{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;margin:0;color:#1a1a1a}
-  .header .sub{font-size:11px;color:#706b65;letter-spacing:0.08em;text-transform:uppercase}
-  .header .brand{font-family:'DM Serif Display',serif;font-size:14px;color:#4d9460}
-  h1{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;margin:28px 0 12px;color:#1a1a1a}
-  h2{font-family:'DM Serif Display',serif;font-size:17px;font-weight:400;margin:24px 0 10px;color:#1a1a1a;border-bottom:1px solid #e0ddd6;padding-bottom:4px}
-  h3{font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;margin:18px 0 6px;color:#4d9460}
-  strong{font-weight:600;color:#1a1a1a}
-  li{margin-bottom:4px;padding-left:4px}
-  code{background:#f4f3f0;padding:1px 5px;border-radius:3px;font-size:12px;font-family:monospace}
-  .footer{margin-top:40px;padding-top:12px;border-top:1px solid #e0ddd6;font-size:10px;color:#9a9690;text-align:center}
-  @media print{.no-print{display:none!important}}
+@page{margin:1.5cm 2cm;size:A4}
+*{box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;font-weight:400;color:#1a1a1a;line-height:1.8;margin:0;padding:0;font-size:15px;background:#fff}
+.page{max-width:100%;padding:32px 40px}
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;margin-bottom:28px;border-bottom:3px solid #4d9460}
+.hdr-left h1{font-family:'DM Serif Display',Georgia,serif;font-size:28px;font-weight:400;margin:0;color:#1a1a1a;line-height:1.2}
+.hdr-left .sub{font-size:13px;color:#706b65;letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
+.hdr-right{text-align:right}
+.hdr-right .brand{font-family:'DM Serif Display',Georgia,serif;font-size:18px;color:#4d9460;margin-bottom:2px}
+.hdr-right .url{font-size:11px;color:#9a9690;letter-spacing:.04em}
+.content{columns:2;column-gap:36px;column-rule:1px solid #e8e5de}
+h1{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;margin:28px 0 12px;color:#1a1a1a;break-after:avoid}
+h2{font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid #e0ddd6;color:#1a1a1a;break-after:avoid}
+h3{font-size:15px;font-weight:600;margin:18px 0 8px;color:#4d9460;break-after:avoid}
+strong{font-weight:600}
+li{margin-bottom:6px;padding-left:4px;break-inside:avoid}
+code{font-family:'JetBrains Mono',monospace;font-size:13px;background:#f5f3ee;padding:1px 5px;border-radius:3px}
+.ok{color:#4d9460;font-weight:600}
+.no{color:#e06060;font-weight:600}
+.tip{background:#f0f8f2;border-left:3px solid #4d9460;padding:10px 14px;margin:12px 0;border-radius:0 6px 6px 0;font-size:14px;break-inside:avoid}
+.warn{background:#fdf6ee;border-left:3px solid #d4a24c;padding:10px 14px;margin:12px 0;border-radius:0 6px 6px 0;font-size:14px;break-inside:avoid}
+.ftr{margin-top:32px;padding-top:14px;border-top:2px solid #4d9460;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#9a9690}
+.ftr .bars{display:flex;gap:2px;align-items:flex-end}
+.ftr .bar{width:3px;background:#4d9460;border-radius:1px}
+@media print{.np{display:none!important}.content{columns:2}}
+@media screen{body{background:#f8f7f4}.page{max-width:900px;margin:0 auto;padding:40px 48px;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,0.08)}}
 </style></head><body>
-<div class="header">
-  <div><h1>${topic||"Revision Notes"}</h1><div class="sub">${currentUnit?.name||"Chemistry"} — ${currentUnit?.code||"WCH11"}</div></div>
-  <div class="brand">AGF Tutoring</div>
+<div class="page">
+<div class="hdr">
+<div class="hdr-left">
+<h1>${topic||"Revision Notes"}</h1>
+<div class="sub">${subj} — ${code}</div>
 </div>
-${html}
-<div class="footer">AGF Tutoring · Study Companion · Based on LibreTexts / OpenStax open-access materials</div>
-<div class="no-print" style="text-align:center;margin-top:20px">
-  <button onclick="window.print()" style="padding:10px 28px;border-radius:6px;border:none;background:#4d9460;color:#fff;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer">Save as PDF (Ctrl+P)</button>
+<div class="hdr-right">
+<div class="brand">AGF Tutoring</div>
+<div class="url">agftutoring.co.uk</div>
+</div>
+</div>
+<div class="content">${html}</div>
+<div class="ftr">
+<div style="display:flex;align-items:center;gap:8px">
+<div class="bars"><div class="bar" style="height:8px"></div><div class="bar" style="height:14px"></div><div class="bar" style="height:18px"></div><div class="bar" style="height:11px"></div></div>
+<span>AGF Tutoring · Study Companion</span>
+</div>
+<span>Based on curated notes · agftutoring.co.uk</span>
+</div>
+</div>
+<div class="np" style="text-align:center;padding:20px">
+<button onclick="window.print()" style="padding:12px 32px;border-radius:8px;border:none;background:#4d9460;color:#fff;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.04em">Save as PDF (Ctrl+P)</button>
 </div>
 </body></html>`;
-    const w=window.open('','_blank');
-    if(w){w.document.write(page);w.document.close();}
+    const w=window.open("","_blank");if(w){w.document.write(page);w.document.close();}
   };
   const downloadNotesPDF=()=>{if(!notesContent||!currentUnit)return;const blob=new Blob([currentUnit.name+" — Revision Notes\n"+"=".repeat(50)+"\n\n"+notesContent.replace(/\*\*/g,"").replace(/## /g,"\n--- ").replace(/- /g,"• ")],{type:"text/plain"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=currentUnit.code+"-revision-notes.txt";a.click();URL.revokeObjectURL(url);};
   const backToAsk=()=>{setMode("ask");resetQuiz();if(currentUnit)setMsgs([{role:"assistant",content:currentUnit.welcome}]);};
