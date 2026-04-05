@@ -1108,6 +1108,22 @@ REFERENCE SOURCES (use when generating deeper notes):
 • IMFs → OpenStax Chemistry 2e, Ch 10
 Only mention these sources if the student explicitly asks "where can I read more?" — then provide the URL. Otherwise keep them in the companion.
 
+FREE RESOURCES — when students want to read further, direct them to these:
+- OpenStax Chemistry 2e (free textbook): openstax.org/books/chemistry-2e — Ch 2 (atoms), Ch 3 (moles), Ch 6 (electron config), Ch 7 (bonding & VSEPR), Ch 10.1 (intermolecular forces), Ch 20 (organic intro)
+- LibreTexts Chemistry: chem.libretexts.org — searchable, detailed notes on every topic
+- PhET Simulations (interactive): phet.colorado.edu — try "Molecule Shapes", "Build a Molecule", "States of Matter"
+- Khan Academy: khanacademy.org/science/chemistry — video explanations
+- Chemguide (UK A-Level focused): chemguide.co.uk — excellent for bonding, organic mechanisms
+Say: "For more detail, see [resource] — it's free at [URL]." Do not reproduce content from these sources.
+
+FREE RESOURCES — when students want to read further, direct them to these:
+- OpenStax Chemistry 2e (free textbook): openstax.org/books/chemistry-2e — Ch 2 (atoms), Ch 3 (moles), Ch 6 (electron config), Ch 7 (bonding & VSEPR), Ch 10.1 (intermolecular forces), Ch 20 (organic intro)
+- LibreTexts Chemistry: chem.libretexts.org — searchable, detailed notes on every topic
+- PhET Simulations (interactive): phet.colorado.edu — try "Molecule Shapes", "Build a Molecule", "States of Matter"
+- Khan Academy: khanacademy.org/science/chemistry — video explanations
+- Chemguide (UK A-Level focused): chemguide.co.uk — excellent for bonding, organic mechanisms
+Say: "For more detail, see [resource] — it's free at [URL]." Do not reproduce content from these sources.
+
 Only answer WCH11 content. Use diagram tags liberally.`,
   },
   chem2: { id:"chem2", name:"Chemistry Unit 2", code:"WCH12", subtitle:"Energetics, Redox & Group Chemistry", colour:"#3d8b7a", icon:"🧪", placeholder:"Ask about Chemistry Unit 2...",
@@ -1229,6 +1245,22 @@ Catalyst (Fe): no position change, faster equilibrium. Remove NH3: shifts right.
 HABER PROCESS: compromise 450C + 200 atm + Fe catalyst. Low T = high yield but slow. High P = good yield but expensive.
 
 COMMON MISTAKES: saying catalyst shifts equilibrium, confusing shift with completion, forgetting pressure only affects gas mole differences.
+FREE RESOURCES — when students want to read further, direct them to these:
+- OpenStax Chemistry 2e: openstax.org/books/chemistry-2e — Ch 5 (thermochemistry/enthalpy), Ch 4.2 (redox), Ch 12 (kinetics), Ch 13 (equilibria), Ch 17 (electrochemistry)
+- LibreTexts: chem.libretexts.org — Group 2: search "s-Block Elements/Group 2", Halogens: search "Group 17"
+- PhET Simulations: phet.colorado.edu — try "Reactants Products and Leftovers", "Acid-Base Solutions"
+- Khan Academy: khanacademy.org/science/chemistry — video explanations
+- Chemguide: chemguide.co.uk — excellent for group chemistry, redox, energetics
+Say: "For more detail, see [resource] — it's free at [URL]." Do not reproduce content from these sources.
+
+FREE RESOURCES — when students want to read further, direct them to these:
+- OpenStax Chemistry 2e: openstax.org/books/chemistry-2e — Ch 5 (thermochemistry/enthalpy), Ch 4.2 (redox), Ch 12 (kinetics), Ch 13 (equilibria), Ch 17 (electrochemistry)
+- LibreTexts: chem.libretexts.org — Group 2: search "s-Block Elements/Group 2", Halogens: search "Group 17"
+- PhET Simulations: phet.colorado.edu — try "Reactants Products and Leftovers", "Acid-Base Solutions"
+- Khan Academy: khanacademy.org/science/chemistry — video explanations
+- Chemguide: chemguide.co.uk — excellent for group chemistry, redox, energetics
+Say: "For more detail, see [resource] — it's free at [URL]." Do not reproduce content from these sources.
+
 Only answer WCH12 content. Use diagram tags where relevant.Only answer WCH12 content. Use diagram tags where relevant.Only answer WCH12 content. Use diagram tags where relevant.`,
   },
   phys1: { id:"phys1", name:"Physics Unit 1", code:"WPH11", subtitle:"Mechanics & Materials", colour:"#5b7bbf", icon:"⚡", placeholder:"Ask about Physics Unit 1...",
@@ -1356,6 +1388,24 @@ Method: long thin wire, fixed at one end, loaded at other. Measure extension wit
 Measure: original length L₀ (metre rule), diameter d (micrometer, multiple readings, calculate mean), mass m added.
 Calculate: F = mg, A = πd²/4, σ = F/A, ε = ΔL/L₀. Plot stress vs strain, gradient = E.
 Why long thin wire? Maximises measurable extension for given stress → reduces percentage uncertainty.
+
+FREE RESOURCES — when students want to read further, direct them to these:
+- OpenStax University Physics Vol 1: openstax.org/books/university-physics-volume-1 — Ch 3 (motion), Ch 5 (Newton's Laws), Ch 7-8 (energy), Ch 9 (momentum), Ch 12.3 (stress/strain/Young's modulus)
+- LibreTexts Physics: phys.libretexts.org — search for any topic
+- PhET Simulations: phet.colorado.edu — try "Forces and Motion", "Energy Skate Park", "Masses and Springs", "Hooke's Law"
+- The Physics Classroom: physicsclassroom.com — excellent conceptual explanations with animations
+- Khan Academy: khanacademy.org/science/physics — video explanations
+- A-Level Physics Online: alevelphysicsonline.com — UK-focused video lessons
+Say: "For more detail, see [resource] — it's free at [URL]." Do not reproduce content from these sources.
+
+FREE RESOURCES — when students want to read further, direct them to these:
+- OpenStax University Physics Vol 1: openstax.org/books/university-physics-volume-1 — Ch 3 (motion), Ch 5 (Newton's Laws), Ch 7-8 (energy), Ch 9 (momentum), Ch 12.3 (stress/strain/Young's modulus)
+- LibreTexts Physics: phys.libretexts.org — search for any topic
+- PhET Simulations: phet.colorado.edu — try "Forces and Motion", "Energy Skate Park", "Masses and Springs", "Hooke's Law"
+- The Physics Classroom: physicsclassroom.com — excellent conceptual explanations with animations
+- Khan Academy: khanacademy.org/science/physics — video explanations
+- A-Level Physics Online: alevelphysicsonline.com — UK-focused video lessons
+Say: "For more detail, see [resource] — it's free at [URL]." Do not reproduce content from these sources.
 
 Only answer WPH11 content. Use [EQUATION:...] tags for key formulae.Only answer WPH11 content. Use [EQUATION:...] tags for key formulae.Only answer WPH11 content. Use [EQUATION:...] tags for key formulae.`,
   },
@@ -1499,6 +1549,24 @@ Kirchhoff's Laws:
 Apply to complex circuits: choose loops, assign current directions, write equations, solve simultaneously.
 
 Conservation of charge and energy underpin all circuit analysis.
+
+FREE RESOURCES — when students want to read further, direct them to these:
+- OpenStax University Physics Vol 1: openstax.org/books/university-physics-volume-1 — Ch 16-17 (waves & sound)
+- OpenStax University Physics Vol 2: openstax.org/books/university-physics-volume-2 — Ch 9 (current/resistance), Ch 10 (DC circuits)
+- OpenStax University Physics Vol 3: openstax.org/books/university-physics-volume-3 — Ch 1 (refraction/Snell's Law), Ch 3 (interference), Ch 4 (diffraction)
+- PhET Simulations: phet.colorado.edu — try "Circuit Construction Kit", "Wave on a String", "Bending Light", "Wave Interference"
+- The Physics Classroom: physicsclassroom.com — excellent for waves, circuits, light
+- Khan Academy: khanacademy.org/science/physics — video explanations
+Say: "For more detail, see [resource] — it's free at [URL]." Do not reproduce content from these sources.
+
+FREE RESOURCES — when students want to read further, direct them to these:
+- OpenStax University Physics Vol 1: openstax.org/books/university-physics-volume-1 — Ch 16-17 (waves & sound)
+- OpenStax University Physics Vol 2: openstax.org/books/university-physics-volume-2 — Ch 9 (current/resistance), Ch 10 (DC circuits)
+- OpenStax University Physics Vol 3: openstax.org/books/university-physics-volume-3 — Ch 1 (refraction/Snell's Law), Ch 3 (interference), Ch 4 (diffraction)
+- PhET Simulations: phet.colorado.edu — try "Circuit Construction Kit", "Wave on a String", "Bending Light", "Wave Interference"
+- The Physics Classroom: physicsclassroom.com — excellent for waves, circuits, light
+- Khan Academy: khanacademy.org/science/physics — video explanations
+Say: "For more detail, see [resource] — it's free at [URL]." Do not reproduce content from these sources.
 
 Only answer WPH12 content. Use [EQUATION:...] tags for key formulae.Only answer WPH12 content. Use [EQUATION:...] tags for key formulae.Only answer WPH12 content. Use [EQUATION:...] tags for key formulae.`,
   },
@@ -1694,6 +1762,27 @@ Sometimes need to apply twice or use the trick where integral of e^x sin x dx ap
 
 Partial fractions for integration: decompose, then integrate term by term. integral of A/(x+a) dx = A ln|x+a| + c.
 
+INTEGRATION BY SUBSTITUTION (P4 — detailed)
+Used when reverse chain rule is not obvious. Substitution is usually given in the exam.
+Method: (1) Let u = g(x). (2) Find du/dx, rearrange to get dx = du/g'(x). (3) Replace ALL x terms with u. (4) Integrate w.r.t. u. (5) Substitute back to x.
+For definite integrals: change the limits when you change variable. Or change back to x and use original limits.
+If u^2 = f(x), differentiate implicitly: 2u du = f'(x) dx, so dx = 2u du/f'(x). This avoids messy square roots.
+Example: integral of x*sqrt(x+1) dx with u = x+1. Then x = u-1, dx = du. Integral becomes (u-1)*sqrt(u) du = (u^(3/2) - u^(1/2)) du.
+
+INTEGRATION BY PARTS (P4 — detailed)
+Formula: integral of u dv = uv - integral of v du. Choose u and dv wisely.
+LIATE rule for choosing u (first in list = best choice for u): Logarithmic, Inverse trig, Algebraic, Trig, Exponential.
+Example: integral of x*e^x dx. Let u = x (algebraic), dv = e^x dx. Then du = dx, v = e^x. Result: xe^x - e^x + c.
+For integral of ln x dx: let u = ln x, dv = dx. Then du = 1/x dx, v = x. Result: x ln x - x + c.
+Repeated IBP: if first IBP gives another product to integrate, apply IBP again. Keep tidy — compute second integral separately.
+Cyclic IBP: integral of e^x sin x dx. IBP twice returns the original integral. Collect: 2I = e^x(sin x - cos x), so I = e^x(sin x - cos x)/2.
+
+VOLUMES OF REVOLUTION (P4)
+About x-axis: V = pi * integral from a to b of y^2 dx.
+About y-axis: V = pi * integral from c to d of x^2 dy.
+Parametric: V = pi * integral of y^2 (dx/dt) dt. Change limits to parameter values.
+Subtract volumes for regions between curves: V = pi * integral of (y_outer^2 - y_inner^2) dx.
+
 Trapezium rule: integral approx h/2 [y0 + 2(y1 + y2 + ... + y(n-1)) + yn] where h = (b-a)/n.
 Always an approximation. Overestimate for concave-up curves, underestimate for concave-down. More strips means better accuracy.
 
@@ -1740,6 +1829,26 @@ Proof by exhaustion: check all possible cases.
 Proof by contradiction: assume the opposite is true, derive a contradiction, therefore original statement is true.
 Disproof by counter-example: find ONE example where the statement fails.
 Common proofs to know: sqrt(2) is irrational, there are infinitely many primes.
+
+FREE RESOURCES — when students want to read further, direct them to these:
+- OpenStax Algebra & Trig 2e: openstax.org/books/algebra-and-trigonometry-2e — functions, trig, sequences, vectors
+- OpenStax Calculus Vol 1: openstax.org/books/calculus-volume-1 — differentiation rules, chain/product/quotient, integration
+- OpenStax Calculus Vol 2: openstax.org/books/calculus-volume-2 — integration by parts, partial fractions, differential equations, parametric equations
+- LibreTexts Maths: math.libretexts.org — searchable, detailed notes
+- GeoGebra: geogebra.org — interactive graphing calculator for visualising functions, transformations, calculus
+- Khan Academy: khanacademy.org/math — video explanations for algebra, trig, calculus
+- Wolfram MathWorld: mathworld.wolfram.com — comprehensive maths reference
+Say: "For more detail, see [resource] — it's free at [URL]." Do not reproduce content from these sources.
+
+FREE RESOURCES — when students want to read further, direct them to these:
+- OpenStax Algebra & Trig 2e: openstax.org/books/algebra-and-trigonometry-2e — functions, trig, sequences, vectors
+- OpenStax Calculus Vol 1: openstax.org/books/calculus-volume-1 — differentiation rules, chain/product/quotient, integration
+- OpenStax Calculus Vol 2: openstax.org/books/calculus-volume-2 — integration by parts, partial fractions, differential equations, parametric equations
+- LibreTexts Maths: math.libretexts.org — searchable, detailed notes
+- GeoGebra: geogebra.org — interactive graphing calculator for visualising functions, transformations, calculus
+- Khan Academy: khanacademy.org/math — video explanations for algebra, trig, calculus
+- Wolfram MathWorld: mathworld.wolfram.com — comprehensive maths reference
+Say: "For more detail, see [resource] — it's free at [URL]." Do not reproduce content from these sources.
 
 Only answer A-Level Pure Maths content. Use [EQUATION:...] tags for key formulae. Show all working step by step.`,
   },
