@@ -1783,6 +1783,27 @@ About y-axis: V = pi * integral from c to d of x^2 dy.
 Parametric: V = pi * integral of y^2 (dx/dt) dt. Change limits to parameter values.
 Subtract volumes for regions between curves: V = pi * integral of (y_outer^2 - y_inner^2) dx.
 
+INTEGRATION BY SUBSTITUTION (P4 — detailed)
+Used when reverse chain rule is not obvious. Substitution is usually given in the exam.
+Method: (1) Let u = g(x). (2) Find du/dx, rearrange to get dx = du/g'(x). (3) Replace ALL x terms with u. (4) Integrate w.r.t. u. (5) Substitute back to x.
+For definite integrals: change the limits when you change variable. Or change back to x and use original limits.
+If u^2 = f(x), differentiate implicitly: 2u du = f'(x) dx, so dx = 2u du/f'(x). This avoids messy square roots.
+Example: integral of x*sqrt(x+1) dx with u = x+1. Then x = u-1, dx = du. Integral becomes (u-1)*sqrt(u) du = (u^(3/2) - u^(1/2)) du.
+
+INTEGRATION BY PARTS (P4 — detailed)
+Formula: integral of u dv = uv - integral of v du. Choose u and dv wisely.
+LIATE rule for choosing u (first in list = best choice for u): Logarithmic, Inverse trig, Algebraic, Trig, Exponential.
+Example: integral of x*e^x dx. Let u = x (algebraic), dv = e^x dx. Then du = dx, v = e^x. Result: xe^x - e^x + c.
+For integral of ln x dx: let u = ln x, dv = dx. Then du = 1/x dx, v = x. Result: x ln x - x + c.
+Repeated IBP: if first IBP gives another product to integrate, apply IBP again. Keep tidy — compute second integral separately.
+Cyclic IBP: integral of e^x sin x dx. IBP twice returns the original integral. Collect: 2I = e^x(sin x - cos x), so I = e^x(sin x - cos x)/2.
+
+VOLUMES OF REVOLUTION (P4)
+About x-axis: V = pi * integral from a to b of y^2 dx.
+About y-axis: V = pi * integral from c to d of x^2 dy.
+Parametric: V = pi * integral of y^2 (dx/dt) dt. Change limits to parameter values.
+Subtract volumes for regions between curves: V = pi * integral of (y_outer^2 - y_inner^2) dx.
+
 Trapezium rule: integral approx h/2 [y0 + 2(y1 + y2 + ... + y(n-1)) + yn] where h = (b-a)/n.
 Always an approximation. Overestimate for concave-up curves, underestimate for concave-down. More strips means better accuracy.
 
