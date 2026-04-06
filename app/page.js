@@ -1256,7 +1256,7 @@ FREE RESOURCES — when students want to read further, direct them to these:
 - Chemguide: chemguide.co.uk — excellent for group chemistry, redox, energetics
 Say: "For more detail, see [resource] — it's free at [URL]." Do not reproduce content from these sources.
 
-Only answer WCH12 content. Use diagram tags where relevant.Only answer WCH12 content. Use diagram tags where relevant.Only answer WCH12 content. Use diagram tags where relevant.`,
+Only answer WCH12 content. Use diagram tags where relevant.`,
   },
   phys1: { id:"phys1", name:"Physics Unit 1", code:"WPH11", subtitle:"Mechanics & Materials", colour:"#5b7bbf", icon:"⚡", placeholder:"Ask about Physics Unit 1...",
     prompts:["Explain SUVAT equations with an example","What's the difference between stress and strain?","Quiz me on Newton's laws","How do you resolve forces on a slope?"],
@@ -1402,7 +1402,7 @@ FREE RESOURCES — when students want to read further, direct them to these:
 - A-Level Physics Online: alevelphysicsonline.com — UK-focused video lessons
 Say: "For more detail, see [resource] — it's free at [URL]." Do not reproduce content from these sources.
 
-Only answer WPH11 content. Use [EQUATION:...] tags for key formulae.Only answer WPH11 content. Use [EQUATION:...] tags for key formulae.Only answer WPH11 content. Use [EQUATION:...] tags for key formulae.`,
+Only answer WPH11 content. Use [EQUATION:...] tags for key formulae.`,
   },
   phys2: { id:"phys2", name:"Physics Unit 2", code:"WPH12", subtitle:"Waves & Electricity", colour:"#7b5bbf", icon:"🔌", placeholder:"Ask about Physics Unit 2...",
     prompts:["Explain the difference between series and parallel circuits","What is total internal reflection?","Quiz me on waves","How do you calculate resistance in a circuit?"],
@@ -1563,7 +1563,7 @@ FREE RESOURCES — when students want to read further, direct them to these:
 - Khan Academy: khanacademy.org/science/physics — video explanations
 Say: "For more detail, see [resource] — it's free at [URL]." Do not reproduce content from these sources.
 
-Only answer WPH12 content. Use [EQUATION:...] tags for key formulae.Only answer WPH12 content. Use [EQUATION:...] tags for key formulae.Only answer WPH12 content. Use [EQUATION:...] tags for key formulae.`,
+Only answer WPH12 content. Use [EQUATION:...] tags for key formulae.`,
   },
   maths: { id:"maths", name:"A-Level Maths", code:"Pure", subtitle:"Pure Mathematics (Core)", colour:"#bf8f3d", icon:"📐", placeholder:"Ask about A-Level Maths...",
     prompts:["Explain completing the square step by step","How do I differentiate from first principles?","Quiz me on integration","What are the factor and remainder theorems?"],
@@ -2559,7 +2559,7 @@ export default function Home(){
   const[notesLoading,setNotesLoading]=useState(false);
   const endRef=useRef(null);const inputRef=useRef(null);
   const baseUnit=activeUnit?UNITS[activeUnit]:null;
-  const currentUnit=baseUnit&&boardOverride&&BOARD_CONTEXT[boardOverride]?{...baseUnit,name:BOARD_CONTEXT[boardOverride].name,code:BOARD_CONTEXT[boardOverride].code,system:BOARD_CONTEXT[boardOverride].prefix+"\n\n"+baseUnit.system}:baseUnit;
+  const currentUnit=baseUnit&&boardOverride&&BOARD_CONTEXT[boardOverride]?{...baseUnit,name:BOARD_CONTEXT[boardOverride].name,code:BOARD_CONTEXT[boardOverride].code,system:BOARD_CONTEXT[boardOverride].prefix+"\n\n"+baseUnit.system.replace(/Only answer W[A-Z]+\d+.*?\./g,"").replace(/Use diagram tags[^.]*\./g,"").replace(/Use \[EQUATION[^.]*\./g,"")}:baseUnit;
 
   useEffect(()=>{endRef.current?.scrollIntoView({behavior:"smooth"});},[msgs,loading,quizFeedback,quizQ]);
   useEffect(()=>{if(activeUnit&&mode==="ask")inputRef.current?.focus();},[activeUnit,mode]);
