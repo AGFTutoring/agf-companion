@@ -2280,6 +2280,37 @@ Speed/distance/time: s = d/t, d = st, t = d/s. Average speed = total distance / 
 Work rate: if A does job in a hours and B in b hours, together rate = 1/a + 1/b. Time = 1/(combined rate).
 Compound growth: A = P(1 + r/n)^(nt). Simple growth: A = P(1 + rt).
 
+STATISTICS & DATA ANALYSIS
+Mean = sum / count. Median = middle value (odd count) or average of two middle values (even count).
+Mode = most frequent value. Range = max − min.
+Weighted average: Σ(value × weight) / Σweights.
+Standard deviation: measures spread from the mean. Low SD = tightly clustered. High SD = spread out.
+~68% of data within 1 SD of mean, ~95% within 2 SD, ~99.7% within 3 SD (for normal distributions).
+Adding/subtracting a constant to all values: mean shifts, SD unchanged.
+Multiplying all values by a constant: both mean and SD multiply by that constant.
+Outliers: values far from the mean. Outliers affect mean and SD more than median and IQR.
+Interquartile range (IQR) = Q3 − Q1 (middle 50% of data). Resistant to outliers.
+Box plots: show min, Q1, median, Q3, max. Skew: longer whisker = skewed that direction.
+Two-way tables: rows and columns represent categories. Read carefully — "of those who..." means use that row/column total, not grand total.
+Conditional from tables: P(A|B) = count(A and B) / count(B). The "given" condition determines the denominator.
+Scatterplots: positive association (up-right), negative (down-right), none (random scatter).
+Line of best fit: y = mx + b. Slope m = predicted change in y per unit increase in x. y-intercept b = predicted y when x = 0.
+Residual = actual − predicted. Residual plot should show random scatter (no pattern = good fit).
+r (correlation coefficient): −1 to +1. Closer to ±1 = stronger linear relationship. r² = proportion of variance explained.
+
+EXPONENTIALS & LOGARITHMS
+Exponential growth: y = a(1 + r)^t where a = initial value, r = growth rate, t = time.
+Exponential decay: y = a(1 − r)^t.
+Compound interest: A = P(1 + r/n)^(nt) where P = principal, r = annual rate, n = compounds per year, t = years.
+Continuous growth: A = Pe^(rt).
+Doubling time: if growth rate is r per period, doubling time ≈ 70/r (rule of 70) or exact: t = ln(2)/ln(1+r).
+Half-life: amount remaining = initial × (1/2)^(t/h) where h = half-life period.
+Logarithms: log_b(x) = y means b^y = x. Common log: log = log base 10. Natural log: ln = log base e.
+Log rules: log(ab) = log a + log b. log(a/b) = log a − log b. log(a^n) = n log a.
+Solving: 2^x = 32 → x = 5. Or: 3^x = 50 → x = ln(50)/ln(3) ≈ 3.56.
+SAT tip: growth/decay problems often ask "what does the number represent?" — identify initial value vs rate vs time.
+Example: P = 1200(1.03)^t. Initial = 1200. Growth rate = 3% per period. After 5 periods: P = 1200(1.03)^5 ≈ 1391.
+
 FUNCTIONS
 f(x) notation: substitute x value. Composite: (f∘g)(x) = f(g(x)).
 Domain = valid inputs. Range = possible outputs.
@@ -2287,10 +2318,16 @@ Transformations: f(x) + k shifts up k. f(x − h) shifts right h. −f(x) reflec
 Inverse: swap x and y, solve for y. Graph is reflection over y = x.
 
 TEST STRATEGY
-Read question carefully — what EXACTLY is being asked?
-Pick Numbers strategy: when variables in answer choices, substitute easy numbers.
-Backsolving: plug answer choices into the problem.
-Estimate and eliminate: rule out obviously wrong answers.
+Read question carefully — what EXACTLY is being asked? Underline the actual question.
+Pick Numbers: when answer choices contain variables, substitute easy numbers (2, 3, 5 — avoid 0 and 1). Evaluate each choice with your numbers. Only one answer will match.
+Backsolving: start with answer choice C (middle value). If too big, try A/B. If too small, try D. Works best for "what value of x" questions.
+Estimate and eliminate: rule out obviously wrong answers. If the question asks for 20% of 80, and one answer is 400, eliminate immediately.
+Unit analysis: if the question involves rates (miles/hour, $/unit), check that your answer has the right units.
+Grid-in tips: no negative answers on grid-ins. Reduce fractions or convert to decimals. Start from leftmost column.
+Time management: 1.5 minutes per question average. Flag hard ones and return. Never leave blanks (no penalty for guessing on Digital SAT).
+Data questions: always read axis labels, units, and titles before interpreting graphs. Watch for broken axes or non-zero baselines.
+Percent vs percentage point: "increased by 5%" vs "increased by 5 percentage points" are different. 20% + 5 percentage points = 25%. 20% increased by 5% = 21%.
+Word problem translation: "is" = equals, "of" = multiply, "per" = divide, "more than" = add, "less than" = subtract.
 Check units: make sure your answer is in the right units.
 
 FREE TEXTBOOK REFERENCES:
@@ -2299,6 +2336,11 @@ FREE TEXTBOOK REFERENCES:
 • Geometry → OpenStax Geometry (LibreTexts): https://math.libretexts.org/Bookshelves/Geometry
 • Trigonometry → OpenStax Algebra & Trig 2e, Ch 7-8: https://openstax.org/books/algebra-and-trigonometry-2e/pages/7-introduction-to-the-unit-circle-sine-and-cosine-functions
 Also on Khan Academy: https://www.khanacademy.org/test-prep/sat
+
+QUIZ TOPIC WEIGHTING:
+For SAT-style quizzes: ~35% algebra (linear equations, inequalities, systems), ~35% advanced math (quadratics, polynomials, functions, exponentials), ~15% problem solving & data (statistics, probability, ratios, percents), ~15% geometry & trigonometry.
+For ACT-style quizzes: more emphasis on geometry, trigonometry, and combinatorics than SAT.
+Default to SAT weighting unless student specifies ACT.
 
 Only answer SAT/ACT Math content. Use [EQUATION:...] tags for key formulae. Show all working step by step.`,
   },
