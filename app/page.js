@@ -3247,6 +3247,113 @@ Fixed-point iteration: xₙ₊₁ = g(xₙ). Converges if |g'(α)| < 1 near root
 Staircase diagram: converges if 0 < g'(α) < 1. Cobweb: converges if -1 < g'(α) < 0.
 Locating roots: sign change of f(x) in interval [a,b] implies root (if f continuous).
 
+ROOTS OF POLYNOMIAL EQUATIONS:
+Quadratic ax²+bx+c=0 with roots α, β:
+Sum: α+β = -b/a. Product: αβ = c/a.
+Cubic ax³+bx²+cx+d=0 with roots α, β, γ:
+Σα = α+β+γ = -b/a. Σαβ = αβ+βγ+αγ = c/a. αβγ = -d/a.
+Quartic ax⁴+bx³+cx²+dx+e=0 with roots α,β,γ,δ:
+Σα = -b/a. Σαβ = c/a. Σαβγ = -d/a. αβγδ = e/a.
+Complex roots of real polynomials come in conjugate pairs: if α=p+qi is a root, so is α*=p-qi.
+Factor: (z-α)(z-α*) = z²-2pz+(p²+q²) — always real coefficients.
+
+CONSTRUCTING NEW EQUATIONS — TWO METHODS:
+Method 1 (Lo-Tech): find new Σα, Σαβ, αβγ directly from old values.
+New sum: Σ(2α-1) = 2Σα - 3 (for cubic). New sum of products pairs etc.
+Method 2 (Substitution/Hi-Tech): let w = f(α), rearrange to get α = g(w), substitute into original equation.
+Example: find equation with roots 2α+1 from x³-2x²+3x-4=0.
+Let w = 2α+1 → α = (w-1)/2. Substitute: ((w-1)/2)³ - 2((w-1)/2)² + 3((w-1)/2) - 4 = 0. Multiply through.
+
+USEFUL IDENTITIES FOR ROOTS:
+α²+β² = (α+β)² - 2αβ. α³+β³ = (α+β)³ - 3αβ(α+β).
+α²+β²+γ² = (Σα)² - 2Σαβ. αβ²+α²β+... = (Σα)(Σαβ) - 3αβγ for cubic.
+1/α + 1/β = (α+β)/(αβ). 1/α + 1/β + 1/γ = Σαβ/(αβγ).
+
+COORDINATE GEOMETRY — CONICS:
+PARABOLA: y² = 4ax. Vertex at origin. Axis of symmetry: x-axis.
+Parametric form: x = at², y = 2at. Focus: S(a, 0). Directrix: x = -a.
+Key property: every point P on parabola is equidistant from focus and directrix (PM = PS).
+Gradient at P(at²,2at): dy/dx = 1/t (from parametric differentiation or implicit).
+Tangent at parameter t: y·t = x + at². Normal at parameter t: y = -tx + 2at + at³.
+Tangent at (x₁,y₁): yy₁ = 2a(x+x₁).
+Chord of contact from external point (h,k): yk = 2a(x+h).
+
+RECTANGULAR HYPERBOLA: xy = c². Asymptotes: x-axis and y-axis (perpendicular).
+Parametric form: x = ct, y = c/t. Note: xy = c·(c/t)·t = c².
+Gradient at parameter t: dy/dx = -1/t².
+Tangent at parameter t: x + t²y = 2ct. Normal at parameter t: t³x - ty = c(t⁴-1).
+Chord joining parameters t and s: x + tsy = c(t+s).
+For rectangular hyperbola x²/a² - y²/a² = 1 (when a=b), asymptotes are perpendicular.
+
+GRAPHS OF RATIONAL FUNCTIONS:
+Finding asymptotes:
+Vertical: set denominator = 0.
+Horizontal: compare degrees of numerator and denominator.
+  - deg(top) < deg(bottom): y = 0 (x-axis).
+  - deg(top) = deg(bottom): y = ratio of leading coefficients.
+  - deg(top) > deg(bottom): oblique asymptote (do polynomial division).
+Behaviour near vertical asymptote: test x slightly above and below, find sign of y.
+
+CURVE SKETCHING METHOD:
+1. Find x-intercepts (numerator = 0). Find y-intercept (x=0).
+2. Find vertical asymptotes (denominator = 0).
+3. Find horizontal/oblique asymptote.
+4. Test behaviour in each region between asymptotes.
+5. Find turning points if needed (differentiate).
+
+Standard forms to recognise:
+y = (ax+b)/(cx+d): one vertical, one horizontal asymptote, two branches.
+y = (quadratic)/(linear): oblique asymptote — do long division first.
+y = (linear)/(quadratic with two factors): two vertical asymptotes, horizontal y=0.
+
+SOLVING INEQUALITIES:
+Method: Never multiply by expression that could be negative. Instead:
+1. Rearrange to f(x) > 0 or < 0.
+2. Find critical values (where f = 0 or undefined).
+3. Test sign in each interval — a table of signs is clearest.
+4. OR: sketch y = LHS and y = RHS, read off where one is above/below other.
+Example: solve (x-1)/(x+2) > 3. Rearrange: (x-1)/(x+2) - 3 > 0 → (-2x-7)/(x+2) > 0.
+Critical values: x = -2 (undefined), x = -7/2 (zero). Test signs: x<-7/2: (+)→ TRUE. -7/2<x<-2: (-)→ FALSE. x>-2: (-)→ FALSE.
+Solution: x < -7/2.
+
+FURTHER NUMERICAL METHODS:
+Locating roots: if f(a) and f(b) have opposite signs and f is continuous on [a,b] → root in (a,b) (change of sign).
+Accuracy to n d.p.: check f at endpoints of interval of width 10^(-n) centred on your answer.
+
+Interval bisection: evaluate f at midpoint, determine which half contains root. Repeat until interval width < required accuracy.
+Linear interpolation: join (a, f(a)) and (b, f(b)) with straight line. Root ≈ a - f(a)×(b-a)/(f(b)-f(a)). Faster than bisection but assumes near-linear curve.
+Newton-Raphson: x_{n+1} = x_n - f(x_n)/f'(x_n). Quadratic convergence — very fast near root.
+Failure modes: f'(x_n) = 0 (turning point near start), x_0 far from root (may diverge or find wrong root).
+
+FURTHER PROOF BY INDUCTION TYPES:
+Divisibility: to prove f(n) divisible by d for all n∈ℤ+.
+Key trick: compute f(k+1) - m×f(k) where m chosen to eliminate the exponential.
+Example: prove 7^n - 1 divisible by 6. f(k+1) - 7×f(k) = (7^(k+1)-1) - 7(7^k-1) = 6. Since f(k) divisible by 6, f(k+1) = 7×f(k) + 6 also divisible by 6.
+Example: prove 4^n + 6n - 1 divisible by 9. f(k+1) - 4×f(k) = 18k - 3... rearrange.
+
+Matrix powers: if Mⁿ has a proposed form, verify for n=1 (check against M itself). Then compute Mᵏ⁺¹ = Mᵏ × M, substitute assumption, simplify to reach k+1 form.
+
+Recurrence relations: given u_{n+1} = au_n + b, prove proposed closed form. Substitute assumption, apply recurrence, simplify.
+
+FURTHER COMPLEX NUMBERS — SQUARE ROOTS:
+To find √(a+bi): let √(a+bi) = x+iy (x,y real).
+Square both sides: a+bi = (x²-y²) + 2xyi.
+Equate real: x²-y² = a. Equate imaginary: 2xy = b → y = b/(2x).
+Substitute → quartic in x → solve (usually factors as (x²-p)(x²+q)=0, discard imaginary roots).
+Two answers: ±(x+iy).
+
+MATRICES — FURTHER TOPICS:
+Simultaneous equations via matrices: AX = B → X = A⁻¹B (premultiply — do NOT postmultiply).
+If det(A) = 0: either no solutions (inconsistent) or infinitely many (same line/plane). Cannot use inverse.
+Invariant points: Ax = x → (A-I)x = 0. Solve for x. Often a whole line of invariant points (eigenvector for λ=1).
+Invariant lines y = mx: apply M to (t, mt), image must satisfy y = mx. Find m.
+Area scale factor = |det(M)|. If det < 0: orientation reversed (reflection component).
+
+DIFFERENTIATION FROM FIRST PRINCIPLES:
+f'(x) = lim_{h→0} [f(x+h) - f(x)] / h.
+Use binomial expansion for (x+h)^n. Expand, cancel f(x), divide by h, let h→0.
+Example: f(x) = x³. f(x+h) = x³+3x²h+3xh²+h³. [f(x+h)-f(x)]/h = 3x²+3xh+h² → 3x² as h→0.
+
 Only answer WFM01 Further Pure 1 content. Use [EQUATION:...] tags for key formulae.`,
   },
   fp2: { id:"fp2", name:"Further Pure 2", code:"WFM02", subtitle:"Further Complex Numbers, Calculus & Polar", colour:"#bf8f3d", icon:"📐", placeholder:"Ask about Further Pure 2 (WFM02)...",
