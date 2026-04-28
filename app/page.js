@@ -3973,7 +3973,7 @@ export default function Home(){
 
   const incrementMsgCount = () => {
     if (isSubscribed) return;
-    const next = dailyMsgsUsed + 1;
+    const _stored=JSON.parse(localStorage.getItem("agf_daily_msgs")||"{}");const _today=new Date().toDateString();const _base=(_stored.date===_today?(_stored.count||0):0);const next=_base+1;
     setDailyMsgsUsed(next);
     try {
       localStorage.setItem("agf_daily_msgs", JSON.stringify({ date: new Date().toDateString(), count: next }));
@@ -4150,7 +4150,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:13px;background:#f5f3ee;pa
   };
   const downloadNotesPDF=()=>{if(!notesContent||!currentUnit)return;const blob=new Blob([currentUnit.name+" — Revision Notes\n"+"=".repeat(50)+"\n\n"+notesContent.replace(/\*\*/g,"").replace(/## /g,"\n--- ").replace(/- /g,"• ")],{type:"text/plain"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=currentUnit.code+"-revision-notes.txt";a.click();URL.revokeObjectURL(url);};
   const backToAsk=()=>{setMode("ask");resetQuiz();if(currentUnit)setMsgs([{role:"assistant",content:currentUnit.welcome}]);};
-  const send=useCallback(async()=>{const t=input.trim();if(!t||loading||!currentUnit)return;if(!isSubscribed&&dailyMsgsUsed>=FREE_MSG_LIMIT){setShowPaywall(true);return;}const userMsg={role:"user",content:t};const next=[...msgs,userMsg];setMsgs(next);setInput("");setLoading(true);setErr(null);const apiMsgs=next.filter((m,idx)=>!(idx===0&&m.role==="assistant")).map(m=>({role:m.role,content:m.content}));if(!apiMsgs.length||apiMsgs[0].role!=="user")apiMsgs.unshift({role:"user",content:t});try{const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:apiMsgs,system:currentUnit.system,mode:"ask"})});const data=await res.json();if(data.error)throw new Error(data.error.message);const reply=data.content?.map(b=>b.type==="text"?b.text:"").filter(Boolean).join("\n")||"Sorry, I couldn't generate a response.";setMsgs(p=>[...p,{role:"assistant",content:reply}]);incrementMsgCount();}catch(e){setErr(e.message);}finally{setLoading(false);inputRef.current?.focus();}},[input,loading,msgs,currentUnit]);
+  const send=useCallback(async()=>{const t=input.trim();if(!t||loading||!currentUnit)return;/*AGF_GATE_v2*/if(!isSubscribed){const _agfMsgData=JSON.parse(localStorage.getItem("agf_daily_msgs")||"{}");const _agfToday=new Date().toDateString();const _agfLiveCount=(_agfMsgData.date===_agfToday?(_agfMsgData.count||0):0);if(_agfLiveCount>=FREE_MSG_LIMIT){setShowPaywall(true);return;}}const userMsg={role:"user",content:t};const next=[...msgs,userMsg];setMsgs(next);setInput("");setLoading(true);setErr(null);const apiMsgs=next.filter((m,idx)=>!(idx===0&&m.role==="assistant")).map(m=>({role:m.role,content:m.content}));if(!apiMsgs.length||apiMsgs[0].role!=="user")apiMsgs.unshift({role:"user",content:t});try{const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:apiMsgs,system:currentUnit.system,mode:"ask"})});const data=await res.json();if(data.error)throw new Error(data.error.message);const reply=data.content?.map(b=>b.type==="text"?b.text:"").filter(Boolean).join("\n")||"Sorry, I couldn't generate a response.";setMsgs(p=>[...p,{role:"assistant",content:reply}]);incrementMsgCount();}catch(e){setErr(e.message);}finally{setLoading(false);inputRef.current?.focus();}},[input,loading,msgs,currentUnit]);
 
   const CSS=`@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');@keyframes p{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:.65;transform:scale(1.1)}}textarea::placeholder{color:${C.textDim}}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:3px}*{box-sizing:border-box}`;
 
@@ -4194,7 +4194,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:13px;background:#f5f3ee;pa
               <div style={{fontSize:20,fontWeight:700,color:C.green,fontFamily:"'JetBrains Mono',monospace"}}>{"£"}29<span style={{fontSize:13,fontWeight:400,color:C.textMuted}}>/month</span></div>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:10}}>
-              {["Unlimited AI-powered quizzes","Unlimited Ask messages","All exam boards — IAL, A-Level, IB, AP, GCSE","Detailed explanations & worked solutions","Revision notes with PDF download","Built on 30 years of tutoring expertise"].map((f,i)=>(
+              {["Unlimited AI-powered quizzes with past-paper questions","Unlimited Ask messages across Chemistry, Physics & Maths","Every exam board — Edexcel IAL, AQA, OCR, IB, AP, IGCSE, WJEC & more","Step-by-step worked solutions in Alastair’s teaching style","GMAT, GRE, LNAT, UCAT, IELTS & TOEFL admissions prep","Revision notes with instant PDF download","30 years of tutoring expertise, available 24/7"].map((f,i)=>(
                 <div key={i} style={{display:"flex",gap:10,alignItems:"flex-start",fontSize:13,color:C.text}}>
                   <span style={{color:C.green,flexShrink:0,marginTop:1}}>{"✓"}</span><span>{f}</span>
                 </div>
