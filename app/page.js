@@ -4246,7 +4246,7 @@ code{font-family:'Courier New',monospace;font-size:9pt;background:#f4f4f4;paddin
         </div>}
         {notesLoading&&<div style={{textAlign:"center",padding:60,color:C.textMuted}}>
           <div style={{display:"flex",gap:5,justifyContent:"center",marginBottom:12}}>{[0,1,2].map(d=><div key={d} style={{width:8,height:8,borderRadius:"50%",background:C.green,opacity:0.3,animation:`p 1.2s ease-in-out ${d*0.2}s infinite`}}/>)}</div>
-          Generating revision notes... This may take a moment.
+          Working on it! Generating your revision notes... ✨
         </div>}
         {notesContent&&<div style={{fontSize:13.5,lineHeight:1.8,color:"rgba(255,255,255,0.85)"}}>{parseAndRender(notesContent)}</div>}
       </div>
