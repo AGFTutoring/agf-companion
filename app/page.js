@@ -4075,21 +4075,27 @@ export default function Home(){
       .replace(/📖[^\n]*Quiz me[^\n]*/g,'')
       .split('\n').filter(l=>l.trim()!=='on this').join('\n')
       .trim();
-    const html=clean
-      .replace(/^### (.+)$/gm,'<h3>$1</h3>')
-      .replace(/^## (.+)$/gm,'<h2>$1</h2>')
-      .replace(/^# (.+)$/gm,'<h1>$1</h1>')
-      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-      .replace(/\*(.+?)\*/g,'<em>$1</em>')
-      .replace(/^● (.+)$/gm,'<li>$1</li>')
-      .replace(/^• (.+)$/gm,'<li>$1</li>')
-      .replace(/^- (.+)$/gm,'<li>$1</li>')
-      .replace(/^(\d+)\. (.+)$/gm,'<li><strong>$1.</strong> $2</li>')
-      .replace(/✅/g,'<span class="ok">✓</span>')
-      .replace(/❌/g,'<span class="no">✗</span>')
-      .replace(/✓/g,'<span class="ok">✓</span>')
-      .replace(/✗/g,'<span class="no">✗</span>')
-      .replace(/\n/g,'<br>');
+    const applyInline=(t)=>t.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*]+)\*/g,'<em>$1</em>').replace(/✅/g,'<span class="ok">✓</span>').replace(/❌/g,'<span class="no">✗</span>').replace(/✓/g,'<span class="ok">✓</span>').replace(/✗/g,'<span class="no">✗</span>');
+    const mdLines=clean.split('\n');const parts=[];let inUL=false;let inOL=false;let inTbl=false;
+    for(let i=0;i<mdLines.length;i++){const l=mdLines[i];
+      if(/^\s*\|/.test(l)&&l.includes('|')){
+        if(!inTbl){if(inUL){parts.push('</ul>');inUL=false;}if(inOL){parts.push('</ol>');inOL=false;}parts.push('<table>');inTbl=true;}
+        const cells=l.split('|').slice(1,-1).map(c=>c.trim());
+        if(cells.every(c=>/^[-: ]+$/.test(c)))continue;
+        const isHdr=inTbl&&!parts.some(x=>x.startsWith('<tr>'));
+        parts.push('<tr>'+cells.map(c=>(isHdr?'<th>':'<td>')+applyInline(c)+(isHdr?'</th>':'</td>')).join('')+'</tr>');continue;
+      }else if(inTbl){parts.push('</table>');inTbl=false;}
+      if(/^### /.test(l)){if(inUL){parts.push('</ul>');inUL=false;}if(inOL){parts.push('</ol>');inOL=false;}parts.push('<h3>'+applyInline(l.slice(4))+'</h3>');continue;}
+      if(/^## /.test(l)){if(inUL){parts.push('</ul>');inUL=false;}if(inOL){parts.push('</ol>');inOL=false;}parts.push('<h2>'+applyInline(l.slice(3))+'</h2>');continue;}
+      if(/^# /.test(l)){if(inUL){parts.push('</ul>');inUL=false;}if(inOL){parts.push('</ol>');inOL=false;}parts.push('<h1>'+applyInline(l.slice(2))+'</h1>');continue;}
+      if(/^[-•●•] /.test(l)){if(inOL){parts.push('</ol>');inOL=false;}if(!inUL){parts.push('<ul>');inUL=true;}parts.push('<li>'+applyInline(l.replace(/^[-•●•] /,''))+'</li>');continue;}
+      if(/^\d+\.\s/.test(l)){if(inUL){parts.push('</ul>');inUL=false;}if(!inOL){parts.push('<ol>');inOL=true;}parts.push('<li>'+applyInline(l.replace(/^\d+\.\s/,''))+'</li>');continue;}
+      if(!l.trim()){if(inUL){parts.push('</ul>');inUL=false;}if(inOL){parts.push('</ol>');inOL=false;}parts.push('<br>');continue;}
+      if(inUL){parts.push('</ul>');inUL=false;}if(inOL){parts.push('</ol>');inOL=false;}
+      parts.push('<p>'+applyInline(l)+'</p>');
+    }
+    if(inUL)parts.push('</ul>');if(inOL)parts.push('</ol>');if(inTbl)parts.push('</table>');
+    const html=parts.join('\n');
     const subj=currentUnit?.name||"Chemistry";
     const code=currentUnit?.code||"";
     const page=`<!DOCTYPE html>
@@ -4107,7 +4113,7 @@ body{font-family:'Outfit',sans-serif;font-weight:400;color:#1a1a1a;line-height:1
 .hdr-right{text-align:right}
 .hdr-right .brand{font-family:'DM Serif Display',Georgia,serif;font-size:18px;color:#4d9460;margin-bottom:2px}
 .hdr-right .url{font-size:11px;color:#9a9690;letter-spacing:.04em}
-.content{columns:2;column-gap:36px;column-rule:1px solid #e8e5de}
+.content{max-width:100%}table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px}th{background:#f0f8f2;font-weight:700;text-align:left;padding:8px 12px;border:1px solid #d0e8d8}td{padding:7px 12px;border:1px solid #e0ddd6;vertical-align:top}tr:nth-child(even) td{background:#fafaf8}
 h1{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;margin:28px 0 12px;color:#1a1a1a;break-after:avoid}
 h2{font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid #e0ddd6;color:#1a1a1a;break-after:avoid}
 h3{font-size:15px;font-weight:600;margin:18px 0 8px;color:#4d9460;break-after:avoid}
@@ -4121,7 +4127,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:13px;background:#f5f3ee;pa
 .ftr{margin-top:32px;padding-top:14px;border-top:2px solid #4d9460;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#9a9690}
 .ftr .bars{display:flex;gap:2px;align-items:flex-end}
 .ftr .bar{width:3px;background:#4d9460;border-radius:1px}
-@media print{.np{display:none!important}.content{columns:2}}
+@media print{.np{display:none!important}}
 @media screen{body{background:#f8f7f4}.page{max-width:900px;margin:0 auto;padding:40px 48px;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,0.08)}}
 </style></head><body>
 <div class="page">
@@ -4148,9 +4154,9 @@ code{font-family:'JetBrains Mono',monospace;font-size:13px;background:#f5f3ee;pa
 <button onclick="window.print()" style="padding:12px 32px;border-radius:8px;border:none;background:#4d9460;color:#fff;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.04em">Save as PDF (Ctrl+P)</button>
 </div>
 </body></html>`;
-    const w=window.open("","_blank");if(w){w.document.write(page);w.document.close();}
+    const blob=new Blob([page],{type:"text/html"});const url=URL.createObjectURL(blob);window.open(url,"_blank");
   };
-  const downloadNotesPDF=()=>{if(!notesContent||!currentUnit)return;const blob=new Blob([currentUnit.name+" — Revision Notes\n"+"=".repeat(50)+"\n\n"+notesContent.replace(/\*\*/g,"").replace(/## /g,"\n--- ").replace(/- /g,"• ")],{type:"text/plain"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=currentUnit.code+"-revision-notes.txt";a.click();URL.revokeObjectURL(url);};
+  const downloadNotesPDF=()=>{if(!notesContent||!currentUnit)return;downloadChatNotes(notesContent,currentUnit.name+' — Revision Notes');};
   const backToAsk=()=>{setMode("ask");resetQuiz();if(currentUnit)setMsgs([{role:"assistant",content:currentUnit.welcome}]);};
   const send=useCallback(async()=>{const t=input.trim();if((!t&&!pendingImage)||loading||!currentUnit)return;/*AGF_GATE_v2*/if(!isSubscribed){const _agfMsgData=JSON.parse(localStorage.getItem("agf_daily_msgs")||"{}");const _agfToday=new Date().toDateString();const _agfLiveCount=(_agfMsgData.date===_agfToday?(_agfMsgData.count||0):0);if(_agfLiveCount>=FREE_MSG_LIMIT){setShowPaywall(true);return;}}const userContent=pendingImage?[{type:"image",source:{type:"base64",media_type:pendingImage.mediaType,data:pendingImage.base64}},{type:"text",text:t||"Please help me with this problem."}]:t;const userMsg={role:"user",content:pendingImage?(t?"📷 "+t:"📷 Image question"):t,_img:pendingImage?userContent:null};const next=[...msgs,userMsg];setMsgs(next);setInput("");setPendingImage(null);setLoading(true);setErr(null);const apiMsgs=next.filter((m,idx)=>!(idx===0&&m.role==="assistant")).map(m=>({role:m.role,content:m._img||m.content}));if(!apiMsgs.length||apiMsgs[0].role!=="user")apiMsgs.unshift({role:"user",content:t});try{const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:apiMsgs,system:currentUnit.system,mode:"ask"})});const data=await res.json();if(data.error)throw new Error(data.error.message);const reply=data.content?.map(b=>b.type==="text"?b.text:"").filter(Boolean).join("\n")||"Sorry, I couldn't generate a response.";setMsgs(p=>[...p,{role:"assistant",content:reply}]);incrementMsgCount();}catch(e){setErr(e.message);}finally{setLoading(false);inputRef.current?.focus();}},[input,loading,msgs,currentUnit]);
 
