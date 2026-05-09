@@ -4075,7 +4075,7 @@ export default function Home(){
       .replace(/📖[^\n]*Quiz me[^\n]*/g,'')
       .split('\n').filter(l=>l.trim()!=='on this').join('\n')
       .trim();
-    const applyInline=(t)=>t.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*]+)\*/g,'<em>$1</em>').replace(/✅/g,'<span class="ok">✓</span>').replace(/❌/g,'<span class="no">✗</span>').replace(/✓/g,'<span class="ok">✓</span>').replace(/✗/g,'<span class="no">✗</span>');
+    const applyInline=(t)=>t.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*]+)\*/g,'<em>$1</em>').replace(/✅/g,'<span class="ok">✓</span>').replace(/❌/g,'<span class="no">✗</span>').replace(/✓/g,'<span class="ok">✓</span>').replace(/✗/g,'<span class="no">✗</span>').replace(/---/g,'<hr>');
     const mdLines=clean.split('\n');const parts=[];let inUL=false;let inOL=false;let inTbl=false;
     for(let i=0;i<mdLines.length;i++){const l=mdLines[i];
       if(/^\s*\|/.test(l)&&l.includes('|')){
@@ -4101,34 +4101,34 @@ export default function Home(){
     const page=`<!DOCTYPE html>
 <html><head><meta charset="utf-8">
 <title>${topic||"Revision Notes"} — AGF Tutoring</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-@page{margin:1.5cm 2cm;size:A4}
-*{box-sizing:border-box}
-body{font-family:'Outfit',sans-serif;font-weight:400;color:#1a1a1a;line-height:1.8;margin:0;padding:0;font-size:15px;background:#fff}
-.page{max-width:100%;padding:32px 40px}
-.hdr{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;margin-bottom:28px;border-bottom:3px solid #4d9460}
-.hdr-left h1{font-family:'DM Serif Display',Georgia,serif;font-size:28px;font-weight:400;margin:0;color:#1a1a1a;line-height:1.2}
-.hdr-left .sub{font-size:13px;color:#706b65;letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
-.hdr-right{text-align:right}
-.hdr-right .brand{font-family:'DM Serif Display',Georgia,serif;font-size:18px;color:#4d9460;margin-bottom:2px}
-.hdr-right .url{font-size:11px;color:#9a9690;letter-spacing:.04em}
+@page{margin:2cm 2.2cm;size:A4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans',Arial,sans-serif;font-size:10pt;line-height:1.55;color:#1a1a1a;background:#fff}
+.page{max-width:100%;padding:28px 36px}
+.hdr{background:#4d9460;color:#fff;padding:18px 24px;margin:-28px -36px 28px;display:flex;justify-content:space-between;align-items:flex-end}
+.hdr-left .eyebrow{font-size:8.5pt;letter-spacing:.08em;text-transform:uppercase;opacity:.85;margin-bottom:4px}.hdr-left h1{font-family:'Noto Serif',Georgia,serif;font-size:20pt;font-weight:700;line-height:1.15;color:#fff}
+.hdr-right{text-align:right;opacity:.9}.hdr-right .brand{font-size:13pt;font-weight:700;letter-spacing:-.01em}.hdr-right .url{font-size:8pt;opacity:.8;margin-top:2px}
+
+
+
 .content{max-width:100%}table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px}th{background:#f0f8f2;font-weight:700;text-align:left;padding:8px 12px;border:1px solid #d0e8d8}td{padding:7px 12px;border:1px solid #e0ddd6;vertical-align:top}tr:nth-child(even) td{background:#fafaf8}
-h1{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;margin:28px 0 12px;color:#1a1a1a;break-after:avoid}
-h2{font-family:'DM Serif Display',Georgia,serif;font-size:18px;font-weight:400;margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid #e0ddd6;color:#1a1a1a;break-after:avoid}
-h3{font-size:15px;font-weight:600;margin:18px 0 8px;color:#4d9460;break-after:avoid}
-strong{font-weight:600}
-li{margin-bottom:6px;padding-left:4px;break-inside:avoid}
-code{font-family:'JetBrains Mono',monospace;font-size:13px;background:#f5f3ee;padding:1px 5px;border-radius:3px}
-.ok{color:#4d9460;font-weight:600}
-.no{color:#e06060;font-weight:600}
-.tip{background:#f0f8f2;border-left:3px solid #4d9460;padding:10px 14px;margin:12px 0;border-radius:0 6px 6px 0;font-size:14px;break-inside:avoid}
-.warn{background:#fdf6ee;border-left:3px solid #d4a24c;padding:10px 14px;margin:12px 0;border-radius:0 6px 6px 0;font-size:14px;break-inside:avoid}
-.ftr{margin-top:32px;padding-top:14px;border-top:2px solid #4d9460;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#9a9690}
-.ftr .bars{display:flex;gap:2px;align-items:flex-end}
-.ftr .bar{width:3px;background:#4d9460;border-radius:1px}
+
+h2{font-family:'Noto Serif',Georgia,serif;font-size:14pt;font-weight:700;color:#1a1a1a;margin:20px 0 5px;padding-bottom:4px;border-bottom:2px solid #4d9460;break-after:avoid}
+h3{font-size:10.5pt;font-weight:700;color:#2d6e3e;margin:12px 0 3px;text-transform:uppercase;letter-spacing:.04em;break-after:avoid}p{margin:3px 0 7px;line-height:1.55}ul{margin:3px 0 8px 18px;padding:0}ol{margin:3px 0 8px 20px;padding:0}
+strong{font-weight:700}em{font-style:italic}
+li{margin-bottom:2px;line-height:1.5}.eq{background:#f0f8f2;border-left:3px solid #4d9460;padding:7px 13px;margin:8px 0;font-family:'Noto Serif',Georgia,serif;font-size:10.5pt;line-height:1.6;break-inside:avoid}
+code{font-family:'Courier New',monospace;font-size:9pt;background:#f4f4f4;padding:0 3px}table{width:100%;border-collapse:collapse;margin:8px 0 12px;font-size:9.5pt;break-inside:avoid}thead tr{border-bottom:2px solid #1a1a1a}th{font-weight:700;text-align:left;padding:5px 10px;font-size:9pt;text-transform:uppercase;letter-spacing:.04em}td{padding:5px 10px;border-bottom:1px solid #ddd;vertical-align:top}tbody tr:last-child td{border-bottom:none}
+.ok{color:#2d6e3e;font-weight:700}
+.no{color:#c0392b;font-weight:700}
+.note-box{background:#f0f8f2;border:1px solid #b8dfc4;border-radius:3px;padding:9px 13px;margin:10px 0;font-size:9.5pt;break-inside:avoid}
+.warn-box{background:#fef9ee;border:1px solid #f0d080;border-radius:3px;padding:9px 13px;margin:10px 0;font-size:9.5pt;break-inside:avoid}hr{border:none;border-top:1px solid #ddd;margin:14px 0}
+.ftr{margin-top:20px;padding-top:8px;border-top:1px solid #ccc;display:flex;justify-content:space-between;font-size:8pt;color:#888}
+
+
 @media print{.np{display:none!important}}
-@media screen{body{background:#f8f7f4}.page{max-width:900px;margin:0 auto;padding:40px 48px;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,0.08)}}
+@media screen{body{background:#e0e0e0}.page{max-width:780px;margin:24px auto;background:#fff;padding:36px 44px;box-shadow:0 2px 16px rgba(0,0,0,0.15)}}
 </style></head><body>
 <div class="page">
 <div class="hdr">
@@ -4160,7 +4160,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:13px;background:#f5f3ee;pa
   const backToAsk=()=>{setMode("ask");resetQuiz();if(currentUnit)setMsgs([{role:"assistant",content:currentUnit.welcome}]);};
   const send=useCallback(async()=>{const t=input.trim();if((!t&&!pendingImage)||loading||!currentUnit)return;/*AGF_GATE_v2*/if(!isSubscribed){const _agfMsgData=JSON.parse(localStorage.getItem("agf_daily_msgs")||"{}");const _agfToday=new Date().toDateString();const _agfLiveCount=(_agfMsgData.date===_agfToday?(_agfMsgData.count||0):0);if(_agfLiveCount>=FREE_MSG_LIMIT){setShowPaywall(true);return;}}const userContent=pendingImage?[{type:"image",source:{type:"base64",media_type:pendingImage.mediaType,data:pendingImage.base64}},{type:"text",text:t||"Please help me with this problem."}]:t;const userMsg={role:"user",content:pendingImage?(t?"📷 "+t:"📷 Image question"):t,_img:pendingImage?userContent:null};const next=[...msgs,userMsg];setMsgs(next);setInput("");setPendingImage(null);setLoading(true);setErr(null);const apiMsgs=next.filter((m,idx)=>!(idx===0&&m.role==="assistant")).map(m=>({role:m.role,content:m._img||m.content}));if(!apiMsgs.length||apiMsgs[0].role!=="user")apiMsgs.unshift({role:"user",content:t});try{const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:apiMsgs,system:currentUnit.system,mode:"ask"})});const data=await res.json();if(data.error)throw new Error(data.error.message);const reply=data.content?.map(b=>b.type==="text"?b.text:"").filter(Boolean).join("\n")||"Sorry, I couldn't generate a response.";setMsgs(p=>[...p,{role:"assistant",content:reply}]);incrementMsgCount();}catch(e){setErr(e.message);}finally{setLoading(false);inputRef.current?.focus();}},[input,loading,msgs,currentUnit]);
 
-  const CSS=`@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');@keyframes p{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:.65;transform:scale(1.1)}}textarea::placeholder{color:${C.textDim}}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:3px}*{box-sizing:border-box}`;
+  const CSS=`@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');@keyframes p{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:.65;transform:scale(1.1)}}textarea::placeholder{color:${C.textDim}}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:3px}*{box-sizing:border-box;margin:0;padding:0}`;
 
   /* ─── SCREEN 1: SUBJECT PICKER ─── */
   if(pickerStep==="subject"){const coreSubjects=CATALOG.filter(s=>["chemistry","physics","maths"].includes(s.id));const otherSubjects=CATALOG.filter(s=>!["chemistry","physics","maths"].includes(s.id));const boardTags={chemistry:"Edexcel IAL · AQA · OCR · Cambridge · IB · AP",physics:"Edexcel IAL · AQA · OCR · Cambridge · IB · AP",maths:"Edexcel IAL · AQA · OCR · IB · AP · SAT · GMAT"};return(<div style={{width:"100%",minHeight:"100vh",display:"flex",flexDirection:"column",background:C.bg,fontFamily:"'Outfit',sans-serif",color:C.text}}><nav style={{padding:"16px 40px",display:"flex",alignItems:"center",justifyContent:"space-between",borderBottom:`1px solid ${C.border}`}}><a href="https://agftutoring.co.uk" target="_blank" rel="noopener" style={{display:"flex",alignItems:"center",gap:12,textDecoration:"none",color:C.text}}><svg width="22" height="26" viewBox="0 0 22 26">{[0.5,0.85,1,0.65].map((f,i)=>(<rect key={i} x={i*5.8} y={26-26*f} width={3.2} height={26*f} rx={0.8} fill={C.green}/>))}</svg><div><div style={{fontFamily:"'DM Serif Display',serif",fontSize:18,fontWeight:400,letterSpacing:"-0.02em",lineHeight:1}}>AGF</div><div style={{fontSize:8.5,fontWeight:500,letterSpacing:"0.15em",textTransform:"uppercase",color:C.textMuted,marginTop:1}}>TUTORING</div></div></a><a href="https://agftutoring.co.uk" target="_blank" rel="noopener" style={{fontSize:12,color:C.textDim,textDecoration:"none"}}>agftutoring.co.uk</a></nav><div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"24px 40px 32px"}}><div style={{textAlign:"center",marginBottom:40}}><div style={{fontSize:11,fontWeight:500,letterSpacing:"0.14em",textTransform:"uppercase",color:C.green,marginBottom:12}}>Study Companion</div><div style={{fontFamily:"'DM Serif Display',serif",fontSize:"clamp(26px, 3.5vw, 38px)",fontWeight:400,lineHeight:1.2,letterSpacing:"-0.02em",color:C.text}}>Choose your subject</div></div><div style={{display:"grid",gridTemplateColumns:"repeat(3, 1fr)",gap:24,width:"100%",maxWidth:1080,marginBottom:48}}>{coreSubjects.map(s=>(<button key={s.id} onClick={()=>{setSelectedCatalog(s);setPickerStep("exam");}} style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:14,padding:"36px 30px 30px",cursor:"pointer",transition:"all 0.3s ease",textAlign:"left",position:"relative",overflow:"hidden"}} onMouseEnter={e=>{e.currentTarget.style.borderColor=s.colour;e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 12px 32px rgba(0,0,0,0.4)";e.currentTarget.querySelector("[data-accent]").style.opacity="1";}} onMouseLeave={e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.background=C.bgCard;e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";e.currentTarget.querySelector("[data-accent]").style.opacity="0.5";}}><div data-accent="1" style={{position:"absolute",top:0,left:0,right:0,height:3,background:`linear-gradient(90deg, ${s.colour}, transparent)`,opacity:0.7,transition:"opacity 0.3s"}}/><div style={{marginBottom:12}}><SubjectIcon id={s.id} size={40} colour={s.colour}/></div><div style={{fontFamily:"'DM Serif Display',serif",fontSize:26,fontWeight:400,letterSpacing:"-0.02em",marginBottom:12,color:C.text}}>{s.name}</div><div style={{fontSize:14,color:C.text,lineHeight:1.7,fontWeight:300,marginBottom:20,opacity:0.65}}>{s.subtitle}</div><div style={{fontSize:11,color:C.textMuted,letterSpacing:"0.04em",lineHeight:1.6}}>{boardTags[s.id]}</div></button>))}</div><div style={{display:"flex",alignItems:"center",gap:20,marginBottom:28,width:"100%",maxWidth:1080}}><div style={{flex:1,height:1,background:C.border}}/><span style={{fontSize:10,fontWeight:600,letterSpacing:"0.12em",textTransform:"uppercase",color:C.textMuted}}>Admissions & Language</span><div style={{flex:1,height:1,background:C.border}}/></div><div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:14,width:"100%",maxWidth:1080}}>{otherSubjects.map(s=>(<button key={s.id} onClick={()=>{setSelectedCatalog(s);setPickerStep("exam");}} style={{background:(s.systems||s.unitKey)?C.bgCard:"transparent",border:`1px solid ${C.border}`,borderRadius:10,padding:"18px 20px",cursor:(s.systems||s.unitKey)?"pointer":"default",transition:"all 0.25s",opacity:(s.systems||s.unitKey)?1:0.45,textAlign:"left"}} onMouseEnter={e=>{if(s.systems||s.unitKey){e.currentTarget.style.borderColor=C.green;e.currentTarget.style.background="rgba(77,148,96,0.1)";e.currentTarget.style.transform="translateY(-2px)";}}} onMouseLeave={e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.transform="none";}}><div style={{fontFamily:"'DM Serif Display',serif",fontSize:17,fontWeight:400,marginBottom:6,color:C.text}}>{s.name}</div><div style={{fontSize:11,fontWeight:600,letterSpacing:"0.06em",color:(s.systems||s.unitKey)?C.green:C.textDim}}>{(s.systems||s.unitKey)?"Available":"Coming soon"}</div></button>))}</div></div><footer style={{borderTop:`1px solid ${C.border}`,padding:"18px 40px",display:"flex",justifyContent:"space-between",alignItems:"center"}}><div style={{display:"flex",alignItems:"center",gap:10}}><svg width="14" height="16" viewBox="0 0 22 26">{[0.5,0.85,1,0.65].map((f,i)=>(<rect key={i} x={i*5.8} y={26-26*f} width={3.2} height={26*f} rx={0.8} fill={C.green}/>))}</svg><span style={{fontSize:10,color:C.textDim}}>Powered by AGF Tutoring · Grounded in curated notes</span></div><a href="https://agftutoring.co.uk" target="_blank" rel="noopener" style={{fontSize:10,color:C.textDim,textDecoration:"none"}}>agftutoring.co.uk</a></footer><style>{CSS}</style></div>);}
