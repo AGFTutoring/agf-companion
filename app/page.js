@@ -4090,7 +4090,7 @@ export default function Home(){
       if(/^# /.test(l)){if(inUL){parts.push('</ul>');inUL=false;}if(inOL){parts.push('</ol>');inOL=false;}parts.push('<h1>'+applyInline(l.slice(2))+'</h1>');continue;}
       if(/^[-•●•] /.test(l)){if(inOL){parts.push('</ol>');inOL=false;}if(!inUL){parts.push('<ul>');inUL=true;}parts.push('<li>'+applyInline(l.replace(/^[-•●•] /,''))+'</li>');continue;}
       if(/^\d+\.\s/.test(l)){if(inUL){parts.push('</ul>');inUL=false;}if(!inOL){parts.push('<ol>');inOL=true;}parts.push('<li>'+applyInline(l.replace(/^\d+\.\s/,''))+'</li>');continue;}
-      if(!l.trim()){if(inUL){parts.push('</ul>');inUL=false;}if(inOL){parts.push('</ol>');inOL=false;}parts.push('<br>');continue;}
+      if(/^`[^`]+`$/.test(l.trim())){if(inUL){parts.push('</ul>');inUL=false;}if(inOL){parts.push('</ol>');inOL=false;}parts.push('<div class="eq">'+l.trim().slice(1,-1)+'</div>');continue;}if(!l.trim()){if(inUL){parts.push('</ul>');inUL=false;}if(inOL){parts.push('</ol>');inOL=false;}parts.push('<br>');continue;}
       if(inUL){parts.push('</ul>');inUL=false;}if(inOL){parts.push('</ol>');inOL=false;}
       parts.push('<p>'+applyInline(l)+'</p>');
     }
