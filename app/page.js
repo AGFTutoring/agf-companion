@@ -4208,11 +4208,11 @@ code{font-family:'Courier New',monospace;font-size:9pt;background:#f4f4f4;paddin
             value={checkoutEmail}
             onChange={e=>setCheckoutEmail(e.target.value)}
             onKeyDown={e=>{if(e.key==="Enter")handleCheckout();}}
-            style={{width:"100%",padding:"12px 16px",borderRadius:8,border:`1px solid ${checkoutEmail.includes("@")?C.greenBorder:"rgba(255,255,255,0.2)"}`,background:"#2f2f2f",color:C.text,fontSize:14,fontFamily:"'Outfit',sans-serif",marginBottom:10,outline:"none",boxSizing:"border-box"}}
+            style={{width:"100%",padding:"12px 16px",borderRadius:8,border:`1px solid ${C.greenBorder}`,background:"#2f2f2f",color:C.text,fontSize:14,fontFamily:"'Outfit',sans-serif",marginBottom:10,outline:"none",boxSizing:"border-box"}}
           />
-          <button onClick={handleCheckout} disabled={checkoutLoading||!checkoutEmail.includes("@")} style={{width:"100%",padding:"14px 24px",borderRadius:8,border:"none",background:checkoutEmail.includes("@")?C.green:"#3a3a3a",color:checkoutEmail.includes("@")?C.bg:C.textDim,fontSize:15,fontWeight:600,cursor:(checkoutLoading||!checkoutEmail.includes("@"))?"not-allowed":"pointer",transition:"all 0.2s",letterSpacing:"0.03em",marginBottom:12}}
-            onMouseEnter={e=>{if(!checkoutLoading&&checkoutEmail.includes("@"))e.currentTarget.style.background=C.greenLight||"#5ba86d";}}
-            onMouseLeave={e=>{e.currentTarget.style.background=checkoutEmail.includes("@")?C.green:"#3a3a3a";}}>
+          <button onClick={handleCheckout} disabled={checkoutLoading||!checkoutEmail.includes("@")} style={{width:"100%",padding:"14px 24px",borderRadius:8,border:"none",background:C.green,color:C.bg,fontSize:15,fontWeight:600,cursor:(checkoutLoading||!checkoutEmail.includes("@"))?"not-allowed":"pointer",transition:"all 0.2s",letterSpacing:"0.03em",marginBottom:12}}
+            onMouseEnter={e=>{if(!checkoutLoading)e.currentTarget.style.background=C.greenLight||"#5ba86d";}}
+            onMouseLeave={e=>{e.currentTarget.style.background=C.green;}}>
             {checkoutLoading?"Redirecting to checkout…":"Subscribe — £29/month"}
           </button>
           <div style={{fontSize:11,color:C.textDim,lineHeight:1.5}}>Secure payment via Stripe. Cancel anytime.</div>
