@@ -4,6 +4,7 @@ node_modules/
 .env.local
 .env.production.local
 .DS_Store
+.claude/
 
 # Safety: never commit loose key/secret text files
 *.txt
