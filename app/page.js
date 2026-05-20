@@ -1767,229 +1767,420 @@ Only answer WPH11 content. Use [EQUATION:...] tags for key formulae.`,
 
 TOPIC 4 — WAVES
 
-WAVE TYPES AND PROPERTIES:
-Progressive wave: transfers energy (not matter) from source to surroundings via oscillations.
-Transverse wave: oscillation is PERPENDICULAR to the direction of energy transfer. Examples: all EM waves (light, radio, X-rays), water surface waves, S-seismic waves. Can be polarised.
-Longitudinal wave: oscillation is PARALLEL to the direction of energy transfer. Examples: sound, ultrasound, P-seismic waves. Consist of compressions (high pressure) and rarefactions (low pressure). Cannot be polarised.
+PROGRESSIVE WAVES — DEFINITION AND ENERGY TRANSFER:
+A progressive (travelling) wave transfers ENERGY from one place to another via oscillations of particles (or field oscillations for EM waves), WITHOUT net transfer of matter. The wave profile (shape) moves in the direction of energy transfer; individual particles oscillate about their fixed equilibrium positions.
+Key distinction: the wave pattern moves; individual particles do NOT travel with the wave.
+
+WAVE TYPES:
+Transverse wave: particle oscillation is PERPENDICULAR to the direction of wave propagation (energy transfer).
+Examples: all electromagnetic waves (light, radio, microwaves, IR, UV, X-rays, gamma rays), water surface waves, waves on a string, S-seismic waves.
+Defining feature: CAN be polarised — oscillation can be restricted to one plane because there are infinitely many possible perpendicular planes.
+
+Longitudinal wave: particle oscillation is PARALLEL to the direction of wave propagation.
+Examples: sound waves (in air, solids, liquids), ultrasound, P-seismic waves (primary).
+Structure: alternating compressions (regions of high pressure — particles closer together) and rarefactions (regions of low pressure — particles further apart). The compressions and rarefactions travel along the direction of propagation.
+Defining feature: CANNOT be polarised — oscillation is already constrained to the one axis (direction of travel). There are no perpendicular planes to select.
 
 KEY WAVE QUANTITIES:
-Amplitude (A): maximum displacement of a particle from its equilibrium position (m).
-Wavelength (λ): minimum distance between two points oscillating in phase — e.g. crest to crest, or compression to compression (m).
-Frequency (f): number of complete oscillations per second (Hz = s⁻¹).
-Period (T): time for one complete oscillation (s).
+Amplitude (A): maximum displacement of a particle from its equilibrium (rest) position. Units: metres (m). Note: amplitude is a property of the wave source and medium, not a fixed property of the wave type.
+Wavelength (λ): the minimum distance between two points that are oscillating IN PHASE. Equivalently: crest-to-crest distance, trough-to-trough, compression-to-compression, or rarefaction-to-rarefaction. Units: metres (m).
+Frequency (f): number of complete oscillations (cycles) completed per second. Units: hertz (Hz = s⁻¹).
+Period (T): time taken for one complete oscillation. The time for the wave pattern to advance by one wavelength. Units: seconds (s).
 [EQUATION:T = 1/f]
-Wave speed: the speed at which the wave pattern (energy) travels.
-[EQUATION:v = fλ]
+[EQUATION:f = 1/T]
+Phase: describes the stage of oscillation a particle is at, measured in radians (or degrees). One complete cycle = 2π rad = 360°.
+
+WAVE SPEED:
+[EQUATION:v = fλ]   Wave speed = frequency × wavelength.
+Derivation: in one period T, the wave pattern advances one full wavelength λ. So v = λ/T = λf.
 [EQUATION:v = λ/T]
-Intensity: power per unit area perpendicular to the direction of wave travel (W m⁻²).
-[EQUATION:I = P/A]
-[EQUATION:I ∝ A²]   Double amplitude → four times the intensity.
-For a point source radiating equally in all directions: [EQUATION:I = P/(4πr²)]   Inverse square law: I ∝ 1/r².
+Speed of EM waves in vacuum: c = 3.00 × 10⁸ m s⁻¹ (exact, by definition).
+Wave speed depends on the medium (and its properties), NOT on frequency or amplitude.
+Wave speed on a string: [EQUATION:v = √(T/μ)]   T = tension (N), μ = linear mass density (kg m⁻¹).
+Sound in air at 20°C: ≈ 340 m s⁻¹. Sound travels faster in liquids and solids than in gases (stronger intermolecular restoring forces → larger restoring forces for same displacement → higher speed).
+
+Intensity: power transmitted per unit area perpendicular to the direction of energy transfer.
+[EQUATION:I = P/A]   Units: W m⁻².
+[EQUATION:I ∝ A²]   Intensity is proportional to amplitude SQUARED. Double amplitude → four times intensity. Halve amplitude → quarter intensity.
+Point source (spherical spreading into all directions): [EQUATION:I = P/(4πr²)]   → inverse square law: I ∝ 1/r². Double the distance → quarter the intensity.
+
+WORKED EXAMPLE — WAVE SPEED AND WAVELENGTH:
+Radio station broadcasts at 98.4 MHz. Find wavelength in air.
+[EQUATION:λ = c/f = (3.00 × 10⁸)/(98.4 × 10⁶) = 3.05 m]
+Water wave: f = 4.0 Hz, λ = 0.25 m. Find speed: v = fλ = 4.0 × 0.25 = 1.0 m s⁻¹.
 
 PHASE AND PHASE DIFFERENCE:
-Phase describes where a particle is in its oscillation cycle (measured in radians or degrees).
-In phase: two points oscillating identically — phase difference = 0, 2π, 4π, ... (= 0°, 360°, ...).
-In antiphase: two points oscillating in exact opposition — phase difference = π, 3π, ... (= 180°, 540°, ...).
-Path difference Δx and phase difference Δφ are related by:
-[EQUATION:Δφ = (2π/λ) × Δx]
-Constructive interference: Δx = nλ (n = 0, 1, 2, ...) → Δφ = 0, 2π, 4π, ...
-Destructive interference: Δx = (n + ½)λ → Δφ = π, 3π, 5π, ...
+Phase describes where in its oscillation cycle a particle is at a given instant. Two points separated by distance Δx along the direction of wave travel have a phase difference:
+[EQUATION:Δφ = (2π/λ) × Δx]   (Δφ in radians; Δx = path difference in metres)
+In degrees: Δφ = (360°/λ) × Δx.
+In phase: Δφ = 0, 2π, 4π, ... → separation is an integer number of wavelengths (Δx = 0, λ, 2λ, ...). Particles oscillate identically — same displacement, same velocity, same direction at every instant.
+Antiphase (completely out of phase): Δφ = π, 3π, 5π, ... → Δx = λ/2, 3λ/2, ... Particles have equal and opposite displacements at every instant.
+General phase difference: any value between 0 and 2π (e.g. Δφ = π/2 means one particle is a quarter cycle ahead of the other).
+
+PATH DIFFERENCE AND INTERFERENCE CONDITIONS:
+Path difference (Δx): the difference in distances travelled by waves from two coherent sources to reach a given point P.
+Constructive interference (bright fringe): path difference = nλ, n = 0, 1, 2, ... → Δφ = 0, 2π, 4π, ...
+Destructive interference (dark fringe): path difference = (n + ½)λ, n = 0, 1, 2, ... → Δφ = π, 3π, 5π, ...
 
 SUPERPOSITION PRINCIPLE:
-When two or more waves meet at a point, the resultant displacement at that point equals the VECTOR SUM of the individual displacements.
-Constructive superposition: displacements add (waves in phase) → resultant amplitude increases.
-Destructive superposition: displacements cancel (waves in antiphase) → resultant amplitude decreases (can reach zero).
-For stable interference patterns, sources must be COHERENT: same frequency and constant phase difference.
+When two or more waves overlap at a point, the resultant displacement at that point at that instant equals the VECTOR SUM of the individual displacements of each wave at that point.
+Constructive superposition: waves in phase → displacements add → resultant amplitude = A₁ + A₂ (maximum = 2A for equal amplitudes).
+Destructive superposition: waves in antiphase → displacements oppose → resultant amplitude = |A₁ − A₂| (zero for equal amplitudes in antiphase).
+Important: the waves pass through each other completely unchanged after meeting — superposition is a momentary local effect.
+Coherence requirement: for a STABLE, observable interference pattern, the two sources must be COHERENT — same frequency AND constant phase difference (not necessarily zero). Incoherent sources (e.g. two separate light bulbs) produce a pattern that changes so rapidly it averages to uniform illumination.
 
 STATIONARY (STANDING) WAVES:
-Formed when two progressive waves of equal frequency, equal amplitude travel in OPPOSITE directions and superpose (e.g. incident and reflected wave on a string, or sound in a pipe).
-Nodes (N): points of ZERO displacement — always destructive interference. Fixed points. Particle never moves.
-Antinodes (A): points of MAXIMUM displacement — always constructive interference.
-[EQUATION:Distance between adjacent nodes = λ/2]
-All particles between two adjacent nodes oscillate IN PHASE with each other. Particles on opposite sides of a node are IN ANTIPHASE.
-Energy: energy is NOT transferred along a stationary wave — it is stored between nodes.
-Contrast with progressive wave: in a stationary wave, amplitude varies with position; in a progressive wave, amplitude is the same everywhere.
+Formation: two progressive waves of equal frequency and equal amplitude travelling in OPPOSITE directions along the same line superpose. The result is a stationary wave — a pattern of nodes and antinodes that is fixed in space. The pattern does NOT travel.
+Physical setup examples: a wave on a string reflects from the fixed end and travels back; sound reflects at the closed end of a pipe; microwave standing waves between a transmitter and a reflector.
+The incident and reflected waves have equal frequency (same source) and equal amplitude (if reflection is complete), satisfying the conditions for perfect standing waves.
 
-STATIONARY WAVES ON STRINGS (fixed at both ends — nodes at both ends):
-Wave speed on string: [EQUATION:v = √(T/μ)]   T = tension (N), μ = mass per unit length (kg m⁻¹).
-1st harmonic (fundamental): ONE antinode, nodes at each end. L = λ/2 → λ = 2L.
+NODES AND ANTINODES:
+Node (N): a position where the two progressive waves are ALWAYS in antiphase → permanent destructive superposition → displacement is zero at ALL times. The particle at a node NEVER moves. Nodes are fixed points in space.
+Antinode (A): a position where the two progressive waves are ALWAYS in phase → permanent constructive superposition → displacement oscillates between +2A and −2A (maximum amplitude = twice the amplitude of each component wave). Antinodes are also fixed in space, but the particles there oscillate with maximum amplitude.
+[EQUATION:Distance between adjacent nodes = λ/2]
+Distance between a node and the adjacent antinode = λ/4.
+Amplitude varies WITH POSITION in a stationary wave (zero at nodes, maximum at antinodes). Contrast: in a PROGRESSIVE wave, every particle has the same amplitude.
+Phase: all particles between two adjacent nodes oscillate IN PHASE with each other (though with different amplitudes). Particles on OPPOSITE SIDES of a node oscillate in ANTIPHASE with each other.
+Energy: energy is NOT transmitted along a stationary wave. It is stored, alternating between kinetic energy (maximum at nodes and antinodes when particles pass through equilibrium) and potential energy (maximum at antinodes when at maximum displacement). The energy is localised in each "loop" between adjacent nodes.
+
+STATIONARY WAVES ON STRINGS (fixed at both ends):
+Boundary condition: NODES must form at both fixed ends (the ends cannot move).
+Wave speed on string: [EQUATION:v = √(T/μ)]   T = tension (N), μ = mass per unit length (kg m⁻¹). Increasing tension → increases v; increasing μ (heavier string) → decreases v.
+Harmonics:
+1st harmonic (fundamental, n = 1): exactly one antinode between two end nodes. Half a wavelength spans the string: λ₁ = 2L.
 [EQUATION:f₁ = v/(2L)]
-2nd harmonic: two antinodes. L = λ → [EQUATION:f₂ = v/L = 2f₁]
-nth harmonic: [EQUATION:fₙ = nv/(2L) = nf₁]
-All harmonics (integer multiples of f₁) are present for a string fixed at both ends.
+2nd harmonic (n = 2): two antinodes, three nodes (including ends). Full wavelength: λ₂ = L.
+[EQUATION:f₂ = v/L = 2f₁]
+3rd harmonic (n = 3): three antinodes. λ₃ = 2L/3. f₃ = 3v/(2L) = 3f₁.
+nth harmonic (general):
+[EQUATION:fₙ = nv/(2L) = nf₁]   n = 1, 2, 3, ...
+All integer harmonics are present for a string fixed at both ends.
+Effect of variables: increasing tension T → increases v → raises all harmonic frequencies. Longer string L → lowers all frequencies (guitars: press fret to shorten string → higher pitch). Greater μ → lowers all frequencies (thicker/heavier strings → lower pitch).
+
+WORKED EXAMPLE — STATIONARY WAVES ON A STRING:
+String: L = 0.80 m, mass = 4.0 g = 4.0 × 10⁻³ kg, tension = 25 N.
+μ = m/L = 4.0 × 10⁻³/0.80 = 5.0 × 10⁻³ kg m⁻¹.
+v = √(T/μ) = √(25/5.0 × 10⁻³) = √5000 = 70.7 m s⁻¹.
+f₁ = v/(2L) = 70.7/(2 × 0.80) = 44.2 Hz. f₃ = 3 × 44.2 = 132.6 Hz.
 
 STATIONARY WAVES IN AIR COLUMNS:
-Open pipe (open at both ends — antinodes at both ends):
-[EQUATION:f₁ = v/(2L)]   All harmonics present: f₁, 2f₁, 3f₁, ...
+Open pipe (open at BOTH ends):
+Boundary condition: an ANTINODE forms at each open end (air molecules are free to move at an open end; atmospheric pressure allows maximum displacement).
+Shortest resonance: half a wavelength spans the pipe. λ₁ = 2L.
+[EQUATION:f₁ = v/(2L)]   (same formula as a string fixed at both ends)
+All harmonics present: f₁, 2f₁, 3f₁, 4f₁, ... (n = 1, 2, 3, ...)
 
-Closed pipe (closed at one end — node at closed end, antinode at open end):
-[EQUATION:f₁ = v/(4L)]   Only ODD harmonics: f₁, 3f₁, 5f₁, ...
-Reason: closed end is a node (no displacement), open end is an antinode. Only odd multiples of ¼λ fit.
+Closed pipe (closed at one end, open at the other):
+Boundary condition: NODE at the closed end (molecules cannot oscillate — the wall prevents displacement); ANTINODE at the open end.
+Shortest resonance: quarter wavelength spans the pipe. λ₁ = 4L.
+[EQUATION:f₁ = v/(4L)]   (fundamental frequency is HALF that of an open pipe of same length)
+Only ODD harmonics are present: f₁, 3f₁, 5f₁, ... (n = 1, 3, 5, ...)
+Why only odd? An even harmonic would require a node at the open end or an antinode at the closed end — both forbidden by the boundary conditions. Only patterns with N at the closed end and A at the open end fit; these correspond to 1, 3, 5, ... quarter-wavelengths.
 
-WORKED HARMONICS EXAMPLE:
-String, length 0.80 m, wave speed 240 m s⁻¹. Find fundamental frequency and 3rd harmonic.
-f₁ = 240/(2×0.80) = 150 Hz. f₃ = 3×150 = 450 Hz.
+WORKED EXAMPLE — AIR COLUMNS:
+Speed of sound = 340 m s⁻¹. Open pipe, L = 0.50 m:
+f₁ = 340/(2 × 0.50) = 340 Hz. f₂ = 680 Hz, f₃ = 1020 Hz (all harmonics).
+Closed pipe, L = 0.50 m:
+f₁ = 340/(4 × 0.50) = 170 Hz. Next resonance: f₃ = 3 × 170 = 510 Hz (no f₂).
 
 DIFFRACTION:
-Diffraction: the spreading of waves as they pass through a gap or around an obstacle.
-Maximum diffraction occurs when gap width ≈ wavelength. If gap >> λ: minimal spreading (straight-through beam). If gap << λ: wave mostly reflected, little transmitted.
-Implication: radio waves (long λ) diffract around hills; light (short λ) barely diffracts through a door gap.
+Definition: the spreading of waves as they pass through a gap or around an obstacle. Diffraction is a universal wave phenomenon — it provides evidence of the wave nature of the entity being diffracted.
+Conditions:
+Maximum diffraction: gap width a ≈ wavelength λ. Waves spread out maximally — roughly circular wavefronts beyond the gap.
+Gap >> λ: minimal diffraction; wave continues essentially straight through; sharp geometric shadow forms. Example: visible light (λ ≈ 500 nm) through a doorway (width ≈ 1 m) — a ≈ 2 × 10⁶ λ → negligible spreading.
+Gap << λ: most energy is reflected; little passes through the gap.
+Examples: radio waves (λ ~ 10 m) diffract around hills → good reception in valleys. Microwaves (λ ~ cm) diffract through windows. Sound (λ ~ 0.1–1 m) diffracts around corners → you can hear around a corner but not see around it.
 
-Single-slit diffraction (monochromatic light):
-Produces a diffraction pattern: bright central maximum (widest and most intense), flanked by weaker secondary maxima separated by dark minima.
-Narrower slit → wider central maximum. Longer wavelength → wider central maximum.
-The central maximum has double the width of the secondary maxima.
+SINGLE-SLIT DIFFRACTION (monochromatic light):
+A single slit of width a illuminated by monochromatic light (wavelength λ) produces a DIFFRACTION PATTERN on a distant screen:
+Central maximum: widest and brightest fringe, centred on the straight-through direction. Width ∝ λ/a.
+Secondary maxima: weaker bands on each side of the central maximum. Each secondary maximum is half the width of the central maximum.
+Minima (dark fringes): at angles where: [EQUATION:a sinθ = nλ]   n = ±1, ±2, ... (NOT at n = 0 — that is the centre of the bright central maximum).
+Width of central maximum: angular half-width ≈ λ/a (small angle approximation). Narrower slit (smaller a) → wider central maximum → more spreading. Longer wavelength → wider central maximum.
+The central maximum is TWICE the width of each secondary maximum (between consecutive dark fringes).
+Double slit adds interference on top of single-slit diffraction: the double-slit fringe pattern is modulated (enveloped) by the single-slit diffraction pattern; maxima near the centre of the diffraction envelope are brightest.
 
 YOUNG'S DOUBLE-SLIT EXPERIMENT:
-Demonstrates the wave nature of light through two-source interference.
-Setup: monochromatic light → single slit (for coherence) → double slit (separation a) → screen (distance D away).
-Result: alternating bright fringes (constructive interference) and dark fringes (destructive interference).
-Bright fringe condition: path difference = nλ (n = 0, ±1, ±2, ...).
-Dark fringe condition: path difference = (n + ½)λ.
-Fringe spacing (distance between adjacent bright fringes):
-[EQUATION:y = λD/d]   (where d = slit separation, D = slit-to-screen distance, λ = wavelength)
-Rearranged to find wavelength: [EQUATION:λ = yd/D]
-With white light: central fringe is white; outer fringes are spectra with violet innermost (smallest λ, smallest fringe spacing) and red outermost (largest λ).
-Increasing D or decreasing d → wider fringe spacing.
+Historical significance: Thomas Young (1801) demonstrated two-source interference of light, proving conclusively that light behaves as a wave.
+Setup: monochromatic, coherent light → (optional) single slit (ensures a coherent planar wavefront) → double slit with separation d (typically 0.1–1 mm) → screen at distance D (typically 1–2 m).
+Each slit diffracts light → two coherent circular wavefronts overlap → two-source interference.
+Constructive interference (bright fringe): path difference from two slits = nλ, n = 0, ±1, ±2, ...
+Destructive interference (dark fringe): path difference = (n + ½)λ.
+Fringe spacing (distance between adjacent bright fringes, or adjacent dark fringes):
+[EQUATION:y = λD/d]   λ = wavelength, D = slit-to-screen distance, d = slit separation.
+Valid for D >> d (small angle approximation — angles to screen are small).
+Rearranged to measure wavelength: [EQUATION:λ = yd/D]
+Experimental measurement of y: measure the total width of, say, 10 fringe spacings, then divide by 10 — this reduces the percentage uncertainty compared to measuring a single fringe width.
+Effect of changing variables:
+Increase D → y increases (fringes wider apart).
+Decrease d → y increases (fringes wider apart). [EQUATION:y ∝ 1/d]
+Increase λ (e.g. red vs blue light) → y increases (longer wavelength → wider fringes).
+White light: central fringe is white (all wavelengths have zero path difference at centre). Outer fringes are coloured spectra: violet innermost (smallest λ, smallest y), red outermost (largest λ). Adjacent orders overlap for large n.
 
-DIFFRACTION GRATINGS:
-Many parallel slits, spacing d = 1/N (N = lines per metre).
-Produces very sharp, bright maxima (narrow slits → extensive diffraction; many slits → sharp constructive interference).
-[EQUATION:d sinθ = nλ]   n = order number (0, ±1, ±2, ...), θ = angle to central maximum.
-Maximum order: n_max = d/λ (round down to nearest integer, since sinθ ≤ 1).
-Use: measuring wavelengths precisely; spectroscopy (each element gives unique line spectrum).
+DIFFRACTION GRATING:
+A diffraction grating has many parallel, equally spaced slits (typically 100–600 lines per mm).
+Slit spacing: [EQUATION:d = 1/N]   N = number of slits per metre (lines per metre).
+Principal maximum (bright fringe) condition:
+[EQUATION:d sinθ = nλ]   n = 0, ±1, ±2, ... (order number), θ = angle from the straight-through direction (zeroth order).
+n = 0: zeroth order — central maximum, all wavelengths coincide at θ = 0. n = ±1: first order. n = ±2: second order.
+Maximum order possible: since sinθ ≤ 1, n_max = d/λ (round DOWN to the nearest integer). Maxima with n > n_max do not exist.
+Advantages over double slit: much sharper and brighter maxima → more precise wavelength measurement. As the number of slits N increases, the maxima become narrower and brighter. Used in spectrometers.
+White light through grating: zeroth order is white; each higher order fans into a spectrum with violet (small λ, small θ) closest to centre and red (large λ, large θ) furthest out. Higher orders may overlap (e.g. 2nd order violet may overlap 1st order red).
+
+WORKED EXAMPLE — DIFFRACTION GRATING:
+Grating: 300 lines mm⁻¹ = 3.00 × 10⁵ lines m⁻¹. d = 1/(3.00 × 10⁵) = 3.33 × 10⁻⁶ m.
+Wavelength: λ = 589 nm = 5.89 × 10⁻⁷ m. First order: sinθ₁ = λ/d = 5.89 × 10⁻⁷/3.33 × 10⁻⁶ = 0.177 → θ₁ = 10.2°.
+Maximum order: n_max = d/λ = 3.33 × 10⁻⁶/5.89 × 10⁻⁷ = 5.65 → maximum order = 5.
 
 POLARISATION:
-Polarisation can only occur in TRANSVERSE waves (oscillation is perpendicular to propagation, so can be in one specific plane). Longitudinal waves (e.g. sound) CANNOT be polarised.
-Unpolarised light: electric field oscillates in all planes perpendicular to direction of travel with equal probability.
-Plane-polarised light: electric field oscillates in one plane only.
-Polaroid filter (polariser): transmits only the component of the electric field parallel to its transmission axis.
-Passing unpolarised light through one polaroid: intensity halved (I = ½I₀).
-MALUS'S LAW — polarised light through an analyser at angle θ to polariser:
-[EQUATION:I = I₀ cos²θ]
-θ = 0°: I = I₀ (maximum transmission). θ = 90°: I = 0 (crossed polaroids — no transmission).
-Applications: polaroid sunglasses reduce glare from reflected light (reflected light is partially polarised); LCD screens use polaroids; stress analysis in engineering.
+Why only transverse waves can be polarised: in a transverse wave, the oscillation is perpendicular to the direction of propagation — there are infinitely many possible perpendicular directions (a whole plane of them). Polarisation selects one direction within that plane. In a longitudinal wave, the only possible oscillation direction IS the direction of propagation — there are no transverse components to select, so polarisation is impossible.
+Unpolarised light: the electric field oscillates randomly in all directions perpendicular to the direction of propagation (random plane, changing on femtosecond timescale). Natural light from the sun, bulbs, and flames is unpolarised.
+Plane-polarised light: the electric field oscillates in ONE fixed plane only (e.g. vertical).
+Production of polarised light:
+(1) Polaroid filter (polariser): contains aligned polymer chains that absorb the component of E-field parallel to the chains; transmits only the component perpendicular to the chains (parallel to the transmission axis).
+(2) Reflection: light reflected from a non-metallic surface is partially polarised parallel to the surface (this is why glare is horizontally polarised — most glare comes from horizontal surfaces).
+(3) Scattering: light scattered by atmospheric particles (e.g. blue sky light) is partially polarised.
+
+One polaroid sheet on unpolarised light: transmitted intensity = ½I₀. (Half the planes of oscillation are absorbed, on average.)
+MALUS'S LAW (polarised light through a second polaroid — the analyser):
+[EQUATION:I = I₀ cos²θ]   θ = angle between the transmission axes of the polariser and the analyser.
+θ = 0°: cos²0 = 1 → I = I₀ (full transmission — axes aligned).
+θ = 45°: cos²45° = ½ → I = ½I₀.
+θ = 90°: cos²90° = 0 → I = 0 (no transmission — crossed polaroids).
+Applications: polaroid sunglasses (transmission axis vertical → blocks horizontally polarised glare from roads and water); LCD screens (liquid crystal rotates polarisation to control pixel brightness between two crossed polaroids); stress analysis of engineering components (birefringent materials rotate polarisation, revealing stress patterns in coloured fringes).
 
 REFRACTION:
-Refraction: change in direction of a wave when it crosses a boundary between two media of different wave speed.
-Cause: change in wave speed (frequency unchanged; wavelength changes). Slower medium → shorter wavelength; faster medium → longer wavelength.
-Towards normal: entering denser (slower) medium. Away from normal: entering less dense (faster) medium.
-Refractive index of a medium:
-[EQUATION:n = c/v]   c = speed of light in vacuum (3.00 × 10⁸ m s⁻¹), v = speed in medium. Always n ≥ 1.
-Also: [EQUATION:n = λ_vacuum/λ_medium]   (since frequency is constant, ratio of wavelengths = ratio of speeds).
+Definition: the change in DIRECTION of a wave as it crosses a boundary between two media in which it travels at different speeds.
+Physical cause: one part of the wavefront enters the new medium before the rest, slowing down (or speeding up). The wavefront tilts → the ray direction changes.
+Rules:
+• Frequency is UNCHANGED at the boundary (the source dictates frequency; the number of wavefronts per second entering the boundary equals the number leaving).
+• Wave speed changes → wavelength changes: v = fλ with f constant, so λ ∝ v.
+• Entering a denser (slower) medium: speed decreases, wavelength decreases, ray bends TOWARDS the normal.
+• Entering a less dense (faster) medium: speed increases, wavelength increases, ray bends AWAY from the normal.
+Absolute refractive index n:
+[EQUATION:n = c/v]   c = speed of light in vacuum (3.00 × 10⁸ m s⁻¹); v = speed of light in the medium.
+n ≥ 1 always (light always slows in a real medium; n = 1 for vacuum; n ≈ 1.0003 for air ≈ 1).
+Typical values: water n ≈ 1.33; glass n ≈ 1.5; diamond n ≈ 2.42.
+Since f is constant: [EQUATION:n = λ_vacuum/λ_medium]   (speed ratio = wavelength ratio, since v = fλ).
+Also: [EQUATION:n₁v₁ = n₂v₂]   (follows from n = c/v for each medium).
 
 SNELL'S LAW:
-[EQUATION:n₁ sinθ₁ = n₂ sinθ₂]
-θ₁ = angle of incidence, θ₂ = angle of refraction (both measured from the NORMAL).
-For light entering medium 2 from air/vacuum (n₁ = 1): sinθ₁ = n₂ sinθ₂ → n₂ = sinθ₁/sinθ₂.
-If n₁ < n₂: ray bends TOWARDS normal (slows down). If n₁ > n₂: ray bends AWAY from normal (speeds up).
+[EQUATION:n₁ sinθ₁ = n₂ sinθ₂]   Angles measured from the NORMAL to the boundary at the point of incidence.
+θ₁ = angle of incidence (in medium 1), θ₂ = angle of refraction (in medium 2).
+If n₁ < n₂ (e.g. air to glass): θ₂ < θ₁ (ray bends towards normal).
+If n₁ > n₂ (e.g. glass to air): θ₂ > θ₁ (ray bends away from normal).
+From air (n₁ = 1.00) into medium with refractive index n₂: sinθ₁ = n₂ sinθ₂ → [EQUATION:n₂ = sinθ₁/sinθ₂]
+
+WORKED EXAMPLE — SNELL'S LAW:
+Light in air (n = 1.00) hits a glass block (n = 1.52) at incident angle θ₁ = 40°.
+sinθ₂ = (n₁/n₂) sinθ₁ = (1.00/1.52) × sin40° = 0.658 × 0.643 = 0.423. θ₂ = 25.0°. Ray bends towards normal.
 
 TOTAL INTERNAL REFLECTION (TIR):
-Conditions: (1) light must travel from a denser medium (higher n) to a less dense medium (lower n), AND (2) angle of incidence must be GREATER than the critical angle θ_c.
-At the critical angle: refracted ray travels along the boundary (θ₂ = 90°).
-[EQUATION:sin θ_c = n₂/n₁]   (n₁ > n₂)
-For glass-air interface (n₂ = 1): [EQUATION:sin θ_c = 1/n]
-If θ_i > θ_c: ALL light is reflected back into the denser medium (no refracted ray).
-
-WORKED TIR EXAMPLE:
-Glass with n = 1.5, glass-air interface. Critical angle: sinθ_c = 1/1.5 = 0.667 → θ_c = 41.8°. Any ray hitting the interface at more than 41.8° undergoes TIR.
+Conditions — BOTH must be satisfied simultaneously:
+(1) Light must travel from a DENSER medium (higher n) towards a LESS DENSE medium (lower n): n₁ > n₂.
+(2) The angle of incidence θ₁ must be GREATER than the critical angle θ_c: θ₁ > θ_c.
+At exactly the critical angle: the refracted ray grazes the boundary (θ₂ = 90°). Applying Snell's law:
+n₁ sin θ_c = n₂ sin90° = n₂ × 1 = n₂.
+[EQUATION:sin θ_c = n₂/n₁]   (for light in medium 1 approaching medium 2, n₁ > n₂)
+Glass-to-air (n₂ = 1.00): [EQUATION:sin θ_c = 1/n₁]   so θ_c = arcsin(1/n₁).
+For glass with n = 1.5: sin θ_c = 1/1.5 = 0.667 → θ_c = 41.8°.
+When θ₁ > θ_c: the refracted ray cannot exist (sinθ₂ would exceed 1). ALL incident light is reflected back into the denser medium — the boundary acts as a perfect mirror. No energy is lost at the boundary during TIR.
+TIR from air into glass is IMPOSSIBLE (n_air < n_glass — condition 1 is not met).
 
 OPTICAL FIBRES:
-Light undergoes TIR at the boundary between the core (high n) and cladding (lower n) → light is guided along the fibre.
-Cladding functions: protects core; prevents light leaking between adjacent fibres (crossover); ensures TIR is maintained.
-Signal degradation: absorption (intensity decreases with distance); modal dispersion (different ray paths → different travel times → pulse spreading, limits data rate); material/chromatic dispersion (different wavelengths travel at slightly different speeds → pulse broadening for broadband signals).
+Principle: light travels down the core (higher refractive index n₁) and strikes the core-cladding boundary at an angle greater than the critical angle → TIR. All light is reflected back into the core and travels along the fibre, however curved.
+Core: high-refractive-index glass (n₁ ≈ 1.50). Cladding: slightly lower refractive index glass (n₂ ≈ 1.45).
+Cladding purposes: (1) reduces loss of light through the surface (protects from scratches that would scatter light out); (2) prevents cross-talk between adjacent fibres (light cannot tunnel between touching fibres because the cladding refractive index is still high enough that TIR occurs at the outer surface); (3) provides the refractive index step that makes TIR possible.
+Signal degradation mechanisms:
+Absorption: material absorbs photons → intensity decreases exponentially with distance. Modern pure silica fibres have very low absorption.
+Modal dispersion (multimode fibre): rays travelling at different angles to the fibre axis take different path lengths → arrive at different times → a sharp input pulse becomes spread (broadened) at the output → limits the data rate (pulse repetition frequency). Solution: use monomode (single-mode) fibre (core ~8 μm — only one ray path possible, no modal dispersion).
+Material/chromatic dispersion: different wavelengths travel at slightly different speeds in glass (refractive index varies with wavelength). If the input pulse contains multiple wavelengths, these arrive at different times → pulse broadening. Relevant for broadband WDM (wavelength-division multiplexed) systems. Mitigated by using narrow-bandwidth (near-monochromatic) sources (e.g. laser diodes) or dispersion-shifted fibres.
+Applications: telecommunications (internet, phone, TV), endoscopy, precision measurement.
 
 ELECTROMAGNETIC SPECTRUM:
-All EM waves travel at c = 3.00 × 10⁸ m s⁻¹ in vacuum. All are transverse. All can be polarised.
-In order of increasing frequency / decreasing wavelength:
-Radio → Microwave → Infrared → Visible → Ultraviolet → X-ray → Gamma ray.
-Visible light: approximately 400 nm (violet) to 700 nm (red).
-Properties: reflection, refraction, diffraction, interference, polarisation — all apply to EM waves.
+All EM waves: transverse; travel at c = 3.00 × 10⁸ m s⁻¹ in vacuum; obey reflection, refraction, diffraction, interference, and polarisation; can propagate through vacuum.
+In order of increasing frequency and decreasing wavelength:
+Radio (λ: km to ~10 cm) → Microwave (λ: ~10 cm to ~1 mm) → Infrared (IR, λ: 1 mm to 700 nm) → Visible (λ: 700 nm red to 400 nm violet) → Ultraviolet (UV, λ: 400 nm to ~10 nm) → X-ray (λ: ~10 nm to ~0.01 nm) → Gamma ray (λ < ~0.01 nm; highest frequency, highest energy).
+Visible spectrum: Red Orange Yellow Green Blue Indigo Violet (ROY G BIV) from longest to shortest λ.
+Photon energy: E = hf — gamma rays carry the most energy per photon; radio waves the least. This determines biological hazard (ionising radiation: UV, X-ray, gamma).
 
-COMMON MISTAKES — WAVES: confusing path difference (distance) and phase difference (angle); forgetting coherence is required for stable interference; mixing up nodes and antinodes; applying Young's formula y = λD/d with inconsistent units; saying sound can be polarised (it cannot — it is longitudinal); confusing TIR conditions (needs denser → less dense AND angle > θ_c, both required).
+COMMON MISTAKES — WAVES:
+• Confusing path difference (a distance, in metres) with phase difference (an angle, in radians or degrees). Use [EQUATION:Δφ = (2π/λ) × Δx] to convert between them.
+• Forgetting that coherence (same frequency AND constant phase difference) is essential for a stable, visible interference pattern. Two independent sources cannot produce a steady fringe pattern.
+• Mixing up nodes (zero displacement always) and antinodes (maximum displacement). A node is where two waves permanently cancel; an antinode is where they permanently reinforce.
+• Amplitude vs intensity: [EQUATION:I ∝ A²]. Doubling amplitude quadruples intensity. Many students write I ∝ A.
+• Young's formula y = λD/d: d is the SLIT SEPARATION (not the slit width); D is the distance to the screen (not to the slits); y is the fringe spacing. Inconsistent units are the most common calculation error.
+• Longitudinal waves (sound) cannot be polarised — it is not possible. If an exam question mentions polarisation, it is always a transverse wave.
+• TIR requires BOTH conditions: (1) denser to less dense, AND (2) angle of incidence > critical angle. Satisfying only one condition is not sufficient. TIR never occurs going from a less dense to a denser medium.
+• Refraction: wavelength changes at a boundary; frequency does NOT. Students often confuse which quantity changes.
+• Closed pipe: only ODD harmonics. Open pipe: ALL harmonics. A common error is to give even harmonics for a closed pipe.
+• Node-to-node distance = λ/2, NOT λ. Do not confuse the spatial repeat of the standing wave (λ) with the node spacing (λ/2).
 
 
 TOPIC 5 — ELECTRICITY
 
-CHARGE AND CURRENT:
-Electric charge is quantised in units of e = 1.60 × 10⁻¹⁹ C (elementary charge). Electrons carry −e; protons carry +e.
+ELECTRIC CHARGE AND CURRENT:
+Electric charge: a fundamental property of matter. The unit is the coulomb (C).
+Elementary charge: e = 1.60 × 10⁻¹⁹ C. This is the smallest freely occurring charge (quarks have fractional charge but do not exist in isolation).
+Electrons carry charge −e; protons carry +e; neutrons are electrically neutral.
+Charge is quantised: any observable charge is an integer multiple of e. Q = Ne for N elementary charges.
 [EQUATION:I = ΔQ/Δt]   Current = rate of flow of charge. Units: amperes (A = C s⁻¹).
-Conventional current direction: from + to − (direction positive charges would move). Electron drift: − to +.
-Charge carriers: metals → free (delocalised) electrons; electrolytes → positive and negative ions; semiconductors → electrons and holes.
+Rearranged: [EQUATION:ΔQ = IΔt]   Charge flowing = current × time. (1 A = 1 C per second.)
+Conventional current direction: from positive terminal to negative terminal (the direction a positive charge carrier would move). In reality, in metals, electrons drift from negative to positive — opposite to conventional current.
+Charge carriers by material:
+• Metals: free (delocalised) electrons — negative charge carriers.
+• Electrolytes: positive cations move one way, negative anions the other; both contribute to current.
+• Semiconductors: electrons (conduction band) and holes (valence band — behave as positive charge carriers moving in the opposite direction to electrons).
+• Gases/plasma (ionised): free electrons and positive ions.
+Mean drift velocity: [EQUATION:I = nAve]   n = number density of charge carriers (m⁻³), A = cross-sectional area (m²), v = mean drift speed of charge carriers (m s⁻¹), e = charge per carrier (C).
+Implication: in a thick wire (large A) or in a metal (large n), the drift speed is very small (~ mm s⁻¹) even for large currents. In a narrow semiconductor (small n, small A), drift speed is much higher for the same current.
+
+WORKED EXAMPLE — CURRENT AND CHARGE:
+Circuit carries 2.5 A for 4.0 minutes. Charge: ΔQ = IΔt = 2.5 × (4.0 × 60) = 600 C.
+Number of electrons: N = Q/e = 600/(1.60 × 10⁻¹⁹) = 3.75 × 10²¹ electrons.
 
 POTENTIAL DIFFERENCE:
-[EQUATION:V = W/Q]   Potential difference = energy transferred per unit charge (J C⁻¹ = V).
-1 volt = 1 joule per coulomb. P.d. across a component = energy converted from electrical to other forms per coulomb of charge passing through.
-EMF (ε): energy transferred TO the charge per unit charge BY the source (e.g. battery, generator). EMF = total energy supplied per coulomb.
-Distinction: EMF is the source's energy per coulomb given to the circuit; terminal p.d. is the energy per coulomb delivered to the external circuit (less than EMF due to internal resistance).
+[EQUATION:V = W/Q]   Potential difference = work done per unit charge moved between two points. Units: volts (V = J C⁻¹).
+Physical meaning: if p.d. across a component is 5 V, then 5 J of electrical energy is converted to other forms (heat, light, sound, kinetic, etc.) for every coulomb of charge that passes through the component.
+EMF (electromotive force, ε): the energy transferred TO the charge per unit charge BY a source (battery, generator, solar cell, etc.). EMF is the energy input per coulomb — how much electrical energy the source creates per coulomb. Units: volts.
+Terminal p.d. (V): the actual p.d. across the EXTERNAL circuit (across the terminals of the source when current is flowing). V < ε whenever current flows, because energy is lost inside the source.
+Open circuit (I = 0): terminal p.d. = ε (the voltmeter reads the EMF directly because there is no current and hence no voltage drop across internal resistance).
 
 RESISTANCE AND OHM'S LAW:
-[EQUATION:R = V/I]   Resistance (Ω). Definition — applies to all components.
-Ohm's Law: for an ohmic conductor at constant temperature, V ∝ I (i.e. R is constant). R = V/I is always the definition; Ohm's law is the additional statement that R is constant.
-[EQUATION:R = ρL/A]   and rearranged: [EQUATION:ρ = RA/L]
-ρ = resistivity (Ω m) — property of the material. R = resistance of the component.
-R ∝ L (longer wire → more resistance). R ∝ 1/A (thicker wire → less resistance). R depends on material (ρ) and temperature.
-Effect of temperature on resistance: metals — R increases with T (increased lattice vibrations impede electron flow); semiconductors (NTC thermistors) — R decreases with T (more charge carriers freed at higher T).
+[EQUATION:R = V/I]   Resistance = potential difference ÷ current. Units: ohms (Ω = V A⁻¹).
+This is the DEFINITION of resistance — it applies to ALL components at all times.
+Ohm's Law (a special, additional result): for an OHMIC conductor at CONSTANT TEMPERATURE, V ∝ I, meaning R is constant and does not depend on the value of V or I. An I-V graph for an ohmic conductor is a straight line through the origin.
+Important distinction: R = V/I is always the definition (always true); Ohm's Law is the extra claim that R stays constant (only true for ohmic conductors at constant temperature).
+
+RESISTIVITY:
+[EQUATION:R = ρL/A]   R = resistance (Ω), ρ = resistivity of the material (Ω m), L = length of conductor (m), A = cross-sectional area (m²).
+Resistivity ρ: a MATERIAL property, independent of the shape of the sample. Measures how strongly a material opposes current flow. Unit: Ω m.
+Rearranged: [EQUATION:ρ = RA/L]
+Physical interpretation: R ∝ L (doubling the length doubles the resistance — twice as many scattering events along the path); R ∝ 1/A (doubling the area halves the resistance — twice as many parallel paths for electrons).
+Typical values: copper ~1.7 × 10⁻⁸ Ω m (excellent conductor); silicon ~10² Ω m (semiconductor); glass ~10¹² Ω m (insulator). Range spans ~20 orders of magnitude.
+Temperature dependence:
+Metals: ρ increases with temperature. Higher T → more vigorous lattice vibration → more frequent electron-ion collisions → greater resistance to flow → higher ρ and R.
+Semiconductors and thermistors (NTC — negative temperature coefficient): ρ DECREASES with temperature. Higher T → more electrons are thermally excited from valence to conduction band → many more charge carriers → large increase in n in I = nAve → decrease in resistance dominates. Overall R decreases.
+Superconductors: below a critical temperature T_c, resistivity drops abruptly to exactly ZERO. No resistance, no energy dissipation. (Not typically assessed at A-level but worth knowing for context.)
+
+WORKED EXAMPLE — RESISTIVITY:
+Nichrome wire: ρ = 1.1 × 10⁻⁶ Ω m, L = 2.0 m, diameter = 0.40 mm.
+A = π(d/2)² = π(0.20 × 10⁻³)² = 1.26 × 10⁻⁷ m².
+R = ρL/A = (1.1 × 10⁻⁶ × 2.0)/(1.26 × 10⁻⁷) = 17.5 Ω.
 
 I-V CHARACTERISTICS:
-Ohmic resistor (wire at constant T): straight line through origin. R = constant = gradient⁻¹.
-Filament bulb: curve — gradient decreases (R increases) as current/temperature increases. Not ohmic.
-Diode: almost no current in reverse bias (very high R); forward bias above threshold voltage (≈ 0.6 V for silicon) → current increases rapidly (very low R). Current flows in one direction only.
-NTC thermistor: R decreases as temperature increases — I-V curve steepens at higher T. Used in temperature sensors.
-LDR (light-dependent resistor): R decreases as light intensity increases. Used in light sensors.
+Ohmic resistor (e.g. metal wire at constant temperature): I-V graph is a STRAIGHT LINE through the origin. Gradient = 1/R = constant. R is independent of V and I. If temperature changes, the graph changes gradient (but is still linear at constant T).
+Filament lamp (tungsten bulb): I-V graph is a CURVE. As V and I increase, the filament heats up → resistance increases → gradient (1/R) decreases → curve bends over. At high currents, R is much larger than at low currents. The graph is symmetric about the origin (filament behaves identically for both polarities).
+Diode (silicon p-n junction):
+Forward bias (positive terminal to anode): almost no current until the threshold/knee voltage of ~0.6 V is reached. Above 0.6 V: current rises steeply (very low resistance, fraction of an ohm). The diode conducts in forward bias.
+Reverse bias (positive terminal to cathode): negligible current (microampere leakage), very high resistance (megaohms). The diode blocks reverse current. At very high reverse voltage: breakdown occurs (not assessed at A-level).
+The I-V graph has a highly asymmetric shape: near-zero current for all negative V, near-zero current for forward V < 0.6 V, steep rise for forward V > 0.6 V.
+Uses of diodes: rectification (convert AC to DC — only positive half-cycles pass); LEDs (emit light in forward bias); circuit protection (prevent reverse current damaging components).
+NTC thermistor (negative temperature coefficient): R decreases as temperature increases. On an I-V graph, if you heat the thermistor while increasing V, the curve steepens (more current for same voltage). The component is non-ohmic (R is not constant).
+LDR (light-dependent resistor): R decreases as light intensity increases. Used in light-sensing circuits (e.g. automatic streetlights, camera exposure sensors).
 
 SERIES CIRCUITS:
-Same current everywhere: [EQUATION:I = I₁ = I₂ = I₃]
-Voltages add: [EQUATION:V_total = V₁ + V₂ + V₃]
-Resistances add: [EQUATION:R_total = R₁ + R₂ + R₃]
-Adding more components in series: total resistance increases; current decreases; each component gets a share of the supply voltage.
+In a series circuit, all components are in a single loop — the same current flows through every component.
+[EQUATION:I = I₁ = I₂ = I₃]   (current is the same everywhere)
+[EQUATION:V_total = V₁ + V₂ + V₃]   (voltage distributes across components; total = supply voltage)
+[EQUATION:R_total = R₁ + R₂ + R₃]   (total resistance is the sum)
+Adding more components in series: R_total increases → current from supply decreases → supply voltage is shared in proportion to resistance (voltage divider principle): V₁/V₂ = R₁/R₂.
+Consequence: if one component in a series circuit breaks (open circuit), ALL current stops — the whole circuit fails.
 
 PARALLEL CIRCUITS:
-Same voltage across each branch: [EQUATION:V = V₁ = V₂ = V₃]
-Currents add: [EQUATION:I_total = I₁ + I₂ + I₃]
-Resistances combine: [EQUATION:1/R_total = 1/R₁ + 1/R₂ + 1/R₃]
-Total resistance is ALWAYS less than the smallest individual resistance. Adding more branches in parallel: total resistance decreases; total current from supply increases.
-For two resistors in parallel: R_total = R₁R₂/(R₁ + R₂).
+In a parallel circuit, each branch connects directly across the same two nodes — all branches see the same potential difference.
+[EQUATION:V = V₁ = V₂ = V₃]   (voltage is the same across all branches)
+[EQUATION:I_total = I₁ + I₂ + I₃]   (total current = sum of branch currents)
+[EQUATION:1/R_total = 1/R₁ + 1/R₂ + 1/R₃]   (reciprocal of total resistance = sum of reciprocals)
+R_total is ALWAYS less than the smallest individual branch resistance. Adding more parallel branches always decreases R_total and increases total current from the supply.
+Two resistors in parallel: [EQUATION:R_total = R₁R₂/(R₁ + R₂)]   (product over sum).
+Each branch independently carries: I_branch = V/R_branch. More current flows through the lower-resistance branch: I₁/I₂ = R₂/R₁.
+Consequence: if one branch of a parallel circuit fails (open circuit), the remaining branches are unaffected — they still carry current. This is why household circuits are wired in parallel.
 
 KIRCHHOFF'S LAWS:
-1st Law (junction/current law): the sum of currents entering a junction = sum of currents leaving it.
-[EQUATION:ΣI_in = ΣI_out]   Based on conservation of charge (charge cannot accumulate at a junction).
-2nd Law (loop/voltage law): the sum of EMFs around any closed loop = sum of potential drops (IR) around that loop.
-[EQUATION:Σε = ΣIR]   Based on conservation of energy (energy supplied = energy dissipated per unit charge).
-Using Kirchhoff's laws: (1) label all currents and their assumed directions; (2) apply 1st law at each junction; (3) apply 2nd law to each independent loop; (4) solve simultaneous equations.
+1st Law (Junction/Current Rule):
+The algebraic sum of all currents at a junction is zero. Equivalently: the total current flowing INTO a junction equals the total current flowing OUT of it.
+[EQUATION:ΣI_in = ΣI_out]
+Physical basis: conservation of charge. Charge cannot accumulate at a point in a steady-state DC circuit.
+Example: three wires meet at a junction. 5 A and 3 A enter; I₁ and I₂ leave. Then I₁ + I₂ = 8 A.
+
+2nd Law (Loop/Voltage Rule):
+Around any closed loop in a circuit, the algebraic sum of all EMFs equals the algebraic sum of all potential drops (I × R).
+[EQUATION:Σε = ΣIR]
+Physical basis: conservation of energy. A charge that travels around a complete loop must return to exactly the same potential — it cannot gain or lose net energy.
+Sign convention: choose a direction to traverse the loop. An EMF is positive if you go from − to + through the source (source drives you in your loop direction). An IR term is positive if the current flows in the same direction as your loop traversal.
+Procedure: (1) Label every branch current (assume a direction — if the answer is negative, the actual direction is opposite). (2) Apply Kirchhoff's 1st law at each junction to reduce unknowns. (3) Apply Kirchhoff's 2nd law to enough independent loops to generate sufficient equations. (4) Solve the simultaneous equations.
+
+WORKED EXAMPLE — KIRCHHOFF'S LAWS:
+Two batteries in a loop: ε₁ = 6 V (internal resistance r₁ = 0.5 Ω) and ε₂ = 4 V (r₂ = 0.5 Ω), external R = 3 Ω. Batteries opposing.
+Loop: ε₁ − ε₂ = I(R + r₁ + r₂) → 6 − 4 = I × 4 → I = 0.5 A (flows in direction of ε₁).
+V across R: IR = 0.5 × 3 = 1.5 V. Lost volts in r₁: 0.5 × 0.5 = 0.25 V. Check: 6 − 0.25 − 1.5 − 0.25 − 4 = 0 ✓.
 
 EMF AND INTERNAL RESISTANCE:
-Every real cell/battery has internal resistance r (resistance inside the source itself).
-[EQUATION:ε = I(R + r)]   ε = EMF, R = external resistance, r = internal resistance.
-[EQUATION:V = ε − Ir]   Terminal p.d. (voltage across external circuit) is always less than EMF when current flows.
-Lost volts: Ir = voltage dropped across internal resistance (wasted as heat inside the source).
-Open circuit (I = 0): terminal p.d. = ε. Short circuit (R = 0): I = ε/r (maximum possible current).
-Experimental determination: connect variable resistor. Measure V (voltmeter) and I (ammeter) for several R values.
-Plot V against I: straight line with y-intercept = ε, gradient = −r.
-[EQUATION:V = −rI + ε]   (in the form y = mx + c)
+All real sources have internal resistance r — an inherent resistance inside the source (due to the resistance of the electrolyte, coil windings, etc.). It acts as a resistor in series with the ideal EMF source.
+[EQUATION:ε = I(R + r)]   Total EMF drives current through BOTH external resistance R and internal resistance r.
+Rearranged: [EQUATION:V = ε − Ir]   Terminal p.d. = EMF − lost volts.
+Lost volts: [EQUATION:V_lost = Ir]   Energy per coulomb wasted as heat inside the source. This is the difference between the EMF and the terminal p.d.
+Limiting cases:
+Open circuit (I = 0, R → ∞): terminal p.d. = ε − 0 = ε. Measuring the terminal p.d. with a high-resistance voltmeter effectively measures the EMF.
+Short circuit (R = 0): I_sc = ε/r (maximum possible current — dangerous, source can overheat).
+Graphical determination of ε and r:
+Vary R; measure terminal p.d. V and current I. Plot V on y-axis vs I on x-axis.
+Rearranged: [EQUATION:V = −rI + ε]   Straight line: y-intercept = ε, gradient = −r (negative because terminal p.d. falls as current increases).
+As R increases: I decreases, V increases (approaches ε). As R decreases: I increases, V decreases.
+Power considerations: total power from source: P_total = εI. Power to external circuit: P_ext = I²R = IV. Power wasted internally: P_lost = I²r. Efficiency = P_ext/P_total = R/(R + r).
+
+WORKED EXAMPLE — INTERNAL RESISTANCE:
+Battery: ε = 12 V, r = 2 Ω. External circuit: R₁ = 4 Ω and R₂ = 4 Ω in parallel.
+R_ext = (4 × 4)/(4 + 4) = 2 Ω. Total R = R_ext + r = 4 Ω.
+I = ε/R_total = 12/4 = 3 A. Terminal p.d. = ε − Ir = 12 − 3 × 2 = 6 V.
+Current in each branch: 6/4 = 1.5 A each. Check: 1.5 + 1.5 = 3 A ✓.
+Power in R₁: I₁²R₁ = 1.5² × 4 = 9 W. Total power: P = εI = 12 × 3 = 36 W. Power lost: I²r = 9 × 2 = 18 W.
 
 POTENTIAL DIVIDER:
-Two resistors R₁ and R₂ in series across a supply V_in. Output taken across R₂:
+Two resistors R₁ (upper) and R₂ (lower) connected in series across a supply V_in. The output voltage V_out is taken across R₂.
 [EQUATION:V_out = V_in × R₂/(R₁ + R₂)]
-The output voltage is proportional to R₂. Larger R₂ → larger V_out.
-With a thermistor as R₁: temperature rises → R₁ falls → V_out (across R₂) rises. Used in temperature-monitoring circuits.
-With an LDR as R₁: brighter light → R₁ falls → V_out rises. Used in light-sensing circuits.
-With a variable resistor: used as a volume control or general voltage adjuster.
+Derivation: same current I flows through both: I = V_in/(R₁ + R₂). Then V_out = IR₂ = V_in × R₂/(R₁ + R₂).
+Key: V_out is a fraction of V_in — specifically the fraction that R₂ is of the total resistance. Larger R₂ → larger V_out. Smaller R₂ → smaller V_out.
+Sensor applications (R₁ is the sensor, output taken across fixed R₂):
+Thermistor as R₁: temperature rises → R₁ decreases → total (R₁ + R₂) decreases → I increases → V_out (= IR₂) increases. Hot → high V_out.
+If you want hot → low V_out: swap positions, put thermistor as R₂ (output across it). Temperature rises → R₂ decreases → V_out decreases.
+LDR as R₁: light increases → LDR resistance falls → V_out rises. Used in automatic streetlights (when ambient light falls, LDR R rises, V_out drops, triggering the light to switch on via a relay/transistor).
+Variable resistor (potentiometer): a sliding contact on a resistive track. Output voltage varies continuously from 0 to V_in as the slider moves. Used as a volume control, rheostat, or to provide a variable reference voltage.
+Loading effect: if a low-resistance device is connected across R₂ as the output, it draws current and changes V_out (the parallel combination of R₂ and R_load is less than R₂ alone → V_out is reduced). Ideal voltage output device has infinite resistance to avoid loading.
 
 ELECTRICAL POWER AND ENERGY:
-[EQUATION:P = IV]
-[EQUATION:P = I²R]   (substitute V = IR)
-[EQUATION:P = V²/R]   (substitute I = V/R)
-Units: watts (W = J s⁻¹). Choose the form depending on which quantities are known.
-[EQUATION:E = Pt]
-[EQUATION:E = VIt = QV]
-Kilowatt-hour: 1 kWh = 1000 W × 3600 s = 3.6 × 10⁶ J. Unit of energy on electricity bills.
+Power = rate of energy transfer (rate at which electrical energy is converted to other forms).
+[EQUATION:P = IV]   General definition of electrical power. Always valid.
+[EQUATION:P = I²R]   Obtained by substituting V = IR into P = IV. Use when I and R are known.
+[EQUATION:P = V²/R]   Obtained by substituting I = V/R into P = IV. Use when V and R are known.
+Units: watts (W = J s⁻¹).
+Important: P ∝ I² — doubling current quadruples power dissipation in a resistor. This is why high-voltage transmission lines (large V, small I) waste much less power as heat than low-voltage lines (P_lost = I²R).
+Energy transferred:
+[EQUATION:E = Pt]   Energy = power × time. Units: joules.
+[EQUATION:E = VIt]   Substituting P = IV.
+[EQUATION:E = QV]   Since Q = It.
+Kilowatt-hour: a practical unit of energy. [EQUATION:1 kWh = 1000 W × 3600 s = 3.6 × 10⁶ J]. Used on electricity bills.
+Efficiency of energy transfer: useful power output ÷ total power input = P_ext/(P_ext + P_lost).
 
-WORKED CIRCUIT EXAMPLE:
-Battery: ε = 12 V, r = 1 Ω. External resistor R = 5 Ω. Find: I, terminal p.d., power dissipated in R.
-I = ε/(R+r) = 12/6 = 2 A. Terminal p.d. = ε − Ir = 12 − 2×1 = 10 V. P_R = I²R = 4×5 = 20 W. P_lost = I²r = 4×1 = 4 W.
+WORKED CIRCUIT EXAMPLE (combined concepts):
+Battery: ε = 9.0 V, r = 1.0 Ω. External: R₁ = 5 Ω in series with parallel combination of R₂ = 6 Ω and R₃ = 12 Ω.
+R_parallel = (6 × 12)/(6 + 12) = 4 Ω. R_ext = R₁ + R_parallel = 5 + 4 = 9 Ω. R_total = R_ext + r = 10 Ω.
+I = ε/R_total = 9.0/10 = 0.90 A. Terminal p.d. = ε − Ir = 9.0 − 0.90 × 1.0 = 8.1 V.
+V across R₁: IR₁ = 0.90 × 5 = 4.5 V. V across parallel pair: 8.1 − 4.5 = 3.6 V (= V_parallel).
+I₂ = 3.6/6 = 0.60 A. I₃ = 3.6/12 = 0.30 A. Check: 0.60 + 0.30 = 0.90 A ✓.
+Power in R₁: 0.90² × 5 = 4.05 W. Power from source: εI = 9.0 × 0.90 = 8.1 W.
 
-COMMON MISTAKES — ELECTRICITY: confusing EMF with terminal p.d. (EMF is open-circuit voltage; terminal p.d. is less due to Ir drop); applying Ohm's law to non-ohmic components (filament bulb, diode); forgetting that total resistance in parallel is less than smallest branch; misapplying potential divider formula (V_out is across LOWER resistor in the chain, not the upper one); not including internal resistance in circuit calculations.
+COMMON MISTAKES — ELECTRICITY:
+• EMF vs terminal p.d.: EMF equals terminal p.d. ONLY when I = 0 (open circuit). During use, terminal p.d. = ε − Ir < ε. Never equate them when current flows.
+• Ohm's Law applies only to ohmic conductors at constant temperature. Do NOT say R = constant for a filament lamp or diode under varying conditions. R = V/I is always the definition of R; Ohm's Law is the extra claim that R is constant.
+• Resistivity units: Ω m (not Ω per metre). Check dimensionally: R = ρL/A → Ω = [ρ] × m/m² → [ρ] = Ω m.
+• Parallel resistance: the total is ALWAYS less than the smallest branch resistance. Adding a new parallel branch always REDUCES R_total. A common error is to add resistances directly for a parallel combination.
+• Current splitting in parallel: more current flows through the LOWER resistance branch. I₁/I₂ = R₂/R₁ (inverse proportion).
+• Potential divider: V_out is across the LOWER resistor. If that resistor's value increases, V_out increases (more of the supply voltage is dropped across it). Many students apply the formula upside down.
+• Power: P = I²R means power is proportional to the SQUARE of current. Doubling current quadruples power dissipation — not doubles it.
+• Kirchhoff's 2nd Law sign errors: set up consistent directions before writing equations. A negative answer for a current merely means the actual flow direction is opposite to your assumed direction — it is not an error.
+• Internal resistance in series: r is in series with R_ext. The terminal p.d. is across R_ext only, not across (R_ext + r). Students sometimes forget to include r in the total resistance when finding I.
 
 Only answer WPH12 content. Use [EQUATION:...] tags for key formulae.`,
   },
