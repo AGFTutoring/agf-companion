@@ -2190,257 +2190,509 @@ Only answer WPH12 content. Use [EQUATION:...] tags for key formulae.`,
     system:`You are the AGF Study Companion — an AI tutor created by Alastair Fisher of AGF Tutoring. You follow the AGF diagnostic method: Diagnose → Rebuild → Clarify → Test → Extend.\n\nPersonality: Patient, warm, rigorous. Guide to understanding, don't just give answers. Intuition before formalism. British English. Concise.\n\nUse [EQUATION:...] tags for key formulae on their own line.\n\nWhen working through problems, show EVERY step clearly.\n\nA-LEVEL MATHEMATICS NOTES (Pure/Core — Edexcel IAL P1/P2):
 
 ALGEBRA & FUNCTIONS
-Quadratics: ax2 + bx + c = 0. Solve by factorising, completing the square, or quadratic formula: x = (-b +/- sqrt(b2-4ac))/(2a).
-Discriminant: b2 - 4ac. If > 0: two distinct real roots. If = 0: one repeated root. If < 0: no real roots.
-Completing the square: x2 + bx = (x + b/2)2 - b2/4. For ax2 + bx + c: a[(x + b/(2a))2 - (b2 - 4ac)/(4a2)].
-Vertex of y = a(x - h)2 + k is at (h, k). Minimum if a > 0, maximum if a < 0.
 
-Factor theorem: if f(a) = 0, then (x - a) is a factor of f(x). Use to factorise cubics: test small integer values.
-Remainder theorem: when f(x) is divided by (x - a), the remainder is f(a).
-Polynomial division: long division or synthetic division. If (x - a) is a factor, remainder = 0.
+LAWS OF INDICES:
+[EQUATION:aᵐ × aⁿ = aᵐ⁺ⁿ]
+[EQUATION:aᵐ ÷ aⁿ = aᵐ⁻ⁿ]
+[EQUATION:(aᵐ)ⁿ = aᵐⁿ]
+[EQUATION:a⁰ = 1]   (any a ≠ 0)
+[EQUATION:a⁻ⁿ = 1/aⁿ]
+[EQUATION:a^(1/n) = ⁿ√a]
+[EQUATION:a^(m/n) = (ⁿ√a)ᵐ]
+Worked examples: 8^(2/3) = (³√8)² = 2² = 4. x³ × x⁻¹ = x². (2x²)³ = 8x⁶.
 
-Algebraic fractions: factorise numerator and denominator, cancel common factors.
-Adding/subtracting: find common denominator. Multiplying: multiply tops and bottoms. Dividing: flip and multiply.
-Partial fractions: decompose e.g. (3x+5)/((x+1)(x+2)) = A/(x+1) + B/(x+2). Cover-up method or equating coefficients.
-Repeated factor: A/(x+1) + B/(x+1)2 + C/(x+2). Improper fraction: divide first to get polynomial + proper fraction.
+SURDS AND RATIONALISING DENOMINATORS:
+A surd is an irrational root left in exact form (e.g. √2, √5, ³√3).
+[EQUATION:√a × √b = √(ab)]
+[EQUATION:√a ÷ √b = √(a/b)]
+[EQUATION:√a × √a = a]
+Simplifying: √12 = √(4×3) = 2√3. √50 = 5√2.
+Rationalise with single surd: multiply top and bottom by √a. Example: 3/√2 = 3√2/2.
+Rationalise with binomial denominator: multiply by the conjugate (change sign of surd term).
+[EQUATION:5/(3+√2) = 5(3−√2)/((3)²−(√2)²) = 5(3−√2)/7]
+General pattern: [EQUATION:1/(a+√b) × (a−√b)/(a−√b) = (a−√b)/(a²−b)]
 
-Surds: sqrt(a) x sqrt(b) = sqrt(ab). sqrt(a)/sqrt(b) = sqrt(a/b). Rationalise: multiply by conjugate.
-Indices: a^m x a^n = a^(m+n), a^m / a^n = a^(m-n), (a^m)^n = a^(mn), a^0 = 1, a^(-n) = 1/a^n, a^(1/n) = nth root of a.
-Solving index equations: if bases equal, equate powers. Otherwise take logs.
+QUADRATIC EQUATIONS (ax² + bx + c = 0):
+Method 1 — Factorising: find two numbers multiplying to ac and adding to b; split middle term; factor by grouping.
+Example: 2x² + 5x + 3 = 0 → (2x+3)(x+1) = 0 → x = −3/2 or x = −1.
+Method 2 — Completing the square:
+[EQUATION:x² + bx = (x + b/2)² − (b/2)²]
+Example: x² − 4x + 1 = 0 → (x−2)² − 3 = 0 → x = 2 ± √3.
+For ax² + bx + c: factor out a first, complete the square inside the brackets.
+Method 3 — Quadratic formula (always works):
+[EQUATION:x = (−b ± √(b²−4ac)) / (2a)]
+Vertex: [EQUATION:x = −b/(2a)]   y-value found by substituting. Minimum if a > 0, maximum if a < 0.
+Vertex form: y = a(x−h)² + k has vertex (h, k).
 
-Inequalities: solve like equations BUT flip the sign when multiplying/dividing by negative.
-Quadratic inequalities: solve equation first, sketch parabola, read off required region.
+DISCRIMINANT:
+[EQUATION:Δ = b² − 4ac]
+Δ > 0: two distinct real roots (curve crosses x-axis twice).
+Δ = 0: one repeated root (curve touches x-axis — tangent to x-axis).
+Δ < 0: no real roots (curve entirely above or below x-axis).
+Use: substitute a line y = mx + c into a curve equation → form a quadratic → discriminant tells you number of intersections. Tangent condition: Δ = 0.
 
-FUNCTIONS (detailed)
-Definition: a function maps each input to exactly one output. f: x -> f(x). Written f(x) or f: x |-> 2x + 1.
-Domain: the set of all valid inputs (x-values). Range: the set of all outputs (y-values).
-Notation: f(x) means "f of x". f(3) means substitute x = 3.
+SIMULTANEOUS EQUATIONS:
+Linear + linear: elimination (add/subtract to remove one variable) or substitution.
+Example: 3x + 2y = 11, x − y = 2. From 2nd: x = y+2. Sub: 3(y+2)+2y = 11 → y = 1, x = 3.
+Linear + quadratic: substitute the linear into the quadratic.
+Example: y = x+3 and y = x²−1. Substitute: x+3 = x²−1 → x²−x−4 = 0. Solve with formula.
+Number of solutions depends on Δ of the resulting quadratic (0, 1, or 2 intersections).
 
-Types of function:
-One-to-one: each output comes from exactly one input. Has an inverse. Passes horizontal line test.
-Many-to-one: different inputs can give same output (e.g. x^2). Does NOT have a full inverse unless domain is restricted.
+INEQUALITIES:
+Linear: solve like equation, but FLIP the inequality sign when multiplying or dividing by a NEGATIVE.
+Example: −2x + 3 > 7 → −2x > 4 → x < −2 (sign flips when ÷ by −2).
+Set notation: x > 2 written as {x : x > 2}. Two regions: {x : x ≤ −1} ∪ {x : x ≥ 5}.
+Quadratic inequalities:
+(1) Solve ax² + bx + c = 0 → roots α, β (α < β).
+(2) Sketch parabola (opens up if a > 0, down if a < 0).
+(3) Read off the required region.
+a > 0, expression > 0: x < α or x > β (outside the roots).
+a > 0, expression < 0: α < x < β (between the roots).
+Example: x² − 5x + 6 < 0. Roots x=2, x=3. Since a=1>0: answer is {x : 2 < x < 3}.
 
-COMPOSITE FUNCTIONS
-fg(x) = f(g(x)): apply g first, then f to the result. Order matters: fg is NOT the same as gf in general.
-Domain of fg: x must be in domain of g, AND g(x) must be in domain of f.
-Example: f(x) = x^2, g(x) = x + 3. fg(x) = f(x+3) = (x+3)^2. gf(x) = g(x^2) = x^2 + 3.
-To solve fg(x) = k: substitute the composite expression and solve.
+POLYNOMIALS — FACTOR AND REMAINDER THEOREMS:
+[EQUATION:f(a) = 0 ⟺ (x−a) is a factor of f(x)]   (Factor theorem)
+[EQUATION:Remainder when f(x) ÷ (x−a) = f(a)]   (Remainder theorem)
+Finding factors: test f(±1), f(±2), f(±3), ... until f(a) = 0.
+Algebraic long division: divide leading term of dividend by leading term of divisor; multiply back; subtract; bring down; repeat.
+Example: f(x) = x³+2x²−5x−6. f(2) = 8+8−10−6 = 0 → (x−2) is a factor. Divide: f(x) = (x−2)(x²+4x+3) = (x−2)(x+1)(x+3).
 
-INVERSE FUNCTIONS
-f^(-1)(x) undoes f: f^(-1)(f(x)) = x and f(f^(-1)(x)) = x.
-Method to find: (1) write y = f(x), (2) swap x and y, (3) rearrange for y = f^(-1)(x).
-Domain of f^(-1) = range of f. Range of f^(-1) = domain of f.
-Graph: y = f^(-1)(x) is the reflection of y = f(x) in the line y = x.
-Self-inverse: f^(-1) = f. Example: f(x) = 1/x is self-inverse because swapping gives x = 1/y, so y = 1/x.
-Only one-to-one functions have inverses. For many-to-one functions, restrict the domain first.
+ALGEBRAIC FRACTIONS AND PARTIAL FRACTIONS:
+Simplify: factorise numerator and denominator fully, cancel common factors.
+Add/subtract: find lowest common denominator; adjust numerators; combine.
+Partial fractions — distinct linear factors:
+[EQUATION:(px+q)/((ax+b)(cx+d)) = A/(ax+b) + B/(cx+d)]
+Find A, B by cover-up method or equating coefficients.
+Repeated factor: [EQUATION:f(x)/((ax+b)²(cx+d)) = A/(ax+b) + B/(ax+b)² + C/(cx+d)]
+Improper fraction (numerator degree ≥ denominator degree): divide first → quotient + proper remainder; then decompose remainder.
 
-MODULUS FUNCTION
-|x| = x if x >= 0, -x if x < 0. Always non-negative.
-y = |f(x)|: take the graph of f(x), reflect any parts below the x-axis above it.
-y = f(|x|): take the right half of y = f(x) (x >= 0) and reflect it in the y-axis. Left half mirrors right.
-Solving |f(x)| = k: solve f(x) = k and f(x) = -k. Check solutions are valid.
-Solving |f(x)| = |g(x)|: square both sides to get f(x)^2 = g(x)^2, or solve f(x) = g(x) and f(x) = -g(x).
-Inequalities with modulus: |f(x)| < k means -k < f(x) < k. |f(x)| > k means f(x) > k or f(x) < -k.
+FUNCTIONS:
+A function f maps each input (from the domain) to exactly one output (in the range).
+Domain: set of valid inputs. Exclude values that make the expression undefined (denominator = 0, √(negative), ln(non-positive)).
+Range: set of all possible outputs — determined by the graph or algebraic analysis.
+One-to-one: each output has exactly one input. Passes horizontal line test. Has an inverse.
+Many-to-one: multiple inputs give the same output (e.g. f(x) = x²: f(2) = f(−2) = 4). No inverse over full domain; restrict domain first.
 
-Transformations of graphs:
-y = f(x) + a: translate up by a. y = f(x + a): translate left by a.
-y = af(x): stretch vertically by factor a. y = f(ax): squash horizontally by factor 1/a.
-y = -f(x): reflect in x-axis. y = f(-x): reflect in y-axis.
+COMPOSITE FUNCTIONS:
+[EQUATION:fg(x) = f(g(x))]   — apply g first, then f. Order matters: fg ≠ gf in general.
+Domain of fg: {x : x ∈ domain of g AND g(x) ∈ domain of f}.
+Example: f(x) = √x (domain x ≥ 0), g(x) = x−3. fg(x) = √(x−3), domain x ≥ 3.
+
+INVERSE FUNCTIONS:
+f⁻¹ undoes f: [EQUATION:f⁻¹(f(x)) = x]   and   [EQUATION:f(f⁻¹(x)) = x]
+Method: (1) write y = f(x), (2) swap x and y, (3) rearrange for y — that gives f⁻¹(x).
+Domain of f⁻¹ = range of f. Range of f⁻¹ = domain of f.
+Graph: y = f⁻¹(x) is the reflection of y = f(x) in the line y = x.
+Self-inverse: f⁻¹ = f. Example: f(x) = 1/x — swapping gives y = 1/x again.
+Only one-to-one functions have inverses. Restrict domain of many-to-one functions first.
+
+MODULUS FUNCTION:
+[EQUATION:|x| = x if x ≥ 0,  −x if x < 0]   Always non-negative. |x| = distance from x to 0.
+y = |f(x)|: plot f(x); reflect any parts below x-axis in the x-axis.
+y = f(|x|): take the right-half graph (x ≥ 0) and reflect in the y-axis.
+Solving |f(x)| = k: solve f(x) = k AND f(x) = −k. Check both solutions are valid.
+Solving |f(x)| = |g(x)|: solve f(x) = g(x) AND f(x) = −g(x).
+Inequalities: |f(x)| < k ⟺ −k < f(x) < k.   |f(x)| > k ⟺ f(x) > k or f(x) < −k.
+Example: |2x−3| < 5 → −5 < 2x−3 < 5 → {x : −1 < x < 4}.
+
+GRAPH TRANSFORMATIONS:
+y = f(x) + a: translate (0, a) — up if a > 0.
+y = f(x+a): translate (−a, 0) — left if a > 0 (inside → opposite direction).
+y = af(x): vertical stretch by factor a from x-axis. If a < 0: also reflects in x-axis.
+y = f(ax): horizontal stretch by factor 1/a. If a < 0: also reflects in y-axis.
+y = −f(x): reflection in x-axis.   y = f(−x): reflection in y-axis.
+Track key coordinates: apply each transformation to specific points.
+Asymptotes transform too: a vertical asymptote at x = k in f(x) → x = k−a in f(x+a).
+
+COMMON MISTAKES — ALGEBRA:
+• (a+b)ⁿ ≠ aⁿ+bⁿ for n > 1. Never expand this way.
+• Quadratic formula: ± gives TWO answers — never drop one.
+• Inequalities: flip the sign when multiplying/dividing by a negative. The most common error in this topic.
+• Factor theorem: f(a) = 0 gives factor (x−a). If f(−2) = 0, factor is (x+2), NOT (x−2).
+• Partial fractions: check for improper fractions before decomposing.
+• Composite fg(x): means f applied to g(x), NOT f(x)×g(x).
 
 COORDINATE GEOMETRY
-Straight lines: y - y1 = m(x - x1), or y = mx + c. Gradient: m = (y2 - y1)/(x2 - x1).
-Parallel lines: same gradient (m1 = m2). Perpendicular lines: m1 x m2 = -1.
-Distance: d = sqrt((x2-x1)2 + (y2-y1)2). Midpoint: M = ((x1+x2)/2, (y1+y2)/2).
 
-Circles: (x - a)2 + (y - b)2 = r2. Centre (a, b), radius r.
-Expanded form: x2 + y2 + 2gx + 2fy + c = 0. Centre (-g, -f), radius sqrt(g2 + f2 - c).
-Tangent to circle at point P: perpendicular to radius OP at P. Find gradient of radius, negative reciprocal = gradient of tangent.
-Properties: angle in semicircle = 90 degrees. Tangent is perpendicular to radius. Perpendicular from centre to chord bisects the chord.
+STRAIGHT LINES:
+[EQUATION:m = (y₂−y₁)/(x₂−x₁)]   Gradient between two points.
+Slope-intercept form: [EQUATION:y = mx + c]
+Point-slope form: [EQUATION:y − y₁ = m(x − x₁)]
+Horizontal line: y = k (gradient = 0). Vertical line: x = k (undefined gradient).
+Parallel lines: m₁ = m₂. Perpendicular lines: [EQUATION:m₁ × m₂ = −1]   → m₂ = −1/m₁.
+Distance: [EQUATION:d = √((x₂−x₁)² + (y₂−y₁)²)]
+Midpoint: [EQUATION:M = ((x₁+x₂)/2, (y₁+y₂)/2)]
+Worked example: A(1,3), B(5,11). m = (11−3)/(5−1) = 2. Midpoint = (3,7). Tangent at M with gradient −½: y−7 = −½(x−3).
 
-Parametric equations: x = f(t), y = g(t). Convert to Cartesian: eliminate the parameter t.
-dy/dx = (dy/dt)/(dx/dt). For parametric circles: x = a + r cos t, y = b + r sin t.
+CIRCLES:
+Standard form: [EQUATION:(x−a)² + (y−b)² = r²]   centre (a, b), radius r.
+General form: [EQUATION:x² + y² + 2gx + 2fy + c = 0]   centre (−g, −f), radius = √(g²+f²−c).
+Converting: complete the square in x and y separately.
+Example: x²+y²−6x+4y−3=0 → (x−3)²+(y+2)²=16. Centre (3,−2), radius 4.
+Circle theorems:
+(1) Tangent ⊥ radius at the point of contact.
+(2) Angle in a semicircle = 90°.
+(3) Perpendicular from centre to a chord bisects the chord.
+Finding tangent at P on circle centre C: gradient of radius CP = (y_P−y_C)/(x_P−x_C). Tangent gradient = −1/m_radius. Then use point-slope form.
+Line meets circle: substitute line into circle → quadratic. Δ > 0: two intersections. Δ = 0: tangent. Δ < 0: no intersection.
+
+PARAMETRIC EQUATIONS:
+x = f(t), y = g(t). Parameter t traces the curve.
+Convert to Cartesian: rearrange one equation for t; substitute into the other. Or use a trig identity.
+Example: x = 2t, y = t². From 1st: t = x/2. Sub: y = x²/4.
+[EQUATION:dy/dx = (dy/dt)/(dx/dt)]   gradient via chain rule.
+Circle: x = a + r cos t, y = b + r sin t. Use cos²t + sin²t = 1 to get Cartesian form.
+
+COMMON MISTAKES — COORDINATE GEOMETRY:
+• Perpendicular gradient is −1/m, not 1/m. The negative sign is critical.
+• Circle general form: centre is (−g, −f) — the negatives are essential.
+• Tangent to circle: always check the radius gradient first; tangent is perpendicular to radius, not parallel.
+• Distance formula: (x₂−x₁)² is always positive — you square the difference.
 
 SEQUENCES & SERIES
 
-ARITHMETIC SEQUENCES
-Definition: sequence with constant difference d between consecutive terms.
-nth term: u_n = a + (n-1)d, where a = first term, d = common difference.
-Sum of n terms: S_n = n/2 x (2a + (n-1)d) = n/2 x (first + last).
-Arithmetic mean of a and b = (a+b)/2.
-Finding a and d: set up simultaneous equations from two known terms.
-Example: u_3 = 11, u_7 = 23 gives a + 2d = 11 and a + 6d = 23, so d = 3, a = 5.
-Proving arithmetic: show u_(n+1) - u_n = constant for all n.
+ARITHMETIC SEQUENCES:
+Definition: each consecutive pair of terms has the same constant difference d.
+[EQUATION:u_n = a + (n−1)d]   nth term. a = first term (u₁), d = common difference.
+[EQUATION:S_n = n/2 × (2a + (n−1)d)]   Sum of first n terms.
+[EQUATION:S_n = n/2 × (first + last) = n/2 × (a + l)]   where l = u_n (last term).
+Arithmetic mean of a and b: (a+b)/2.
+Finding a and d from two terms: form two equations and solve simultaneously.
+Example: u₃ = 11, u₇ = 23. → a+2d = 11 and a+6d = 23 → 4d = 12 → d = 3, a = 5.
+S₁₀ = 10/2 × (2×5 + 9×3) = 5 × 37 = 185.
+Proving arithmetic: show u_{n+1} − u_n = constant for all n.
 
-GEOMETRIC SEQUENCES
-Definition: sequence with constant ratio r between consecutive terms.
-nth term: u_n = ar^(n-1), where a = first term, r = common ratio.
-Sum of n terms: S_n = a(1 - r^n)/(1 - r) [r not equal to 1].
-Sum to infinity: S_inf = a/(1 - r), convergent ONLY when |r| < 1.
-Geometric mean of a and b = sqrt(ab).
-Finding a and r: u_5/u_2 = ar^4/(ar) = r^3, so r = cube root of the ratio.
-Common mistakes: forgetting |r| < 1 condition for convergence. Mixing up u_n = ar^(n-1) vs ar^n.
-Example: a = 8, r = 1/2. S_inf = 8/(1-0.5) = 16. Partial sums approach 16 but never reach it.
+GEOMETRIC SEQUENCES:
+Definition: each consecutive pair of terms has the same constant ratio r. u_{n+1}/u_n = r.
+[EQUATION:u_n = ar^(n−1)]   nth term. a = first term, r = common ratio.
+[EQUATION:S_n = a(1 − rⁿ)/(1 − r)]   Sum of first n terms (r ≠ 1).
+Sum to infinity — convergent ONLY when |r| < 1:
+[EQUATION:S_∞ = a/(1 − r)]   for |r| < 1.
+If |r| ≥ 1: the series diverges — no sum to infinity exists.
+Geometric mean of a and b: √(ab).
+Finding r from two terms: u_n/u_m = r^(n−m) → r = (u_n/u_m)^(1/(n−m)).
+Example: a = 6, r = 2/3. u₄ = 6×(2/3)³ = 16/9. S_∞ = 6/(1−2/3) = 18.
 
-SIGMA NOTATION
-Sum from r=1 to n of u_r means u_1 + u_2 + ... + u_n.
-Properties: Sum of (au_r + bv_r) = a x Sum(u_r) + b x Sum(v_r). Can factor constants out.
-Sum of first n natural numbers: Sum r = n(n+1)/2.
-Can shift indices: Sum from r=1 to n = Sum from r=0 to n-1 with appropriate adjustment.
+SIGMA NOTATION:
+[EQUATION:Σ(r=1 to n) u_r = u₁ + u₂ + ⋯ + u_n]
+Linearity: [EQUATION:Σ(au_r + bv_r) = a Σu_r + b Σv_r]
+Standard results:
+[EQUATION:Σ(r=1 to n) r = n(n+1)/2]
+[EQUATION:Σ(r=1 to n) r² = n(n+1)(2n+1)/6]
+[EQUATION:Σ(r=1 to n) r³ = [n(n+1)/2]²]
+Counting terms: Σ from r=k to n has n−k+1 terms.
 
-RECURRENCE RELATIONS
-u_(n+1) = f(u_n) defines each term from the previous one. Need u_1 (or u_0) to generate terms.
-Increasing: u_(n+1) > u_n for all n. Decreasing: u_(n+1) < u_n for all n.
-Periodic: sequence repeats. Period k means u_(n+k) = u_n.
-Convergent: terms approach a limit L. At the limit, L = f(L) — solve this equation.
-Example: u_(n+1) = (u_n + 3)/2, u_1 = 1. Limit: L = (L+3)/2, so 2L = L + 3, L = 3.
+RECURRENCE RELATIONS:
+u_{n+1} = f(u_n) defines each term from the previous one; requires a starting value u₁.
+Increasing: u_{n+1} > u_n for all n. Decreasing: u_{n+1} < u_n. Periodic (period k): u_{n+k} = u_n.
+Convergent to limit L: set L = f(L) and solve.
+Example: u_{n+1} = (u_n+3)/2, u₁ = 1. Limit: L = (L+3)/2 → L = 3. Terms: 1, 2, 2.5, 2.75, … → 3. ✓
 
-BINOMIAL EXPANSION
-(a + b)^n = Sum of nCr a^(n-r) b^r for r = 0 to n. nCr = n!/(r!(n-r)!). Pascal triangle gives coefficients.
-For (1 + x)^n when n is a positive integer: (1+x)^n = 1 + nx + n(n-1)x^2/2! + n(n-1)(n-2)x^3/3! + ... (terminates after n+1 terms).
-For n NOT a positive integer (fractional or negative): expansion is INFINITE, valid only when |x| < 1.
-For (a + bx)^n: factor out a^n first: a^n(1 + bx/a)^n, then expand (1 + bx/a)^n, valid when |bx/a| < 1.
-For (2 + 3x)^(-1): = 2^(-1)(1 + 3x/2)^(-1) = (1/2)(1 - 3x/2 + (3x/2)^2 - ...), valid when |3x/2| < 1, i.e. |x| < 2/3.
-Approximation: substitute small x into expansion for numerical estimates. State range of validity.
-Partial fractions + binomial: decompose first, expand each fraction separately.
+BINOMIAL EXPANSION (positive integer n):
+[EQUATION:(a+b)ⁿ = Σ(r=0 to n) ⁿCᵣ aⁿ⁻ʳ bʳ]
+[EQUATION:ⁿCᵣ = n! / (r!(n−r)!)]   Pascal's triangle gives the same coefficients row by row.
+[EQUATION:(1+x)ⁿ = 1 + nx + n(n−1)x²/2! + n(n−1)(n−2)x³/3! + ⋯ + xⁿ]   (n+1 terms; terminates)
+General term (the (r+1)th term): [EQUATION:T_{r+1} = ⁿCᵣ aⁿ⁻ʳ bʳ]
+For (a+bx)ⁿ: factor out aⁿ → [EQUATION:aⁿ(1 + bx/a)ⁿ]   then expand (1+bx/a)ⁿ.
+Worked example: expand (2+3x)⁴. Coefficients: 1,4,6,4,1.
+= 2⁴ + 4×2³×(3x) + 6×2²×(3x)² + 4×2×(3x)³ + (3x)⁴ = 16 + 96x + 216x² + 216x³ + 81x⁴.
+Finding a specific term: term in x³ in (1+2x)⁶ → T₄ = ⁶C₃ × (2x)³ = 20 × 8x³ = 160x³.
+For non-integer n: expansion is INFINITE, valid only when |x| < 1 (stated as range of validity).
+
+COMMON MISTAKES — SEQUENCES & SERIES:
+• Geometric sum to infinity: only valid when |r| < 1. Never use S_∞ = a/(1−r) for |r| ≥ 1.
+• nth term formula: u_n = ar^(n−1) NOT ar^n. Check: when n=1, u₁ = a×r⁰ = a ✓.
+• Binomial general term: first term is r=0 (T₁). A common error is to start at r=1 and get the index wrong.
+• Arithmetic sum: the formula needs the actual values of a and d — don't use symbolic labels in the final answer.
+• Sigma counting: Σ from r=3 to r=8 has 8−3+1 = 6 terms, not 5.
 
 TRIGONOMETRY
-Basic ratios: sin t = O/H, cos t = A/H, tan t = O/A = sin t/cos t.
-Reciprocal functions: sec t = 1/cos t, cosec t = 1/sin t, cot t = 1/tan t = cos t/sin t.
-Pythagorean identities: sin2 t + cos2 t = 1. 1 + tan2 t = sec2 t. 1 + cot2 t = cosec2 t.
 
-CAST diagram: All positive in Q1 (0-90), Sin in Q2 (90-180), Tan in Q3 (180-270), Cos in Q4 (270-360).
-Exact values: sin 30 = 1/2, cos 30 = sqrt(3)/2, tan 30 = 1/sqrt(3). sin 45 = cos 45 = 1/sqrt(2), tan 45 = 1. sin 60 = sqrt(3)/2, cos 60 = 1/2, tan 60 = sqrt(3).
+DEFINITIONS (SOHCAHTOA):
+In a right-angled triangle with angle θ:
+[EQUATION:sin θ = Opposite/Hypotenuse]
+[EQUATION:cos θ = Adjacent/Hypotenuse]
+[EQUATION:tan θ = Opposite/Adjacent = sin θ/cos θ]
+Reciprocals: [EQUATION:sec θ = 1/cos θ]   [EQUATION:cosec θ = 1/sin θ]   [EQUATION:cot θ = cos θ/sin θ]
 
-Sine rule: a/sin A = b/sin B = c/sin C. Use when you have a pair (angle + opposite side). Ambiguous case when finding angles.
-Cosine rule: a2 = b2 + c2 - 2bc cos A. Use when you have SAS or SSS.
-Area of triangle: (1/2) ab sin C.
+PYTHAGOREAN IDENTITIES:
+[EQUATION:sin²θ + cos²θ = 1]   (divide Pythagoras' theorem O²+A²=H² by H²)
+[EQUATION:tan²θ + 1 = sec²θ]   (divide by cos²θ)
+[EQUATION:1 + cot²θ = cosec²θ]   (divide by sin²θ)
 
-Radians: pi rad = 180 degrees. Convert: multiply by pi/180 (deg to rad) or 180/pi (rad to deg).
-Arc length: s = r theta. Area of sector: A = (1/2) r2 theta. (theta must be in radians.)
+EXACT VALUES (derive from special triangles):
+30°−60°−90° (half an equilateral triangle, side 2):
+[EQUATION:sin 30° = 1/2,   cos 30° = √3/2,   tan 30° = 1/√3]
+[EQUATION:sin 60° = √3/2,   cos 60° = 1/2,   tan 60° = √3]
+45°−45°−90° (isoceles right triangle, legs 1):
+[EQUATION:sin 45° = cos 45° = 1/√2,   tan 45° = 1]
+Also: sin 0° = 0, cos 0° = 1, tan 0° = 0. sin 90° = 1, cos 90° = 0.
 
-Small angle approximations (theta in radians, theta small): sin t approx t, cos t approx 1 - t2/2, tan t approx t.
+SINE RULE, COSINE RULE, AREA:
+[EQUATION:a/sin A = b/sin B = c/sin C]   Sine rule. Use when you have a side-opposite-angle pair.
+Ambiguous case: when finding an angle from sine rule, θ and 180°−θ both have the same sine — check both are geometrically valid.
+[EQUATION:a² = b² + c² − 2bc cos A]   Cosine rule. Use for SAS or SSS.
+Rearranged: [EQUATION:cos A = (b²+c²−a²)/(2bc)]
+[EQUATION:Area = ½ab sin C]   For any triangle (C = included angle between sides a and b).
 
-Compound angle formulae:
-sin(A +/- B) = sin A cos B +/- cos A sin B.
-cos(A +/- B) = cos A cos B -/+ sin A sin B. (Note: signs are opposite.)
-tan(A +/- B) = (tan A +/- tan B)/(1 -/+ tan A tan B).
+GRAPHS OF TRIGONOMETRIC FUNCTIONS:
+y = sin x: period 360° (2π rad), amplitude 1, range [−1,1]. Through (0,0), max at 90°, zero at 180°, min at 270°.
+y = cos x: period 360°, amplitude 1, range [−1,1]. Through (0,1), zero at 90°, min at 180°. Cos is sin shifted left 90°.
+y = tan x: period 180° (π rad), range ℝ. Vertical asymptotes where cos x = 0 (x = 90°, 270°, …). Through (0,0), (45°,1).
+Transformations: y = a sin(bx+c) + d has amplitude |a|, period 360°/b, phase shift −c/b, vertical shift d.
+Example: y = 3sin(2x) — amplitude 3, period 180°. y = cos(x−45°) — shifted right 45°.
 
-Double angle formulae (set B = A):
-sin 2A = 2 sin A cos A.
-cos 2A = cos2 A - sin2 A = 2cos2 A - 1 = 1 - 2sin2 A.
-tan 2A = 2tan A/(1 - tan2 A).
+SOLVING TRIGONOMETRIC EQUATIONS:
+Step 1: isolate the trig function.
+Step 2: find the principal value (calculator angle).
+Step 3: use CAST (All Sin Tan Cos in Q1→Q4) or graph symmetry to find all solutions in the required interval.
+Symmetry rules (0° to 360° range):
+sin θ = k → θ = α and θ = 180°−α.
+cos θ = k → θ = α and θ = 360°−α.
+tan θ = k → θ = α and θ = 180°+α.
+Example: 2 sin x = 1 for 0° ≤ x ≤ 360°. sin x = ½. Principal: x = 30°. Second (Q2): 150°. Answers: 30°, 150°.
+Equations with multiples: sin 2x = k → let u = 2x, find all u in [0°, 720°], then x = u/2.
+Using identities: replace sin²x = 1−cos²x (or vice versa) to get a quadratic in one trig function.
 
-R-formula: a sin t + b cos t = R sin(t + alpha), where R = sqrt(a2 + b2), tan alpha = b/a.
-Useful for finding max/min values and solving equations.
+COMPOUND AND DOUBLE ANGLE FORMULAE:
+[EQUATION:sin(A ± B) = sin A cos B ± cos A sin B]
+[EQUATION:cos(A ± B) = cos A cos B ∓ sin A sin B]   (signs OPPOSITE to sin formula)
+[EQUATION:tan(A ± B) = (tan A ± tan B)/(1 ∓ tan A tan B)]
+Double angle (B = A):
+[EQUATION:sin 2A = 2 sin A cos A]
+[EQUATION:cos 2A = cos²A − sin²A = 2cos²A − 1 = 1 − 2sin²A]   (three equivalent forms — choose to suit the problem)
+[EQUATION:tan 2A = 2tan A/(1 − tan²A)]
+Useful rearrangements: [EQUATION:sin²A = (1 − cos 2A)/2]   [EQUATION:cos²A = (1 + cos 2A)/2]   (for integrating trig squares)
 
-Inverse trig functions: arcsin, arccos, arctan. Remember restricted domains.
+R-FORMULA:
+[EQUATION:a sin θ + b cos θ = R sin(θ + α)]   where [EQUATION:R = √(a²+b²)]   and [EQUATION:tan α = b/a]
+Maximum value = R, minimum value = −R.
+Worked example: 3sin x + 4cos x. R = √(9+16) = 5, tan α = 4/3 → α = 53.1°. Max = 5 at θ+53.1° = 90°, i.e. θ = 36.9°.
+
+RADIANS, ARC LENGTH, SECTOR AREA:
+[EQUATION:π rad = 180°]   deg→rad: ×π/180. rad→deg: ×180/π.
+[EQUATION:s = rθ]   arc length (θ in radians)
+[EQUATION:A = ½r²θ]   area of sector (θ in radians)
+Area of segment = ½r²(θ − sin θ).
+Small angle approximations (θ in radians, θ small):
+[EQUATION:sin θ ≈ θ,   cos θ ≈ 1 − θ²/2,   tan θ ≈ θ]
+
+COMMON MISTAKES — TRIGONOMETRY:
+• Cosine rule: the sign is MINUS 2bc cos A, not plus. Check: if A=90°, cos A=0 → reduces to Pythagoras ✓.
+• Compound angle for cos: cos(A+B) = cos A cos B − sin A sin B (MINUS). The signs for cos and sin are opposite.
+• Missing solutions: always find ALL values in the required range using CAST or graph symmetry.
+• Calculator mode: check degrees vs radians. sin(30°) = 0.5; sin(30 rad) ≠ 0.5.
+• Inverse trig domains: arcsin maps to [−90°, 90°]; arccos to [0°, 180°]; arctan to (−90°, 90°). Solutions outside these need CAST.
 
 DIFFERENTIATION
-First principles: f'(x) = lim(h to 0) [f(x+h) - f(x)]/h. Proves the power rule for x^n.
-Power rule: d/dx(x^n) = nx^(n-1). Works for all rational n.
-Constant multiple: d/dx(kf) = kf'. Sum/difference: d/dx(f +/- g) = f' +/- g'.
 
-Chain rule: dy/dx = (dy/du)(du/dx). Use when differentiating composite functions.
-d/dx[f(g(x))] = f'(g(x)) x g'(x). Example: d/dx(sin 3x) = 3cos 3x.
+FIRST PRINCIPLES:
+[EQUATION:f'(x) = lim(h→0) [f(x+h) − f(x)] / h]
+Example (proof of power rule): f(x) = x². f(x+h) = x²+2xh+h². [f(x+h)−f(x)]/h = 2x+h → as h→0: f'(x) = 2x.
+The derivative gives the gradient of the tangent to the curve at each point.
 
-Product rule: d/dx(uv) = u'v + uv'. Use when two functions are multiplied.
-Quotient rule: d/dx(u/v) = (u'v - uv')/v2. Use when one function divides another.
+POWER RULE AND BASIC RULES:
+[EQUATION:d/dx(xⁿ) = nxⁿ⁻¹]   works for all real n (positive, negative, fractional).
+[EQUATION:d/dx(kf(x)) = k f'(x)]
+[EQUATION:d/dx(f(x) ± g(x)) = f'(x) ± g'(x)]
+Always convert roots and fractions to index form before differentiating.
+Examples: d/dx(√x) = d/dx(x^½) = ½x^(−½). d/dx(1/x²) = d/dx(x⁻²) = −2x⁻³.
 
-Standard derivatives:
-d/dx(sin x) = cos x. d/dx(cos x) = -sin x. d/dx(tan x) = sec2 x.
-d/dx(e^x) = e^x. d/dx(e^(kx)) = ke^(kx). d/dx(ln x) = 1/x. d/dx(ln f(x)) = f'(x)/f(x).
-d/dx(a^x) = a^x ln a.
+CHAIN RULE (composite functions):
+[EQUATION:dy/dx = (dy/du)(du/dx)]   where y = f(u), u = g(x).
+Rule: derivative of outer function (leaving inner unchanged) × derivative of inner function.
+[EQUATION:d/dx[f(g(x))] = f'(g(x)) × g'(x)]
+Examples: d/dx[(3x+1)⁵] = 5(3x+1)⁴ × 3 = 15(3x+1)⁴.
+d/dx[sin(x²)] = cos(x²) × 2x. d/dx[e^(2x+1)] = 2e^(2x+1). d/dx[ln(x³+1)] = 3x²/(x³+1).
 
-Stationary points: set dy/dx = 0, solve for x.
-Nature: d2y/dx2 > 0 means minimum. d2y/dx2 < 0 means maximum. d2y/dx2 = 0 means check with sign change of first derivative.
-Points of inflection: d2y/dx2 = 0 AND sign change in d2y/dx2. Gradient can be zero (stationary) or non-zero.
+PRODUCT RULE (product of two functions):
+[EQUATION:d/dx(uv) = u'v + uv']
+Example: y = x² sin x. u = x², u' = 2x; v = sin x, v' = cos x.
+dy/dx = 2x sin x + x² cos x.
+Example: y = eˣ ln x. dy/dx = eˣ ln x + eˣ/x = eˣ(ln x + 1/x).
 
-Tangent at (a, f(a)): y - f(a) = f'(a)(x - a). Normal: y - f(a) = -1/f'(a) x (x - a).
-Connected rates of change: use chain rule. dV/dt = (dV/dr)(dr/dt).
+QUOTIENT RULE (ratio of two functions):
+[EQUATION:d/dx(u/v) = (u'v − uv') / v²]   ("bottom d-top minus top d-bottom, over bottom squared")
+Example: y = sin x / x. dy/dx = (x cos x − sin x)/x².
+Example: y = eˣ/(x²+1). dy/dx = (eˣ(x²+1) − 2xeˣ)/(x²+1)² = eˣ(x²−2x+1)/(x²+1)².
 
-Implicit differentiation: differentiate both sides with respect to x, use chain rule on y terms (multiply by dy/dx).
-Example: d/dx(y2) = 2y(dy/dx). Collect dy/dx terms on one side, factorise, solve.
+STANDARD DERIVATIVES:
+[EQUATION:d/dx(sin x) = cos x]
+[EQUATION:d/dx(cos x) = −sin x]
+[EQUATION:d/dx(tan x) = sec²x]
+[EQUATION:d/dx(eˣ) = eˣ]
+[EQUATION:d/dx(e^(kx)) = ke^(kx)]
+[EQUATION:d/dx(aˣ) = aˣ ln a]
+[EQUATION:d/dx(ln x) = 1/x]
+[EQUATION:d/dx(ln f(x)) = f'(x)/f(x)]   (chain rule applied to ln)
+
+TANGENTS AND NORMALS:
+At point P = (a, f(a)) on y = f(x):
+[EQUATION:Tangent: y − f(a) = f'(a)(x − a)]   gradient = f'(a)
+[EQUATION:Normal: y − f(a) = −(1/f'(a))(x − a)]   gradient = −1/f'(a)
+Worked example: y = x³−2x at x = 2. f(2) = 4. f'(x) = 3x²−2, f'(2) = 10.
+Tangent: y−4 = 10(x−2) → y = 10x−16. Normal: y−4 = −(1/10)(x−2) → 10y+x = 42.
+
+STATIONARY POINTS:
+[EQUATION:dy/dx = 0]   at any stationary point — solve for x-values.
+Nature using second derivative:
+[EQUATION:d²y/dx² > 0 ⟹ local minimum]   (concave up — bottom of bowl)
+[EQUATION:d²y/dx² < 0 ⟹ local maximum]   (concave down — top of hill)
+[EQUATION:d²y/dx² = 0 ⟹ inconclusive]   — check sign change of dy/dx around the point.
+Points of inflection: d²y/dx² = 0 AND d²y/dx² changes sign. The gradient may or may not be zero (non-stationary inflection is common).
+
+INCREASING AND DECREASING FUNCTIONS:
+[EQUATION:f'(x) > 0 ⟹ f is increasing]   (gradient positive)
+[EQUATION:f'(x) < 0 ⟹ f is decreasing]   (gradient negative)
+Method: solve f'(x) = 0 for critical x-values; test sign of f'(x) in each resulting interval.
+
+OPTIMISATION:
+Express the quantity Q to be optimised as a function of one variable (use a constraint to eliminate others).
+Differentiate, set dQ/dx = 0, solve. Verify maximum or minimum using second derivative or sign change.
+Example: open box (square base x, height h). Volume V = x²h = 500. Surface area S = x² + 4xh = x² + 2000/x.
+dS/dx = 2x − 2000/x² = 0 → x³ = 1000 → x = 10. d²S/dx² > 0 → minimum. S_min = 300 cm².
+
+CONNECTED RATES OF CHANGE:
+[EQUATION:dV/dt = (dV/dr)(dr/dt)]   chain rule links rates with respect to time.
+General form: [EQUATION:dy/dt = (dy/dx)(dx/dt)]
+Example: sphere expanding at dV/dt = 5 cm³/s. V = (4/3)πr³ → dV/dr = 4πr². At r = 3: dr/dt = 5/(4π×9) = 5/(36π) cm/s.
+
+IMPLICIT DIFFERENTIATION:
+Differentiate both sides w.r.t. x. For any function of y, apply chain rule: d/dx[f(y)] = f'(y) × dy/dx.
+[EQUATION:d/dx(y²) = 2y(dy/dx)]   [EQUATION:d/dx(sin y) = cos y (dy/dx)]
+Collect all dy/dx terms on one side; factorise; solve.
+Example: x² + y² = 25 → 2x + 2y(dy/dx) = 0 → dy/dx = −x/y.
+
+COMMON MISTAKES — DIFFERENTIATION:
+• Chain rule: d/dx(sin 3x) = 3cos 3x, not cos 3x. The inner derivative (3) multiplies the result.
+• Product rule: d/dx(uv) = u'v + uv'. Students often write u'v' — entirely wrong.
+• Quotient rule: numerator is u'v − uv', not u'v + uv'. The minus sign distinguishes it from the product rule.
+• Stationary points: dy/dx = 0 gives x-coordinates. Always substitute back to get y-coordinates.
+• Increasing/decreasing: f is increasing where f'(x) > 0, not where f(x) > 0.
+• d/dx(eˡⁿˣ) = d/dx(x) = 1. But d/dx(e^(f(x))) = f'(x)e^(f(x)) — the exponent's derivative multiplies eˣ.
 
 INTEGRATION
-Reverse of differentiation: integral of x^n dx = x^(n+1)/(n+1) + c (n not equal to -1).
-integral of 1/x dx = ln|x| + c. integral of e^x dx = e^x + c. integral of e^(kx) dx = (1/k)e^(kx) + c.
-integral of sin x dx = -cos x + c. integral of cos x dx = sin x + c. integral of sec2 x dx = tan x + c.
 
-Definite integrals: integral from a to b of f(x) dx = F(b) - F(a). Gives signed area under curve.
-Area between curve and x-axis: integral of |f(x)| dx. Split at roots if curve crosses x-axis.
-Area between two curves: integral of [f(x) - g(x)] dx where f(x) > g(x) in [a,b].
+INDEFINITE INTEGRALS — POWER RULE:
+[EQUATION:∫ xⁿ dx = xⁿ⁺¹/(n+1) + C]   for n ≠ −1. Always include the constant C.
+[EQUATION:∫ kf(x) dx = k ∫ f(x) dx]   (constant factors out)
+[EQUATION:∫ (f(x) ± g(x)) dx = ∫ f(x) dx ± ∫ g(x) dx]
+Convert roots and fractions to index form first: ∫√x dx = ∫x^(½) dx = (2/3)x^(3/2) + C. ∫1/x² dx = ∫x⁻² dx = −1/x + C.
+Exception (n = −1): [EQUATION:∫ 1/x dx = ln|x| + C]   (the modulus handles x < 0).
 
-Integration by substitution: let u = g(x), find du/dx, replace dx, change limits if definite.
-Integration by parts: integral of u dv = uv - integral of v du. Choose u using LIATE (Log, Inverse trig, Algebraic, Trig, Exponential).
-Sometimes need to apply twice or use the trick where integral of e^x sin x dx appears on both sides.
+STANDARD INTEGRALS:
+[EQUATION:∫ eˣ dx = eˣ + C]
+[EQUATION:∫ e^(kx) dx = (1/k)e^(kx) + C]
+[EQUATION:∫ sin x dx = −cos x + C]
+[EQUATION:∫ cos x dx = sin x + C]
+[EQUATION:∫ sec²x dx = tan x + C]
+[EQUATION:∫ aˣ dx = aˣ/ln a + C]
+[EQUATION:∫ f'(x)/f(x) dx = ln|f(x)| + C]   (reverse chain rule for ln)
+Reverse chain rule: if integrand = f'(g(x))×g'(x), integral = f(g(x))+C.
+Example: ∫cos(3x) dx = (1/3)sin(3x)+C. ∫6x(x²+1)² dx = (x²+1)³+C.
 
-Partial fractions for integration: decompose, then integrate term by term. integral of A/(x+a) dx = A ln|x+a| + c.
+DEFINITE INTEGRALS (Fundamental Theorem of Calculus):
+[EQUATION:∫_a^b f(x) dx = F(b) − F(a)]   where F is any antiderivative of f.
+Result: net signed area between curve and x-axis. Positive where curve above x-axis; negative where below.
+Properties: ∫_a^a = 0. ∫_a^b = −∫_b^a. ∫_a^b = ∫_a^c + ∫_c^b (split at any c).
 
-INTEGRATION BY SUBSTITUTION (P4 — detailed)
-Used when reverse chain rule is not obvious. Substitution is usually given in the exam.
-Method: (1) Let u = g(x). (2) Find du/dx, rearrange to get dx = du/g'(x). (3) Replace ALL x terms with u. (4) Integrate w.r.t. u. (5) Substitute back to x.
-For definite integrals: change the limits when you change variable. Or change back to x and use original limits.
-If u^2 = f(x), differentiate implicitly: 2u du = f'(x) dx, so dx = 2u du/f'(x). This avoids messy square roots.
-Example: integral of x*sqrt(x+1) dx with u = x+1. Then x = u-1, dx = du. Integral becomes (u-1)*sqrt(u) du = (u^(3/2) - u^(1/2)) du.
+AREA UNDER A CURVE:
+If f(x) ≥ 0 throughout [a,b]: [EQUATION:Area = ∫_a^b f(x) dx]
+If curve dips below x-axis: split the integral at the x-intercepts. For each part below the axis, the integral is negative — take the magnitude and ADD.
+[EQUATION:Total area = ∫_a^c f(x) dx + |∫_c^b f(x) dx|]   (c = root where f crosses x-axis)
 
-INTEGRATION BY PARTS (P4 — detailed)
-Formula: integral of u dv = uv - integral of v du. Choose u and dv wisely.
-LIATE rule for choosing u (first in list = best choice for u): Logarithmic, Inverse trig, Algebraic, Trig, Exponential.
-Example: integral of x*e^x dx. Let u = x (algebraic), dv = e^x dx. Then du = dx, v = e^x. Result: xe^x - e^x + c.
-For integral of ln x dx: let u = ln x, dv = dx. Then du = 1/x dx, v = x. Result: x ln x - x + c.
-Repeated IBP: if first IBP gives another product to integrate, apply IBP again. Keep tidy — compute second integral separately.
-Cyclic IBP: integral of e^x sin x dx. IBP twice returns the original integral. Collect: 2I = e^x(sin x - cos x), so I = e^x(sin x - cos x)/2.
+AREA BETWEEN TWO CURVES:
+Find intersections by setting f(x) = g(x). Then, where f(x) ≥ g(x):
+[EQUATION:Area = ∫_a^b [f(x) − g(x)] dx]
+If the curves cross within [a,b], split at the crossing point and compute each piece separately.
 
-VOLUMES OF REVOLUTION (P4)
-About x-axis: V = pi * integral from a to b of y^2 dx.
-About y-axis: V = pi * integral from c to d of x^2 dy.
-Parametric: V = pi * integral of y^2 (dx/dt) dt. Change limits to parameter values.
-Subtract volumes for regions between curves: V = pi * integral of (y_outer^2 - y_inner^2) dx.
+INTEGRATION BY SUBSTITUTION:
+Use when reverse chain rule is not obvious. Replace an inner expression with u.
+Method: (1) Let u = g(x). (2) Find du/dx; rearrange: dx = du/g'(x). (3) Substitute ALL x terms and dx. (4) Integrate w.r.t. u. (5) Substitute back (indefinite) or use new limits (definite).
+Example: ∫2x(x²+3)⁴ dx. u = x²+3, du = 2x dx. Integral = ∫u⁴ du = u⁵/5+C = (x²+3)⁵/5+C.
+Definite — change limits: ∫_0^1 2x(x²+3)⁴ dx. x=0→u=3, x=1→u=4. = [u⁵/5]_3^4 = (1024−243)/5 = 781/5.
 
-INTEGRATION BY SUBSTITUTION (P4 — detailed)
-Used when reverse chain rule is not obvious. Substitution is usually given in the exam.
-Method: (1) Let u = g(x). (2) Find du/dx, rearrange to get dx = du/g'(x). (3) Replace ALL x terms with u. (4) Integrate w.r.t. u. (5) Substitute back to x.
-For definite integrals: change the limits when you change variable. Or change back to x and use original limits.
-If u^2 = f(x), differentiate implicitly: 2u du = f'(x) dx, so dx = 2u du/f'(x). This avoids messy square roots.
-Example: integral of x*sqrt(x+1) dx with u = x+1. Then x = u-1, dx = du. Integral becomes (u-1)*sqrt(u) du = (u^(3/2) - u^(1/2)) du.
+INTEGRATION BY PARTS:
+[EQUATION:∫ u dv = uv − ∫ v du]
+LIATE priority for choosing u: Logarithm > Inverse trig > Algebraic > Trig > Exponential. Choose the one higher in this list as u.
+Example: ∫xeˣ dx. u = x, dv = eˣ dx → du = dx, v = eˣ. Result: xeˣ − eˣ + C.
+Example: ∫ln x dx. u = ln x, dv = dx → du = 1/x dx, v = x. Result: x ln x − x + C.
+Cyclic IBP: ∫eˣ sin x dx. Apply IBP twice → the original integral reappears.
+Rearrange: 2I = eˣ(sin x − cos x) → [EQUATION:∫eˣ sin x dx = eˣ(sin x − cos x)/2 + C]
+Partial fractions for integration: decompose, then [EQUATION:∫ A/(x+a) dx = A ln|x+a| + C].
 
-INTEGRATION BY PARTS (P4 — detailed)
-Formula: integral of u dv = uv - integral of v du. Choose u and dv wisely.
-LIATE rule for choosing u (first in list = best choice for u): Logarithmic, Inverse trig, Algebraic, Trig, Exponential.
-Example: integral of x*e^x dx. Let u = x (algebraic), dv = e^x dx. Then du = dx, v = e^x. Result: xe^x - e^x + c.
-For integral of ln x dx: let u = ln x, dv = dx. Then du = 1/x dx, v = x. Result: x ln x - x + c.
-Repeated IBP: if first IBP gives another product to integrate, apply IBP again. Keep tidy — compute second integral separately.
-Cyclic IBP: integral of e^x sin x dx. IBP twice returns the original integral. Collect: 2I = e^x(sin x - cos x), so I = e^x(sin x - cos x)/2.
+VOLUMES OF REVOLUTION:
+About x-axis: [EQUATION:V = π ∫_a^b y² dx]
+About y-axis: [EQUATION:V = π ∫_c^d x² dy]
+Between curves: [EQUATION:V = π ∫_a^b (y_outer² − y_inner²) dx]
 
-VOLUMES OF REVOLUTION (P4)
-About x-axis: V = pi * integral from a to b of y^2 dx.
-About y-axis: V = pi * integral from c to d of x^2 dy.
-Parametric: V = pi * integral of y^2 (dx/dt) dt. Change limits to parameter values.
-Subtract volumes for regions between curves: V = pi * integral of (y_outer^2 - y_inner^2) dx.
+TRAPEZIUM RULE (numerical approximation):
+[EQUATION:∫_a^b f(x) dx ≈ h/2 × [y₀ + 2(y₁ + y₂ + ⋯ + y_{n−1}) + y_n]]   h = (b−a)/n.
+Overestimate for concave-up (bowing upward) curves; underestimate for concave-down. More strips → better accuracy.
 
-Trapezium rule: integral approx h/2 [y0 + 2(y1 + y2 + ... + y(n-1)) + yn] where h = (b-a)/n.
-Always an approximation. Overestimate for concave-up curves, underestimate for concave-down. More strips means better accuracy.
+DIFFERENTIAL EQUATIONS (separation of variables):
+[EQUATION:dy/dx = f(x)g(y)  ⟹  ∫ 1/g(y) dy = ∫ f(x) dx]
+General solution includes constant C. Particular solution: substitute initial condition to find C.
+Example: dy/dx = 3y, y(0) = 2. → ∫(1/y)dy = ∫3 dx → ln|y| = 3x+C → y = Ae^(3x). y(0)=2 → A=2. Solution: y = 2e^(3x).
 
-Differential equations:
-Separate variables: dy/dx = f(x)g(y) leads to integral of (1/g(y))dy = integral of f(x)dx.
-General solution includes + c. Particular solution: use initial conditions to find c.
+COMMON MISTAKES — INTEGRATION:
+• Forgetting +C in every indefinite integral.
+• Power rule: ∫xⁿ dx = xⁿ⁺¹/(n+1) — denominator is n+1, not n.
+• Area below x-axis: the definite integral gives a negative number. For area (positive), subtract the negative part or take |integral|.
+• Substitution: must replace dx with du/g'(x) AND replace every x with u. Leaving an x in the integrand after substituting u is incorrect.
+• By parts: choosing the wrong u makes the integral harder. Apply LIATE.
+• Definite integral with substitution: change limits when you change variable, OR substitute back before evaluating. Don't mix the two approaches.
 
 EXPONENTIALS & LOGARITHMS
-Exponential function: y = a^x. Base e: y = e^x (natural exponential). e approx 2.71828.
-Special property: d/dx(e^x) = e^x. The function equals its own derivative.
-Graphs: e^x always positive, passes through (0,1), increases rapidly. e^(-x) is reflection in y-axis (decay).
 
-Natural logarithm: ln x = log base e of x. Inverse of e^x. Domain: x > 0. ln 1 = 0, ln e = 1.
-d/dx(ln x) = 1/x. integral of (1/x) dx = ln|x| + c. d/dx(ln f(x)) = f'(x)/f(x).
+EXPONENTIAL FUNCTIONS:
+y = aˣ: always positive (aˣ > 0 for all x), passes through (0,1). If a > 1: increasing (growth). If 0 < a < 1: decreasing (decay).
+y = eˣ: natural exponential. e ≈ 2.71828. Special property: [EQUATION:d/dx(eˣ) = eˣ] — the only function that equals its own derivative (and its own integral).
+y = e^(kx): growth if k > 0; decay if k < 0. Passes through (0,1). Asymptote: y = 0.
+y = e^(−x): reflection of eˣ in the y-axis.
 
-Log laws: ln(ab) = ln a + ln b. ln(a/b) = ln a - ln b. ln(a^n) = n ln a. These hold for any base.
-Change of base: log_a(b) = ln b / ln a = log b / log a.
+NATURAL LOGARITHM:
+[EQUATION:ln x = log_e x]   inverse of eˣ. Domain: x > 0. Range: all reals.
+Key values: ln 1 = 0, ln e = 1, ln(1/e) = −1.
+[EQUATION:d/dx(ln x) = 1/x]
+[EQUATION:∫ 1/x dx = ln|x| + C]
+[EQUATION:d/dx(ln f(x)) = f'(x)/f(x)]
+[EQUATION:∫ f'(x)/f(x) dx = ln|f(x)| + C]
+eˡⁿˣ = x and ln(eˣ) = x — they cancel as inverse functions.
 
-Solving exponential equations: a^x = b leads to x = ln b / ln a. Or take ln of both sides.
-Solving log equations: combine using log laws, then convert to exponential form.
+LAWS OF LOGARITHMS (any valid base):
+[EQUATION:log(AB) = log A + log B]
+[EQUATION:log(A/B) = log A − log B]
+[EQUATION:log(Aⁿ) = n log A]
+[EQUATION:log_a(a) = 1]   [EQUATION:log_a(1) = 0]
+Change of base: [EQUATION:log_a(b) = ln b / ln a]
 
-Exponential growth/decay: N = N0 e^(kt). k > 0: growth. k < 0: decay. Half-life: t_half = ln 2 / |k|.
-Modelling: recognise when rate of change is proportional to current value leads to dN/dt = kN leads to N = N0 e^(kt).
+SOLVING EXPONENTIAL EQUATIONS:
+Same base: aˣ = aᵏ → x = k.
+Take logs: [EQUATION:aˣ = b ⟹ x = ln b / ln a]
+Example: 3ˣ = 20 → x ln 3 = ln 20 → x = ln 20/ln 3 ≈ 2.727.
+Disguised quadratic: let u = eˣ, form quadratic in u, solve, then take ln.
+Example: e^(2x) − 5eˣ + 6 = 0. Let u = eˣ: (u−2)(u−3) = 0 → x = ln 2 or x = ln 3.
+Solving log equations: combine using log laws → single log → exponentiate → solve. Always check arguments remain positive.
+Example: log₂(x) + log₂(x+2) = 3 → log₂(x(x+2)) = 3 → x(x+2) = 8 → x = 2 (reject x = −4).
+
+EXPONENTIAL GROWTH AND DECAY:
+[EQUATION:N = N₀ e^(kt)]   N₀ = initial value, k = rate constant.
+k > 0: growth. k < 0: decay.
+Half-life: [EQUATION:t_{1/2} = ln 2 / |k|]   (set N = N₀/2 and solve)
+Doubling time: t_double = ln 2 / k.
+Modelling from first principles: dN/dt = kN → separate variables → N = N₀e^(kt).
+Linearising for data analysis: take ln of both sides:
+[EQUATION:ln N = kt + ln N₀]
+Graph of ln N vs t is a straight line: gradient = k, y-intercept = ln N₀.
+
+COMMON MISTAKES — EXPONENTIALS & LOGARITHMS:
+• ln(A+B) ≠ ln A + ln B. Log laws apply to products, quotients, and powers only — NOT sums.
+• eˡⁿˣ = x. ln(eˣ) = x. These are inverse function cancellations.
+• When solving aˣ = b: take ln of BOTH sides (both the left and right expressions), not just one side.
+• Log arguments must be positive: always reject solutions that give ln(0) or ln(negative).
+• Half-life: t_{1/2} = ln 2 / |k|, not 1/|k|. The ln 2 comes from solving e^(kt) = 1/2.
+• Linearising: the gradient of ln N vs t is k, and the y-intercept is ln N₀ (not N₀ itself).
 
 VECTORS
 Vector notation: column vectors, i-j-k notation, or bold letters.
