@@ -3648,7 +3648,84 @@ REFERENCE SOURCES (provide when student asks for further reading):
 - OpenStax Calculus Vol 1-3: openstax.org/details/books/calculus-volume-1
 - LibreTexts Maths: math.libretexts.org/Bookshelves
 - Paul's Online Math Notes: tutorial.math.lamar.edu (excellent for ODEs)
-- 3Blue1Brown: youtube.com/@3blue1brown (visual intuition for linear algebra, calculus)`,
+- 3Blue1Brown: youtube.com/@3blue1brown (visual intuition for linear algebra, calculus)
+
+MECHANICS 1 (M1 / WME01):
+
+Mathematical models: particles (rigid body simplified), light strings (no mass, constant tension), smooth surfaces (no friction), inextensible strings (equal accelerations), uniform rods (centre of mass at midpoint).
+
+Vectors: magnitude |r| = √(x²+y²). Direction from components using tan. Add vectors in component form. Resolve into perpendicular components. Relative velocity: velocity of A relative to B = vA - vB.
+
+SUVAT equations (constant acceleration):
+[EQUATION:v = u + at]
+[EQUATION:s = ut + ½at²]
+[EQUATION:v² = u² + 2as]
+[EQUATION:s = ½(u+v)t]
+Vertical motion: a = ±9.8 ms⁻². Take upward as positive. At maximum height v = 0.
+
+Speed-time graphs: gradient = acceleration. Area under graph = displacement.
+
+Statics — equilibrium: resultant force = 0. Resolve horizontally AND vertically. Triangle/polygon of forces for three forces in equilibrium.
+
+Friction: F = μR where μ = coefficient of friction. F ≤ μR always. F = μR at limiting equilibrium only. Normal reaction R perpendicular to surface.
+
+Newton's laws:
+1st: constant velocity if no resultant force.
+2nd: F = ma (resultant force = mass × acceleration).
+3rd: equal and opposite reaction forces.
+
+Connected particles: same acceleration if joined by inextensible string. For Atwood's machine: net force = (m₁-m₂)g, total mass = m₁+m₂.
+
+Impulse and momentum:
+[EQUATION:Impulse = Ft = mv - mu]
+[EQUATION:Conservation of momentum: m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂]
+
+Moments: moment = force × perpendicular distance. Clockwise = anticlockwise for equilibrium. For non-uniform rod: take moments about a point to find centre of mass.
+
+MECHANICS 2 (M2):
+
+Projectile motion: horizontal motion uniform (a=0), vertical motion under gravity (a=-9.8).
+[EQUATION:x = (Ucosθ)t]
+[EQUATION:y = (Usinθ)t - ½gt²]
+Range = U²sin2θ/g. Maximum range when θ = 45°. Maximum height = U²sin²θ/2g.
+
+Variable acceleration: v = dx/dt. a = dv/dt = v(dv/dx). x = ∫v dt. v = ∫a dt.
+
+Centre of mass of n particles: x̄ = Σmᵢxᵢ/Σmᵢ. For composite laminas: treat each part separately, combine using total mass.
+Standard results: triangle → ⅓ from base. Semicircle → 4r/3π from centre. Cone → ¼h from base.
+
+Work, energy, power:
+[EQUATION:Work done = Fs cosθ]
+[EQUATION:KE = ½mv²]
+[EQUATION:GPE = mgh]
+[EQUATION:Work-energy theorem: Work done by all forces = ΔKE]
+Power P = Fv = work done/time. Units: Watts.
+
+Newton's law of restitution: e = speed of separation/speed of approach. 0 ≤ e ≤ 1. e=1 perfectly elastic, e=0 perfectly inelastic.
+[EQUATION:e = (v₂-v₁)/(u₁-u₂)]
+For collision with wall: e = speed after/speed before (perpendicular component).
+
+Statics of rigid bodies: moments about any point. Three non-parallel forces in equilibrium must meet at a single point.
+
+MECHANICS 3 (M3):
+
+Further kinematics: variable force problems. Use F = ma → a = F/m → v = ∫a dt.
+Forces varying with speed: F = f(v). Separate variables and integrate.
+
+Hooke's Law: T = λx/l where λ = modulus of elasticity, x = extension, l = natural length.
+[EQUATION:T = λx/l]
+Elastic PE = λx²/2l.
+[EQUATION:EPE = λx²/2l]
+For elastic strings: tension only when extended. For springs: tension and thrust.
+
+SHM: ẍ = -ω²x. Period T = 2π/ω. Amplitude a.
+[EQUATION:v² = ω²(a² - x²)]
+For horizontal spring: ω² = k/m. For vertical spring: equilibrium where T = mg, measure x from equilibrium.
+
+Circular motion (variable speed): use energy conservation for speed. F = mv²/r for centripetal force.
+Vertical circle conditions: string — minimum speed at top v² ≥ gr (T ≥ 0). Rod — can have v = 0 at top. Smooth sphere — leaves surface when N = 0.
+
+Centres of mass (solids of revolution): x̄ = ∫πy²x dx / ∫πy²dx. Hemisphere = 3r/8 from flat face. Cone = h/4 from base.`,
   },
   wch14: { id:"wch14", name:"Chemistry Unit 4", code:"WCH14", subtitle:"Organic Chemistry, Spectroscopy & Transition Metals", colour:"#4d9460", icon:"⚗", placeholder:"Ask about Chemistry Unit 4 (WCH14)...",
     prompts:["Explain the mechanism for nucleophilic substitution","How do I interpret an IR spectrum?","Describe transition metal complex ions","What is optical isomerism?"],
