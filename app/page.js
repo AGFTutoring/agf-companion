@@ -3725,7 +3725,77 @@ For horizontal spring: ω² = k/m. For vertical spring: equilibrium where T = mg
 Circular motion (variable speed): use energy conservation for speed. F = mv²/r for centripetal force.
 Vertical circle conditions: string — minimum speed at top v² ≥ gr (T ≥ 0). Rod — can have v = 0 at top. Smooth sphere — leaves surface when N = 0.
 
-Centres of mass (solids of revolution): x̄ = ∫πy²x dx / ∫πy²dx. Hemisphere = 3r/8 from flat face. Cone = h/4 from base.`,
+Centres of mass (solids of revolution): x̄ = ∫πy²x dx / ∫πy²dx. Hemisphere = 3r/8 from flat face. Cone = h/4 from base.
+
+FURTHER PURE 1 (FP1 / WFM01):
+
+COMPLEX NUMBERS:
+Definition: i = √−1. Complex number z = a + bi where a, b ∈ ℝ. a = real part, b = imaginary part.
+Addition: (a+bi)+(c+di) = (a+c)+(b+d)i. Subtraction: (a+bi)−(c+di) = (a−c)+(b−d)i.
+Multiplication: (a+bi)(c+di) = (ac−bd)+(ad+bc)i. Remember i² = −1.
+Division: multiply numerator and denominator by the complex conjugate of the denominator.
+[EQUATION:(3+4i)/(5+2i) = (3+4i)(5−2i)/((5+2i)(5−2i)) = (23+14i)/29]
+Complex conjugate: z* = a − bi. Key properties: (z+w)* = z*+w*; (zw)* = z*w*.
+Argand diagram: represent z = a+bi as point (a,b) or position vector. Real axis horizontal, imaginary axis vertical.
+Multiplication by i: i(a+bi) = −b+ai — equivalent to a positive quarter-turn (90°) about the origin.
+Modulus: |z| = √(a²+b²). Note: z·z* = |z|².
+[EQUATION:|z| = √(a²+b²)]
+Argument: arg z = angle from positive real axis. Convention: −π < arg z ≤ π. Always draw a diagram first — easy to get wrong without one. For z in second quadrant: arg z = π − α where α = arctan(|Im|/|Re|).
+Equality: a+bi = c+di ⟹ a = c AND b = d (equate real and imaginary parts separately).
+Square roots of complex numbers: let √(a+bi) = x+yi, square both sides, equate real and imaginary parts, solve simultaneously.
+Example: √(5+12i) = x+yi ⟹ x²−y²=5 and 2xy=12 ⟹ solve to get ±(3+2i).
+Roots of polynomial equations:
+1. Any polynomial with real coefficients has complex roots in conjugate pairs. If a+bi is a root, so is a−bi.
+2. Conjugate pair (a±bi): (z−(a+bi))(z−(a−bi)) = z²−2az+(a²+b²) — real quadratic factor.
+3. Method: given one complex root, state conjugate is also a root, form the quadratic factor, divide polynomial by it to find remaining roots.
+
+NUMERICAL METHODS:
+Accuracy: to show root α is accurate to n d.p., evaluate f at α−0.5×10⁻ⁿ and α+0.5×10⁻ⁿ. Change of sign + continuity ⟹ root in interval ⟹ accurate to n d.p.
+Interval bisection: find [a,b] containing root. Evaluate f at midpoint (a+b)/2. Root lies in half-interval where sign change occurs. Repeat to desired accuracy.
+Linear interpolation: assume curve is straight line between (a,f(a)) and (b,f(b)).
+[EQUATION:α ≈ a − f(a)×(b−a)/(f(b)−f(a))]
+Newton-Raphson: geometrically, tangent at xₙ meets x-axis at xₙ₊₁. Converges rapidly for good starting values.
+[EQUATION:x_{n+1} = x_n - f(x_n)/f'(x_n)]
+
+COORDINATE SYSTEMS:
+Parabola y² = 4ax: passes through origin, axis of symmetry = x-axis. Parametric form: x = at², y = 2at.
+Focus S(a,0). Directrix x = −a. Any point P: PS = PM (equidistant from focus and directrix).
+Gradient at parameter t: dy/dx = 1/t.
+Tangent at (at²,2at): ty = x + at². Normal at (at²,2at): y + tx = 2at + at³.
+Rectangular hyperbola xy = c²: asymptotes are coordinate axes (perpendicular ⟹ rectangular).
+Parametric form: x = ct, y = c/t. Gradient at parameter t: dy/dx = −1/t².
+Tangent at (ct,c/t): x + t²y = 2ct. Normal at (ct,c/t): t³x − ty = c(t⁴−1).
+
+MATRICES:
+[EQUATION:det M = ad - bc]
+Inverse: M⁻¹ = (1/det M) × [[d,−b],[−c,a]].
+Singular matrix: det = 0, no inverse. Non-singular: det ≠ 0, inverse exists.
+Solving matrix equations: multiply on LEFT by M⁻¹ (order matters — matrix multiplication is not commutative).
+Basis vectors: i=(1,0) → first column of matrix; j=(0,1) → second column. Key to finding the matrix of any transformation.
+Finding matrix from transformation: determine where i and j map to → those become the columns.
+Key transformation matrices:
+Rotation by θ anticlockwise: [[cosθ,−sinθ],[sinθ,cosθ]].
+Reflection in y=x: [[0,1],[1,0]]. In y=−x: [[0,−1],[−1,0]]. In x-axis: [[1,0],[0,−1]]. In y-axis: [[−1,0],[0,1]].
+Stretch factor k parallel to x-axis: [[k,0],[0,1]]. Parallel to y-axis: [[1,0],[0,k]]. Enlargement factor k: [[k,0],[0,k]].
+Shear factor k, x-axis invariant: [[1,k],[0,1]]. y-axis invariant: [[1,0],[k,1]].
+Area factor: area of image / area of object = |det M|. If det M < 0, transformation includes a reflection.
+
+SERIES (Standard summation formulae):
+[EQUATION:∑r = n(n+1)/2]
+[EQUATION:∑r² = n(n+1)(2n+1)/6]
+[EQUATION:∑r³ = n²(n+1)²/4]
+Method for non-standard limits: ∑ᵣ₌ₐᵇ = ∑ᵣ₌₁ᵇ − ∑ᵣ₌₁ᵃ⁻¹. Factor out constants first (e.g. ∑(2r)² = 4∑r²).
+
+PROOF BY INDUCTION:
+Four-step structure — must follow exactly:
+1. Base case: verify formula true for n=1 (state explicitly).
+2. Induction hypothesis: "Assume true for n=k" — write out what this means.
+3. Inductive step: prove true for n=k+1 using the assumption. Show working clearly.
+4. Conclusion: "Therefore true for all positive integers n by mathematical induction."
+Summation proofs: write Sₖ₊₁ = Sₖ + (k+1)th term, substitute assumption, factorise to show result holds for n=k+1.
+Recurrence relations: substitute uₖ₊₁ = f(uₖ) using the recurrence, substitute induction hypothesis, simplify to show formula holds for n=k+1.
+Divisibility proofs: consider f(k+1) − m×f(k) where m is chosen to eliminate the exponential. Show result is a multiple of divisor. Example structure: f(k+1) − 5×f(k) = 16k ⟹ f(k+1) = 5f(k) + 16k (both terms divisible by 16 by assumption and directly).
+Matrix powers: show Mᵏ⁺¹ = M × Mᵏ, substitute induction hypothesis, multiply matrices explicitly, simplify to show formula holds for n=k+1.`,
   },
   wch14: { id:"wch14", name:"Chemistry Unit 4", code:"WCH14", subtitle:"Organic Chemistry, Spectroscopy & Transition Metals", colour:"#4d9460", icon:"⚗", placeholder:"Ask about Chemistry Unit 4 (WCH14)...",
     prompts:["Explain the mechanism for nucleophilic substitution","How do I interpret an IR spectrum?","Describe transition metal complex ions","What is optical isomerism?"],
