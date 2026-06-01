@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AGF Tutoring — Topic 3 Synoptic Quiz (3A & 3B)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#1a1a1a;
+    --charcoal-2:#262626;
+    --green:#4d9460;
+    --green-dim:#3c7a4c;
+    --cream:#e8e5de;
+    --cream-dim:#a8a59c;
+    --line:#33332f;
+    --wrong:#c2604f;
+    --right:#4d9460;
+    --gold:#c9a24a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--charcoal);color:var(--cream);font-family:"Outfit",sans-serif;-webkit-font-smoothing:antialiased}
+  body{line-height:1.5}
+  .wrap{max-width:780px;margin:0 auto;padding:32px 22px 80px}
+
+  /* ---- Header / masthead ---- */
+  header.mast{
+    border-bottom:1px solid var(--line);
+    padding-bottom:22px;margin-bottom:30px;
+    display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap
+  }
+  .brand{display:flex;flex-direction:column;gap:4px}
+  .brand .agf{
+    font-family:"DM Serif Display",serif;font-size:30px;line-height:1;
+    letter-spacing:.5px
+  }
+  .brand .agf .dot{color:var(--green)}
+  .brand .sub{font-size:11.5px;letter-spacing:2.6px;text-transform:uppercase;color:var(--cream-dim)}
+  .badge{
+    font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);
+    border:1px solid var(--green-dim);border-radius:999px;padding:6px 14px;white-space:nowrap
+  }
+
+  /* ---- Intro panel ---- */
+  .intro h1{
+    font-family:"DM Serif Display",serif;font-weight:400;font-size:32px;line-height:1.12;margin-bottom:10px
+  }
+  .intro h1 em{font-style:italic;color:var(--green)}
+  .intro p{color:var(--cream-dim);font-size:15px;max-width:62ch;margin-bottom:6px}
+  .meta-row{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 26px}
+  .chip{font-size:12px;letter-spacing:.4px;color:var(--cream);background:var(--charcoal-2);border:1px solid var(--line);border-radius:6px;padding:8px 12px}
+  .chip b{color:var(--green);font-weight:600}
+  .start{
+    font-family:"Outfit";font-weight:600;font-size:15px;letter-spacing:.4px;
+    background:var(--green);color:#0e1a11;border:none;border-radius:8px;
+    padding:14px 26px;cursor:pointer;transition:.18s transform,.18s background
+  }
+  .start:hover{background:#5aa870;transform:translateY(-1px)}
+  .note{font-size:12.5px;color:var(--cream-dim);margin-top:16px}
+
+  /* ---- Progress ---- */
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;font-size:13px;color:var(--cream-dim)}
+  .topbar .qno{color:var(--cream);font-weight:600;letter-spacing:.3px}
+  .prog{height:4px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:26px}
+  .prog > i{display:block;height:100%;background:var(--green);width:0;transition:width .3s ease}
+
+  /* ---- Question card ---- */
+  .qtags{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .tag{font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;padding:4px 9px;border-radius:4px;font-weight:600}
+  .tag.t3a{background:rgba(77,148,96,.15);color:#7bc08f;border:1px solid var(--green-dim)}
+  .tag.t3b{background:rgba(201,162,74,.14);color:var(--gold);border:1px solid #6a5826}
+  .tag.tsyn{background:rgba(194,96,79,.16);color:#e08a78;border:1px solid #6e3b30}
+  .qtext{font-family:"DM Serif Display",serif;font-weight:400;font-size:21px;line-height:1.32;margin-bottom:6px}
+  .qfig{margin:16px 0 4px;background:var(--charcoal-2);border:1px solid var(--line);border-radius:8px;padding:14px;display:flex;justify-content:center}
+  .opts{margin-top:20px;display:flex;flex-direction:column;gap:11px}
+  .opt{
+    text-align:left;cursor:pointer;background:var(--charcoal-2);border:1px solid var(--line);
+    color:var(--cream);border-radius:9px;padding:14px 16px;font-size:15px;font-family:"Outfit";
+    display:flex;gap:13px;align-items:flex-start;transition:.14s border-color,.14s background
+  }
+  .opt:hover:not(.locked){border-color:var(--green-dim);background:#2c2c2c}
+  .opt .key{
+    flex:0 0 26px;height:26px;border-radius:6px;border:1px solid var(--line);
+    display:grid;place-items:center;font-weight:600;font-size:13px;color:var(--cream-dim);margin-top:-1px
+  }
+  .opt.locked{cursor:default}
+  .opt.correct{border-color:var(--right);background:rgba(77,148,96,.12)}
+  .opt.correct .key{background:var(--right);color:#0e1a11;border-color:var(--right)}
+  .opt.chosen-wrong{border-color:var(--wrong);background:rgba(194,96,79,.12)}
+  .opt.chosen-wrong .key{background:var(--wrong);color:#1a1a1a;border-color:var(--wrong)}
+
+  .explain{margin-top:18px;border-left:3px solid var(--green);background:var(--charcoal-2);
+    border-radius:0 8px 8px 0;padding:14px 16px;font-size:14px;display:none}
+  .explain.show{display:block;animation:fade .25s ease}
+  .explain .vh{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--green);margin-bottom:7px;font-weight:600}
+  .explain code{font-family:"Outfit";color:#cfe6d6}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  .nav{margin-top:28px;display:flex;justify-content:flex-end}
+  .next{
+    font-family:"Outfit";font-weight:600;font-size:14.5px;background:var(--green);color:#0e1a11;
+    border:none;border-radius:8px;padding:12px 24px;cursor:pointer;transition:.16s;opacity:.4;pointer-events:none
+  }
+  .next.on{opacity:1;pointer-events:auto}
+  .next.on:hover{background:#5aa870}
+
+  /* ---- Results ---- */
+  .scorehead{text-align:center;margin-bottom:8px}
+  .scorehead .pct{font-family:"DM Serif Display",serif;font-size:60px;line-height:1;color:var(--green)}
+  .scorehead .frac{color:var(--cream-dim);font-size:15px;margin-top:6px}
+  .grade{text-align:center;font-size:15px;margin:14px 0 30px;color:var(--cream)}
+  .break h3{font-family:"DM Serif Display";font-weight:400;font-size:18px;margin:26px 0 12px}
+  .bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-size:13.5px}
+  .bar-row .lab{flex:0 0 168px;color:var(--cream-dim)}
+  .bar-row .track{flex:1;height:9px;background:var(--line);border-radius:99px;overflow:hidden}
+  .bar-row .track > i{display:block;height:100%;border-radius:99px}
+  .bar-row .val{flex:0 0 46px;text-align:right;color:var(--cream)}
+  .weak{margin-top:26px;background:var(--charcoal-2);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:16px}
+  .weak .vh{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold);margin-bottom:9px;font-weight:600}
+  .weak ul{margin:0;padding-left:18px;font-size:14px;color:var(--cream)}
+  .weak li{margin-bottom:5px}
+  .weak.none{border-left-color:var(--green)}
+  .weak.none .vh{color:var(--green)}
+  .again{display:block;margin:32px auto 0;font-family:"Outfit";font-weight:600;font-size:14.5px;background:transparent;color:var(--cream);border:1px solid var(--line);border-radius:8px;padding:12px 26px;cursor:pointer;transition:.16s}
+  .again:hover{border-color:var(--green);color:var(--green)}
+
+  .hidden{display:none}
+  footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;font-size:11.5px;letter-spacing:.4px;color:var(--cream-dim);text-align:center}
+  sub,sup{font-size:.72em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="brand">
+      <div class="agf">AGF<span class="dot">.</span> Tutoring</div>
+      <div class="sub">IAL Physics &middot; Pearson Edexcel</div>
+    </div>
+    <div class="badge">Synoptic &middot; Topic 3</div>
+  </header>
+
+  <!-- INTRO -->
+  <section id="intro" class="intro">
+    <h1>Waves: <em>synoptic</em> review<br>Chapters 3A &amp; 3B</h1>
+    <p>Thirty multiple-choice questions spanning <b style="color:var(--cream)">Basic Waves (3A)</b> and
+       <b style="color:var(--cream)">The Behaviour of Waves (3B)</b>. The final five are flagged
+       <span style="color:#e08a78;font-weight:600">synoptic</span> &mdash; each one forces you to combine ideas from
+       both chapters (and reach back to the wave equation).</p>
+    <div class="meta-row">
+      <div class="chip"><b>30</b> questions</div>
+      <div class="chip"><b>3A</b> wave basics &amp; types</div>
+      <div class="chip"><b>3B</b> superposition, standing waves, diffraction</div>
+      <div class="chip"><b>5</b> synoptic</div>
+    </div>
+    <button class="start" onclick="begin()">Begin quiz &rarr;</button>
+    <p class="note">Single-attempt diagnostic. Pick an answer, read the worked feedback, then advance.
+       A topic breakdown is given at the end.</p>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="hidden">
+    <div class="topbar">
+      <span class="qno" id="qno">Question 1 of 30</span>
+      <span id="running">Score 0</span>
+    </div>
+    <div class="prog"><i id="progbar"></i></div>
+
+    <div id="qtags" class="qtags"></div>
+    <div id="qtext" class="qtext"></div>
+    <div id="qfig"></div>
+    <div id="opts" class="opts"></div>
+    <div id="explain" class="explain"></div>
+
+    <div class="nav">
+      <button id="next" class="next" onclick="advance()">Next &rarr;</button>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" class="hidden">
+    <div class="scorehead">
+      <div class="pct" id="pct">0%</div>
+      <div class="frac" id="frac">0 / 30 correct</div>
+    </div>
+    <div class="grade" id="grade"></div>
+
+    <div class="break">
+      <h3>Performance by strand</h3>
+      <div id="bars"></div>
+    </div>
+
+    <div id="weakbox"></div>
+    <button class="again" onclick="restart()">Reset &amp; try again</button>
+  </section>
+
+  <footer>AGF Tutoring &middot; agftutoring.co.uk &middot; IAL Physics Topic 3 (Waves &amp; the Particle Nature of Light)</footer>
+</div>
+
+<script>
+/* ---------- diagrams (inline SVG, drawn to keep figures exam-clean) ---------- */
+const cream="#e8e5de", dim="#a8a59c", grn="#4d9460";
+function svgWave(){ // displacement-distance with crest/trough
+  return `<svg viewBox="0 0 360 140" width="100%" style="max-width:360px">
+    <line x1="20" y1="70" x2="345" y2="70" stroke="${dim}" stroke-width="1" stroke-dasharray="3 3"/>
+    <path d="M20 70 Q57 14 95 70 T170 70 T245 70 T320 70" fill="none" stroke="${grn}" stroke-width="2.5"/>
+    <line x1="57" y1="70" x2="57" y2="30" stroke="${dim}" stroke-width="1" stroke-dasharray="2 2"/>
+    <line x1="132" y1="70" x2="132" y2="30" stroke="${dim}" stroke-width="1" stroke-dasharray="2 2"/>
+    <line x1="57" y1="30" x2="132" y2="30" stroke="${cream}" stroke-width="1"/>
+    <text x="95" y="24" fill="${cream}" font-size="11" text-anchor="middle" font-family="Outfit">one wavelength</text>
+    <text x="332" y="58" fill="${dim}" font-size="10" font-family="Outfit">distance</text>
+  </svg>`;
+}
+function svgStanding(){ // 1st overtone / 2nd harmonic - 3 nodes 2 antinodes
+  return `<svg viewBox="0 0 360 130" width="100%" style="max-width:360px">
+    <line x1="30" y1="65" x2="330" y2="65" stroke="${dim}" stroke-width="1"/>
+    <path d="M30 65 Q105 15 180 65 Q255 115 330 65" fill="none" stroke="${grn}" stroke-width="2.5"/>
+    <path d="M30 65 Q105 115 180 65 Q255 15 330 65" fill="none" stroke="${cream}" stroke-width="1.4" stroke-dasharray="4 3"/>
+    ${[30,180,330].map(x=>`<circle cx="${x}" cy="65" r="3.4" fill="${cream}"/>`).join("")}
+    ${[30,180,330].map(x=>`<text x="${x}" y="86" fill="${dim}" font-size="9.5" text-anchor="middle" font-family="Outfit">node</text>`).join("")}
+    ${[105,255].map(x=>`<text x="${x}" y="34" fill="${grn}" font-size="9.5" text-anchor="middle" font-family="Outfit">antinode</text>`).join("")}
+    <rect x="22" y="48" width="8" height="34" fill="${dim}"/><rect x="330" y="48" width="8" height="34" fill="${dim}"/>
+  </svg>`;
+}
+
+/* ---------- question bank ---------- */
+const Q=[
+/* ----- 3A : BASIC WAVES ----- */
+{s:"3A",topic:"Wave equation",q:"A sound wave has a frequency of 256 Hz and travels at 340 m s\u207B\u00B9 in air. What is its wavelength?",
+ o:["0.75 m","1.33 m","87 m","8.7 \u00D7 10\u2074 m"],a:1,
+ e:"\u03BB = v / f = 340 / 256 = <code>1.33 m</code>."},
+{s:"3A",topic:"Period & frequency",q:"A wave has a frequency of 50 Hz. What is its time period?",
+ o:["0.020 s","0.050 s","2.0 s","50 s"],a:0,
+ e:"T = 1 / f = 1 / 50 = <code>0.020 s</code> (20 ms)."},
+{s:"3A",topic:"Phase",q:"Two points on a progressive wave are separated by exactly a quarter of a wavelength. What is the phase difference between them?",
+ o:["45\u00B0","90\u00B0","180\u00B0","360\u00B0"],a:1,
+ e:"One whole wavelength = 360\u00B0 (2\u03C0 rad), so a quarter = <code>90\u00B0 = \u03C0/2 rad</code>."},
+{s:"3A",topic:"Wave types",q:"Which of the following is a longitudinal wave?",
+ o:["A wave on a stretched string","A sound wave in air","A light wave","A seismic S-wave"],a:1,
+ e:"In a sound wave the air particles oscillate <em>parallel</em> to the direction of energy transfer \u2014 longitudinal. The other three are transverse."},
+{s:"3A",topic:"Pulse-echo",q:"A sonar pulse returns to a ship 0.40 s after it was emitted. The speed of sound in seawater is 1500 m s\u207B\u00B9. How deep is the water?",
+ o:["150 m","300 m","600 m","1200 m"],a:1,
+ e:"Total path = v t = 1500 \u00D7 0.40 = 600 m (down <em>and</em> back). Depth = \u00BD \u00D7 600 = <code>300 m</code>."},
+{s:"3A",topic:"Definitions",q:"The magnitude of the maximum displacement of a particle from its equilibrium position is the wave's:",
+ o:["wavelength","period","amplitude","phase"],a:2,
+ e:"That is the definition of <code>amplitude</code> (symbol A, unit m)."},
+{s:"3A",topic:"Wave types / medium",q:"Seismic S-waves cannot pass through the Earth's liquid outer core. Why?",
+ o:["They are longitudinal and need a solid","They are transverse, and a liquid cannot sustain the shear oscillations","They have too high a frequency","They are electromagnetic"],a:1,
+ e:"S-waves are <em>transverse</em>. Transverse oscillations require a medium that can support shear; liquids cannot, so S-waves are blocked."},
+{s:"3A",topic:"EM waves / wave equation",q:"A radio station broadcasts at 100 MHz. What is the wavelength of these radio waves in air? (c = 3.0 \u00D7 10\u2078 m s\u207B\u00B9)",
+ o:["0.30 m","3.0 m","30 m","3.0 \u00D7 10\u2076 m"],a:1,
+ e:"\u03BB = c / f = (3.0 \u00D7 10\u2078) / (1.0 \u00D7 10\u2078) = <code>3.0 m</code>. (100 MHz = 1.0 \u00D7 10\u2078 Hz.)"},
+{s:"3A",topic:"Graph reading",q:"On a displacement\u2013<em>time</em> graph for a single point in a wave, the horizontal gap between two adjacent crests represents the:",
+ fig:svgWave,
+ o:["wavelength","amplitude","period","wave speed"],a:2,
+ e:"A displacement\u2013<em>time</em> graph shows one point oscillating, so crest-to-crest is one <code>period</code>. (Crest-to-crest on a displacement\u2013<em>distance</em> graph would be the wavelength.)"},
+{s:"3A",topic:"Ultrasound",q:"Ultrasound used in medical scanning has a frequency above 20 kHz. Why is it called 'ultrasound'?",
+ o:["It travels faster than ordinary sound","Its frequency is above the upper limit of human hearing","It has a much larger amplitude","It is electromagnetic"],a:1,
+ e:"'Ultra' = above. Ultrasound has frequencies <em>above</em> the human audible range (roughly 20 kHz)."},
+
+/* ----- 3B : BEHAVIOUR OF WAVES ----- */
+{s:"3B",topic:"Standing waves",q:"A string fixed at both ends, of length L, vibrates in its fundamental mode. What is the wavelength of the standing wave?",
+ o:["L / 2","L","2L","4L"],a:2,
+ e:"The fundamental has a node at each end and one antinode in the middle \u2014 half a wavelength fits in L, so <code>\u03BB = 2L</code>."},
+{s:"3B",topic:"Standing waves (calc)",q:"A guitar string of length 0.65 m vibrates in its fundamental mode. The speed of waves on the string is 390 m s\u207B\u00B9. What is the fundamental frequency?",
+ o:["150 Hz","300 Hz","600 Hz","254 Hz"],a:1,
+ e:"\u03BB = 2L = 1.30 m; f = v / \u03BB = 390 / 1.30 = <code>300 Hz</code>."},
+{s:"3B",topic:"Nodes & antinodes",q:"A string vibrating in its first overtone (second harmonic) has how many nodes (counting the fixed ends) and antinodes?",
+ fig:svgStanding,
+ o:["2 nodes, 1 antinode","3 nodes, 2 antinodes","2 nodes, 3 antinodes","4 nodes, 3 antinodes"],a:1,
+ e:"The 2nd harmonic fits one whole wavelength in the string: <code>3 nodes</code> (both ends + centre) and <code>2 antinodes</code>."},
+{s:"3B",topic:"Coherence",q:"Two wave sources are described as coherent if they have:",
+ o:["the same amplitude only","the same frequency and a constant phase relationship","the same speed only","a path difference of exactly zero"],a:1,
+ e:"Coherence = same frequency <em>and</em> a constant phase relationship. (Equal amplitudes are not required.)"},
+{s:"3B",topic:"Interference (path difference)",q:"For two coherent sources, constructive interference occurs at points where the path difference is:",
+ o:["(n + \u00BD)\u03BB","a whole number of wavelengths, n\u03BB","\u03BB / 4","always zero"],a:1,
+ e:"Constructive: path difference = <code>n\u03BB</code>, so the waves arrive in phase (phase difference 2n\u03C0)."},
+{s:"3B",topic:"Interference (phase)",q:"Two waves arriving at a point are exactly in antiphase. Their phase difference is:",
+ o:["0","90\u00B0 (\u03C0/2 rad)","180\u00B0 (\u03C0 rad)","360\u00B0 (2\u03C0 rad)"],a:2,
+ e:"Antiphase = <code>180\u00B0 = \u03C0 rad</code>, giving destructive interference."},
+{s:"3B",topic:"Diffraction",q:"Diffraction of a wave through a gap is greatest when:",
+ o:["the gap is much larger than the wavelength","the gap is much smaller than the wavelength","the gap is approximately equal to the wavelength","the wave has a large amplitude"],a:2,
+ e:"Maximum spreading occurs when the gap size \u2248 the <code>wavelength</code>."},
+{s:"3B",topic:"Diffraction grating (calc)",q:"Monochromatic light of wavelength 500 nm strikes a grating with slit spacing d = 2.0 \u00D7 10\u207B\u2076 m at normal incidence. At what angle is the first-order (n = 1) maximum?",
+ o:["7.2\u00B0","14.5\u00B0","30\u00B0","90\u00B0"],a:1,
+ e:"n\u03BB = d sin\u03B8 \u2192 sin\u03B8 = (1 \u00D7 5.0 \u00D7 10\u207B\u2077)/(2.0 \u00D7 10\u207B\u2076) = 0.25, so \u03B8 = <code>14.5\u00B0</code>."},
+{s:"3B",topic:"Diffraction grating (d)",q:"A diffraction grating is marked '300 lines per mm'. What is the slit spacing d?",
+ o:["3.0 \u00D7 10\u207B\u00B3 m","3.3 \u00D7 10\u207B\u2076 m","3.0 \u00D7 10\u207B\u2074 m","300 m"],a:1,
+ e:"d = (1 \u00D7 10\u207B\u00B3 m) / 300 = <code>3.3 \u00D7 10\u207B\u2076 m</code>."},
+{s:"3B",topic:"Wavefronts & rays",q:"A ray is best described as a line that is:",
+ o:["parallel to the wavefronts","perpendicular to the wavefronts, showing the direction of travel","identical to a wavefront","joining points that are in antiphase"],a:1,
+ e:"Rays are drawn <code>perpendicular</code> to wavefronts and show the direction the wave energy travels."},
+{s:"3B",topic:"Standing vs progressive",q:"Unlike a progressive wave, a stationary (standing) wave:",
+ o:["transfers energy along its length","does not transfer energy along its length","has no nodes","cannot be formed by reflection"],a:1,
+ e:"A standing wave only oscillates in fixed positions; there is <code>no net energy transfer</code> along it."},
+{s:"3B",topic:"Superposition",q:"Two waves of equal amplitude meet at a point exactly in antiphase. The resultant displacement there is:",
+ o:["double the amplitude","equal to one amplitude","zero","half the amplitude"],a:2,
+ e:"By the principle of superposition the displacements add as vectors; equal-and-opposite gives a resultant of <code>zero</code>."},
+{s:"3B",topic:"Two-slit interference",q:"In a two-slit interference experiment, if the screen is moved further away from the slits, the spacing of the bright fringes:",
+ o:["decreases","stays the same","increases","becomes zero"],a:2,
+ e:"Fringe separation grows with the slit-to-screen distance, so the fringes <code>spread apart</code>."},
+{s:"3B",topic:"Diffraction (dish)",q:"A microwave transmitter dish is made much larger than the wavelength of the microwaves. Compared with a dish the same size as the wavelength, the beam will:",
+ o:["spread out far more","stay in a narrow beam","not be transmitted at all","change its frequency"],a:1,
+ e:"When the aperture is much larger than \u03BB there is little diffraction, so the waves <code>stay in a beam</code>."},
+{s:"3B",topic:"Diffraction grating (orders)",q:"For the grating above (d = 2.0 \u00D7 10\u207B\u2076 m, \u03BB = 500 nm), what is the highest order of maximum that can be observed?",
+ o:["2","3","4","8"],a:2,
+ e:"sin\u03B8 \u2264 1 \u2192 n\u2098\u2090\u2093 = d / \u03BB = (2.0 \u00D7 10\u207B\u2076)/(5.0 \u00D7 10\u207B\u2077) = 4. The highest observable order is <code>4</code>."},
+
+/* ----- SYNOPTIC (3A + 3B) ----- */
+{s:"SYN",topic:"Synoptic: string speed + standing wave",q:"A wire of mass per unit length 5.0 \u00D7 10\u207B\u2074 kg m\u207B\u00B9 is held under a tension of 80 N. A 0.40 m length of it is fixed at both ends. Using v = \u221A(T/\u03BC), what is its fundamental frequency?",
+ o:["250 Hz","400 Hz","500 Hz","1000 Hz"],a:2,
+ e:"v = \u221A(80 / 5.0 \u00D7 10\u207B\u2074) = \u221A160000 = 400 m s\u207B\u00B9. Fundamental \u03BB = 2L = 0.80 m, so f = v / \u03BB = 400 / 0.80 = <code>500 Hz</code>. (Combines the string-speed equation with the standing-wave wavelength and v = f\u03BB.)"},
+{s:"SYN",topic:"Synoptic: wave equation + grating",q:"Light of frequency 6.0 \u00D7 10\u00B9\u2074 Hz passes through a grating (c = 3.0 \u00D7 10\u2078 m s\u207B\u00B9). Find the wavelength, then the slit spacing needed to place the first-order maximum at 30\u00B0.",
+ o:["\u03BB = 500 nm, d = 1.0 \u00D7 10\u207B\u2076 m","\u03BB = 500 nm, d = 2.5 \u00D7 10\u207B\u2077 m","\u03BB = 200 nm, d = 1.0 \u00D7 10\u207B\u2076 m","\u03BB = 5.0 \u00D7 10\u207B\u2076 m, d = 1.0 \u00D7 10\u207B\u2075 m"],a:0,
+ e:"\u03BB = c / f = (3.0 \u00D7 10\u2078)/(6.0 \u00D7 10\u00B9\u2074) = 5.0 \u00D7 10\u207B\u2077 m (500 nm). Then d = n\u03BB / sin\u03B8 = (5.0 \u00D7 10\u207B\u2077)/sin30\u00B0 = <code>1.0 \u00D7 10\u207B\u2076 m</code>. (3A wave equation \u2192 3B grating equation.)"},
+{s:"SYN",topic:"Synoptic: fundamental frequency scaling",q:"A string vibrates at a fundamental frequency f\u2080. The tension is then quadrupled, with length and mass per unit length unchanged. The new fundamental frequency is:",
+ o:["f\u2080 / 2","f\u2080","2 f\u2080","4 f\u2080"],a:2,
+ e:"f\u2080 = (1/2L)\u221A(T/\u03BC), so f\u2080 \u221D \u221AT. Quadrupling T multiplies f\u2080 by \u221A4 = <code>2</code>, giving 2 f\u2080."},
+{s:"SYN",topic:"Synoptic: phase \u2194 path difference",q:"Two coherent sources produce waves that arrive at a point with a path difference of 1.5\u03BB. The waves will:",
+ o:["be in phase and interfere constructively","be in antiphase (phase difference 3\u03C0 rad) and interfere destructively","have a phase difference of \u03C0/2 and partially cancel","not interfere because the path difference is not zero"],a:1,
+ e:"Path difference (n + \u00BD)\u03BB \u2192 antiphase \u2192 destructive. Converting: 1.5\u03BB \u00D7 2\u03C0/\u03BB = <code>3\u03C0 rad</code>. (Links 3A phase with 3B path difference.)"},
+{s:"SYN",topic:"Synoptic: pulse-echo + resolution",q:"An ultrasound transducer emits pulses at 5.0 MHz into tissue where the speed of sound is 1500 m s\u207B\u00B9. What is the wavelength \u2014 and therefore roughly the smallest detail it can resolve?",
+ o:["3.0 \u00D7 10\u207B\u2074 m","3.0 \u00D7 10\u207B\u00B3 m","7.5 \u00D7 10\u2079 m","3.3 \u00D7 10\u00B3 m"],a:0,
+ e:"\u03BB = v / f = 1500 / (5.0 \u00D7 10\u2076) = <code>3.0 \u00D7 10\u207B\u2074 m</code> (\u2248 0.3 mm). The diffraction limit means the finest resolvable detail is roughly one wavelength \u2014 why scanners use high frequencies. (3A wave equation/pulse-echo \u2192 3B diffraction idea.)"}
+];
+
+/* ---------- engine ---------- */
+const strandName={"3A":"Basic Waves (3A)","3B":"Behaviour of Waves (3B)","SYN":"Synoptic (3A + 3B)"};
+const tagClass={"3A":"t3a","3B":"t3b","SYN":"tsyn"};
+const tagLabel={"3A":"3A \u00B7 Basic Waves","3B":"3B \u00B7 Behaviour","SYN":"Synoptic"};
+let i=0, score=0, locked=false;
+const byTopic={}; // topic -> {right,total}
+
+function begin(){document.getElementById("intro").classList.add("hidden");document.getElementById("quiz").classList.remove("hidden");render();}
+function render(){
+  locked=false;
+  const item=Q[i];
+  document.getElementById("qno").textContent=`Question ${i+1} of ${Q.length}`;
+  document.getElementById("running").textContent=`Score ${score}`;
+  document.getElementById("progbar").style.width=`${(i/Q.length)*100}%`;
+
+  const tags=[`<span class="tag ${tagClass[item.s]}">${tagLabel[item.s]}</span>`,
+              `<span class="tag t3a" style="background:transparent;border-color:var(--line);color:var(--cream-dim)">${item.topic}</span>`];
+  document.getElementById("qtags").innerHTML=tags.join("");
+  document.getElementById("qtext").innerHTML=item.q;
+  document.getElementById("qfig").innerHTML=item.fig?`<div class="qfig">${item.fig()}</div>`:"";
+
+  const keys=["A","B","C","D"];
+  document.getElementById("opts").innerHTML=item.o.map((t,idx)=>
+    `<button class="opt" data-idx="${idx}" onclick="choose(${idx})">
+       <span class="key">${keys[idx]}</span><span>${t}</span></button>`).join("");
+
+  const ex=document.getElementById("explain");ex.className="explain";ex.innerHTML="";
+  const nx=document.getElementById("next");nx.className="next";
+  nx.textContent = i===Q.length-1 ? "See results \u2192" : "Next \u2192";
+}
+function choose(idx){
+  if(locked)return; locked=true;
+  const item=Q[i];
+  const correct = idx===item.a;
+  if(correct) score++;
+  if(!byTopic[item.s]) byTopic[item.s]={right:0,total:0};
+  byTopic[item.s].total++; if(correct) byTopic[item.s].right++;
+
+  document.querySelectorAll(".opt").forEach((b,bi)=>{
+    b.classList.add("locked");
+    if(bi===item.a) b.classList.add("correct");
+    if(bi===idx && !correct) b.classList.add("chosen-wrong");
+  });
+  const ex=document.getElementById("explain");
+  ex.innerHTML=`<div class="vh">${correct?"Correct":"Worked answer"}</div>${item.e}`;
+  ex.classList.add("show");
+  document.getElementById("running").textContent=`Score ${score}`;
+  document.getElementById("next").classList.add("on");
+}
+function advance(){ if(!locked)return; i++; if(i<Q.length){render();} else {results();} }
+
+function results(){
+  document.getElementById("quiz").classList.add("hidden");
+  const r=document.getElementById("results");r.classList.remove("hidden");
+  const pct=Math.round((score/Q.length)*100);
+  document.getElementById("pct").textContent=`${pct}%`;
+  document.getElementById("frac").textContent=`${score} / ${Q.length} correct`;
+  let g; if(pct>=85) g="Exam-ready across both chapters \u2014 strong synoptic command.";
+  else if(pct>=70) g="Solid. A few targeted gaps to close before the paper.";
+  else if(pct>=50) g="On the way \u2014 revisit the strands flagged below.";
+  else g="Foundational review needed on 3A & 3B before attempting past papers.";
+  document.getElementById("grade").textContent=g;
+
+  const order=["3A","3B","SYN"];
+  document.getElementById("bars").innerHTML=order.map(s=>{
+    const d=byTopic[s]||{right:0,total:0};
+    const p=d.total?Math.round((d.right/d.total)*100):0;
+    const col=p>=70?"var(--green)":p>=50?"var(--gold)":"var(--wrong)";
+    return `<div class="bar-row"><span class="lab">${strandName[s]}</span>
+      <span class="track"><i style="width:${p}%;background:${col}"></i></span>
+      <span class="val">${d.right}/${d.total}</span></div>`;
+  }).join("");
+
+  // weak topics: any individual question missed, grouped by topic strand under 70%
+  const weak=order.filter(s=>{const d=byTopic[s];return d&&d.total&&(d.right/d.total)<0.7;});
+  const wb=document.getElementById("weakbox");
+  if(weak.length){
+    wb.innerHTML=`<div class="weak"><div class="vh">Priority for revision</div><ul>${
+      weak.map(s=>`<li>${strandName[s]} \u2014 ${byTopic[s].right} of ${byTopic[s].total} correct</li>`).join("")
+    }</ul></div>`;
+  } else {
+    wb.innerHTML=`<div class="weak none"><div class="vh">No weak strand</div>
+      <ul><li>Every strand scored 70%+. Move on to full past-paper questions.</li></ul></div>`;
+  }
+  document.getElementById("progbar").style.width="100%";
+}
+function restart(){i=0;score=0;locked=false;for(const k in byTopic)delete byTopic[k];
+  document.getElementById("results").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");render();}
+</script>
+</body>
+</html>
