@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — AGF Tutoring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #1a1a1a;
+      color: #e8e5de;
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(26,26,26,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 20px;
+    }
+    .nav-bars span {
+      display: block;
+      width: 4px;
+      background: #4d9460;
+      border-radius: 2px;
+    }
+    .nav-bars span:nth-child(1) { height: 10px; }
+    .nav-bars span:nth-child(2) { height: 18px; }
+    .nav-bars span:nth-child(3) { height: 14px; }
+    .nav-bars span:nth-child(4) { height: 20px; }
+    .nav-wordmark {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .nav-wordmark .agf {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #e8e5de;
+      letter-spacing: 0.05em;
+    }
+    .nav-wordmark .tutoring {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      font-size: 9px;
+      color: #9a9690;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .nav-back {
+      font-size: 13px;
+      color: #9a9690;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: #e8e5de; }
+
+    /* ── LAYOUT ── */
+    .page-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 72px 40px 120px;
+    }
+
+    /* ── HEADER ── */
+    .page-header {
+      margin-bottom: 56px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .page-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #4d9460;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 400;
+      line-height: 1.1;
+      color: #e8e5de;
+      margin-bottom: 20px;
+    }
+    h1 em {
+      font-style: italic;
+      color: #9a9690;
+    }
+    .page-meta {
+      font-size: 13px;
+      color: #706b65;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      margin-bottom: 48px;
+    }
+    h2 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #e8e5de;
+      margin-bottom: 16px;
+      padding-top: 8px;
+    }
+    p {
+      font-size: 15px;
+      color: #9a9690;
+      margin-bottom: 14px;
+    }
+    p strong {
+      color: #e8e5de;
+      font-weight: 500;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 14px;
+    }
+    ul li {
+      font-size: 15px;
+      color: #9a9690;
+      padding: 5px 0 5px 20px;
+      position: relative;
+    }
+    ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: #4d9460;
+      font-weight: 500;
+    }
+    a {
+      color: #4d9460;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover { color: #5ba86d; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: #2a2a2a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-left: 3px solid #4d9460;
+      border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+    .callout p {
+      margin: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px;
+      text-align: center;
+    }
+    footer p {
+      font-size: 13px;
+      color: #706b65;
+      margin: 0;
+    }
+    footer a { color: #9a9690; }
+    footer a:hover { color: #e8e5de; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-bars">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <div class="nav-wordmark">
+        <span class="agf">AGF</span>
+        <span class="tutoring">Tutoring</span>
+      </div>
+    </a>
+    <a href="/" class="nav-back">← Back to site</a>
+  </nav>
+
+  <div class="page-wrap">
+
+    <header class="page-header">
+      <p class="page-label">Legal</p>
+      <h1>Privacy <em>Policy</em></h1>
+      <p class="page-meta">Last updated: 10 May 2026 &nbsp;·&nbsp; AGF Tutoring UK Limited</p>
+    </header>
+
+    <section>
+      <div class="callout">
+        <p>AGF Tutoring UK Limited is committed to protecting your personal data and being transparent about how it is used. This policy explains what we collect, why we collect it, and your rights under UK GDPR.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>1. Who we are</h2>
+      <p><strong>Data controller:</strong> AGF Tutoring UK Limited<br>
+      Company No. 12247821 · Registered in England<br>
+      Email: <a href="mailto:info@agftutoring.co.uk">info@agftutoring.co.uk</a></p>
+      <p>If you have any questions about how we handle your data, please contact us at the address above.</p>
+    </section>
+
+    <section>
+      <h2>2. What data we collect</h2>
+      <p>We collect personal data in the following situations:</p>
+      <p><strong>Contact form enquiries</strong></p>
+      <ul>
+        <li>Your name</li>
+        <li>Your email address</li>
+        <li>The subject of your enquiry and any information you choose to share</li>
+      </ul>
+      <p><strong>AGF Study Companion (companion.agftutoring.co.uk)</strong></p>
+      <ul>
+        <li>Email address (for account creation and subscription management)</li>
+        <li>Usage data — subjects studied, questions asked, quiz results (to improve the service)</li>
+        <li>Payment information — processed securely by Stripe; we do not store card details</li>
+        <li>Browser storage data (localStorage) to track free-tier usage limits</li>
+      </ul>
+      <p><strong>Direct tutoring sessions</strong></p>
+      <ul>
+        <li>Name, email address, contact details</li>
+        <li>Academic background and goals (to design your programme)</li>
+        <li>Session notes and progress records</li>
+        <li>Payment records (invoices via Wise or bank transfer)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. How we use your data</h2>
+      <p>We use your data only for the purposes for which it was collected:</p>
+      <ul>
+        <li>To respond to your enquiry</li>
+        <li>To manage your tutoring sessions and programme</li>
+        <li>To operate and improve the AGF Study Companion</li>
+        <li>To process subscription payments via Stripe</li>
+        <li>To send you service-related communications (not marketing, unless you opt in)</li>
+        <li>To comply with legal and financial obligations</li>
+      </ul>
+      <p>We rely on the following lawful bases under UK GDPR: <strong>contract</strong> (to deliver services you have requested), <strong>legitimate interests</strong> (to operate and improve our service), and <strong>legal obligation</strong> (financial records).</p>
+    </section>
+
+    <section>
+      <h2>4. Content and educational sources</h2>
+      <p>The AGF Study Companion generates responses using AI (Claude, by Anthropic) drawing on a curated knowledge base built from three layers:</p>
+      <ul>
+        <li><strong>AGF's own teaching materials</strong> — notes, worked examples, and exam technique developed by Alastair Fisher over 30 years and 60,000 hours of teaching chemistry, physics, and mathematics</li>
+        <li><strong>Open Educational Resources (OER)</strong> — content adapted from <a href="https://openstax.org" target="_blank">OpenStax</a> and <a href="https://libretexts.org" target="_blank">LibreTexts</a>, both published under Creative Commons licences (CC BY and CC BY-NC-SA respectively). These are not-for-profit educational platforms; no personal data is shared with them</li>
+        <li><strong>Specification content</strong> — syllabus structures from Edexcel, AQA, Cambridge, IB, College Board, and other awarding bodies, used to align responses to your specific exam requirements</li>
+      </ul>
+      <p>AI responses are constructed at query time from this knowledge base. No response is reproduced verbatim from a third-party source. AGF Tutoring gratefully acknowledges the OpenStax and LibreTexts communities for making high-quality open educational content freely available.</p>
+      <p>This section describes content sources, not data processors. None of the organisations listed here receive your personal data.</p>
+    </section>
+
+    <section>
+      <h2>5. Third-party processors</h2>
+      <p>We use a small number of trusted third-party services to operate our business. Each processes your data only as necessary to deliver the service:</p>
+      <ul>
+        <li><strong>Stripe</strong> — payment processing for Companion subscriptions. Stripe is PCI-DSS compliant. See <a href="https://stripe.com/gb/privacy" target="_blank">Stripe's privacy policy</a>.</li>
+        <li><strong>Anthropic</strong> — AI responses in the Study Companion are generated by Claude. Messages you send to the Companion are processed by Anthropic's API. See <a href="https://www.anthropic.com/privacy" target="_blank">Anthropic's privacy policy</a>.</li>
+        <li><strong>Formspree</strong> — contact form submissions are routed via Formspree. See <a href="https://formspree.io/legal/privacy-policy" target="_blank">Formspree's privacy policy</a>.</li>
+        <li><strong>Vercel</strong> — the Study Companion is hosted on Vercel. Standard server logs may be retained for a short period.</li>
+        <li><strong>BigBlueButton / AGF platform</strong> — live tutoring sessions are conducted on AGF's own secure platform.</li>
+      </ul>
+      <p>We do not sell your data to any third party, and we do not use your data for advertising purposes.</p>
+    </section>
+
+    <section>
+      <h2>6. Cookies</h2>
+      <p>Our main website (agftutoring.co.uk) does not use tracking cookies or analytics cookies. The AGF Study Companion uses <strong>browser localStorage</strong> (not cookies) to store your session preferences and free-tier usage count locally on your device. This data does not leave your browser unless you are logged in.</p>
+      <p>If you have a Companion subscription, a session cookie is used to keep you logged in. This is a strictly necessary functional cookie and does not track your behaviour across other sites.</p>
+    </section>
+
+    <section>
+      <h2>7. Data retention</h2>
+      <ul>
+        <li><strong>Contact form enquiries:</strong> retained for up to 2 years, or until the enquiry is resolved and no ongoing relationship exists</li>
+        <li><strong>Tutoring session records:</strong> retained for 6 years in line with UK financial record-keeping requirements</li>
+        <li><strong>Companion account data:</strong> retained for the duration of your subscription plus 12 months, then deleted on request</li>
+        <li><strong>Payment records:</strong> retained for 6 years (legal requirement)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>8. Your rights</h2>
+      <p>Under UK GDPR, you have the right to:</p>
+      <ul>
+        <li><strong>Access</strong> the personal data we hold about you</li>
+        <li><strong>Rectify</strong> any inaccurate data</li>
+        <li><strong>Erase</strong> your data (the "right to be forgotten"), where no legal obligation requires us to retain it</li>
+        <li><strong>Restrict</strong> processing of your data in certain circumstances</li>
+        <li><strong>Object</strong> to processing based on legitimate interests</li>
+        <li><strong>Data portability</strong> — receive your data in a machine-readable format</li>
+        <li><strong>Withdraw consent</strong> at any time, where processing is based on consent</li>
+      </ul>
+      <p>To exercise any of these rights, contact us at <a href="mailto:info@agftutoring.co.uk">info@agftutoring.co.uk</a>. We will respond within 30 days.</p>
+      <p>If you are unsatisfied with our response, you have the right to lodge a complaint with the <strong>Information Commissioner's Office (ICO)</strong> at <a href="https://ico.org.uk" target="_blank">ico.org.uk</a>.</p>
+    </section>
+
+    <section>
+      <h2>9. International transfers</h2>
+      <p>Some of our third-party processors (Anthropic, Stripe, Vercel) are based in the United States. Where data is transferred outside the UK, it is protected by appropriate safeguards — Standard Contractual Clauses or adequacy decisions — in line with UK GDPR requirements.</p>
+    </section>
+
+    <section>
+      <h2>10. Children's data</h2>
+      <p>AGF Tutoring works with students under the age of 18. Where a student is under 18, we require that a parent or guardian provides consent for the collection and use of their data, and that all communications regarding the student are conducted with the parent or guardian.</p>
+      <p>We do not knowingly collect data from children under 13 without explicit parental consent.</p>
+    </section>
+
+    <section>
+      <h2>11. Changes to this policy</h2>
+      <p>We may update this policy from time to time. The date at the top of this page shows when it was last revised. Significant changes will be communicated to active clients by email.</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <div class="callout">
+        <p>For any privacy-related queries, contact:<br>
+        <strong>AGF Tutoring UK Limited</strong><br>
+        <a href="mailto:info@agftutoring.co.uk">info@agftutoring.co.uk</a><br>
+        Company No. 12247821 · Registered in England</p>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>© 2026 AGF Tutoring UK Limited · Registered in England · Co. No. 12247821 &nbsp;·&nbsp; <a href="/">Back to site</a></p>
+  </footer>
+
+</body>
+</html>
