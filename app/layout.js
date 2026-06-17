@@ -14,6 +14,11 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
+        <link
+          href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+          rel="stylesheet"
+          crossOrigin="anonymous"
+        />
       </head>
       <body style={{ margin: 0, padding: 0 }}>
         {children}

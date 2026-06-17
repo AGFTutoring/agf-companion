@@ -1,5 +1,6 @@
 "use client"; 
 import { useState, useRef, useEffect, useCallback } from "react";
+import katex from "katex";
 
 /* ═══════════════════════════════════════════════════
    AGF STUDY COMPANION — HIERARCHICAL SUBJECT PICKER
@@ -5274,7 +5275,23 @@ function ShapeSVG({shape,formula,angle}){
 /* ═══ MECHANISM DIAGRAM ═══ */
 function MechDiagram({type,equation}){const isFR=type==="free_radical";const step=(c)=>({color:c,fontSize:11,fontWeight:600,fontFamily:"'DM Sans',sans-serif",marginTop:8,marginBottom:2});const line={color:C.text,fontSize:13,fontFamily:"'JetBrains Mono',monospace",lineHeight:1.9};const dot=<span style={{color:C.red,fontWeight:700}}>•</span>;const arr=(c)=><span style={{color:c||C.green}}> → </span>;return(<div style={{background:C.bgLight,border:`1px solid ${C.border}`,borderRadius:10,padding:"14px 18px",margin:"10px 0"}}><div style={{fontSize:10,textTransform:"uppercase",letterSpacing:"0.1em",color:C.green,marginBottom:6,fontFamily:"'DM Sans',sans-serif",fontWeight:600}}>{isFR?"Free Radical Substitution":"Electrophilic Addition"}</div><div style={line}>{isFR?(<><div style={step(C.amber)}>Initiation — homolytic fission (UV light)</div><div>Cl—Cl {arr(C.amber)} 2Cl{dot}</div><div style={step(C.green)}>Propagation — chain reaction</div><div>Cl{dot} + CH₄ {arr()} CH₃{dot} + HCl</div><div>CH₃{dot} + Cl₂ {arr()} CH₃Cl + Cl{dot}</div><div style={step(C.textMuted)}>Termination — radicals combine</div><div>2Cl{dot} {arr(C.textMuted)} Cl₂</div><div>Cl{dot} + CH₃{dot} {arr(C.textMuted)} CH₃Cl</div><div>2CH₃{dot} {arr(C.textMuted)} C₂H₆</div></>):(<><div style={step(C.green)}>Step 1 — π bond attacks electrophile</div><svg viewBox="0 0 280 55" style={{width:"100%",maxWidth:280,display:"block",margin:"4px 0"}}><text x="5" y="30" fill={C.text} fontSize="13" fontFamily="'JetBrains Mono',monospace">C=C</text><path d="M42,25 Q80,5 118,20" fill="none" stroke={C.amber} strokeWidth="2" markerEnd="url(#ca)"/><defs><marker id="ca" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,2 L10,5 L0,8 z" fill={C.amber}/></marker></defs><text x="55" y="12" fill={C.amber} fontSize="9" fontFamily="'DM Sans',sans-serif">curly arrow</text><text x="122" y="30" fill={C.text} fontSize="13" fontFamily="'JetBrains Mono',monospace">H—Br</text><text x="122" y="48" fill={C.textMuted} fontSize="9" fontFamily="'DM Sans',sans-serif">δ⁺    δ⁻</text></svg><div>C=C + H<sup>δ⁺</sup>—Br<sup>δ⁻</sup> {arr()} C—C⁺ + Br⁻</div><div style={step(C.green)}>Step 2 — Nucleophilic attack</div><div>Br⁻ {arr()} C⁺ (attacks carbocation)</div><div style={{marginTop:8,color:C.green,fontSize:12}}>Overall: {equation}</div></>)}</div></div>);}
 
-function EqBox({content}){return(<div style={{background:C.bgLight,border:`1px solid ${C.greenBorder}`,borderRadius:8,padding:"8px 16px",margin:"6px 0",display:"inline-block",fontFamily:"'JetBrains Mono',monospace",fontSize:15,fontWeight:500,color:C.green}}>{content}</div>);}
+function KatexBlock({tex,display}){
+  let html="";
+  try{html=katex.renderToString(tex,{throwOnError:false,displayMode:!!display});}
+  catch(e){html=null;}
+  if(html===null)return <div style={{background:C.bgLight,border:`1px solid ${C.greenBorder}`,borderRadius:8,padding:"8px 16px",margin:"6px 0",fontFamily:"'JetBrains Mono',monospace",fontSize:14,color:C.green,whiteSpace:"pre-wrap",overflowX:"auto"}}>{tex}</div>;
+  return <div style={{margin:"10px 0",overflowX:"auto",color:C.green}} dangerouslySetInnerHTML={{__html:html}}/>;
+}
+function EqBox({content}){
+  const isLatex=/\\[a-zA-Z]+/.test(content);
+  if(isLatex){
+    let html="";
+    try{html=katex.renderToString(content,{throwOnError:false,displayMode:true});}
+    catch(e){html=null;}
+    if(html!==null)return <div style={{background:C.bgLight,border:`1px solid ${C.greenBorder}`,borderRadius:8,padding:"10px 16px",margin:"6px 0",overflowX:"auto",color:C.green}} dangerouslySetInnerHTML={{__html:html}}/>;
+  }
+  return(<div style={{background:C.bgLight,border:`1px solid ${C.greenBorder}`,borderRadius:8,padding:"8px 16px",margin:"6px 0",display:"inline-block",fontFamily:"'JetBrains Mono',monospace",fontSize:15,fontWeight:500,color:C.green}}>{content}</div>);
+}
 function ConfigBox({element,config}){return(<div style={{background:C.bgLight,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 14px",margin:"6px 0",display:"inline-block"}}><span style={{color:C.amber,fontWeight:600,fontSize:14,fontFamily:"'DM Sans',sans-serif"}}>{element}: </span><span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:14,color:C.green}}>{config}</span></div>);}
 
 /* ═══ PARSER ═══ */
@@ -5337,6 +5354,13 @@ function parseAndRender(text){
       else if(tag==="CONFIG")elements.push(<ConfigBox key={`c${i}`} element={p[0]} config={p.slice(1).join(":")}/>);
     } else if(hrRe.test(line)){
       elements.push(<div key={`hr${i}`} style={{height:1,background:C.border,margin:"14px 0"}}/>);
+    } else if(line.startsWith("$")&&line.endsWith("$")&&line.length>4){
+      elements.push(<KatexBlock key={`tex${i}`} tex={line.slice(2,-2).trim()} display={true}/>);
+    } else if(line==="$"){
+      let j=i+1;const texLines=[];
+      while(j<lines.length&&lines[j].trim()!=="$"){texLines.push(lines[j]);j++;}
+      elements.push(<KatexBlock key={`texb${i}`} tex={texLines.join("\n").trim()} display={true}/>);
+      i=j;
     } else if(line.startsWith("# ")){
       elements.push(<div key={`h1${i}`} style={{fontSize:18,fontWeight:400,color:C.text,fontFamily:"'DM Serif Display',serif",marginTop:8,marginBottom:10,letterSpacing:"-0.01em"}}>{line.slice(2)}</div>);
     } else if(line.startsWith("## ")){
