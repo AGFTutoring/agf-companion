@@ -5321,6 +5321,8 @@ function parseAndRender(text){
   const lines=text.split("\n");
   const elements=[];
   const tagRe=/^\[(\w+):(.+)\]$/;
+  const hrRe=/^-{3,}$/;
+  const sepRe=/^\|[\s:|-]+\|$/;
   for(let i=0;i<lines.length;i++){
     const line=lines[i].trim();
     const m=line.match(tagRe);
@@ -5333,10 +5335,30 @@ function parseAndRender(text){
       else if(tag==="ORGANIC")elements.push(<div key={`org${i}`} style={{background:C.bgLight,border:`1px solid ${C.border}`,borderRadius:10,padding:"14px 18px",margin:"10px 0",fontFamily:"'JetBrains Mono',monospace",fontSize:13,lineHeight:1.7,color:C.text,whiteSpace:"pre",overflowX:"auto"}}>{p.join(":").replace(/\\n/g,"\n")}</div>);
       else if(tag==="DISPLAYED"){const dp=params.split(":");elements.push(<DisplayedFormulaSVG key={`df${i}`} chain={dp[0]} dbond={dp[1]} subs={dp[2]} dir={dp[3]} label={dp[4]}/>);}
       else if(tag==="CONFIG")elements.push(<ConfigBox key={`c${i}`} element={p[0]} config={p.slice(1).join(":")}/>);
+    } else if(hrRe.test(line)){
+      elements.push(<div key={`hr${i}`} style={{height:1,background:C.border,margin:"14px 0"}}/>);
+    } else if(line.startsWith("# ")){
+      elements.push(<div key={`h1${i}`} style={{fontSize:18,fontWeight:400,color:C.text,fontFamily:"'DM Serif Display',serif",marginTop:8,marginBottom:10,letterSpacing:"-0.01em"}}>{line.slice(2)}</div>);
     } else if(line.startsWith("## ")){
       elements.push(<div key={`h${i}`} style={{fontSize:15,fontWeight:600,color:C.text,fontFamily:"'DM Serif Display',serif",marginTop:16,marginBottom:6,paddingBottom:6,borderBottom:`1px solid ${C.border}`}}>{line.slice(3)}</div>);
     } else if(line.startsWith("### ")){
       elements.push(<div key={`h3${i}`} style={{fontSize:13,fontWeight:600,color:C.green,marginTop:12,marginBottom:4,letterSpacing:"0.03em"}}>{line.slice(4)}</div>);
+    } else if(line.startsWith("|")&&i+1<lines.length&&sepRe.test(lines[i+1].trim())){
+      const tableLines=[line];
+      let j=i+2;
+      while(j<lines.length&&lines[j].trim().startsWith("|")){tableLines.push(lines[j].trim());j++;}
+      const splitRow=(row)=>row.split("|").slice(1,-1).map(c=>c.trim());
+      const headerCells=splitRow(tableLines[0]);
+      const bodyRows=tableLines.slice(1).map(splitRow);
+      elements.push(
+        <div key={`tbl${i}`} style={{overflowX:"auto",margin:"10px 0",border:`1px solid ${C.border}`,borderRadius:8}}>
+          <table style={{width:"100%",borderCollapse:"collapse",fontSize:13}}>
+            <thead><tr>{headerCells.map((c,ci)=>(<th key={ci} style={{textAlign:"left",padding:"8px 12px",background:C.bgLight,color:C.text,fontWeight:600,borderBottom:`1px solid ${C.border}`,whiteSpace:"nowrap"}}><RichLine text={c}/></th>))}</tr></thead>
+            <tbody>{bodyRows.map((row,ri)=>(<tr key={ri} style={{borderTop:ri>0?`1px solid ${C.borderLight||C.border}`:undefined}}>{row.map((c,ci)=>(<td key={ci} style={{padding:"8px 12px",color:"rgba(255,255,255,0.85)",verticalAlign:"top"}}><RichLine text={c}/></td>))}</tr>))}</tbody>
+          </table>
+        </div>
+      );
+      i=j-1;
     } else if(line.match(/^\d+\.\s/)){
       const num=line.match(/^(\d+)\.\s(.+)/);
       if(num) elements.push(<div key={`ol${i}`} style={{display:"flex",gap:10,marginBottom:4,paddingLeft:4}}><span style={{color:C.green,fontWeight:600,fontSize:13,flexShrink:0,minWidth:20}}>{num[1]}.</span><span style={{fontSize:13.5,lineHeight:1.7}}><RichLine text={num[2]}/></span></div>);
@@ -5350,8 +5372,10 @@ function parseAndRender(text){
   }
   return elements;
 }
-function RichLine({text}){if(text.trim()==="on this")return null;return text.split(/(\[.*?\]\(https?:\/\/.*?\)|https?:\/\/[^\s)]+|\*\*.*?\*\*|\*.*?\*|`[^`]+`)/g).map((s,i)=>{
+function RichLine({text}){if(text.trim()==="on this")return null;return text.split(/(\[EQUATION:.*?\]|\[.*?\]\(https?:\/\/.*?\)|https?:\/\/[^\s)]+|\*\*.*?\*\*|\*.*?\*|`[^`]+`)/g).map((s,i)=>{
 if(!s)return null;
+const eqTag=s.match(/^\[EQUATION:(.+)\]$/);
+if(eqTag)return <EqBox key={i} content={eqTag[1]}/>;
 const mdLink=s.match(/^\[(.+?)\]\((https?:\/\/.+?)\)$/);
 if(mdLink)return <a key={i} href={mdLink[2]} target="_blank" rel="noopener noreferrer" style={{color:C.green,textDecoration:"underline",textUnderlineOffset:"3px"}}>{mdLink[1]}</a>;
 if(s.match(/^https?:\/\//))return <a key={i} href={s} target="_blank" rel="noopener noreferrer" style={{color:C.green,textDecoration:"underline",textUnderlineOffset:"3px",wordBreak:"break-all",fontSize:"0.92em"}}>{s}</a>;

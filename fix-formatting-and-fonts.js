@@ -1,0 +1,66 @@
+// fix-formatting-and-fonts.js
+// Two fixes:
+// 1) parseAndRender/RichLine now handle single '#' H1 headers, '---'
+//    horizontal rules, and markdown tables (none were handled before --
+//    they fell through to literal text, which is what you saw). Also
+//    makes RichLine catch [EQUATION:...] even when it's not alone on its
+//    own line (e.g. 'So: [EQUATION:...]') as a resilience fallback, since
+//    that's exactly what tripped up the example you showed me.
+// 2) layout.js Google Fonts import was loading Cormorant Garamond + DM
+//    Sans, but nearly everywhere in page.js already specifies 'DM Serif
+//    Display' and 'Outfit' as the font-family -- since those weren't
+//    actually loaded, the browser was silently falling back to generic
+//    system fonts. This loads the fonts the code already expects.
+//
+// Usage: place this file in your project root and run:
+//   node fix-formatting-and-fonts.js
+
+const fs = require('fs');
+const path = require('path');
+
+function patchFile(filePath, edits) {
+  let raw = fs.readFileSync(filePath, 'utf8');
+  const usesCRLF = raw.includes('\r\n');
+  let content = usesCRLF ? raw.replace(/\r\n/g, '\n') : raw;
+  let appliedCount = 0;
+  const errors = [];
+  for (const edit of edits) {
+    const occurrences = content.split(edit.old).length - 1;
+    if (occurrences === 0) {
+      errors.push(`${edit.label}: could not find anchor. May already be patched, or the file changed.`);
+      console.error(`FAILED: ${edit.label} \u2014 anchor not found.`);
+      continue;
+    }
+    if (occurrences > 1) {
+      errors.push(`${edit.label}: found ${occurrences} matches, expected 1.`);
+      console.error(`FAILED: ${edit.label} \u2014 ${occurrences} matches, expected 1.`);
+      continue;
+    }
+    content = content.replace(edit.old, edit.new);
+    appliedCount++;
+    console.log(`OK: ${edit.label}`);
+  }
+  const output = usesCRLF ? content.replace(/\n/g, '\r\n') : content;
+  fs.writeFileSync(filePath, output, 'utf8');
+  return { appliedCount, errors };
+}
+
+const pageEdits = [
+  { label: 'parseAndRender/RichLine formatting fix', old: "function parseAndRender(text){\n  const lines=text.split(\"\\n\");\n  const elements=[];\n  const tagRe=/^\\[(\\w+):(.+)\\]$/;\n  for(let i=0;i<lines.length;i++){\n    const line=lines[i].trim();\n    const m=line.match(tagRe);\n    if(m){\n      const[,tag,params]=m;\n      const p=params.split(\":\");\n      if(tag===\"SHAPE\")elements.push(<ShapeSVG key={`s${i}`} shape={p[0]} formula={p[1]} angle={p[2]}/>);\n      else if(tag===\"MECHANISM\")elements.push(<MechDiagram key={`m${i}`} type={p[0]} equation={p.slice(1).join(\":\")}/>);\n      else if(tag===\"EQUATION\")elements.push(<EqBox key={`e${i}`} content={p.join(\":\")}/>);\n      else if(tag===\"ORGANIC\")elements.push(<div key={`org${i}`} style={{background:C.bgLight,border:`1px solid ${C.border}`,borderRadius:10,padding:\"14px 18px\",margin:\"10px 0\",fontFamily:\"'JetBrains Mono',monospace\",fontSize:13,lineHeight:1.7,color:C.text,whiteSpace:\"pre\",overflowX:\"auto\"}}>{p.join(\":\").replace(/\\\\n/g,\"\\n\")}</div>);\n      else if(tag===\"DISPLAYED\"){const dp=params.split(\":\");elements.push(<DisplayedFormulaSVG key={`df${i}`} chain={dp[0]} dbond={dp[1]} subs={dp[2]} dir={dp[3]} label={dp[4]}/>);}\n      else if(tag===\"CONFIG\")elements.push(<ConfigBox key={`c${i}`} element={p[0]} config={p.slice(1).join(\":\")}/>);\n    } else if(line.startsWith(\"## \")){\n      elements.push(<div key={`h${i}`} style={{fontSize:15,fontWeight:600,color:C.text,fontFamily:\"'DM Serif Display',serif\",marginTop:16,marginBottom:6,paddingBottom:6,borderBottom:`1px solid ${C.border}`}}>{line.slice(3)}</div>);\n    } else if(line.startsWith(\"### \")){\n      elements.push(<div key={`h3${i}`} style={{fontSize:13,fontWeight:600,color:C.green,marginTop:12,marginBottom:4,letterSpacing:\"0.03em\"}}>{line.slice(4)}</div>);\n    } else if(line.match(/^\\d+\\.\\s/)){\n      const num=line.match(/^(\\d+)\\.\\s(.+)/);\n      if(num) elements.push(<div key={`ol${i}`} style={{display:\"flex\",gap:10,marginBottom:4,paddingLeft:4}}><span style={{color:C.green,fontWeight:600,fontSize:13,flexShrink:0,minWidth:20}}>{num[1]}.</span><span style={{fontSize:13.5,lineHeight:1.7}}><RichLine text={num[2]}/></span></div>);\n    } else if(line.startsWith(\"- \")||line.startsWith(\"\u2022 \")){\n      elements.push(<div key={`li${i}`} style={{display:\"flex\",gap:10,marginBottom:3,paddingLeft:4}}><span style={{color:C.green,fontSize:10,marginTop:7,flexShrink:0}}>\u25cf</span><span style={{fontSize:13.5,lineHeight:1.7}}><RichLine text={line.slice(2)}/></span></div>);\n    } else if(line){\n      elements.push(<div key={`t${i}`} style={{marginBottom:6,fontSize:13.5,lineHeight:1.8}}><RichLine text={line}/></div>);\n    } else {\n      elements.push(<div key={`sp${i}`} style={{height:8}}/>);\n    }\n  }\n  return elements;\n}\nfunction RichLine({text}){if(text.trim()===\"on this\")return null;return text.split(/(\\[.*?\\]\\(https?:\\/\\/.*?\\)|https?:\\/\\/[^\\s)]+|\\*\\*.*?\\*\\*|\\*.*?\\*|`[^`]+`)/g).map((s,i)=>{\nif(!s)return null;\nconst mdLink=s.match(/^\\[(.+?)\\]\\((https?:\\/\\/.+?)\\)$/);\nif(mdLink)return <a key={i} href={mdLink[2]} target=\"_blank\" rel=\"noopener noreferrer\" style={{color:C.green,textDecoration:\"underline\",textUnderlineOffset:\"3px\"}}>{mdLink[1]}</a>;\nif(s.match(/^https?:\\/\\//))return <a key={i} href={s} target=\"_blank\" rel=\"noopener noreferrer\" style={{color:C.green,textDecoration:\"underline\",textUnderlineOffset:\"3px\",wordBreak:\"break-all\",fontSize:\"0.92em\"}}>{s}</a>;\nif(s.startsWith(\"**\")&&s.endsWith(\"**\"))return <strong key={i} style={{fontWeight:600,color:C.text}}>{s.slice(2,-2)}</strong>;\nif(s.startsWith(\"*\")&&s.endsWith(\"*\"))return <em key={i} style={{fontStyle:\"italic\",color:C.text}}>{s.slice(1,-1)}</em>;\nif(s.startsWith(\"`\")&&s.endsWith(\"`\"))return <code key={i} style={{background:C.greenDim,padding:\"2px 7px\",borderRadius:4,fontFamily:\"'JetBrains Mono',monospace\",fontSize:\"0.85em\",color:C.green,border:`1px solid ${C.greenBorder}`}}>{s.slice(1,-1)}</code>;\nreturn <span key={i}>{s}</span>;});}\n\n", new: "function parseAndRender(text){\n  const lines=text.split(\"\\n\");\n  const elements=[];\n  const tagRe=/^\\[(\\w+):(.+)\\]$/;\n  const hrRe=/^-{3,}$/;\n  const sepRe=/^\\|[\\s:|-]+\\|$/;\n  for(let i=0;i<lines.length;i++){\n    const line=lines[i].trim();\n    const m=line.match(tagRe);\n    if(m){\n      const[,tag,params]=m;\n      const p=params.split(\":\");\n      if(tag===\"SHAPE\")elements.push(<ShapeSVG key={`s${i}`} shape={p[0]} formula={p[1]} angle={p[2]}/>);\n      else if(tag===\"MECHANISM\")elements.push(<MechDiagram key={`m${i}`} type={p[0]} equation={p.slice(1).join(\":\")}/>);\n      else if(tag===\"EQUATION\")elements.push(<EqBox key={`e${i}`} content={p.join(\":\")}/>);\n      else if(tag===\"ORGANIC\")elements.push(<div key={`org${i}`} style={{background:C.bgLight,border:`1px solid ${C.border}`,borderRadius:10,padding:\"14px 18px\",margin:\"10px 0\",fontFamily:\"'JetBrains Mono',monospace\",fontSize:13,lineHeight:1.7,color:C.text,whiteSpace:\"pre\",overflowX:\"auto\"}}>{p.join(\":\").replace(/\\\\n/g,\"\\n\")}</div>);\n      else if(tag===\"DISPLAYED\"){const dp=params.split(\":\");elements.push(<DisplayedFormulaSVG key={`df${i}`} chain={dp[0]} dbond={dp[1]} subs={dp[2]} dir={dp[3]} label={dp[4]}/>);}\n      else if(tag===\"CONFIG\")elements.push(<ConfigBox key={`c${i}`} element={p[0]} config={p.slice(1).join(\":\")}/>);\n    } else if(hrRe.test(line)){\n      elements.push(<div key={`hr${i}`} style={{height:1,background:C.border,margin:\"14px 0\"}}/>);\n    } else if(line.startsWith(\"# \")){\n      elements.push(<div key={`h1${i}`} style={{fontSize:18,fontWeight:400,color:C.text,fontFamily:\"'DM Serif Display',serif\",marginTop:8,marginBottom:10,letterSpacing:\"-0.01em\"}}>{line.slice(2)}</div>);\n    } else if(line.startsWith(\"## \")){\n      elements.push(<div key={`h${i}`} style={{fontSize:15,fontWeight:600,color:C.text,fontFamily:\"'DM Serif Display',serif\",marginTop:16,marginBottom:6,paddingBottom:6,borderBottom:`1px solid ${C.border}`}}>{line.slice(3)}</div>);\n    } else if(line.startsWith(\"### \")){\n      elements.push(<div key={`h3${i}`} style={{fontSize:13,fontWeight:600,color:C.green,marginTop:12,marginBottom:4,letterSpacing:\"0.03em\"}}>{line.slice(4)}</div>);\n    } else if(line.startsWith(\"|\")&&i+1<lines.length&&sepRe.test(lines[i+1].trim())){\n      const tableLines=[line];\n      let j=i+2;\n      while(j<lines.length&&lines[j].trim().startsWith(\"|\")){tableLines.push(lines[j].trim());j++;}\n      const splitRow=(row)=>row.split(\"|\").slice(1,-1).map(c=>c.trim());\n      const headerCells=splitRow(tableLines[0]);\n      const bodyRows=tableLines.slice(1).map(splitRow);\n      elements.push(\n        <div key={`tbl${i}`} style={{overflowX:\"auto\",margin:\"10px 0\",border:`1px solid ${C.border}`,borderRadius:8}}>\n          <table style={{width:\"100%\",borderCollapse:\"collapse\",fontSize:13}}>\n            <thead><tr>{headerCells.map((c,ci)=>(<th key={ci} style={{textAlign:\"left\",padding:\"8px 12px\",background:C.bgLight,color:C.text,fontWeight:600,borderBottom:`1px solid ${C.border}`,whiteSpace:\"nowrap\"}}><RichLine text={c}/></th>))}</tr></thead>\n            <tbody>{bodyRows.map((row,ri)=>(<tr key={ri} style={{borderTop:ri>0?`1px solid ${C.borderLight||C.border}`:undefined}}>{row.map((c,ci)=>(<td key={ci} style={{padding:\"8px 12px\",color:\"rgba(255,255,255,0.85)\",verticalAlign:\"top\"}}><RichLine text={c}/></td>))}</tr>))}</tbody>\n          </table>\n        </div>\n      );\n      i=j-1;\n    } else if(line.match(/^\\d+\\.\\s/)){\n      const num=line.match(/^(\\d+)\\.\\s(.+)/);\n      if(num) elements.push(<div key={`ol${i}`} style={{display:\"flex\",gap:10,marginBottom:4,paddingLeft:4}}><span style={{color:C.green,fontWeight:600,fontSize:13,flexShrink:0,minWidth:20}}>{num[1]}.</span><span style={{fontSize:13.5,lineHeight:1.7}}><RichLine text={num[2]}/></span></div>);\n    } else if(line.startsWith(\"- \")||line.startsWith(\"\u2022 \")){\n      elements.push(<div key={`li${i}`} style={{display:\"flex\",gap:10,marginBottom:3,paddingLeft:4}}><span style={{color:C.green,fontSize:10,marginTop:7,flexShrink:0}}>\u25cf</span><span style={{fontSize:13.5,lineHeight:1.7}}><RichLine text={line.slice(2)}/></span></div>);\n    } else if(line){\n      elements.push(<div key={`t${i}`} style={{marginBottom:6,fontSize:13.5,lineHeight:1.8}}><RichLine text={line}/></div>);\n    } else {\n      elements.push(<div key={`sp${i}`} style={{height:8}}/>);\n    }\n  }\n  return elements;\n}\nfunction RichLine({text}){if(text.trim()===\"on this\")return null;return text.split(/(\\[EQUATION:.*?\\]|\\[.*?\\]\\(https?:\\/\\/.*?\\)|https?:\\/\\/[^\\s)]+|\\*\\*.*?\\*\\*|\\*.*?\\*|`[^`]+`)/g).map((s,i)=>{\nif(!s)return null;\nconst eqTag=s.match(/^\\[EQUATION:(.+)\\]$/);\nif(eqTag)return <EqBox key={i} content={eqTag[1]}/>;\nconst mdLink=s.match(/^\\[(.+?)\\]\\((https?:\\/\\/.+?)\\)$/);\nif(mdLink)return <a key={i} href={mdLink[2]} target=\"_blank\" rel=\"noopener noreferrer\" style={{color:C.green,textDecoration:\"underline\",textUnderlineOffset:\"3px\"}}>{mdLink[1]}</a>;\nif(s.match(/^https?:\\/\\//))return <a key={i} href={s} target=\"_blank\" rel=\"noopener noreferrer\" style={{color:C.green,textDecoration:\"underline\",textUnderlineOffset:\"3px\",wordBreak:\"break-all\",fontSize:\"0.92em\"}}>{s}</a>;\nif(s.startsWith(\"**\")&&s.endsWith(\"**\"))return <strong key={i} style={{fontWeight:600,color:C.text}}>{s.slice(2,-2)}</strong>;\nif(s.startsWith(\"*\")&&s.endsWith(\"*\"))return <em key={i} style={{fontStyle:\"italic\",color:C.text}}>{s.slice(1,-1)}</em>;\nif(s.startsWith(\"`\")&&s.endsWith(\"`\"))return <code key={i} style={{background:C.greenDim,padding:\"2px 7px\",borderRadius:4,fontFamily:\"'JetBrains Mono',monospace\",fontSize:\"0.85em\",color:C.green,border:`1px solid ${C.greenBorder}`}}>{s.slice(1,-1)}</code>;\nreturn <span key={i}>{s}</span>;});}\n\n" }
+];
+const layoutEdits = [
+  { label: 'layout.js font fix', old: "href=\"https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap\"", new: "href=\"https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap\"" }
+];
+
+console.log('--- app/page.js ---');
+const r1 = patchFile(path.join(__dirname, 'app', 'page.js'), pageEdits);
+console.log('--- app/layout.js ---');
+const r2 = patchFile(path.join(__dirname, 'app', 'layout.js'), layoutEdits);
+
+const totalErrors = r1.errors.length + r2.errors.length;
+if (totalErrors > 0) {
+  console.error(`\n${totalErrors} edit(s) failed -- review before committing.`);
+} else {
+  console.log('\nAll edits applied successfully.');
+}
+console.log('\nNext steps: npm run dev, ask a question that produces a table/heading/equation, confirm it renders properly (not raw markdown symbols), and check the font looks like an elegant serif logo + clean sans body rather than the old look. Then commit & push.');
