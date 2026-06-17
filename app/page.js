@@ -5354,13 +5354,15 @@ function parseAndRender(text){
       else if(tag==="CONFIG")elements.push(<ConfigBox key={`c${i}`} element={p[0]} config={p.slice(1).join(":")}/>);
     } else if(hrRe.test(line)){
       elements.push(<div key={`hr${i}`} style={{height:1,background:C.border,margin:"14px 0"}}/>);
-    } else if(line.startsWith("$")&&line.endsWith("$")&&line.length>4){
+    } else if(line.startsWith("$$")&&line.endsWith("$$")&&line.length>4){
       elements.push(<KatexBlock key={`tex${i}`} tex={line.slice(2,-2).trim()} display={true}/>);
-    } else if(line==="$"){
+    } else if(line==="$$"){
       let j=i+1;const texLines=[];
-      while(j<lines.length&&lines[j].trim()!=="$"){texLines.push(lines[j]);j++;}
+      while(j<lines.length&&lines[j].trim()!=="$$"){texLines.push(lines[j]);j++;}
       elements.push(<KatexBlock key={`texb${i}`} tex={texLines.join("\n").trim()} display={true}/>);
       i=j;
+    } else if(line.startsWith("> ")){
+      elements.push(<div key={`bq${i}`} style={{borderLeft:`3px solid ${C.greenBorder}`,paddingLeft:14,margin:"10px 0",fontStyle:"italic",color:"rgba(255,255,255,0.82)",fontSize:13.5,lineHeight:1.7}}><RichLine text={line.slice(2)}/></div>);
     } else if(line.startsWith("# ")){
       elements.push(<div key={`h1${i}`} style={{fontSize:18,fontWeight:400,color:C.text,fontFamily:"'DM Serif Display',serif",marginTop:8,marginBottom:10,letterSpacing:"-0.01em"}}>{line.slice(2)}</div>);
     } else if(line.startsWith("## ")){
@@ -5371,7 +5373,7 @@ function parseAndRender(text){
       const tableLines=[line];
       let j=i+2;
       while(j<lines.length&&lines[j].trim().startsWith("|")){tableLines.push(lines[j].trim());j++;}
-      const splitRow=(row)=>row.split("|").slice(1,-1).map(c=>c.trim());
+      const splitRow=(row)=>row.split(/(?<!\\)\|/).slice(1,-1).map(c=>c.trim().replace(/\\\|/g,"|"));
       const headerCells=splitRow(tableLines[0]);
       const bodyRows=tableLines.slice(1).map(splitRow);
       elements.push(
