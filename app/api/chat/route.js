@@ -9,7 +9,7 @@ export async function POST(req) {
     const maxTokens = mode === "quiz" ? 4000 : mode === "resources" ? 4000 : 3000;
 
     const body = {
-      model: "claude-sonnet-4-20250514",
+      model: "claude-sonnet-4-6",
       max_tokens: maxTokens,
       system,
       messages,
